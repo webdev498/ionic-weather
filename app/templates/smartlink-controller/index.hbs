@@ -1,0 +1,69 @@
+<header class="bar bar-nav">
+  {{#link-to 'site' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">Mega Museum - Main Lawn</h1>
+  <a href="javascript:void(0)" class="icon icon-refresh pull-right"></a>
+</header>
+
+
+<div class="content">
+  <div class="content-padded">
+    <div class="card">
+      <ul class="table-view">
+        <li class="table-view-cell table-view-divider">
+          {{fa-icon 'wrench'}} Actions
+        </li>
+        <li class="table-view-cell">
+          {{#link-to 'smartlink-controller.select-program' class='push-right'}}
+            {{fa-icon 'play'}} Run Program
+          {{/link-to}}
+        </li>
+        <li class="table-view-cell">
+          <a href="javascript:void(0)" class="push-right">
+            {{fa-icon 'leaf'}} Run Zone
+          </a>
+        </li>
+        <li class="table-view-cell">
+          <a href="javascript:void(0)" class="push-right">
+            {{fa-icon 'crosshairs'}} Locate Valve
+          </a>
+        </li>
+        <li class="table-view-cell">
+          <a href="javascript:void(0)" class="push-right">
+            {{fa-icon 'male'}} Walk Site
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'gears'}} Controller Details
+    </li>
+    <li class="table-view-cell">
+      Status <button class="btn btn-positive">Run</button>
+    </li>
+    <li class="table-view-cell">
+      Watering Mode <button class="btn btn-positive">Smart</button>
+    </li>
+    <li class="table-view-cell">
+      Rain/Freeze <button class="btn btn-positive">Active</button>
+    </li>
+    <li class="table-view-cell">
+      Weather <button class="btn btn-positive">Normal</button>
+    </li>
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'warning'}} Faults <span class="badge badge-negative">5</span>
+    </li>
+  </ul>
+
+  <div class="content-padded weathermatic-controller-details-faults">
+    <button class="btn btn-negative">Zone 6 - Sprinkler 'Off' in Auto-Adjust</button>
+    <button class="btn btn-negative">Zone 7 - Sprinkler 'Off' in Auto-Adjust</button>
+    <button class="btn btn-negative">Zone 8 - Sprinkler 'Off' in Auto-Adjust</button>
+    <button class="btn btn-negative">Zone 9 - Sprinkler 'Off' in Auto-Adjust</button>
+    <button class="btn btn-negative">Aircard communication error</button>
+  </div>
+</div>

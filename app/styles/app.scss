@@ -10,10 +10,47 @@
   }
 }
 
-.table-view {
-  .weathermatic-table-view-cell-negative {
-    background-color: #d9534f;
-    color: #fff;
-    border-color: #ddd;
+.weathermatic-controller-details-faults {
+  .btn {
+    display: block;
+    margin-top: 0.3em;
+  }
+}
+
+.weathermatic-select-program-call-to-action {
+  color: #101010 !important;
+}
+
+.weathermatic-select-program {
+  font-weight: bold;
+
+  a {
+    &.navigate-right:after, &.push-right:after {
+      color: #fff !important;
+    }
+  }
+
+  &.weathermatic-select-program-a {
+    background-color: #FFA500;
+    border-color: #FFA500;
+    color: #fff !important;
+  }
+
+  &.weathermatic-select-program-b {
+    background-color: #aa6708;
+    border-color: #aa6708;
+    color: #fff !important;
+  }
+
+  &.weathermatic-select-program-c {
+    background-color: #3c763d;
+    border-color: #3c763d;
+    color: #fff !important;
+  }
+
+  &.weathermatic-select-program-d {
+    background-color: #428bca;
+    border-color: #428bca;
+    color: #fff !important;
   }
 }

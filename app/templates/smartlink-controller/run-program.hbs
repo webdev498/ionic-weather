@@ -1,0 +1,37 @@
+<header class="bar bar-nav">
+  {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">Main Lawn - Run Program</h1>
+</header>
+
+<div class="content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      Confirm Program
+    </li>
+  </ul>
+  <ul class="table-view">
+    <li class="table-view-cell">
+      Site <button class="btn btn-outlined btn-primary"> Mega Museum</button>
+    </li>
+    <li class="table-view-cell">
+      Controller <button class="btn btn-outlined btn-primary"> Main Lawn</button>
+    </li>
+  </ul>
+  <div class="content-padded">
+    <h5>
+      We're about to run <br><br>
+      <span class="btn btn-block btn-outlined btn-primary"><strong>Program A</strong></span>
+    </h5>
+    <p>Ready?</p>
+
+    {{#link-to 'smartlink-controller' class='btn btn-block btn-positive'}}
+      {{fa-icon 'play'}} Confirmed, Run the Program!
+    {{/link-to}}
+
+    {{#link-to 'smartlink-controller' class='btn btn-block btn-negative'}}
+      {{fa-icon 'times-circle'}} Cancel
+    {{/link-to}}
+  </div>
+</div>
