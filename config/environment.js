@@ -38,6 +38,10 @@ module.exports = function(environment) {
         enabled: false,
         platform: 'ios'
       }
+    },
+
+    contentSecurityPolicy: {
+      'style-src': "'self' 'unsafe-inline'"
     }
   };
 
