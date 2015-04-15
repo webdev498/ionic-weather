@@ -9,3 +9,11 @@
     -webkit-user-select: auto;
   }
 }
+
+.table-view {
+  .weathermatic-table-view-cell-negative {
+    background-color: #d9534f;
+    color: #fff;
+    border-color: #ddd;
+  }
+}

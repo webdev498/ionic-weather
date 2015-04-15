@@ -1,0 +1,36 @@
+<header class="bar bar-nav">
+  {{#link-to 'sites' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">
+    {{fa-icon 'building'}} Mega Museum
+  </h1>
+</header>
+
+<div class="content">
+  <ul class="table-view">
+    <li class="table-view-cell">
+      <p>
+        1300 Avenue Rd, Dallas, TX 75210
+      </p>
+    </li>
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'signal'}} Controllers
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller' 1 class='push-right'}}
+        Main Lawn <span class="badge badge-negative">1 fault</span>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller' 1 class='push-right'}}
+        Garden
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller' 1 class='push-right'}}
+        Shrubs & Bushes
+      {{/link-to}}
+    </li>
+  </ul>
+</div>

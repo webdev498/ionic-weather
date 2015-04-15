@@ -6,4 +6,8 @@ var Router = Ember.Router.extend({
 });
 
 export default Router.map(function() {
+  this.resource('sites');
+  this.resource('site', { path: 'sites/:siteId' }, function() {
+    this.resource('smartlink-controller', { path: 'controllers/:controllerId' });
+  });
 });

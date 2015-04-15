@@ -1,0 +1,77 @@
+<header class="bar bar-nav">
+  {{#link-to 'site' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{fa-icon 'gears'}} Controller Details</h1>
+</header>
+
+<div class="content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      <p class="pull-left">{{fa-icon 'building'}} Mega Museum</p>
+      <p class="pull-right">{{fa-icon 'signal'}} Main Lawn</p>
+    </li>
+    <li class="table-view-cell">
+      Status <button class="btn btn-positive">Run</button>
+    </li>
+    <li class="table-view-cell">
+      Watering Mode <button class="btn btn-positive">Smart</button>
+    </li>
+    <li class="table-view-cell">
+      Rain/Freeze <button class="btn btn-positive">Active</button>
+    </li>
+    <li class="table-view-cell">
+      Weather <button class="btn btn-positive">Normal</button>
+    </li>
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'warning'}} Faults <span class="badge badge-negative">4</span>
+    </li>
+    <li class="table-view-cell weathermatic-table-view-cell-negative">
+      Zone 6 - Sprinkler 'Off' in Auto-Adjust
+    </li>
+    <li class="table-view-cell weathermatic-table-view-cell-negative">
+      Zone 6 - Sprinkler 'Off' in Auto-Adjust
+    </li>
+    <li class="table-view-cell weathermatic-table-view-cell-negative">
+      Zone 6 - Sprinkler 'Off' in Auto-Adjust
+    </li>
+    <li class="table-view-cell weathermatic-table-view-cell-negative">
+      Aircard communication error
+    </li>
+  </ul>
+
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'wrench'}} Actions
+    </li>
+  </ul>
+
+  <div class="content-padded">
+    <div class="card">
+      <ul class="table-view">
+        <li class="table-view-cell">
+          <a href="javascript:void(0)" class="push-right">
+            {{fa-icon 'play'}} Run Program
+          </a>
+        </li>
+        <li class="table-view-cell">
+          <a href="javascript:void(0)" class="push-right">
+            {{fa-icon 'leaf'}} Run Zone
+          </a>
+        </li>
+        <li class="table-view-cell">
+          <a href="javascript:void(0)" class="push-right">
+            {{fa-icon 'crosshairs'}} Locate Valve
+          </a>
+        </li>
+        <li class="table-view-cell">
+          <a href="javascript:void(0)" class="push-right">
+            {{fa-icon 'male'}} Walk Site
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <br>
+</div>
