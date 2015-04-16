@@ -1,0 +1,45 @@
+<header class="bar bar-nav">
+  {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">Main Lawn - Select Zone</h1>
+</header>
+
+<div class="content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'leaf'}} Select a Zone
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.run-zone' 1 class='push-right'}}
+        Run Zone 1
+        <p>Flower beds</p>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.run-zone' 2 class='push-right'}}
+        Run Zone 2
+        <p>Elephant-shaped tree sculpture</p>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.run-zone' 3 class='push-right'}}
+        Run Zone 3
+        <p>Front lawn</p>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.run-zone' 4 class='push-right'}}
+        Run Zone 4
+        <p>Back lawn</p>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.run-zone' 5 class='push-right'}}
+        Run Zone 5
+        <p>Venus Fly Trap Sanctuary</p>
+      {{/link-to}}
+    </li>
+  </ul>
+</div>
+

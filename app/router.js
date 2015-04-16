@@ -11,6 +11,8 @@ export default Router.map(function() {
     this.resource('smartlink-controller', { path: 'controllers/:controllerId' }, function() {
       this.route('select-program');
       this.route('run-program', { path: 'run-program/:programId' });
+      this.route('select-zone');
+      this.route('run-zone', { path: 'run-zone/:zoneId' });
     });
   });
 });
