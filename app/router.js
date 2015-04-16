@@ -13,6 +13,8 @@ export default Router.map(function() {
       this.route('run-program', { path: 'run-program/:programId' });
       this.route('select-zone');
       this.route('run-zone', { path: 'run-zone/:zoneId' });
+      this.route('select-valves');
+      this.route('locate-valves');
     });
   });
 });

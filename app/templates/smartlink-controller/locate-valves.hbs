@@ -1,14 +1,14 @@
 <header class="bar bar-nav">
-  {{#link-to 'smartlink-controller.select-program' class='btn btn-link btn-nav pull-left'}}
+  {{#link-to 'smartlink-controller.select-valves' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">Main Lawn - Run Program</h1>
+  <h1 class="title">Main Lawn - Locate Valves</h1>
 </header>
 
 <div class="content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
-      Confirm Program
+      Confirm Zone
     </li>
     <li class="table-view-cell">
       Site <button class="btn btn-outlined btn-primary"> {{fa-icon 'building'}} Mega Museum</button>
@@ -19,13 +19,13 @@
   </ul>
 
   <div class="content-padded">
-    <p>We're about to run</p>
-  </div>
-  <span class="btn btn-block weathermatic-btn-run-program weathermatic-btn-run-program-a">
-    <h3>{{fa-icon 'play'}} Program A</h3>
-  </span>
+    <p>About to run valve locators for</p>
 
-  <div class="content-padded">
+    <span class="btn btn-block btn-primary btn-outlined">
+      <h3>{{fa-icon 'crosshairs'}} Zone 1</h3>
+      <p>Flower beds</p>
+    </span>
+
     <p>Ready?</p>
 
     {{#link-to 'smartlink-controller' class='btn btn-block btn-positive'}}
