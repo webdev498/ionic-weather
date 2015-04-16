@@ -15,6 +15,7 @@ export default Router.map(function() {
       this.route('run-zone', { path: 'run-zone/:zoneId' });
       this.route('select-valves');
       this.route('locate-valves');
+      this.route('walk-site');
     });
   });
 });
