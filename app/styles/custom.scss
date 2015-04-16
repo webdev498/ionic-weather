@@ -1,0 +1,71 @@
+.weathermatic-controller-details-faults {
+  .btn {
+    display: block;
+    margin-top: 0.3em;
+  }
+}
+
+.weathermatic-select-program-call-to-action {
+  color: #101010 !important;
+}
+
+.weathermatic-select-program {
+  font-weight: bold;
+
+  a {
+    &.navigate-right:after, &.push-right:after {
+      color: #fff !important;
+    }
+  }
+
+  &.weathermatic-select-program-a {
+    background-color: $program-a-color;
+    border-color: $program-a-color;
+    color: #fff !important;
+  }
+
+  &.weathermatic-select-program-b {
+    background-color: $program-b-color;
+    border-color: $program-b-color;
+    color: #fff !important;
+  }
+
+  &.weathermatic-select-program-c {
+    background-color: $program-c-color;
+    border-color: $program-c-color;
+    color: #fff !important;
+  }
+
+  &.weathermatic-select-program-d {
+    background-color: $program-d-color;
+    border-color: $program-d-color;
+    color: #fff !important;
+  }
+}
+
+.weathermatic-btn-run-program {
+  border-radius: 0;
+
+  &.weathermatic-btn-run-program-a {
+    color: #fff !important;
+    border-color: $program-a-color !important;
+    background-color: $program-a-color !important;
+  }
+
+  &.weathermatic-btn-run-program-b {
+    color: #fff !important;
+    border-color: $program-b-color !important;
+    background-color: $program-b-color !important;
+  }
+
+  &.weathermatic-btn-run-program-c {
+    color: #fff !important;
+    border-color: $program-c-color !important;
+    background-color: $program-c-color !important;
+  }
+  &.weathermatic-btn-run-program-d {
+    color: #fff !important;
+    border-color: $program-d-color !important;
+    background-color: $program-d-color !important;
+  }
+}
