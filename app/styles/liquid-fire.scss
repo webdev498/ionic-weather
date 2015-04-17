@@ -1,0 +1,19 @@
+// Required to make liquid-fire transitions work.
+// Related to these issues:
+//
+// https://github.com/ef4/liquid-fire/issues/216
+// https://github.com/ef4/liquid-fire/issues/190
+//
+// Might not be necessary in future versions
+
+.liquid-container {
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
+.liquid-child {
+    height: 100%;
+}
