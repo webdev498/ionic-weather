@@ -1,6 +1,6 @@
 `import Ember from 'ember'`
 
-Ember.Route.extend
+IndexRoute = Ember.Route.extend
   redirect: (model, transition) ->
     @transitionTo 'sites'
 
