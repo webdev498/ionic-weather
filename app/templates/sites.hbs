@@ -11,117 +11,22 @@
         {{fa-icon 'globe'}} sorted by location
       </button>
     </li>
-    <li class="table-view-cell media">
-      {{#link-to 'site' 1 class='navigate-right'}}
-        <div class="media-body">
-          <strong>Mega Museum</strong>
-          <span class="badge badge-negative pull-right">5 faults</span>
-          <p>
-            <small class="badge">Dallas, TX</small>
-            <small class="badge">2 controllers</small>
-          </p>
-        </div>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'site' 1 class='navigate-right'}}
-        <div class="media-body">
-          <strong>Secret Lair</strong>
-          <p>
-            <small class="badge">Dallas, TX</small>
-            <small class="badge">2 controllers</small>
-          </p>
-        </div>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'site' 1 class='navigate-right'}}
-        <div class="media-body">
-          <strong>World Domination HQ</strong>
-          <span class="badge badge-negative pull-right">1 fault</span>
-          <p>
-            <small class="badge">Dallas, TX</small>
-            <small class="badge">2 controllers</small>
-          </p>
-        </div>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'site' 1 class='navigate-right'}}
-        <div class="media-body">
-          <strong>Secret Laboratory</strong>
-          <p>
-            <small class="badge">Dallas, TX</small>
-            <small class="badge">2 controllers</small>
-          </p>
-        </div>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'site' 1 class='navigate-right'}}
-        <div class="media-body">
-          <strong>Underground Vault</strong>
-          <p>
-            <small class="badge">Dallas, TX</small>
-            <small class="badge">2 controllers</small>
-          </p>
-        </div>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'site' 1 class='navigate-right'}}
-        <div class="media-body">
-          <strong>Warehouse</strong>
-          <p>
-            <small class="badge">Dallas, TX</small>
-            <small class="badge">2 controllers</small>
-          </p>
-        </div>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'site' 1 class='navigate-right'}}
-        <div class="media-body">
-          <strong>Bomb Shelter</strong>
-          <p>
-            <small class="badge">Dallas, TX</small>
-            <small class="badge">2 controllers</small>
-          </p>
-        </div>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'site' 1 class='navigate-right'}}
-        <div class="media-body">
-          <strong>Widget Factory</strong>
-          <p>
-            <small class="badge">Dallas, TX</small>
-            <small class="badge">2 controllers</small>
-          </p>
-        </div>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'site' 1 class='navigate-right'}}
-        <div class="media-body">
-          <strong>Gothic Cathedral</strong>
-          <p>
-            <small class="badge">Dallas, TX</small>
-            <small class="badge">2 controllers</small>
-          </p>
-        </div>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'site' 1 class='navigate-right'}}
-        <div class="media-body">
-          <strong>Underwater Lab</strong>
-          <p>
-            <small class="badge">Dallas, TX</small>
-            <small class="badge">2 controllers</small>
-          </p>
-        </div>
-      {{/link-to}}
-    </li>
+    {{#each site in model}}
+      <li class="table-view-cell media">
+        {{#link-to 'site' site class='navigate-right'}}
+          <div class="media-body">
+            <strong>{{site.name}}</strong>
+            {{#if site.faultsCount}}
+              <span class="badge badge-negative pull-right">{{site.faultsCount}} faults</span>
+            {{/if}}
+            <p>
+              <small class="badge">{{site.cityState}}</small>
+              <small class="badge">{{site.controllersCountText}}</small>
+              <small class="badge">{{site.milesAway}} mi</small>
+            </p>
+          </div>
+        {{/link-to}}
+      </li>
+    {{/each}}
   </ul>
 </div>

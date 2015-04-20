@@ -3,7 +3,7 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
   <h1 class="title">
-    {{fa-icon 'building'}} Mega Museum
+    {{fa-icon 'building'}} {{model.name}}
   </h1>
 </header>
 
@@ -11,26 +11,21 @@
   <ul class="table-view">
     <li class="table-view-cell">
       <p>
-        1300 Avenue Rd, Dallas, TX 75210
+        {{model.fullAddress}}
       </p>
     </li>
     <li class="table-view-cell table-view-divider">
       {{fa-icon 'signal'}} Controllers
     </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller' 1 class='push-right'}}
-        Main Lawn <span class="badge badge-negative">1 fault</span>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller' 1 class='push-right'}}
-        Garden
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller' 1 class='push-right'}}
-        Shrubs & Bushes
-      {{/link-to}}
-    </li>
+    {{#each smartlinkController in model.smartlinkControllers}}
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller' smartlinkController class='push-right'}}
+          {{smartlinkController.name}}
+          {{#if smartlinkController.faults.length}}
+            <span class="badge badge-negative">{{smartlinkController.faultsCountText}}</span>
+          {{/if}}
+        {{/link-to}}
+      </li>
+    {{/each}}
   </ul>
 </div>

@@ -13,4 +13,5 @@ Router = Ember.Router.extend(location: config.locationType).map ->
       @route 'locate-valves'
       @route 'walk-site'
 
+
 `export default Router`
