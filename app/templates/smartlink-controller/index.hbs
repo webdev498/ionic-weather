@@ -2,7 +2,7 @@
   {{#link-to 'site' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">Mega Museum - Main Lawn</h1>
+  <h1 class="title">{{fa-icon 'signal'}} {{model.site.name}} - {{model.name}}</h1>
   <a href="javascript:void(0)" class="icon icon-refresh pull-right"></a>
 </header>
 
@@ -43,27 +43,42 @@
       {{fa-icon 'gears'}} Controller Details
     </li>
     <li class="table-view-cell">
-      Status <button class="btn btn-positive">Run</button>
+      Status <button {{bind-attr class='model.isStatusActive:btn-positive:btn-primary :btn'}}>{{model.status}}</button>
     </li>
     <li class="table-view-cell">
-      Watering Mode <button class="btn btn-positive">Smart</button>
+      Watering Mode
+      <button {{bind-attr class='model.isSmartWateringMode:btn-positive:btn-primary :btn'}}>
+        {{model.wateringMode}}
+      </button>
     </li>
     <li class="table-view-cell">
-      Rain/Freeze <button class="btn btn-positive">Active</button>
+      Rain/Freeze
+      {{#if model.rainFreezeProtection}}
+        <button class="btn btn-positive">Active</button>
+      {{else}}
+        <button class="btn btn-primary">Off</button>
+      {{/if}}
     </li>
     <li class="table-view-cell">
-      Weather <button class="btn btn-positive">Normal</button>
+      Weather
+      <button {{bind-attr class='model.isWeatherNormal:btn-positive:btn-primary :btn'}}>
+        {{model.weather}}
+      </button>
     </li>
-    <li class="table-view-cell table-view-divider">
-      {{fa-icon 'warning'}} Faults <span class="badge badge-negative">5</span>
-    </li>
-  </ul>
 
-  <div class="content-padded weathermatic-controller-details-faults">
-    <button class="btn btn-negative">Zone 6 - Sprinkler 'Off' in Auto-Adjust</button>
-    <button class="btn btn-negative">Zone 7 - Sprinkler 'Off' in Auto-Adjust</button>
-    <button class="btn btn-negative">Zone 8 - Sprinkler 'Off' in Auto-Adjust</button>
-    <button class="btn btn-negative">Zone 9 - Sprinkler 'Off' in Auto-Adjust</button>
-    <button class="btn btn-negative">Aircard communication error</button>
-  </div>
+    {{#if model.faults.length}}
+      <li class="table-view-cell table-view-divider">
+        {{fa-icon 'warning'}} Faults <span class="badge badge-negative">{{model.faults.length}}</span>
+      </li>
+    {{/if}}
+
+    </ul>
+
+    {{#if model.faults.length}}
+    <div class="content-padded weathermatic-controller-details-faults">
+      {{#each fault in model.faults}}
+        <button class="btn btn-negative">{{fault.text}}</button>
+      {{/each}}
+    </div>
+  {{/if}}
 </div>

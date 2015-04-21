@@ -10,7 +10,7 @@ Site = DS.Model.extend
   smartlinkControllers: DS.hasMany 'smartlink-controller', async: true
   milesAway:            DS.attr 'number', defaultValue: 0
 
-  faultsCount: Ember.computed 'faults', ->
+  faultsCount: Ember.computed 'smartlinkControllers.@each.faults', ->
     totalFaults = 0
     @get('smartlinkControllers').forEach (smartlinkController) ->
       totalFaults += smartlinkController.get('faults.length')
@@ -35,9 +35,26 @@ Site = DS.Model.extend
 
 Site.reopenClass
   FIXTURES: [
-    { id: 1, name: 'Mega Mansion', address1: '1400 Fake Ave', city: 'Dallas', state: 'TX', postalCode: '75063', milesAway: 1, \
-      smartlinkControllers: [1,2,3,4] },
-    { id: 2, name: 'Mobile Home', address1: '315 Treeview Ave', city: 'Duncanville', state: 'TX', postalCode: '74201', milesAway: 10 }
+    {
+      id: 1
+      name: 'Mega Mansion'
+      address1: '1400 Fake Ave'
+      city: 'Dallas'
+      state: 'TX'
+      postalCode: '75063'
+      milesAway: 1
+      smartlinkControllers: [1,2,3,4]
+    },
+    {
+      id: 2
+      name: 'Mobile Home'
+      address1: '315 Treeview Ave'
+      city: 'Duncanville'
+      state: 'TX'
+      postalCode: '74201'
+      milesAway: 10
+      smartlinkControllers: [5,6]
+    }
   ]
 
 `export default Site`
