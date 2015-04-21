@@ -2,7 +2,7 @@
   {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'signal'}} {{model.name}} - Locate Valves</h1>
+  <h1 class="title">{{fa-icon 'signal'}} {{smartlinkController.name}} - Locate Valves</h1>
 </header>
 
 <div class="content">
@@ -10,35 +10,13 @@
     <li class="table-view-cell table-view-divider">
       {{fa-icon 'crosshairs'}} Select a Zone
     </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.locate-valves' 1 class='push-right'}}
-        Locate Zone 1
-        <p>Flower beds</p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.locate-valves' 2 class='push-right'}}
-        Locate Zone 2
-        <p>Elephant-shaped tree sculpture</p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.locate-valves' 3 class='push-right'}}
-        Locate Zone 3
-        <p>Front lawn</p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.locate-valves' 4 class='push-right'}}
-        Locate Zone 4
-        <p>Back lawn</p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.locate-valves' 5 class='push-right'}}
-        Locate Zone 5
-        <p>Venus Fly Trap Sanctuary</p>
-      {{/link-to}}
-    </li>
+    {{#each zone in controller}}
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.locate-valves' zone class='push-right'}}
+          Locate Zone {{zone.number}}
+          <p>{{zone.description}}</p>
+        {{/link-to}}
+      </li>
+      {{/each}}
   </ul>
 </div>

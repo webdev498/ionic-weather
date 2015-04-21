@@ -15,5 +15,8 @@ Router = Ember.Router.extend(location: config.locationType).map ->
 
   @route 'smartlink-controller/run-program'
   @route 'smartlink-controller/select-program'
+  @route 'smartlink-controller/select-zone'
+  @route 'smartlink-controller/run-zone'
+  @route 'smartlink-controller/select-valves'
 
 `export default Router`

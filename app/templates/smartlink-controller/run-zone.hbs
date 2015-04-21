@@ -2,7 +2,7 @@
   {{#link-to 'smartlink-controller.select-zone' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'signal'}} {{model.site.name}} Run Zone</h1>
+  <h1 class="title">{{fa-icon 'signal'}} {{smartlinkController.name}} - Run Zone</h1>
 </header>
 
 <div class="content">
@@ -11,10 +11,10 @@
       Confirm Zone
     </li>
     <li class="table-view-cell">
-      Site <button class="btn btn-outlined btn-primary"> {{fa-icon 'building'}} Mega Museum</button>
+      Site <button class="btn btn-outlined btn-primary"> {{fa-icon 'building'}} {{model.smartlinkController.site.name}}</button>
     </li>
     <li class="table-view-cell">
-      Controller <button class="btn btn-outlined btn-primary"> {{fa-icon 'signal'}} Main Lawn</button>
+      Controller <button class="btn btn-outlined btn-primary"> {{fa-icon 'signal'}} {{model.smartlinkController.name}}</button>
     </li>
   </ul>
 
@@ -22,17 +22,17 @@
     <p>We're about to run</p>
 
     <span class="btn btn-block btn-primary btn-outlined">
-      <h3>{{fa-icon 'leaf'}} Zone 1</h3>
-      <p>Flower beds</p>
+      <h3>{{fa-icon 'leaf'}} Zone {{model.number}}</h3>
+      <p>{{model.description}}</p>
     </span>
 
     <p>Ready?</p>
 
-    {{#link-to 'smartlink-controller' class='btn btn-block btn-positive'}}
+    {{#link-to 'smartlink-controller' smartlinkController class='btn btn-block btn-positive'}}
       {{fa-icon 'check'}} Go!
     {{/link-to}}
 
-    {{#link-to 'smartlink-controller' class='btn btn-block btn-negative'}}
+    {{#link-to 'smartlink-controller' smartlinkController class='btn btn-block btn-negative'}}
       {{fa-icon 'times-circle'}} Cancel
     {{/link-to}}
   </div>

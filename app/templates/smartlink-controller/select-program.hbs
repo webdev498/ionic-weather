@@ -2,7 +2,7 @@
   {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'signal'}} {{model.name}} - Select Program</h1>
+  <h1 class="title">{{fa-icon 'signal'}} {{smartlinkController.name}} - Select Program</h1>
 </header>
 
 <div class="content">
@@ -13,7 +13,7 @@
     {{#each program in controller}}
       <li {{bind-attr class=':table-view-cell :weathermatic-select-program program.cssClass'}}>
         {{#link-to 'smartlink-controller.run-program' program.model class='push-right'}}
-          <h3>Run Program {{upper-case program.identifier}}</h3>
+          <h3>Run Program {{upper-case program.model.identifier}}</h3>
         {{/link-to}}
         <br>
       </li>
