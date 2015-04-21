@@ -10,8 +10,8 @@ SmartlinkController = DS.Model.extend
   faults:               DS.hasMany 'fault', async: true
   programs:             DS.hasMany 'program', async: true
 
-  isStatusActive: Ember.computed 'status', ->
-    @get('status') is 'Active'
+  isRunning: Ember.computed 'status', ->
+    @get('status') is 'Run'
 
   isSmartWateringMode: Ember.computed 'wateringMode', ->
     @get('wateringMode') is 'Smart'
