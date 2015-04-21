@@ -13,5 +13,7 @@ Router = Ember.Router.extend(location: config.locationType).map ->
       @route 'locate-valves'
       @route 'walk-site'
 
+  @route 'smartlink-controller/run-program'
+  @route 'smartlink-controller/select-program'
 
 `export default Router`

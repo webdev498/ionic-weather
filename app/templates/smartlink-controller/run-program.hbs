@@ -11,18 +11,24 @@
       Confirm Program
     </li>
     <li class="table-view-cell">
-      Site <button class="btn btn-outlined btn-primary"> {{fa-icon 'building'}} Mega Museum</button>
+      Site
+      <button class="btn btn-outlined btn-primary">
+        {{fa-icon 'building'}} {{model.smartlinkController.site.name}}
+      </button>
     </li>
     <li class="table-view-cell">
-      Controller <button class="btn btn-outlined btn-primary"> {{fa-icon 'signal'}} Main Lawn</button>
+      Controller
+      <button class="btn btn-outlined btn-primary">
+        {{fa-icon 'signal'}} {{model.smartlinkController.name}}
+      </button>
     </li>
   </ul>
 
   <div class="content-padded">
     <p>We're about to run</p>
   </div>
-  <span class="btn btn-block weathermatic-btn-run-program weathermatic-btn-run-program-a">
-    <h3>{{fa-icon 'play'}} Program A</h3>
+  <span {{bind-attr class=':btn :btn-block :weathermatic-btn-run-program cssClass'}}>
+    <h3>{{fa-icon 'play'}} Program {{upper-case model.identifier}}</h3>
   </span>
 
   <div class="content-padded">

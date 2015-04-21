@@ -10,30 +10,14 @@
     <li class="table-view-cell table-view-divider weathermatic-select-program-call-to-action">
       {{fa-icon 'play'}} Select a Program
     </li>
-    <li class="table-view-cell weathermatic-select-program weathermatic-select-program-a">
-      {{#link-to 'smartlink-controller.run-program' 'a' class='push-right'}}
-        <h3>Run Program A</h3>
-      {{/link-to}}
-      <br>
-    </li>
-    <li class="table-view-cell weathermatic-select-program weathermatic-select-program-b">
-      {{#link-to 'smartlink-controller.run-program' 'b' class='push-right'}}
-        <h3>Run Program B</h3>
-      {{/link-to}}
-      <br>
-    </li>
-    <li class="table-view-cell weathermatic-select-program weathermatic-select-program-c">
-      {{#link-to 'smartlink-controller.run-program' 'c' class='push-right'}}
-        <h3>Run Program C</h3>
-      {{/link-to}}
-      <br>
-    </li>
-    <li class="table-view-cell weathermatic-select-program weathermatic-select-program-d">
-      {{#link-to 'smartlink-controller.run-program' 'd' class='push-right'}}
-        <h3>Run Program D</h3>
-      {{/link-to}}
-      <br>
-    </li>
+    {{#each program in controller}}
+      <li {{bind-attr class=':table-view-cell :weathermatic-select-program program.cssClass'}}>
+        {{#link-to 'smartlink-controller.run-program' program.model class='push-right'}}
+          <h3>Run Program {{upper-case program.identifier}}</h3>
+        {{/link-to}}
+        <br>
+      </li>
+    {{/each}}
   </ul>
 
   <div class="content-padded">
