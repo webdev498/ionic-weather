@@ -6,6 +6,6 @@ SmartlinkControllerRunProgramController = Ember.Controller.extend
   smartlinkController: Ember.computed.alias 'controllers.smartlinkController.model'
 
   cssClass: Ember.computed 'model.identifier', ->
-    "weathermatic-btn-run-program-#{@get('model.identifier')}"
+    "weathermatic-btn-run-program-#{@get('model.identifier').toLowerCase()}"
 
 `export default SmartlinkControllerRunProgramController`

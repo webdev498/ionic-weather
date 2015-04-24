@@ -22,7 +22,9 @@
         {{#link-to 'smartlink-controller' smartlinkController class='push-right'}}
           {{smartlinkController.name}}
           {{#if smartlinkController.faults.length}}
-            <span class="badge badge-negative">{{smartlinkController.faultsCountText}}</span>
+          <span class="badge badge-negative">
+            {{count-text 'fault' smartlinkController.faults.length}}
+          </span>
           {{/if}}
         {{/link-to}}
       </li>

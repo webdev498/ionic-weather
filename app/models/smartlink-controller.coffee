@@ -1,100 +1,50 @@
 `import DS from 'ember-data'`
 
+RAIN_FREEZE_SENSOR_MODE_ACTIVE = 0
+
+RUN_STATUS_ACTIVE = 1
+
+WATERING_MODE_STATUS_MANUAL = 0
+WATERING_MODE_STATUS_AUTO   = 1
+
+WEATHER_STATUS_NORMAL = 1
+WEATHER_STATUS_RAIN   = 2
+WEATHER_STATUS_FREEZE = 3
+
 SmartlinkController = DS.Model.extend
   name:                 DS.attr 'string'
-  status:               DS.attr 'string'
-  wateringMode:         DS.attr 'string'
-  rainFreezeProtection: DS.attr 'boolean'
-  weather:              DS.attr 'attr'
-  site:                 DS.belongsTo 'site'
-  faults:               DS.hasMany 'fault', async: true
-  programs:             DS.hasMany 'program', async: true
-  zones:                DS.hasMany 'zone', async: true
+  runStatus:            DS.attr 'number'
+  wateringMode:         DS.attr 'number'
+  rainFreezeSensorMode: DS.attr 'number'
+  weatherStatus:        DS.attr 'number'
+  site:                 DS.belongsTo 'site',  async: false
+  faults:               DS.hasMany 'fault',   async: false
+  programs:             DS.hasMany 'program', async: false
+  zones:                DS.hasMany 'zone',    async: false
 
   isRunning: Ember.computed 'status', ->
-    @get('status') is 'Run'
+    @get('runStatus') is RUN_STATUS_ACTIVE
+
+  isManualWateringMode: Ember.computed 'wateringMode', ->
+    @get('wateringMode') is WATERING_MODE_STATUS_MANUAL
 
   isSmartWateringMode: Ember.computed 'wateringMode', ->
-    @get('wateringMode') is 'Smart'
+    @get('wateringMode') is WATERING_MODE_STATUS_AUTO
 
-  isWeatherNormal: Ember.computed 'weather', ->
-    @get('weather') is 'Normal'
+  weather: Ember.computed 'weatherStatus', ->
+    switch @get('weatherStatus')
+      when WEATHER_STATUS_NORMAL  then 'Normal'
+      when WEATHER_STATUS_RAIN    then 'Rain'
+      when WEATHER_STATUS_FREEZE  then 'Freeze'
 
-  faultsCountText: Ember.computed 'faults.length', ->
-    if count = @get('faults.length')
-      return '1 fault' if count == 1
-      "#{count} faults"
+  isWeatherNormal: Ember.computed 'weatherStatus', ->
+    @get('weatherStatus') is WEATHER_STATUS_NORMAL
 
-SmartlinkController.reopenClass
-  FIXTURES: [
-    {
-      id: 1
-      name: 'Main Lawn'
-      status: 'Run'
-      wateringMode: 'Smart'
-      rainFreezeProtection: true
-      weather: 'Normal'
-      site: 1
-      faults: [1]
-      programs: [1,2,3,4]
-      zones: [1,2,3]
-    }
-    {
-      id: 2
-      name: 'South Flower Beds'
-      status: 'Off'
-      wateringMode: 'Manual'
-      rainFreezeProtection: false
-      weather: 'Rain'
-      site: 1
-      faults: [2,3]
-      programs: [5,6,7,8]
-      zones: [4,5,6]
-    }
-    {
-      id: 3,
-      name: 'North Flower Beds',
-      status: 'Off',
-      wateringMode: 'Manual',
-      rainFreezeProtection: false,
-      weather: 'Rain',
-      site: 1,
-      programs: [9,10,11,12]
-      zones: [7,8,9]
-    }
-    {
-      id: 4,
-      name: 'Shrubs and Bushes',
-      status: 'Off',
-      wateringMode: 'Manual',
-      rainFreezeProtection: false,
-      weather: 'Rain',
-      site: 1,
-      programs: [13,14,15,16]
-      zones: [10,11,12]
-    }
-    {
-      id: 5,
-      name: 'East Lawn',
-      status: 'Off',
-      wateringMode: 'Manual',
-      rainFreezeProtection: false,
-      weather: 'Rain',
-      site: 2,
-      programs: [17,18,19,20]
-      zones: [13,14,15]
-    }
-    {
-      id: 6,
-      name: 'West Lawn',
-      status: 'Off',
-      wateringMode: 'Manual',
-      rainFreezeProtection: false,
-      weather: 'Rain',
-      site: 2,
-      programs: [21,22,23,24]
-      zones: [16,17,18]
-    }
-  ]
+  isWeatherBad: Ember.computed 'weatherStatus', ->
+    status = @get('weatherStatus')
+    (status is WEATHER_STATUS_RAIN) or (status is WEATHER_STATUS_FREEZE)
+
+  isRainFreezeSensorEnabled: Ember.computed 'rainFreezeSensorMode', ->
+    @get('rainFreezeSensorMode') is RAIN_FREEZE_SENSOR_MODE_ACTIVE
 
 `export default SmartlinkController`

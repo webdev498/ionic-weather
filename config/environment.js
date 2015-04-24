@@ -52,8 +52,10 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     ENV.APP.LOG_VIEW_LOOKUPS = true;
 
-    ENV.apiUrl   = 'http://' + addresses[0] + ':3000/api/v1';
+    ENV.apiUrl   = 'http://' + addresses[0] + ':3000';
     ENV.development = true;
+
+    ENV.useMockApi = false;
   }
 
   if (environment === 'test') {
@@ -69,13 +71,13 @@ module.exports = function(environment) {
   }
 
   if (environment === 'staging') {
-    ENV.apiUrl = 'http://sln-mobile-ember-staging.herokuapp.com/api/v1';
+    ENV.apiUrl = 'http://sln-mobile-ember-staging.herokuapp.com';
     ENV.staging = true;
   }
 
 
   if (environment === 'production') {
-    ENV.apiUrl = 'http://sln-mobile-ember.herokuapp.com/api/v1';
+    ENV.apiUrl = 'http://sln-mobile-ember.herokuapp.com';
     ENV.production = true;
   }
 

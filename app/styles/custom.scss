@@ -2,6 +2,7 @@
   .btn {
     display: block;
     margin-top: 0.3em;
+    width: 100%;
   }
 }
 
@@ -63,6 +64,7 @@
     border-color: $program-c-color !important;
     background-color: $program-c-color !important;
   }
+
   &.weathermatic-btn-run-program-d {
     color: #fff !important;
     border-color: $program-d-color !important;

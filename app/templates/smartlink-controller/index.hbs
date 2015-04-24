@@ -43,27 +43,36 @@
       {{fa-icon 'gears'}} Controller Details
     </li>
     <li class="table-view-cell">
-      Status <button {{bind-attr class='model.isRunning:btn-positive:btn-primary :btn'}}>{{model.status}}</button>
+      Status
+      {{#if model.isRunning}}
+        <button class="btn btn-positive">Running</button>
+      {{else}}
+        <button class="btn btn-primary">Stopped</button>
+      {{/if}}
     </li>
     <li class="table-view-cell">
       Watering Mode
-      <button {{bind-attr class='model.isSmartWateringMode:btn-positive:btn-primary :btn'}}>
-        {{model.wateringMode}}
-      </button>
+      {{#if model.isSmartWateringMode}}
+        <button class="btn btn-positive">Smart</button>
+      {{else}}
+        <button class="btn btn-primary">Manual</button>
+      {{/if}}
     </li>
     <li class="table-view-cell">
       Rain/Freeze
-      {{#if model.rainFreezeProtection}}
+      {{#if model.isRainFreezeSensorEnabled}}
         <button class="btn btn-positive">Active</button>
       {{else}}
-        <button class="btn btn-primary">Off</button>
+        <button class="btn btn-negative">Bypass</button>
       {{/if}}
     </li>
     <li class="table-view-cell">
       Weather
-      <button {{bind-attr class='model.isWeatherNormal:btn-positive:btn-primary :btn'}}>
-        {{model.weather}}
-      </button>
+      {{#if model.weather.length}}
+        <button {{bind-attr class='model.isWeatherBad:btn-negative:btn-positive :btn'}}>
+          {{model.weather}}
+        </button>
+      {{/if}}
     </li>
 
     {{#if model.faults.length}}
@@ -71,14 +80,14 @@
         {{fa-icon 'warning'}} Faults <span class="badge badge-negative">{{model.faults.length}}</span>
       </li>
     {{/if}}
+  </ul>
 
-    </ul>
-
-    {{#if model.faults.length}}
+  {{#if model.faults.length}}
     <div class="content-padded weathermatic-controller-details-faults">
       {{#each fault in model.faults}}
-        <button class="btn btn-negative">{{fault.text}}</button>
+        <button class="btn btn-negative">{{fault.description}}</button>
       {{/each}}
+      <button class="btn btn-block btn-primary" {{action 'clearFaults'}}>{{fa-icon 'fa-refresh'}} Clear Faults</button>
     </div>
   {{/if}}
 </div>
