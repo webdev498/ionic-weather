@@ -12,7 +12,7 @@
     </li>
     {{#each zone in controller}}
       <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.locate-valves' zone class='push-right'}}
+        {{#link-to 'smartlink-controller.locate-valves' zone.id class='push-right'}}
           Locate Zone {{zone.number}}
           <p>{{zone.description}}</p>
         {{/link-to}}

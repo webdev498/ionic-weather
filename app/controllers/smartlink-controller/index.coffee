@@ -1,8 +1,5 @@
 `import Ember from 'ember'`
 
-SmartlinkControllerIndexController = Ember.Controller.extend
-  actions:
-    clearFaults: ->
-      alert 'TODO - clear faults (confirm with dialog first)'
+SmartlinkControllerIndexController = Ember.Controller.extend()
 
 `export default SmartlinkControllerIndexController`

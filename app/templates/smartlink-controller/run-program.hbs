@@ -34,12 +34,14 @@
   <div class="content-padded">
     <p>Ready?</p>
 
-    {{#link-to 'smartlink-controller' smartlinkController class='btn btn-block btn-positive'}}
+    <button class="btn btn-block btn-positive" {{action 'runProgram'}}>
       {{fa-icon 'check'}} Go!
-    {{/link-to}}
+    </button>
 
-    {{#link-to 'smartlink-controller' smartlinkController class='btn btn-block btn-negative'}}
+    {{#link-to 'smartlink-controller' class='btn btn-block btn-negative'}}
       {{fa-icon 'times-circle'}} Cancel
     {{/link-to}}
   </div>
+
+  {{loading-modal isLoading=isLoading}}
 </div>

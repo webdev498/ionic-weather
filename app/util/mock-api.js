@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Pretender from 'pretender';
-import SITES from './fixtures/sites';
+import SITES from './mock-api/fixtures/sites';
 
 var defaultHeaders = {
   'Content-Type': 'application/json'

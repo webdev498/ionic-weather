@@ -1,9 +1,10 @@
 `import Ember from 'ember';`
 
 ApplicationRoute = Ember.Route.extend
+  model: ->
+    @store.find 'site'
+
   actions:
-    back: ->
-      history.back()
     openLink: (url) ->
       window.open url, '_system'
 

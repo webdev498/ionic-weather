@@ -1,0 +1,37 @@
+<header class="bar bar-nav">
+  {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{fa-icon 'signal'}} {{smartlinkController.name}} - Clear Faults</h1>
+</header>
+
+<div class="content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      Confirm Clear Faults
+    </li>
+    <li class="table-view-cell">
+      Site <button class="btn btn-outlined btn-primary"> {{fa-icon 'building'}} {{smartlinkController.site.name}}</button>
+    </li>
+    <li class="table-view-cell">
+      Controller <button class="btn btn-outlined btn-primary"> {{fa-icon 'signal'}} {{smartlinkController.name}}</button>
+    </li>
+  </ul>
+
+  <div class="content-padded">
+    <span class="btn btn-block btn-primary btn-outlined">
+      <h3>
+        {{fa-icon 'refresh'}} Clear All Faults
+      </h3>
+      <p>Clear all the faults for this controller?</p>
+    </span>
+    <button class="btn btn-block btn-positive" {{action 'clearFaults'}}>
+      {{fa-icon 'check'}} Confirm
+    </button>
+    {{#link-to 'smartlink-controller' smartlinkController class='btn btn-block btn-negative'}}
+      {{fa-icon 'times-circle'}} Cancel
+    {{/link-to}}
+  </div>
+
+  {{loading-modal isLoading=isLoading}}
+</div>

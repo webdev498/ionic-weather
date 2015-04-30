@@ -71,3 +71,25 @@
     background-color: $program-d-color !important;
   }
 }
+
+.weathermatic-loading-message {
+  margin: 100px auto;
+
+  h2 {
+    margin-bottom: 1em;
+  }
+}
+
+.weathermatic-run-zone-select-run-time {
+  select {
+    width: 3.5em;
+    height: 3em;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+.weathermatic-manual-run-success {
+  margin: 150px auto;
+  color: $positive-color;
+}

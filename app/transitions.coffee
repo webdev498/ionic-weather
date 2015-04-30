@@ -1,14 +1,14 @@
 Transitions = ->
   @transition(
     @fromRoute 'sites'
-    @toRoute 'site.index'
+    @toRoute 'site'
     @use 'toLeft'
     @reverse 'toRight'
   )
 
   @transition(
     @fromRoute 'site.index'
-    @toRoute 'smartlink-controller.index'
+    @toRoute 'smartlink-controller'
     @use 'toLeft'
     @reverse 'toRight'
   )
@@ -20,6 +20,8 @@ Transitions = ->
       'smartlink-controller.select-zone'
       'smartlink-controller.select-valves'
       'smartlink-controller.walk-site'
+      'smartlink-controller.stop-all'
+      'smartlink-controller.clear-faults'
     ]
     @use 'toLeft'
     @reverse 'toRight'
@@ -53,7 +55,13 @@ Transitions = ->
       'smartlink-controller.locate-valves'
     ]
     @toRoute 'smartlink-controller.index'
-    @use 'fade'
+    @use 'toRight'
+  )
+
+  @transition(
+    @fromRoute 'smartlink-controller.command-success'
+    @toRoute 'smartlink-controller.index'
+    @use 'toRight'
   )
 
 `export default Transitions`

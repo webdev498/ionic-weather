@@ -13,7 +13,7 @@
     </li>
     {{#each site in model}}
       <li class="table-view-cell media">
-        {{#link-to 'site' site class='navigate-right'}}
+        {{#link-to 'site' site.id class='navigate-right'}}
           <div class="media-body">
             <strong>{{site.name}}</strong>
             {{#if site.faultsCount}}

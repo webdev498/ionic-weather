@@ -19,7 +19,7 @@
     </li>
     {{#each smartlinkController in model.smartlinkControllers}}
       <li class="table-view-cell">
-        {{#link-to 'smartlink-controller' smartlinkController class='push-right'}}
+        {{#link-to 'smartlink-controller' smartlinkController.id class='push-right'}}
           {{smartlinkController.name}}
           {{#if smartlinkController.faults.length}}
           <span class="badge badge-negative">

@@ -12,7 +12,7 @@
     </li>
     {{#each program in controller}}
       <li {{bind-attr class=':table-view-cell :weathermatic-select-program program.cssClass'}}>
-        {{#link-to 'smartlink-controller.run-program' program.model class='push-right'}}
+        {{#link-to 'smartlink-controller.run-program' program.model.id class='push-right'}}
           <h3>Run Program {{upper-case program.model.identifier}}</h3>
         {{/link-to}}
         <br>

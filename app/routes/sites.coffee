@@ -2,6 +2,6 @@
 
 SitesRoute = Ember.Route.extend
   model: (params) ->
-     @store.find 'site'
+    @modelFor('application')
 
 `export default SitesRoute`

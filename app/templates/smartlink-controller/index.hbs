@@ -36,6 +36,10 @@
         </li>
       </ul>
     </div>
+
+    {{#link-to 'smartlink-controller.stop-all' class='btn btn-block btn-negative'}}
+      {{fa-icon 'stop'}} Stop All
+    {{/link-to}}
   </div>
 
   <ul class="table-view">
@@ -87,7 +91,9 @@
       {{#each fault in model.faults}}
         <button class="btn btn-negative">{{fault.description}}</button>
       {{/each}}
-      <button class="btn btn-block btn-primary" {{action 'clearFaults'}}>{{fa-icon 'fa-refresh'}} Clear Faults</button>
+      {{#link-to 'smartlink-controller.clear-faults' class='btn btn-block btn-primary'}}
+        {{fa-icon 'fa-refresh'}} Clear Faults
+      {{/link-to}}
     </div>
   {{/if}}
 </div>

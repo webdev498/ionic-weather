@@ -2,7 +2,7 @@
   {{#link-to 'smartlink-controller.select-zone' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'signal'}} {{smartlinkController.name}} - Run Zone</h1>
+  <h1 class="title">{{fa-icon 'signal'}} {{model.smartlinkController.name}} - Run Zone</h1>
 </header>
 
 <div class="content">
@@ -26,14 +26,29 @@
       <p>{{model.description}}</p>
     </span>
 
+    <form class="input-group weathermatic-run-zone-select-run-time">
+      <p>for this amount of time</p>
+      <center>
+        {{view 'select' content=availableRunTimeHours value=runTimeHours
+          optionLabelPath='content.label' optionValuePath='content.value'}} :
+
+        {{view 'select' content=availableRunTimeMinutes value=runTimeMinutes
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+
+        <strong>HH:MM</strong>
+      </center>
+    </form>
+
     <p>Ready?</p>
 
-    {{#link-to 'smartlink-controller' smartlinkController class='btn btn-block btn-positive'}}
+    <button class="btn btn-block btn-positive" {{action 'runZone'}}>
       {{fa-icon 'check'}} Go!
-    {{/link-to}}
+    </button>
 
-    {{#link-to 'smartlink-controller' smartlinkController class='btn btn-block btn-negative'}}
+    {{#link-to 'smartlink-controller' class='btn btn-block btn-negative'}}
       {{fa-icon 'times-circle'}} Cancel
     {{/link-to}}
   </div>
+
+  {{loading-modal isLoading=isLoading}}
 </div>
