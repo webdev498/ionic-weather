@@ -16,6 +16,7 @@ SmartlinkControllerClearFaultsController = Ember.Controller.extend ManualRunMixi
 
       @submitManualRun(params).then ->
         controller.get('smartlinkController').reload()
+        controller.get('smartlinkController.site').reload()
         controller.transitionToRoute('smartlink-controller.command-success')
 
 `export default SmartlinkControllerClearFaultsController`
