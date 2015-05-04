@@ -9,7 +9,9 @@ SitesController = Ember.Controller.extend
   moreSitesAvailable: true
 
   actions:
-    loadMore: ->
+    loadMoreSites: ->
+      return if @get 'isLoading'
+
       controller = this
       @set 'isLoading', true
 

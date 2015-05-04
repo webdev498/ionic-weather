@@ -30,15 +30,8 @@
     {{/each}}
   </ul>
   {{#if moreSitesAvailable}}
-    <div class="content-padded">
-      <button class="btn btn-block" {{action 'loadMore'}}>
-        {{#if isLoading}}
-          {{fa-icon 'refresh fa-spin'}}
-        {{else}}
-          {{fa-icon 'refresh'}}
-        {{/if}}
-        Load More
-      </button>
+    <div class="content-padded loading-icon">
+      <center>{{fa-icon 'refresh fa-spin'}} Loading…</center>
     </div>
   {{/if}}
 </div>
