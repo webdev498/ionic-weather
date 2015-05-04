@@ -1,6 +1,8 @@
 `import Ember from 'ember'`
 
 SitesController = Ember.Controller.extend
+  config: Ember.computed -> @container.lookupFactory('config:environment')
+
   nextPageToLoad: 2
 
   # TODO: check if sites loaded >= total sites
@@ -11,7 +13,7 @@ SitesController = Ember.Controller.extend
       controller = this
       @set 'isLoading', true
 
-      @store.find 'site', page: @get('nextPageToLoad'), perPage: 20
+      @store.find 'site', page: @get('nextPageToLoad'), perPage: @get('config.sitesPageSize')
         .then (moreSites) ->
           controller.incrementProperty('nextPageToLoad')
 

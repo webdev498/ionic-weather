@@ -42,7 +42,9 @@ module.exports = function(environment) {
 
     contentSecurityPolicy: {
       'style-src': "'self' 'unsafe-inline'"
-    }
+    },
+
+    sitesPageSize: 20
   };
 
   if (environment === 'development') {
