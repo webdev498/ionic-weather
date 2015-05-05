@@ -17,4 +17,7 @@ var app = new EmberApp();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
+app.import('vendor/crypto-js/hmac-sha256.js')
+app.import('vendor/crypto-js/enc-base64.js')
+
 module.exports = app.toTree();

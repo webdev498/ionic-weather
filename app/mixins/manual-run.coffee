@@ -38,11 +38,6 @@ ManualRunMixin = Ember.Mixin.create
       ajaxOptions = {
         type: 'POST'
         data: allParams
-        beforeSend: (xhr) ->
-          # TODO: app-wide authentication
-          # may still use localStorage, but wrap in ember model or something
-          base64EncodedAuthToken = localStorage.getItem('sln-mobile-auth-token-base64')
-          xhr.setRequestHeader 'Authorization', "Basic #{base64EncodedAuthToken}"
         success: (response) ->
           if Ember.get(response, 'meta.success')
             resolve(response)
