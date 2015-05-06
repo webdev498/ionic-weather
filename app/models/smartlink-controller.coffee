@@ -17,6 +17,7 @@ SmartlinkController = DS.Model.extend
   wateringMode:         DS.attr 'number'
   rainFreezeSensorMode: DS.attr 'number'
   weatherStatus:        DS.attr 'number'
+  canRunCommands:       DS.attr 'boolean'
   site:                 DS.belongsTo 'site',  async: false
   faults:               DS.hasMany 'fault',   async: false
   programs:             DS.hasMany 'program', async: false

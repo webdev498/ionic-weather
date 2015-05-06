@@ -20,6 +20,7 @@ SmartlinkControllerSerializer = DS.ActiveModelSerializer.extend DS.EmbeddedRecor
       when 'weatherStatus' then 'sw_status'
       when 'wateringMode' then 'mode'
       when 'rainFreezeSensorMode' then 'sensor_mode'
+      when 'canRunCommands' then 'run_remote'
       else this._super(attr)
 
   normalizePayload: (payload) ->

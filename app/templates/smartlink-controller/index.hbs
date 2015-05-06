@@ -9,37 +9,44 @@
 
 <div id="smartlink-controller-container" class="content">
   <div class="content-padded">
-    <div class="card">
-      <ul class="table-view">
-        <li class="table-view-cell table-view-divider">
-          {{fa-icon 'wrench'}} Actions
-        </li>
-        <li class="table-view-cell">
-          {{#link-to 'smartlink-controller.select-program' class='push-right'}}
-            {{fa-icon 'play'}} Run Program
-          {{/link-to}}
-        </li>
-        <li class="table-view-cell">
-          {{#link-to 'smartlink-controller.select-zone' class='push-right'}}
-            {{fa-icon 'leaf'}} Run Zone
+    {{#if model.canRunCommands}}
+      <div class="card">
+        <ul class="table-view">
+          <li class="table-view-cell table-view-divider">
+            {{fa-icon 'wrench'}} Actions
+          </li>
+          <li class="table-view-cell">
+            {{#link-to 'smartlink-controller.select-program' class='push-right'}}
+              {{fa-icon 'play'}} Run Program
             {{/link-to}}
-        </li>
-        <li class="table-view-cell">
-          {{#link-to 'smartlink-controller.select-valves' class='push-right'}}
-            {{fa-icon 'crosshairs'}} Locate Valve
-          {{/link-to}}
-        </li>
-        <li class="table-view-cell">
-          {{#link-to 'smartlink-controller.walk-site' class='push-right'}}
-            {{fa-icon 'male'}} Walk Site
-          {{/link-to}}
-        </li>
-      </ul>
-    </div>
+          </li>
+          <li class="table-view-cell">
+            {{#link-to 'smartlink-controller.select-zone' class='push-right'}}
+              {{fa-icon 'leaf'}} Run Zone
+              {{/link-to}}
+          </li>
+          <li class="table-view-cell">
+            {{#link-to 'smartlink-controller.select-valves' class='push-right'}}
+              {{fa-icon 'crosshairs'}} Locate Valve
+            {{/link-to}}
+          </li>
+          <li class="table-view-cell">
+            {{#link-to 'smartlink-controller.walk-site' class='push-right'}}
+              {{fa-icon 'male'}} Walk Site
+            {{/link-to}}
+          </li>
+        </ul>
+      </div>
 
-    {{#link-to 'smartlink-controller.stop-all' class='btn btn-block btn-negative'}}
-      {{fa-icon 'stop'}} Stop All
-    {{/link-to}}
+      {{#link-to 'smartlink-controller.stop-all' class='btn btn-block btn-negative'}}
+        {{fa-icon 'stop'}} Stop All
+      {{/link-to}}
+    {{else}}
+      <span class="btn btn-block btn-negative btn-outlined">
+        <h3>{{fa-icon 'warning'}} Limited Access</h3>
+        <p>It looks like you are not allowed to run <br>remote commands on this controller</p>
+      </span>
+    {{/if}}
   </div>
 
   {{#if isLoading}}
@@ -101,9 +108,12 @@
       {{#each fault in model.faults}}
         <button class="btn btn-negative">{{fault.description}}</button>
       {{/each}}
-      {{#link-to 'smartlink-controller.clear-faults' class='btn btn-block btn-primary'}}
-        {{fa-icon 'fa-refresh'}} Clear Faults
-      {{/link-to}}
+
+      {{#if model.canRunCommands}}
+        {{#link-to 'smartlink-controller.clear-faults' class='btn btn-block btn-primary'}}
+          {{fa-icon 'fa-refresh'}} Clear Faults
+        {{/link-to}}
+      {{/if}}
     </div>
   {{/if}}
 </div>
