@@ -4,7 +4,9 @@ ApplicationRoute = Ember.Route.extend
   config: Ember.computed -> @container.lookupFactory('config:environment')
 
   model: ->
-    @store.find 'site', page: 1, perPage: @get('config.sitesPageSize')
+    sites = @store.find 'site', page: 1, perPage: @get('config.sitesPageSize')
+    window.SlnMobileEmber.set('cachedSites', sites)
+    return sites
 
   actions:
     openLink: (url) ->

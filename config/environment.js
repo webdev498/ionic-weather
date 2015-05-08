@@ -12,6 +12,8 @@ for (var dev in ifaces) {
   });
 }
 
+addresses[0] = addresses[0] || '127.0.0.1';
+
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'sln-mobile-ember',

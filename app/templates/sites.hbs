@@ -1,9 +1,9 @@
 <header class="bar bar-nav">
   <h1 class="title">Smartlink Network</h1>
-  <a href="javascript:void(0)" class="icon icon-refresh pull-right"></a>
+  <a href="javascript:void(0)" class="icon icon-refresh pull-right" {{action 'refreshData'}}></a>
 </header>
 
-<div class="content">
+<div id="sites-list-container" class="content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
       {{fa-icon 'building'}} Your Sites

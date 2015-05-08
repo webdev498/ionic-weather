@@ -3,11 +3,11 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
   <h1 class="title">{{fa-icon 'signal'}} {{short-text model.site.name size=15}} - {{short-text model.name size=15}}</h1>
-  <a href="javascript:void(0)" class="icon icon-refresh pull-right"></a>
+  <a href="javascript:void(0)" class="icon icon-refresh pull-right" {{action 'refreshData'}}></a>
 </header>
 
 
-<div class="content">
+<div id="smartlink-controller-container" class="content">
   <div class="content-padded">
     <div class="card">
       <ul class="table-view">
@@ -41,6 +41,16 @@
       {{fa-icon 'stop'}} Stop All
     {{/link-to}}
   </div>
+
+  {{#if isLoading}}
+    <div class="content-padded weathermatic-smartlink-controller-loading">
+      <center>
+        <!-- why this looks so weird??? -->
+        <i class="fa fa-refresh fa-spin fa-lg"></i>
+      </center>
+      <br>
+    </div>
+  {{/if}}
 
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">

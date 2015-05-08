@@ -1,6 +1,6 @@
-`import DS from 'ember-data'`
+`import ApplicationSerializer from './application'`
 
-SiteSerializer = DS.ActiveModelSerializer.extend DS.EmbeddedRecordsMixin,
+SiteSerializer = ApplicationSerializer.extend DS.EmbeddedRecordsMixin,
   attrs:
     smartlinkControllers:
       serialize: false

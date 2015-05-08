@@ -23,8 +23,24 @@ ApplicationAdapter = DS.RESTAdapter.extend
     this._super(url, type, options)
 
   ajaxSuccess: (xhr, json) ->
-    # Weathermatic API responses are wrapped in an object called `result`
-    # e.g. { "result": { "site": { ... } }
+    #
+    # Weathermatic API responses are wrapped in an object called `result`, e.g.
+    #
+    # {
+    #   "result": {
+    #     "site": { ... }
+    #   },
+    #   "meta": { ... }
+    # }
+    #
+    # We want something like this instead:
+    # {
+    #   "site": { ... },
+    #   "meta": { ... }
+    # }
+    #
+    json.result.meta = json.meta
+    delete json.meta
     json.result
 
 `export default ApplicationAdapter`

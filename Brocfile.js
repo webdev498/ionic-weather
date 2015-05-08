@@ -20,4 +20,6 @@ var app = new EmberApp();
 app.import('vendor/crypto-js/hmac-sha256.js')
 app.import('vendor/crypto-js/enc-base64.js')
 
+app.import('bower_components/xpull/xpull.js')
+
 module.exports = app.toTree();
