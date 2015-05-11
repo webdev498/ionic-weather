@@ -1,19 +1,17 @@
 `import ApplicationAdapter from './application'`
+`import URLQueryParamsMixin from '../mixins/url-query-params'`
 
-SmartlinkControllerAdapter = ApplicationAdapter.extend
+SmartlinkControllerAdapter = ApplicationAdapter.extend URLQueryParamsMixin,
   pathForType: -> 'controllers'
 
-  ajaxOptions: (url, type, options) ->
-    options = options || {}
-    options.data = options.data || {}
+  find: (store, type, id, snapshot) ->
+    url = @buildURL(type.typeKey, id, snapshot)
+    url = @addQueryParams(url, @customQueryParams)
+    @ajax(url, 'GET')
 
-    extraQueryParams = {
-      embed_zones: true,
-      include_links: false,
-      include_permissions: false
-    }
-
-    Ember.merge(options.data, extraQueryParams)
-    this._super(url, type, options)
+  customQueryParams:
+    embed_zones: 'true'
+    embed_site: 'false'
+    wrap_result: 'true'
 
 `export default SmartlinkControllerAdapter`

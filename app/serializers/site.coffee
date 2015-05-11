@@ -1,10 +1,10 @@
 `import ApplicationSerializer from './application'`
 
-SiteSerializer = ApplicationSerializer.extend DS.EmbeddedRecordsMixin,
-  attrs:
-    smartlinkControllers:
-      serialize: false
-      deserialize: 'ids'
+SiteSerializer = ApplicationSerializer.extend
+  normalizeLinks: (data) ->
+    data.links.smartlinkControllers = data.links.controllers
+    delete data.links.controllers
+    this._super(arguments...)
 
   keyForRelationship: (rawKey, kind) ->
     switch rawKey
