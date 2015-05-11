@@ -42,7 +42,11 @@ SitesView = Ember.View.extend
     clearInterval @get('scrollingPollIntervalId')
 
   checkForScrolledToBottom: ->
+    return if @get('controller.isLoading')
+
     loadingIcon = Ember.$('.loading-icon')
+    return unless loadingIcon.length
+
     if this.isElementInViewport loadingIcon
       @get('controller').send('loadMoreSites') unless @get('controller.isLoading')
 
