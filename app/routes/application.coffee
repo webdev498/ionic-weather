@@ -1,10 +1,9 @@
 `import Ember from 'ember';`
+`import SitesLookupMixin from '../mixins/sites-lookup'`
 
-ApplicationRoute = Ember.Route.extend
-  config: Ember.computed -> @container.lookupFactory('config:environment')
-
+ApplicationRoute = Ember.Route.extend SitesLookupMixin,
   model: ->
-    sites = @store.find 'site', page: 1, perPage: @get('config.sitesPageSize')
+    sites = @lookupSites()
     window.SlnMobileEmber.set('cachedSites', sites)
     return sites
 

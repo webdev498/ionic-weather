@@ -1,9 +1,8 @@
 `import Ember from 'ember'`
+`import SitesLookupMixin from '../mixins/sites-lookup'`
 
-SitesController = Ember.Controller.extend
+SitesController = Ember.Controller.extend SitesLookupMixin,
   needs: ['application']
-
-  config: Ember.computed -> @container.lookupFactory('config:environment')
 
   nextPageToLoad: 2
 
@@ -24,8 +23,7 @@ SitesController = Ember.Controller.extend
       @store.unloadAll('smartlink-controller')
       @store.unloadAll('site')
 
-      pageSize = @get('config.sitesPageSize')
-      @store.find('site', page: 1, perPage: pageSize)
+      @lookupSites()
         .then (sites) ->
           window.SlnMobileEmber.set('cachedSites', sites)
           controller.set('model', sites)
@@ -39,7 +37,7 @@ SitesController = Ember.Controller.extend
       controller = this
       @set 'isLoading', true
 
-      @store.find 'site', page: @get('nextPageToLoad'), perPage: @get('config.sitesPageSize')
+      @lookupSites(page: @get('nextPageToLoad'))
         .then (moreSites) ->
           controller.incrementProperty('nextPageToLoad')
 
