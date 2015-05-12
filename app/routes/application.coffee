@@ -1,9 +1,10 @@
 `import Ember from 'ember';`
-`import SitesLookupMixin from '../mixins/sites-lookup'`
 
-ApplicationRoute = Ember.Route.extend SitesLookupMixin,
+ApplicationRoute = Ember.Route.extend
+  sites: Ember.inject.service('sites')
+
   model: ->
-    sites = @lookupSites()
+    sites = @get('sites').lookupSites()
     window.SlnMobileEmber.set('cachedSites', sites)
     return sites
 

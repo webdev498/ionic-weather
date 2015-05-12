@@ -1,10 +1,11 @@
 `import Ember from 'ember'`
-`import SitesLookupMixin from '../mixins/sites-lookup'`
 
-SitesRoute = Ember.Route.extend SitesLookupMixin,
+SitesRoute = Ember.Route.extend
+  sites: Ember.inject.service('sites')
+
   model: (params) ->
     preCachedSitesList = window.SlnMobileEmber.get('cachedSites')
     return preCachedSitesList if Ember.get(preCachedSitesList, 'length')
-    @lookupSites()
+    @get('sites').lookupSites()
 
 `export default SitesRoute`

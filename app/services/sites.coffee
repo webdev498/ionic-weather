@@ -1,8 +1,13 @@
 `import Ember from 'ember'`
-`import CurrentLocationMixin from './current-location'`
 
-SitesLookupMixin = Ember.Mixin.create CurrentLocationMixin,
+SitesService = Ember.Service.extend
   config: Ember.computed -> @container.lookupFactory('config:environment')
+
+  currentLocation: Ember.inject.service('currentLocation')
+
+  settings: Ember.inject.service('applicationSettings')
+
+  store: Ember.inject.service('store')
 
   lookupSites: (options = {}) ->
     page = options.page or 1
@@ -13,15 +18,11 @@ SitesLookupMixin = Ember.Mixin.create CurrentLocationMixin,
       perPage: perPage
     }
 
-    switch @get('sitesLookupSortMethod')
+    switch @get('settings').getSetting('sites-sort-method')
       when 'proximity'
-        here = @getCurrentLocation()
+        here = @get('currentLocation').getCurrentLocation()
         Ember.merge(params, lat: here.latitude, lng: here.longitude)
 
-    @store.find('site', params)
+    @get('store').find('site', params)
 
-  sitesLookupSortMethod: Ember.computed ->
-    # TODO: Settings model backed by local storage
-    'proximity'
-
-`export default SitesLookupMixin`
+`export default SitesService`

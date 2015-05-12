@@ -1,6 +1,6 @@
 `import Ember from 'ember'`
 
-CurrentLocationMixin = Ember.Mixin.create
+CurrentLocationService = Ember.Service.extend
   getCurrentLocation: ->
     # TODO: really ask the device where it's at
     # maybe fall back to ip gelocation?
@@ -9,4 +9,4 @@ CurrentLocationMixin = Ember.Mixin.create
       longitude: '-78.8689160'
     }
 
-`export default CurrentLocationMixin`
+`export default CurrentLocationService`
