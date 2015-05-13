@@ -18,11 +18,20 @@ SitesService = Ember.Service.extend
       perPage: perPage
     }
 
-    switch @get('settings').getSetting('sites-sort-method')
-      when 'proximity'
-        here = @get('locations').getCurrentLocation()
-        Ember.merge(params, lat: here.latitude, lng: here.longitude)
+    self = this
 
-    @get('store').find('site', params)
+    doLookup = ->
+      self.get('store').find('site', params)
+
+    promise = new Ember.RSVP.Promise (resolve, reject) ->
+      switch self.get('settings').getSetting('sites-sort-method')
+        when 'proximity'
+          self.get('locations').getCurrentLocation().then (coords) ->
+            Ember.merge(params, lat: coords.latitude, lng: coords.longitude)
+            resolve(doLookup())
+        else
+          resolve(doLookup())
+
+    return promise
 
 `export default SitesService`

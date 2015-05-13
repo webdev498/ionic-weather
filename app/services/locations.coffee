@@ -4,21 +4,52 @@ get = Ember.get
 
 LocationsService = Ember.Service.extend
   getCurrentLocation: ->
-    # TODO: really ask the device where it's at
-    # maybe fall back to ip gelocation?
+    self = this
+    new Ember.RSVP.Promise (resolve, reject) ->
+      cachedCoords = self.getCachedLocation()
+      return resolve(cachedCoords) if cachedCoords
+      self.lookupCurrentLocation().then (coords) ->
+        self.setCachedLocation(geoposition.coords)
+        resolve(coords)
+
+  lookupCurrentLocation: ->
+    new Ember.RSVP.Promise (resolve, reject) ->
+      onGeoSuccess = (geoposition) ->
+        resolve(geoposition.coords)
+
+      onGeoFailure = ->
+        reject new Error('Geolocation lookup failed')
+
+      navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFailure)
+
+  cacheKeyLatitude: 'sln-mobile-geo-cache-lat'
+  cacheKeyLongitude: 'sln-mobile-geo-cache-lon'
+  cacheKeyTimestamp: 'sln-mobile-geo-cache-timestamp'
+
+  getCachedLocation: ->
+    lat = localStorage.getItem(@cacheKeyLatitude)
+    lon = localStorage.getItem(@cacheKeyLongitude)
+    return null unless lat? and lon?
     {
-      latitude: '38.4495690',
-      longitude: '-78.8689160'
+      latitude: lat,
+      longitude: lon
     }
 
+  setCachedLocation: (coords) ->
+    localStorage.setItem(@cacheKeyLatitude, coords.latitude)
+    localStorage.setItem(@cacheKeyLongitude, coords.longitude)
+    localStorage.setItem(@cacheKeyTimestamp, new Date().getTime())
+
   milesAway: (latitude, longitude) ->
-    here = @getCurrentLocation()
-    metersAway = @calculateDistanceInMeters(
-      get(here, 'latitude'), latitude,
-      get(here, 'longitude'), longitude
-    )
-    metersAway
-    @metersToMiles(metersAway)
+    self = this
+    new Ember.RSVP.Promise (resolve, reject) ->
+      self.getCurrentLocation().then (here) ->
+        metersAway = self.calculateDistanceInMeters(
+          get(here, 'latitude'), latitude,
+          get(here, 'longitude'), longitude
+        )
+        milesAway = self.metersToMiles(metersAway)
+        resolve(milesAway)
 
   calculateDistanceInMeters: (lat1, lat2, lon1, lon2) ->
     # Haversine method for calculating distance between coordinates

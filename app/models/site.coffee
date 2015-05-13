@@ -1,4 +1,5 @@
 `import DS from 'ember-data'`
+`import promisedProperty from '../util/promised-property'`
 
 Site = DS.Model.extend
   locations: Ember.inject.service('locations')
@@ -20,10 +21,9 @@ Site = DS.Model.extend
   fullAddress: Ember.computed 'address1', 'address2', 'city', 'state', 'postalCode', ->
     "#{@get('address1')} #{@get('address2') or ''} #{@get('city')}, #{@get('state')} #{@get('postalCode')}"
 
-  milesAway: Ember.computed 'latitude', 'longitude', ->
+  milesAway: Ember.computed 'latitude', 'longitude', promisedProperty('?', ->
     [lat, lng] = [@get('latitude'), @get('longitude')]
     @get('locations').milesAway(lat, lng)
-
-
+  )
 
 `export default Site`

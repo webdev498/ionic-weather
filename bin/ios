@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Killing XCode..."
+kill $(ps aux | grep 'Xcod[e]' | awk '{print $2}')
+echo "It's dead"
+
+echo "Removing old XCode project"
+rm -rf cordova/platforms/ios
+
+echo "Adding ios platform"
+ember cordova platform add ios
+
+echo "Rebuilding XCode project"
+ember cordova:build
+
+echo "Opening XCode project"
+open cordova/platforms/ios/*.xcodeproj

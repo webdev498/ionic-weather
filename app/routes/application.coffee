@@ -4,9 +4,9 @@ ApplicationRoute = Ember.Route.extend
   sites: Ember.inject.service('sites')
 
   model: ->
-    sites = @get('sites').lookupSites()
-    window.SlnMobileEmber.set('cachedSites', sites)
-    return sites
+    @get('sites').lookupSites().then (sites) ->
+      window.SlnMobileEmber.set('cachedSites', sites)
+      return sites
 
   actions:
     openLink: (url) ->
