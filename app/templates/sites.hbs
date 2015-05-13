@@ -27,7 +27,7 @@
             <p>
               <small class="badge">{{site.cityState}}</small>
               <small class="badge">{{site.controllersCount}} controllers</small>
-              <small class="badge">{{site.milesAway}} mi</small>
+              <small class="badge">{{format-number site.milesAway round=true}} mi</small>
             </p>
           </div>
         {{/link-to}}
@@ -48,26 +48,26 @@
   </header>
 
   <div class="content">
-    <div class="content-padded">
-      <ul class="table-view">
-        <li class="table-view-cell">
-          <a href="javascript:void(0)" {{action 'setSortMethod' 'proximity'}}>
-            <div class="media-body">
-              <h2>{{fa-icon 'globe'}} Sort by Location</h2>
-              <p>Nearest sites will appear first</p>
-            </div>
-          </a>
-        </li>
-        <li class="table-view-cell">
-          <a href="javascript:void(0)" {{action 'setSortMethod' 'alpha'}}>
-            <div class="media-body">
-              <h2>{{fa-icon 'sort-alpha-asc'}} Sort by Name</h2>
-              <p>Sites will appear A-Z by name</p>
-            </div>
-          </a>
-        </li>
-      </ul>
+    <ul class="table-view">
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" {{action 'setSortMethod' 'proximity'}}>
+          <div class="media-body">
+            <h2>{{fa-icon 'globe'}} Sort by Location</h2>
+            <p>Nearest sites will appear first</p>
+          </div>
+        </a>
+      </li>
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" {{action 'setSortMethod' 'alpha'}}>
+          <div class="media-body">
+            <h2>{{fa-icon 'sort-alpha-asc'}} Sort by Name</h2>
+            <p>Sites will appear A-Z by name</p>
+          </div>
+        </a>
+      </li>
+    </ul>
 
+    <div class="content-padded">
       <button class="btn btn-negative btn-block" {{action 'closeSortOptions'}}>
         {{fa-icon 'times-circle'}} Cancel
       </button>

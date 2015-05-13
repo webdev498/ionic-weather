@@ -3,7 +3,7 @@
 SitesService = Ember.Service.extend
   config: Ember.computed -> @container.lookupFactory('config:environment')
 
-  currentLocation: Ember.inject.service('currentLocation')
+  locations: Ember.inject.service('locations')
 
   settings: Ember.inject.service('applicationSettings')
 
@@ -20,7 +20,7 @@ SitesService = Ember.Service.extend
 
     switch @get('settings').getSetting('sites-sort-method')
       when 'proximity'
-        here = @get('currentLocation').getCurrentLocation()
+        here = @get('locations').getCurrentLocation()
         Ember.merge(params, lat: here.latitude, lng: here.longitude)
 
     @get('store').find('site', params)
