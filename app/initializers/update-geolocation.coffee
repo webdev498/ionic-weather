@@ -6,8 +6,13 @@ initialize = (container, _app) ->
       locations.setCachedLocation(coords)
       Ember.Logger.debug("Updated geolocation to: #{coords.latitude}, #{coords.longitude}")
 
-  updateGeolocation()
-  setInterval(updateGeolocation, 1000 * 60 * 5)
+  startUpdateLoop = ->
+    setInterval(updateGeolocation, 1000 * 60 * 5)
+
+  if typeof(window.cordova) is 'undefined'
+    startUpdateLoop()
+  else
+    document.addEventListener('deviceready', startUpdateLoop, false)
 
 UpdateGeolocationInitializer =
   name: 'update-geolocation'

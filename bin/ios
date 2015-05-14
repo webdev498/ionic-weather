@@ -1,17 +1,26 @@
 #!/bin/bash
+set -e
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 echo "Killing XCode..."
-kill $(ps aux | grep 'Xcod[e]' | awk '{print $2}')
+xcodepids=$(ps aux | grep 'Xcod[e]' | awk '{print $2}')
+if [ "$xcodepids" ]; then
+  kill $xcodepids;
+fi
 echo "It's dead"
 
 echo "Removing old XCode project"
-rm -rf cordova/platforms/ios
+ember cordova platform remove ios
 
 echo "Adding ios platform"
 ember cordova platform add ios
 
-echo "Rebuilding XCode project"
+echo "Adding plugins"
+ember cordova plugin add org.apache.cordova.geolocation
+
+echo "Building XCode project"
 ember cordova:build
 
 echo "Opening XCode project"
-open cordova/platforms/ios/*.xcodeproj
+ember cordova:open

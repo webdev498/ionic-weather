@@ -9,7 +9,7 @@ LocationsService = Ember.Service.extend
       cachedCoords = self.getCachedLocation()
       return resolve(cachedCoords) if cachedCoords
       self.lookupCurrentLocation().then (coords) ->
-        self.setCachedLocation(geoposition.coords)
+        self.setCachedLocation(coords)
         resolve(coords)
 
   lookupCurrentLocation: ->
@@ -17,10 +17,15 @@ LocationsService = Ember.Service.extend
       onGeoSuccess = (geoposition) ->
         resolve(geoposition.coords)
 
-      onGeoFailure = ->
+      onGeoFailure = (error) ->
         reject new Error('Geolocation lookup failed')
 
-      navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFailure)
+      doGetLocation = -> navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFailure)
+
+      if typeof(window.cordova) is 'undefined'
+        doGetLocation()
+      else
+        document.addEventListener('deviceready', doGetLocation, false)
 
   cacheKeyLatitude: 'sln-mobile-geo-cache-lat'
   cacheKeyLongitude: 'sln-mobile-geo-cache-lon'
