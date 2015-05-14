@@ -60,6 +60,8 @@ module.exports = function(environment) {
     ENV.development = true;
 
     ENV.useMockApi = false;
+
+    ENV.contentSecurityPolicy['connect-src'] = "'self' " + ENV.apiUrl;
   }
 
   if (environment === 'test') {
