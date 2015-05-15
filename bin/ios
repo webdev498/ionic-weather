@@ -18,6 +18,7 @@ ember cordova platform add ios
 
 echo "Adding plugins"
 ember cordova plugin add org.apache.cordova.geolocation
+ember cordova plugin add org.apache.cordova.statusbar
 
 echo "Building XCode project"
 ember cordova:build
