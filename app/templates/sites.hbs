@@ -1,16 +1,19 @@
-<header class="bar bar-nav">
+
+<header class="bar bar-nav weathermatic-header">
   <a href="javascript:void(0)" {{bind-attr class=':icon searchIcon :pull-left'}} {{action 'toggleSearch'}}></a>
-  <h1 class="title">Smartlink Network</h1>
+  <h1 class="title">
+    <img src="assets/images/sl-logo.png" class="weathermatic-logo">
+  </h1>
   <a href="javascript:void(0)" class="icon icon-refresh pull-right" {{action 'refreshData'}}></a>
 </header>
 
 <div id="sites-list-container" class="content">
-  <div {{bind-attr class=':content-padded :weathermatic-sites-search isSearchEnabled:shown:hidden'}}>
-    {{input type='search' placeholder='Search Sites' value=search}}
-    <button {{bind-attr disabled=isSearchEmpty}} {{action 'performSearch'}}
-      class="btn btn-inverse btn-primary btn-block">{{fa-icon 'search'}} Search</button>
-  </div>
   <ul class="table-view">
+    <li {{bind-attr class=':content-padded :weathermatic-sites-search isSearchEnabled:shown:hidden'}}>
+      {{input type='search' placeholder='Search Sites' value=search}}
+      <button {{bind-attr disabled=isSearchEmpty}} {{action 'performSearch'}}
+        class="btn btn-inverse btn-primary btn-block">{{fa-icon 'search'}} Search</button>
+    </li>
     <li class="table-view-cell table-view-divider">
       {{fa-icon 'building'}} Your Sites
       <button class="btn btn-outlined" {{action 'openSortOptions'}}>
@@ -44,8 +47,7 @@
           <center>
             <h1>{{fa-icon 'times'}} Not found</h1>
             {{#if lastSearch.length}}
-              <p>We didn't find any sites that match:
-              </p>
+              <p>We didn't find any sites that match:</p>
               <h2 class="weathermatic-search-not-found-term">{{lastSearch}}</h2>
             {{/if}}
           </center>

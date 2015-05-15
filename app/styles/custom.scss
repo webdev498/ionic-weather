@@ -107,3 +107,31 @@
   margin-top: 0.3em;
   color: #777;
 }
+
+.weathermatic-header {
+  background: #141415 url("/assets/images/bg-header.png");
+  height: 65px;
+
+  .weathermatic-logo {
+    margin-top: 13px;
+    width: 180px;
+  }
+
+  .icon {
+    width: 45px;
+    height: 45px;
+    margin-top: 10px;
+    margin-left: 5px;
+    padding-top: 0;
+    font-size: 24px;
+    line-height: 45px;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+  }
+}
+
+#sites-list-container {
+  padding-top: 54px;
+}
