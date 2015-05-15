@@ -25,6 +25,11 @@ SitesController = Ember.Controller.extend
     totalSitesCount = @store.metadataFor('site').found
     totalSitesCount > @get('model.length')
 
+  shouldShowLoading: Ember.computed 'moreSitesAvailable', 'isLoading', 'isSearchApplied', ->
+    isReloadingAfterSearch = (@get('isSearchApplied') and @get('isLoading'))
+    @get('moreSitesAvailable') or isReloadingAfterSearch
+
+
   sortMethodDidChange: Ember.observer 'sortMethod', ->
     newSortMethod = @get('sortMethod')
     @get('settings').changeSetting('sites-sort-method', newSortMethod)
@@ -41,8 +46,11 @@ SitesController = Ember.Controller.extend
 
     return unless @get('isSearchApplied')
     wasSearchDisabled = not @get('isSearchEnabled')
-    @send('refreshData') if wasSearchDisabled
-    @set('isSearchApplied', false)
+
+    controller = this
+    callback = ->
+      controller.set('isSearchApplied', false)
+    @send('refreshData', callback) if wasSearchDisabled
 
   init: ->
     defaultSortMethod = @get('settings').getSetting('sites-sort-method')
@@ -58,7 +66,7 @@ SitesController = Ember.Controller.extend
       @set('isSearchApplied', true)
       @send('refreshData')
 
-    refreshData: ->
+    refreshData: (callback) ->
       controller = this
       @set 'isLoading', true
 
@@ -75,7 +83,9 @@ SitesController = Ember.Controller.extend
         .then (sites) ->
           window.SlnMobileEmber.set('cachedSites', sites)
           controller.set('model', sites)
-        .finally -> controller.set('isLoading', false)
+        .finally ->
+          controller.set('isLoading', false)
+          callback() if Ember.typeOf(callback) is 'function'
 
       @set('nextPageToLoad', 2)
 
