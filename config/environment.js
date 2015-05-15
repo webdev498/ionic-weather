@@ -62,6 +62,7 @@ module.exports = function(environment) {
     ENV.useMockApi = false;
 
     ENV.contentSecurityPolicy['connect-src'] = "'self' " + ENV.apiUrl;
+    ENV.contentSecurityPolicy['img-src'] = "'self' data:"
   }
 
   if (environment === 'test') {
