@@ -16,7 +16,12 @@
 npm-debug.log
 testem.log
 
-cordova
+# cordova
+
+cordova/hooks
+cordova/platforms
+cordova/plugins
+cordova/www
 
 # iOS
 cordova/platforms/ios/build/
