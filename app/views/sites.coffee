@@ -4,6 +4,7 @@ SitesView = Ember.View.extend
   didInsertElement: ->
     @setupPullToRefresh()
     @setupScrolling()
+    @focusSearchField()
 
   willDestroyElement: ->
     @stopScrollingPoll()
@@ -71,5 +72,15 @@ SitesView = Ember.View.extend
       <div class="triangle-down"></div>
     </div>
   '
+
+  isSearchEnabledDidChange: Ember.observer 'controller.isSearchEnabled', ->
+    self = this
+    search = @$('.weathermatic-sites-search')
+    search.toggle 'fast', ->
+      self.focusSearchField() if search.is(':visible')
+
+  focusSearchField: ->
+    @$('.weathermatic-sites-search input[type=search]').focus()
+
 
 `export default SitesView`

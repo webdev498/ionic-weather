@@ -18,6 +18,8 @@ SitesService = Ember.Service.extend
       perPage: perPage
     }
 
+    params.q = options.search if options.search?
+
     self = this
 
     doLookup = ->

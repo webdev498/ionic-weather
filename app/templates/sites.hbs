@@ -1,9 +1,15 @@
 <header class="bar bar-nav">
+  <a href="javascript:void(0)" {{bind-attr class=':icon searchIcon :pull-left'}} {{action 'toggleSearch'}}></a>
   <h1 class="title">Smartlink Network</h1>
   <a href="javascript:void(0)" class="icon icon-refresh pull-right" {{action 'refreshData'}}></a>
 </header>
 
 <div id="sites-list-container" class="content">
+  <div {{bind-attr class=':content-padded :weathermatic-sites-search isSearchEnabled:shown:hidden'}}>
+    {{input type='search' placeholder='Search Sites' value=search}}
+    <button {{bind-attr disabled=isSearchEmpty}} {{action 'performSearch'}}
+      class="btn btn-inverse btn-primary btn-block">{{fa-icon 'search'}} Search</button>
+  </div>
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
       {{fa-icon 'building'}} Your Sites
