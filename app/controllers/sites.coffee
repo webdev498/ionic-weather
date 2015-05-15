@@ -54,6 +54,7 @@ SitesController = Ember.Controller.extend
       return false
 
     performSearch: ->
+      @set('lastSearch', @get('search'))
       @set('isSearchApplied', true)
       @send('refreshData')
 

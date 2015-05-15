@@ -38,6 +38,19 @@
           </div>
         {{/link-to}}
       </li>
+    {{else}}
+      {{#unless isLoading}}
+        <li class="table-view-cell media">
+          <center>
+            <h1>{{fa-icon 'times'}} Not found</h1>
+            {{#if lastSearch.length}}
+              <p>We didn't find any sites that match:
+              </p>
+              <h2 class="weathermatic-search-not-found-term">{{lastSearch}}</h2>
+            {{/if}}
+          </center>
+        </li>
+      {{/unless}}
     {{/each}}
   </ul>
   {{#if moreSitesAvailable}}
