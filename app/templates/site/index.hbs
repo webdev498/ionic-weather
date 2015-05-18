@@ -28,6 +28,12 @@
           {{/if}}
         {{/link-to}}
       </li>
+    {{else}}
+      <li class="table-view-cell">
+        <center>
+          {{fa-icon 'times'}} There are no controllers at this site
+        </center>
+      </li>
     {{/each}}
   </ul>
 </div>
