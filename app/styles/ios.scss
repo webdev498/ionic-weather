@@ -1,0 +1,7 @@
+
+
+// Addresses disappearing nav bar issue:
+// https://github.com/twbs/ratchet/issues/679
+header.bar.bar-nav {
+  -webkit-transform: translateZ(0);
+}
