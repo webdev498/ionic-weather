@@ -1,13 +1,13 @@
-<header class="bar bar-nav">
+<header class="bar bar-nav weathermatic-header">
   {{#link-to 'site' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'signal'}} {{short-text model.site.name size=15}} - {{short-text model.name size=15}}</h1>
+  <h1 class="title">{{fa-icon 'signal'}} {{short-text model.site.name size=10}} - {{short-text model.name size=10}}</h1>
   <a href="javascript:void(0)" class="icon icon-refresh pull-right" {{action 'refreshData'}}></a>
 </header>
 
 
-<div id="smartlink-controller-container" class="content">
+<div id="smartlink-controller-container" class="content weathermatic-content">
   <div class="content-padded">
     {{#if model.canRunCommands}}
       <div class="card">

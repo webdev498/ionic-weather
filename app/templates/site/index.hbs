@@ -1,16 +1,13 @@
-<header class="bar bar-nav">
+<header class="bar bar-nav weathermatic-header">
   {{#link-to 'sites' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
   <h1 class="title">
     {{fa-icon 'building'}} {{short-text model.name size=30}}
   </h1>
-  <a href="javascript:void(0)" class="btn btn-link btn-nav pull-right" {{action 'refreshData'}}>
-    <span class="icon icon-refresh"></span>
-  </a>
 </header>
 
-<div class="content">
+<div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell">
       <p>

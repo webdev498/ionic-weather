@@ -1,13 +1,13 @@
 
 <header class="bar bar-nav weathermatic-header">
   <a href="javascript:void(0)" {{bind-attr class=':icon searchIcon :pull-left'}} {{action 'toggleSearch'}}></a>
-  <h1 class="title">
+  <div class="weathermatic-logo-container">
     <img src="assets/images/sl-logo.png" class="weathermatic-logo">
-  </h1>
+  </div>
   <a href="javascript:void(0)" class="icon icon-refresh pull-right" {{action 'refreshData'}}></a>
 </header>
 
-<div id="sites-list-container" class="content">
+<div id="sites-list-container" class="content weathermatic-content">
   <ul class="table-view">
     <li {{bind-attr class=':content-padded :weathermatic-sites-search isSearchEnabled:shown:hidden'}}>
       {{input type='search' placeholder='Search Sites' value=search}}

@@ -1,11 +1,13 @@
-<header class="bar bar-nav">
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
   {{#link-to 'smartlink-controller.select-program' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'signal'}} {{smartlinkController.name}} - Run Program</h1>
+  <h1 class="title">
+    {{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - Run Program
+  </h1>
 </header>
 
-<div class="content">
+<div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
       Confirm Program
