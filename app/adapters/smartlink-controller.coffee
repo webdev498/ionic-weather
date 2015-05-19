@@ -1,13 +1,11 @@
 `import ApplicationAdapter from './application'`
-`import URLQueryParamsMixin from '../mixins/url-query-params'`
 
-SmartlinkControllerAdapter = ApplicationAdapter.extend URLQueryParamsMixin,
+SmartlinkControllerAdapter = ApplicationAdapter.extend
   pathForType: -> 'controllers'
 
   find: (store, type, id, snapshot) ->
     url = @buildURL(type.typeKey, id, snapshot)
-    url = @addQueryParams(url, @customQueryParams)
-    @ajax(url, 'GET')
+    @ajax(url, 'GET', data: @customQueryParams)
 
   customQueryParams:
     embed_zones: 'true'

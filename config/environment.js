@@ -78,7 +78,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'staging') {
-    ENV.apiUrl = 'http://sln-mobile-ember-staging.herokuapp.com';
+    ENV.apiUrl = 'https://staging.smartlinknetwork.com';
     ENV.staging = true;
   }
 

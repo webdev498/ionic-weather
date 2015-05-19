@@ -11,17 +11,6 @@ ApplicationAdapter = DS.RESTAdapter.extend
   host: host
   namespace: 'api/v2'
 
-  ajaxOptions: (url, type, options) ->
-    options = options || {}
-    options.data = options.data || {}
-
-    extraQueryParams = {
-      timestamp: new Date().getTime()
-    }
-
-    Ember.merge(options.data, extraQueryParams)
-    this._super(url, type, options)
-
   ajaxSuccess: (xhr, json) ->
     #
     # Weathermatic API responses are wrapped in an object called `result`, e.g.
@@ -42,5 +31,15 @@ ApplicationAdapter = DS.RESTAdapter.extend
     json.result.meta = json.meta
     delete json.meta
     json.result
+
+  ajaxOptions: (url, type, options) ->
+    this._super(arguments...)
+    hash = this._super(arguments...)
+    @addTimestamp(hash)
+    return hash
+
+  addTimestamp: (options) ->
+    Ember.merge(options.data, timestamp: new Date().getTime())
+
 
 `export default ApplicationAdapter`

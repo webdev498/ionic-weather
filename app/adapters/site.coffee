@@ -1,11 +1,9 @@
 `import ApplicationAdapter from './application'`
-`import URLQueryParamsMixin from '../mixins/url-query-params'`
 
-SitesAdapter = ApplicationAdapter.extend URLQueryParamsMixin,
+SitesAdapter = ApplicationAdapter.extend
   find: (store, type, id, snapshot) ->
     url = @buildURL(type.typeKey, id, snapshot)
-    url = @addQueryParams(url, @customQueryParams)
-    @ajax(url, 'GET')
+    @ajax(url, 'GET', data: @customQueryParams)
 
   findHasMany: (store, snapshot, url, relationship) ->
     switch relationship.key
@@ -23,10 +21,10 @@ SitesAdapter = ApplicationAdapter.extend URLQueryParamsMixin,
 
     extraParams = store.adapterFor('smartlink-controller').get('customQueryParams')
 
-    url = @addQueryParams(url, extraParams)
-    @ajax(this.urlPrefix(url, this.buildURL(type, id)), 'GET')
+    @ajax(this.urlPrefix(url, this.buildURL(type, id)), 'GET', data: extraParams)
 
   customQueryParams:
     embed_controllers: 'false'
+    wrap_result: 'true'
 
 `export default SitesAdapter`
