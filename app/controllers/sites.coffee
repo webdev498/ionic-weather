@@ -5,7 +5,11 @@ SitesController = Ember.Controller.extend
 
   sites: Ember.inject.service('sites')
 
+  application: Ember.inject.controller('application')
+
   nextPageToLoad: 2
+
+  openOptionsMenu: false
 
   openSortOptions: false
 
@@ -104,10 +108,28 @@ SitesController = Ember.Controller.extend
         .finally ->
           controller.set 'isLoading', false
 
+    openOptionsMenu: ->
+      @set('openOptionsMenu', true)
+
+    logOut: ->
+      @send('closeAllMenus')
+      @get('application').send('logOut')
+
+    syncSites: ->
+      @send('closeAllMenus')
+      @send('refreshData')
+
+    closeOptionsMenu: ->
+      @send('closeAllMenus')
+
     openSortOptions: ->
       @set('openSortOptions', true)
 
     closeSortOptions: ->
+      @send('closeAllMenus')
+
+    closeAllMenus: ->
+      @set('openOptionsMenu', false)
       @set('openSortOptions', false)
 
     setSortMethod: (sortMethod) ->

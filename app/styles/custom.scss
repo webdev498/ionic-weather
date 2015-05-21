@@ -168,3 +168,24 @@
 .weathermatic-content {
   padding-top: 54px !important;
 }
+
+
+#login-form {
+  margin-top: 3em;
+}
+
+.login-help {
+  margin-top: 1em;
+}
+
+.errors {
+  color: #fff;
+  background-color: #c9302c;
+  border: 1px solid #d9534f;
+  border-radius: 3px;
+  padding: 0.5em;
+
+  .messages {
+    color: inherit;
+  }
+}

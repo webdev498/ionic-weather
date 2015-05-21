@@ -2,6 +2,7 @@
 `import config from './config/environment';`
 
 Router = Ember.Router.extend(location: config.locationType).map ->
+  @route 'login'
   @resource 'sites'
   @resource 'site', path: 'sites/:siteId', ->
     @resource 'smartlink-controller', path: 'controllers/:controllerId', ->

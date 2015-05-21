@@ -1,0 +1,51 @@
+<header class="bar bar-nav weathermatic-header">
+  <div class="weathermatic-logo-container">
+    <img src="assets/images/sl-logo.png" class="weathermatic-logo">
+  </div>
+</header>
+
+<div class="content weathermatic-content">
+  <div class="content-padded">
+    <form id="login-form" {{action 'logIn' on='submit'}}>
+      <center>
+        <h2>
+          {{fa-icon 'key'}} Please log in
+        </h2>
+        <br>
+        {{input type='email' placeholder='Email' value=email required=true}}
+        {{input type='password' placeholder='Password' value=password required=true}}
+        <button class="btn btn-block btn-positive" {{bind-attr disabled=isLoading}}>
+          {{#if hasErrored}}
+            Retry
+          {{else}}
+            Log In
+          {{/if}}
+
+          {{#if isLoading}}
+            {{fa-icon 'spinner fa-pulse'}}
+          {{else}}
+            {{fa-icon 'sign-in'}}
+          {{/if}}
+        </button>
+        {{#if isError}}
+          <div class="errors">
+            <center>
+              <h4>{{fa-icon 'warning'}} Login failed</h4>
+            </center>
+            <p class="messages">Please check your email and password</p>
+          </div>
+        {{/if}}
+        <p class="login-help">If you don't have an account yet, please go to <strong>smartlinknetwork.com</strong> and sign up.</p>
+      </center>
+    </form>
+  </div>
+</div>
+
+<div id="login-success" {{bind-attr class=':modal isSuccess:active'}}>
+  <div class="content-padded loading-icon">
+    <br>
+    <h1>
+      <center>{{fa-icon 'spinner fa-pulse'}} Loading…</center>
+    </h1>
+  </div>
+</div>

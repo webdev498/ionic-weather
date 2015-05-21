@@ -1,15 +1,17 @@
 `import Ember from 'ember';`
+`import ApplicationRouteMixin from 'simple-auth/mixins/application-route-mixin'`
 
-ApplicationRoute = Ember.Route.extend
+ApplicationRoute = Ember.Route.extend ApplicationRouteMixin,
   sites: Ember.inject.service('sites')
-
-  model: ->
-    @get('sites').lookupSites().then (sites) ->
-      window.SlnMobileEmber.set('cachedSites', sites)
-      return sites
 
   actions:
     openLink: (url) ->
       window.open url, '_system'
+
+    logOut: ->
+      @get('session').invalidate()
+
+    sessionInvalidationSucceeded: ->
+      @transitionTo('login')
 
 `export default ApplicationRoute`

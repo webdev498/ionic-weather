@@ -49,6 +49,13 @@ module.exports = function(environment) {
     sitesPageSize: 20
   };
 
+  ENV['simple-auth'] = {
+    authorizer: 'authorizer:weathermatic',
+
+    // TODO: restrict to api url:
+    crossOriginWhitelist: ['*']
+  };
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
