@@ -29,8 +29,8 @@ AuthenticationMixin = Ember.Mixin.create
     CryptoJS.HmacSHA256(content, SLNAS).toString(CryptoJS.enc.Base64)
 
   buildHmacContent: (options) ->
+    return options.data if typeof(options.data) is 'string'
     if options.type is 'GET'
-      return options.data if typeof(options.data) is 'string'
       Ember.$.param(options.data)
     else
       JSON.stringify(options.data)
