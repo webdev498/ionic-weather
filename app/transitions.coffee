@@ -7,6 +7,11 @@ Transitions = ->
   )
 
   @transition(
+    @fromRoute 'loading'
+    @use 'toUp'
+  )
+
+  @transition(
     @fromRoute 'site.index'
     @toRoute 'smartlink-controller'
     @use 'toLeft'
