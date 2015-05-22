@@ -83,9 +83,8 @@ SitesController = Ember.Controller.extend
       options = {}
       options.search = @get('search') if @get('isSearchEnabled')
 
-      @get('sites').lookupSites(options)
+      @get('sites').lookupAndCacheSites(options)
         .then (sites) ->
-          window.SlnMobileEmber.set('cachedSites', sites)
           controller.set('model', sites)
         .finally ->
           controller.set('isLoading', false)

@@ -9,6 +9,11 @@ SitesService = Ember.Service.extend
 
   store: Ember.inject.service('store')
 
+  lookupAndCacheSites: (options) ->
+    @lookupSites(options).then (sites) ->
+      window.SlnMobileEmber.set('cachedSites', sites)
+      return sites
+
   lookupSites: (options = {}) ->
     page = options.page or 1
     perPage = options.perPage or @get('config.sitesPageSize')
