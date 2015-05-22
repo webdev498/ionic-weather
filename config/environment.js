@@ -49,13 +49,6 @@ module.exports = function(environment) {
     sitesPageSize: 20
   };
 
-  ENV['simple-auth'] = {
-    authorizer: 'authorizer:weathermatic',
-
-    // TODO: restrict to api url:
-    crossOriginWhitelist: ['*']
-  };
-
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -94,6 +87,12 @@ module.exports = function(environment) {
     ENV.apiUrl = 'http://sln-mobile-ember.herokuapp.com';
     ENV.production = true;
   }
+
+  ENV['simple-auth'] = {
+    authorizer: 'authorizer:weathermatic',
+    crossOriginWhitelist: [ENV.apiUrl]
+  };
+
 
   return ENV;
 };
