@@ -38,9 +38,12 @@ WeathermaticAuthenticator = Base.extend AuthenticationMixin,
           })
         error: (xhr, status, error) ->
           if (xhr.status is 401) or (xhr.status is 403)
-            reject(xhr.responseJSON)
+            reject({
+              type: 'badCredentials'
+              responseData: xhr.responseJSON
+            })
           else
-            throw new Error("Unexpected response from server during authentication: #{xhr.status}, #{error}")
+            reject(new Error("Unexpected response from server during authentication: #{xhr.status}, #{error}"))
       )
 
 `export default WeathermaticAuthenticator`

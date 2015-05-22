@@ -6,7 +6,7 @@ SLNAS = '52834b76a803eb35706701fa71c7ac79'
 AuthenticationMixin = Ember.Mixin.create
   verifyTimestamp: (data) ->
     if typeof(data) is 'string'
-      data = parseQueryParams(data)
+      data = @parseQueryParams(data)
     unless data.timestamp
       throw new Error('AJAX requests must include a `timestamp` query param')
 
@@ -22,6 +22,7 @@ AuthenticationMixin = Ember.Mixin.create
     xhr.setRequestHeader('x-api-hmac', @buildHmacSignature(options))
 
   buildHmacSignature: (options) ->
+    @verifyTimestamp(options.data)
     content = @buildHmacContent(options)
     @signHmacContent(content)
 

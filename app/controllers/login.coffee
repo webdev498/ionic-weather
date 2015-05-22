@@ -18,14 +18,17 @@ LoginController = Ember.Controller.extend
         email:    @get('email')
         password: @get('password')
       })
-      .then( (resp) ->
+      .then (resp) ->
         self.set('isError', false)
         self.set('password', null)
         self.set('isSuccess', true)
-      )
-      .catch ->
-        self.set('isError', true)
-        self.set('hasErrored', true)
+      .catch (error) ->
+        if error.type is 'badCredentials'
+          self.set('isError', true)
+          self.set('hasErrored', true)
+        else
+          alert 'There was a problem communicating with our servers.  Please try again later.'
+          Ember.Logger.error(error)
       .finally ->
         self.set('isLoading', false)
 
