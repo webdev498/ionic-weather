@@ -33,13 +33,24 @@ ApplicationAdapter = DS.RESTAdapter.extend
     json.result
 
   ajaxOptions: (url, type, options) ->
-    this._super(arguments...)
-    hash = this._super(arguments...)
-    @addTimestamp(hash)
+    hash = this._super(arguments...) or {}
+    @addStandardParams(hash)
     return hash
 
-  addTimestamp: (options) ->
-    Ember.merge(options.data, timestamp: new Date().getTime())
+  addStandardParams: (options) ->
+    options.data = options.data or {}
+    Ember.merge(options.data, {
+      timestamp: new Date().getTime()
+      wrap_result: true
+    })
+
+  findHasManyWithExtraParams: (store, snapshot, url, relationship, extraParams) ->
+    host = Ember.get(this, 'host')
+    id   = snapshot.id
+    type = snapshot.typeKey
+    if host and url.charAt(0) is '/' and url.charAt(1) is not '/'
+      url = "#{host}#{url}"
+    @ajax(this.urlPrefix(url, this.buildURL(type, id)), 'GET', data: extraParams)
 
 
 `export default ApplicationAdapter`

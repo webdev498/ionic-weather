@@ -195,3 +195,17 @@
   top: 50%;
   transform: translateY(-50%)
 }
+
+.weathermatic-instruction-icon {
+  margin-right: 12px;
+  display: inline;
+}
+
+.weathermatic-disabled {
+  color: #999;
+}
+
+.weathermatic-badge-warning {
+  color: #fff;
+  background-color: #f0ad4e;
+}

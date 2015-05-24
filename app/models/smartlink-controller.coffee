@@ -18,10 +18,11 @@ SmartlinkController = DS.Model.extend
   rainFreezeSensorMode: DS.attr 'number'
   weatherStatus:        DS.attr 'number'
   canRunCommands:       DS.attr 'boolean'
-  site:                 DS.belongsTo 'site',  async: false
-  faults:               DS.hasMany 'fault',   async: false
-  programs:             DS.hasMany 'program', async: false
-  zones:                DS.hasMany 'zone',    async: false
+  site:                 DS.belongsTo 'site',      async: true
+  faults:               DS.hasMany 'fault',       async: false
+  programs:             DS.hasMany 'program',     async: false
+  zones:                DS.hasMany 'zone',        async: false
+  instructions:         DS.hasMany 'instruction', async: true
 
   isRunning: Ember.computed 'status', ->
     @get('runStatus') is RUN_STATUS_ACTIVE

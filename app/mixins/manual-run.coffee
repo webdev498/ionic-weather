@@ -54,7 +54,6 @@ ManualRunMixin = Ember.Mixin.create
       .catch (reason)->
         syncFailed(reason)
       .finally ->
-        self.set 'isLoading', false
         Ember.run.cancel(timeoutWatcher)
 
     manualRunPromise

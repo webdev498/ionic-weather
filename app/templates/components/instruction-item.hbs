@@ -1,0 +1,18 @@
+<div class="medial-object pull-left weathermatic-instruction-icon">
+  {{fa-icon iconName}}
+</div>
+<div class="media-body">
+  {{instruction.typeCommonName}}
+  {{#if instruction.isCommand}}
+    &mdash; {{instruction.action}}
+  {{/if}}
+
+  <p><small>
+    {{#if instruction.startedAt}}
+      {{instruction.startedAt}}
+    {{else}}
+      Run time unknown
+    {{/if}}
+  </small></p>
+</div>
+<span {{bind-attr class='statusCssClass :badge :pull-right'}}>{{instruction.status}}</span>

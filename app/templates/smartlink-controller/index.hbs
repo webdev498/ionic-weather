@@ -3,7 +3,7 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
   <h1 class="title">{{fa-icon 'signal'}} {{short-text model.site.name size=10}} - {{short-text model.name size=10}}</h1>
-  <a href="javascript:void(0)" class="icon icon-refresh pull-right" {{action 'refreshData'}}></a>
+  <a href="javascript:void(0)" class="icon icon-gear pull-right" {{action 'openOptionsMenu'}}></a>
 </header>
 
 
@@ -116,4 +116,38 @@
       {{/if}}
     </div>
   {{/if}}
+</div>
+
+<div id="options-menu" {{bind-attr class=':modal openOptionsMenu:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeOptionsMenu'}}></a>
+    <h1 class="title">{{fa-icon 'gear'}} Advanced Options</h1>
+  </header>
+
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.comm-log' class='navigate-right'}}
+          <div class="media-body">
+            <h2>{{fa-icon 'list'}} Comm Log</h2>
+            <p>View currently running and recent commands</p>
+          </div>
+        {{/link-to}}
+      </li>
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" {{action 'refreshData'}}>
+          <div class="media-body">
+            <h2>{{fa-icon 'refresh'}} Re-sync</h2>
+            <p>Refresh with the latest data from our servers</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+
+    <div class="content-padded">
+      <button class="btn btn-negative btn-block" {{action 'closeOptionsMenu'}}>
+        {{fa-icon 'times-circle'}} Close
+      </button>
+    </div>
+  </div>
 </div>

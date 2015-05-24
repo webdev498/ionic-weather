@@ -1,5 +1,6 @@
 `import Ember from 'ember'`
+`import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin'`
 
-SmartlinkControllerClearFaultsRoute = Ember.Route.extend()
+SmartlinkControllerClearFaultsRoute = Ember.Route.extend(AuthenticatedRouteMixin)
 
 `export default SmartlinkControllerClearFaultsRoute`

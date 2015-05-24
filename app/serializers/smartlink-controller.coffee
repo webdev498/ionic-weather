@@ -4,7 +4,7 @@ SmartlinkControllerSerializer = DS.ActiveModelSerializer.extend DS.EmbeddedRecor
   attrs:
     site:
       serialize: 'id'
-      deserialize: 'records'
+      deserialize: 'id'
     programs:
       serialize: false
       deserialize: 'records'

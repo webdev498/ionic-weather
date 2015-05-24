@@ -19,7 +19,7 @@ Transitions = ->
   )
 
   @transition(
-    @fromRoute 'smartlink-controller.index'
+    @fromRoute ['smartlink-controller.index', 'smartlink-controller.comm-log'],
     @toRoute [
       'smartlink-controller.select-program'
       'smartlink-controller.select-zone'
@@ -27,6 +27,7 @@ Transitions = ->
       'smartlink-controller.walk-site'
       'smartlink-controller.stop-all'
       'smartlink-controller.clear-faults'
+      'smartlink-controller.comm-log'
     ]
     @use 'toLeft'
     @reverse 'toRight'
