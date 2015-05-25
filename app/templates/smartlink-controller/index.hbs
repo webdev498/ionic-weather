@@ -127,12 +127,12 @@
   <div class="content weathermatic-content">
     <ul class="table-view">
       <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.comm-log' class='navigate-right'}}
+        <a href="javascript:void(0)" {{action 'openCommLog'}}>
           <div class="media-body">
             <h2>{{fa-icon 'list'}} Comm Log</h2>
             <p>View currently running and recent commands</p>
           </div>
-        {{/link-to}}
+        </a>
       </li>
       <li class="table-view-cell">
         <a href="javascript:void(0)" {{action 'refreshData'}}>
@@ -149,5 +149,28 @@
         {{fa-icon 'times-circle'}} Close
       </button>
     </div>
+  </div>
+</div>
+
+<div id="comm-log" {{bind-attr class=':modal openCommLog:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <h1 class="title">{{fa-icon 'list'}} {{short-text model.name size=10}} - Comm Log</h1>
+    <a href="javascript:void(0)" {{action 'closeCommLog'}}>
+      <span class="icon icon-close pull-right"></span>
+    </a>
+  </header>
+
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+      {{#each instruction in model.instructions}}
+        {{instruction-item instruction=instruction}}
+      {{else}}
+        <li class="table-view-cell">
+          <center>
+            {{fa-icon 'times'}} No history for this controller
+          </center>
+        </li>
+      {{/each}}
+    </ul>
   </div>
 </div>

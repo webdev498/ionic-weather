@@ -3,6 +3,7 @@
 SmartlinkControllerIndexView = Ember.View.extend
   didInsertElement: ->
     @setupPullToRefresh()
+    @setupCommLog()
 
   setupPullToRefresh: ->
     view = this
@@ -20,5 +21,14 @@ SmartlinkControllerIndexView = Ember.View.extend
         <div class="triangle-down"></div>
       </div>
     '
+
+  setupCommLog: ->
+    if @get('controller.showCommLog')
+      openCommLog = ->
+        @get('controller').setProperties({
+          openCommLog: true
+          showCommLog: false
+        })
+      Ember.run.later(this, openCommLog, 500)
 
 `export default SmartlinkControllerIndexView`

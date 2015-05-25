@@ -16,6 +16,5 @@ Router = Ember.Router.extend(location: config.locationType).map ->
       @route 'stop-all'
       @route 'clear-faults'
       @route 'command-success'
-      @route 'comm-log'
 
 `export default Router`

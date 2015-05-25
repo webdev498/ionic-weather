@@ -3,11 +3,19 @@
 SmartlinkControllerIndexController = Ember.Controller.extend
   application: Ember.inject.controller('application')
 
+  queryParams: ['showCommLog']
+
   openOptionsMenu: false
+
+  showCommLog: false
+
+  # TODO: rename to isCommLogOpen
+  openCommLog: false
 
   setDefaults: ->
     @setProperties(
       openOptionsMenu: false
+      openCommLog: false
     )
 
   actions:
@@ -15,10 +23,19 @@ SmartlinkControllerIndexController = Ember.Controller.extend
       @set('openOptionsMenu', true)
 
     closeOptionsMenu: ->
-      @set('openOptionsMenu', false)
+      @send('closeAllModals')
 
-    logOut: ->
+    openCommLog: ->
+      @set('openCommLog', true)
 
+    closeCommLog: ->
+      @send('closeAllModals')
+
+    closeAllModals: ->
+      @setProperties({
+        openOptionsMenu: false,
+        openCommLog: false
+      })
 
     refreshData: ->
       controller = this
