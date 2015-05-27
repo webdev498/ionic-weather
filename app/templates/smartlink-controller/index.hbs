@@ -152,7 +152,7 @@
   </div>
 </div>
 
-<div id="comm-log" {{bind-attr class=':modal openCommLog:active'}}>
+<div id="comm-log" {{bind-attr class=':modal isCommLogOpen:active'}}>
   <header class="bar bar-nav weathermatic-header">
     <h1 class="title">{{fa-icon 'list'}} {{short-text model.name size=10}} - Comm Log</h1>
     <a href="javascript:void(0)" {{action 'closeCommLog'}}>

@@ -2,16 +2,25 @@
 `import ManualRunMixin from '../../mixins/manual-run'`
 
 SmartlinkControllerLocateValvesController = Ember.Controller.extend ManualRunMixin,
+  needs: ['smartlinkController']
+
+  smartlinkController: Ember.computed.alias 'controllers.smartlinkController.model'
+
   actions:
     locateValves: ->
-      controller = this
+      self = this
 
       params = {
         valve_zone: @get('model.number')
       }
 
-      @submitManualRun(params).then ->
-        controller.transitionToRoute('smartlink-controller.command-success')
+      Ember.RSVP.all([
+        @submitManualRun(params),
+        self.get('smartlinkController.instructions').reload()
+      ]).then ->
+        self.transitionToRoute('smartlink-controller.index', queryParams: {
+          showCommLog: true
+        })
 
 
 `export default SmartlinkControllerLocateValvesController`

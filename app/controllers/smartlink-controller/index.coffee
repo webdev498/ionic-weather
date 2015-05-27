@@ -9,14 +9,35 @@ SmartlinkControllerIndexController = Ember.Controller.extend
 
   showCommLog: false
 
-  # TODO: rename to isCommLogOpen
-  openCommLog: false
+  isCommLogOpen: false
 
   setDefaults: ->
     @setProperties(
       openOptionsMenu: false
-      openCommLog: false
+      isCommLogOpen: false
     )
+
+  isCommLogOpenDidChange: Ember.observer 'isCommLogOpen', ->
+    if @get('isCommLogOpen')
+      @startPollingCommLog()
+    else
+      @stopPollingCommLog()
+
+  startPollingCommLog: ->
+    self = this
+    Ember.Logger.debug('Starting comm log poll')
+    intervalId = setInterval ->
+      Ember.Logger.debug('Polling comm log')
+      self.get('model.instructions').reload()
+    , 3000
+    @set('commLogPollingIntervalId', intervalId)
+
+  stopPollingCommLog: ->
+    Ember.Logger.debug('Stopping comm log poll')
+    intervalId = @get('commLogPollingIntervalId')
+    return unless intervalId
+    clearInterval(intervalId)
+    @set('commLogPollingIntervalId', null)
 
   actions:
     openOptionsMenu: ->
@@ -26,7 +47,7 @@ SmartlinkControllerIndexController = Ember.Controller.extend
       @send('closeAllModals')
 
     openCommLog: ->
-      @set('openCommLog', true)
+      @set('isCommLogOpen', true)
 
     closeCommLog: ->
       @send('closeAllModals')
@@ -34,7 +55,7 @@ SmartlinkControllerIndexController = Ember.Controller.extend
     closeAllModals: ->
       @setProperties({
         openOptionsMenu: false,
-        openCommLog: false
+        isCommLogOpen: false
       })
 
     refreshData: ->

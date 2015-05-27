@@ -4,14 +4,19 @@
 SmartlinkControllerRunProgramController = Ember.Controller.extend ManualRunMixin,
   actions:
     runProgram: ->
-      controller = this
+      self = this
 
       params = {
         program: @get('programNumber')
       }
 
-      @submitManualRun(params).then ->
-        controller.transitionToRoute('smartlink-controller.command-success')
+      Ember.RSVP.all([
+        @submitManualRun(params),
+        self.get('smartlinkController.instructions').reload()
+      ]).then ->
+        self.transitionToRoute('smartlink-controller.index', queryParams: {
+          showCommLog: true
+        })
 
   cssClass: Ember.computed 'model.identifier', ->
     "weathermatic-btn-run-program-#{@get('model.identifier').toLowerCase()}"

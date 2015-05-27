@@ -26,7 +26,7 @@ SmartlinkControllerIndexView = Ember.View.extend
     if @get('controller.showCommLog')
       openCommLog = ->
         @get('controller').setProperties({
-          openCommLog: true
+          isCommLogOpen: true
           showCommLog: false
         })
       Ember.run.later(this, openCommLog, 500)

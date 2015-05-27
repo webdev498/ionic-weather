@@ -5,15 +5,21 @@
 SmartlinkControllerRunZoneController = Ember.Controller.extend ManualRunMixin,
   actions:
     runZone: ->
-      controller = this
+      self = this
 
       params = {
         zone: @get('model.number')
         run_time: @get('runTimeMinutesTotal')
       }
 
-      @submitManualRun(params).then (response) ->
-        controller.transitionToRoute('smartlink-controller.command-success')
+      Ember.RSVP.all([
+        @submitManualRun(params),
+        self.get('smartlinkController.instructions').reload()
+      ]).then ->
+        self.transitionToRoute('smartlink-controller.index', queryParams: {
+          showCommLog: true
+        })
+
 
   runTimeHours: 0
 

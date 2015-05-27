@@ -8,15 +8,12 @@ SmartlinkControllerClearFaultsController = Ember.Controller.extend ManualRunMixi
 
   actions:
     clearFaults: ->
-      controller = this
+      self = this
 
-      params = {
-        clear_all_faults: true
-      }
-
-      @submitManualRun(params).then ->
-        controller.get('smartlinkController').reload()
-        controller.get('smartlinkController.site').reload()
-        controller.transitionToRoute('smartlink-controller.command-success')
+      Ember.RSVP.all([
+        @submitManualRun(clear_all_faults: true),
+        self.get('smartlinkController').reload()
+      ]).then ->
+        self.transitionToRoute('smartlink-controller.index')
 
 `export default SmartlinkControllerClearFaultsController`
