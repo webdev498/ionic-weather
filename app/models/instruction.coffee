@@ -25,6 +25,12 @@ Instruction = DS.Model.extend
   isError:    Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_ERROR
   isFinished: Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_FINISHED
 
+  isInProgress: Ember.computed 'statusId', 'isOvernight', ->
+    status = @get('statusId')
+    (status is Instruction.STATUS_PENDING and not @get('isOvernight')) \
+    or (status is Instruction.STATUS_QUEUED) \
+    or (status is Instruction.STATUS_LOCKED) # locked means currently being processed
+
 Instruction.reopenClass
   STATUS_PENDING:   0
   STATUS_QUEUED:    1

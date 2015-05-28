@@ -16,7 +16,7 @@
   </small></p>
 </div>
 <span {{bind-attr class='statusCssClass :badge :pull-right'}}>
-  {{#if instruction.isPending}}
+  {{#if instruction.isInProgress}}
     {{fa-icon 'gear fa-spin'}}
   {{/if}}
   {{instruction.status}}
