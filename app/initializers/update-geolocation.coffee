@@ -13,6 +13,7 @@ initialize = (container, _app) ->
     startUpdateLoop()
   else
     document.addEventListener('deviceready', startUpdateLoop, false)
+    document.addEventListener('resume', updateGeolocation, false)
 
 UpdateGeolocationInitializer =
   name: 'update-geolocation'
