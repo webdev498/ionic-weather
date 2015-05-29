@@ -18,6 +18,7 @@ SmartlinkControllerAdapter = ApplicationAdapter.extend CurrentUserMixin,
     extraParams = {
       embed_controller: false
       hide_admin_instructions: not @get('isLoggedInAsAdmin')
+      hide_overnight_instructions: true
       datetime_format: '%b %d %l:%M %P (%Z)'
     }
     @findHasManyWithExtraParams(store, snapshot, url, relationship, extraParams)
