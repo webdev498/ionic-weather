@@ -4,6 +4,6 @@ Zone = DS.Model.extend
   number: DS.attr 'number'
   description: DS.attr 'string'
 
-  smartlinkController: DS.belongsTo 'smartlinkController', async: true
+  smartlinkController: DS.belongsTo 'smartlinkController', async: false
 
 `export default Zone`

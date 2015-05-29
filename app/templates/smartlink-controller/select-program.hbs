@@ -19,6 +19,17 @@
         {{/link-to}}
         <br>
       </li>
+    {{else}}
+      <li class="table-view-cell weathermatic-error-list-item">
+        <center>
+          <h1 class="weathermatic-warning-icon">
+            {{fa-icon 'warning fa-3x'}}
+          </h1>
+          <h4>
+            No programs set up for this controller
+          </h4>
+        </center>
+      </li>
     {{/each}}
   </ul>
 

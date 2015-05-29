@@ -12,7 +12,8 @@ Router = Ember.Router.extend(location: config.locationType).map ->
       @route 'run-zone', path: 'run-zone/:zoneId'
       @route 'select-valves'
       @route 'locate-valves', path: 'locate-valves/:zoneId'
-      @route 'walk-site'
+      @route 'walk-site', ->
+        @route 'zone', path: 'zone/:zoneId'
       @route 'stop-all'
       @route 'clear-faults'
       @route 'command-success'

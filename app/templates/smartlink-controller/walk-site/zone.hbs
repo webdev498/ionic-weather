@@ -1,0 +1,88 @@
+{{#liquid-with model as model use=transition}}
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{fa-icon 'signal'}} {{short-text model.smartlinkController.site.name size=10}} - Walk Site</h1>
+  <a href="javascript:void(0)" class="icon icon-gear pull-right" {{action 'openOptionsMenu'}}></a>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'male'}} Walk Site
+    </li>
+    <li class="table-view-cell">
+      Site <button class="btn btn-outlined btn-primary"> {{fa-icon 'building'}} {{model.smartlinkController.site.name}}</button>
+    </li>
+    <li class="table-view-cell">
+      Controller <button class="btn btn-outlined btn-primary"> {{fa-icon 'signal'}} {{model.smartlinkController.name}}</button>
+    </li>
+  </ul>
+
+  <div class="content-padded">
+    <span class="btn btn-block btn-primary btn-outlined">
+      <h3>
+        {{fa-icon 'male'}} Zone {{model.number}}
+      </h3>
+      <p>{{model.description}}</p>
+    </span>
+
+    <center class="walk-site-controls">
+      <button class="btn btn-block btn-positive walk-site-control" {{action 'start'}}>
+        {{fa-icon 'play'}} Start
+      </button>
+
+      <button class="btn btn-block btn-negative walk-site-control" {{action 'stop'}}>
+        {{fa-icon 'stop'}} Stop
+      </button>
+    </center>
+  </div>
+
+  {{#if isPreviousZoneAvailable}}
+    <button class="walk-site-prev-zone" {{action 'goToPreviousZone'}}>
+      <span class="icon icon-left-nav"></span>
+    </button>
+  {{/if}}
+
+  {{#if isNextZoneAvailable}}
+    <button class="walk-site-next-zone" {{action 'goToNextZone'}}>
+      <span class="icon icon-right-nav"></span>
+    </button>
+  {{/if}}
+</div>
+{{/liquid-with}}
+
+<div id="options-menu" {{bind-attr class=':modal isOptionsMenuOpen:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeOptionsMenu'}}></a>
+    <h1 class="title">{{fa-icon 'gear'}} Advanced Options</h1>
+  </header>
+
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" {{action 'openCommLog'}}>
+          <div class="media-body">
+            <h2>{{fa-icon 'list'}} Comm Log</h2>
+            <p>View currently running and recent commands</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+
+    <div class="content-padded">
+      <button class="btn btn-negative btn-block" {{action 'closeOptionsMenu'}}>
+        {{fa-icon 'times-circle'}} Close
+      </button>
+    </div>
+  </div>
+</div>
+
+{{loading-modal isLoading=isLoading}}
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{comm-log smartlinkController=model.smartlinkController close='commLogClosed' actionReceiver=commLog}}
