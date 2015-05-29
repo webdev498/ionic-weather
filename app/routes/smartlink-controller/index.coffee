@@ -7,6 +7,6 @@ SmartlinkControllerIndexRoute = Ember.Route.extend AuthenticatedRouteMixin,
     controller.setDefaults()
 
   deactivate: ->
-    @controller.stopPollingCommLog()
+    @controller.get('commLog').send('stopPolling')
 
 `export default SmartlinkControllerIndexRoute`

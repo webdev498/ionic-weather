@@ -43,6 +43,7 @@
     "liquid-fire": "^0.19.3"
   },
   "dependencies": {
+    "ember-component-inbound-actions": "0.0.3",
     "ember-inflector": "^1.6.1"
   }
 }

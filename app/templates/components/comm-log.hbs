@@ -1,0 +1,22 @@
+<div id="comm-log" {{bind-attr class=':modal isOpen:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <h1 class="title">{{fa-icon 'list'}} {{short-text smartlinkController.name size=10}} - Comm Log</h1>
+    <a href="javascript:void(0)" {{action 'close'}}>
+      <span class="icon icon-close pull-right"></span>
+    </a>
+  </header>
+
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+      {{#each instruction in smartlinkController.instructions}}
+        {{instruction-item instruction=instruction}}
+      {{else}}
+        <li class="table-view-cell">
+          <center>
+            {{fa-icon 'times'}} No history for this controller
+          </center>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
