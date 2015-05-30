@@ -1,46 +1,24 @@
 `import Ember from 'ember'`
 
-isCordova = ->
-  not (typeof Cordova is 'undefined')
-
 initialize = (_container, _app) ->
   return unless console?
 
-  origLog = Ember.Logger.log
-  origInfo = Ember.Logger.info
-  origDebug = Ember.Logger.debug
-  origWarn = Ember.Logger.warn
-  origError = Ember.Logger.error
+  return if (typeof(window.cordova) is 'undefined')
 
   Ember.Logger.log = ->
-    if isCordova()
-      console.log("[LOG] #{arguments[0]}")
-    else
-      origLog(arguments...)
+    console.log("[LOG] #{arguments[0]}")
 
   Ember.Logger.info = ->
-    if isCordova()
-      console.log("[LOG] #{arguments[0]}")
-    else
-      origInfo(arguments...)
+    console.log("[INFO] #{arguments[0]}")
 
   Ember.Logger.debug = ->
-    if isCordova()
-      console.log("[DEBUG] #{arguments[0]}")
-    else
-      origDebug(arguments...)
+    console.log("[DEBUG] #{arguments[0]}")
 
   Ember.Logger.warn = ->
-    if isCordova()
-      console.log("[WARN] #{arguments[0]}")
-    else
-      origWarn(arguments...)
+    console.log("[WARN] #{arguments[0]}")
 
   Ember.Logger.error = ->
-    if isCordova()
-      console.log("[ERROR] #{arguments[0]}")
-    else
-      origError(arguments...)
+    console.log("[ERROR] #{arguments[0]}")
 
 CordovaLoggingInitializer =
   name: 'cordova-logging'
