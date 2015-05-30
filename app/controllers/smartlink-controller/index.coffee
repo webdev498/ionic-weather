@@ -26,8 +26,10 @@ SmartlinkControllerIndexController = Ember.Controller.extend
       @send('closeOptionsMenu')
 
     refreshData: ->
-      controller = this
+      self = this
+      @send 'closeOptionsMenu'
       @set 'isLoading', true
-      @get('model').reload().finally -> controller.set 'isLoading', false
+      @get('model').reload().finally ->
+        self.set 'isLoading', false
 
 `export default SmartlinkControllerIndexController`
