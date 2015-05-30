@@ -2,7 +2,22 @@
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-var app = new EmberApp();
+var supportedMobilePlatforms = ['android', 'ios'];
+var mobilePlatform = process.env.MOBILE_PLATFORM;
+
+var options = {};
+
+if (mobilePlatform) {
+  if (supportedMobilePlatforms.indexOf(mobilePlatform) < 0) {
+    console.warn('Unknown mobile platform: ' + mobilePlatform);
+  } else {
+    options['ember-cli-ratchet'] = {
+      'theme': mobilePlatform.toLowerCase()
+    };
+  }
+}
+
+var app = new EmberApp(options);
 
 // Use `app.import` to add additional libraries to the generated
 // output files.
