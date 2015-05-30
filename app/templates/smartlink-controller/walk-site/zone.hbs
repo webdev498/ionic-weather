@@ -3,8 +3,8 @@
   {{#link-to 'smartlink-controller' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'signal'}} {{short-text model.smartlinkController.site.name size=10}} - Walk Site</h1>
   <a href="javascript:void(0)" class="icon icon-gear pull-right" {{action 'openOptionsMenu'}}></a>
+  <h1 class="title">{{fa-icon 'signal'}} {{short-text model.smartlinkController.site.name size=10}} - Walk Site</h1>
 </header>
 
 <div class="content weathermatic-content">
@@ -27,7 +27,9 @@
       </h3>
       <p>{{model.description}}</p>
     </span>
+  </div>
 
+  <div class="walk-site-nav-container">
     <center class="walk-site-controls">
       <button class="btn btn-block btn-positive walk-site-control" {{action 'start'}}>
         {{fa-icon 'play'}} Start
@@ -37,19 +39,19 @@
         {{fa-icon 'stop'}} Stop
       </button>
     </center>
+
+    {{#if isPreviousZoneAvailable}}
+      <button class="walk-site-prev-zone" {{action 'goToPreviousZone'}}>
+        <span class="icon icon-left-nav"></span>
+      </button>
+    {{/if}}
+
+    {{#if isNextZoneAvailable}}
+      <button class="walk-site-next-zone" {{action 'goToNextZone'}}>
+        <span class="icon icon-right-nav"></span>
+      </button>
+    {{/if}}
   </div>
-
-  {{#if isPreviousZoneAvailable}}
-    <button class="walk-site-prev-zone" {{action 'goToPreviousZone'}}>
-      <span class="icon icon-left-nav"></span>
-    </button>
-  {{/if}}
-
-  {{#if isNextZoneAvailable}}
-    <button class="walk-site-next-zone" {{action 'goToNextZone'}}>
-      <span class="icon icon-right-nav"></span>
-    </button>
-  {{/if}}
 </div>
 {{/liquid-with}}
 

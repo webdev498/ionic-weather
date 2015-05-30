@@ -112,6 +112,10 @@
   color: #fff;
   height: 65px;
 
+  &.bar {
+    border-bottom: none;
+  }
+
   .weathermatic-logo {
     margin-top: 13px;
     width: 180px;
@@ -210,49 +214,62 @@
   background-color: #f0ad4e;
 }
 
-.walk-site-next-zone {
+.walk-site-nav-container {
+  margin-top: 2em;
+}
+
+$walk-site-zone-nav-border-color: #ddd;
+
+.walk-site-zone-nav {
   position: fixed;
   top: 55%;
-  right: 0px;
   padding: 0px;
   margin: 0px;
   height: 200px;
   width: 60px;
-  background-color: #f5f5f5;
-  border: 1px solid #eee;
+  background-color: #33b5e5;
+  border-top: 1px solid $walk-site-zone-nav-border-color;
+  border-bottom: 1px solid $walk-site-zone-nav-border-color;
   z-index: 15;
-  border-radius: 3px 0px 0px 3px;
 
   .icon {
-    color: #3071a9;
+    color: #fff;
+  }
+}
+
+.walk-site-next-zone {
+  @extend .walk-site-zone-nav;
+  right: 0px;
+  border-radius: 3px 0px 0px 3px;
+  border-left: 1px solid $walk-site-zone-nav-border-color;
+  border-right: none;
+
+  .icon {
+    padding-left: 7px;
   }
 }
 
 .walk-site-prev-zone {
-  position: fixed;
-  top: 55%;
+  @extend .walk-site-zone-nav;
   left: 0px;
-  padding: 0px;
-  margin: 0px;
-  height: 200px;
-  width: 60px;
-  background-color: #f5f5f5;
-  border: 1px solid #eee;
-  z-index: 15;
   border-radius: 0px 3px 3px 0px;
+  border-left: none;
+  border-right: 1px solid $walk-site-zone-nav-border-color;
 
   .icon {
-    color: #3071a9;
+    padding-right: 7px;
   }
 }
 
 .walk-site-controls {
-  margin-top: 5em;
+  position: fixed;
+  top: 55%;
+  width: 100%;
 }
 
 .walk-site-control {
   width: 60%;
-  height: 80px;
+  height: 95px;
 }
 
 .weathermatic-error-list-item {
