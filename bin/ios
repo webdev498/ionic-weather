@@ -22,7 +22,7 @@ ember cordova plugin add org.apache.cordova.statusbar
 ember cordova plugin add org.apache.cordova.console
 
 echo "Building XCode project"
-MOBILE_PLATFORM=ios ember cordova:build
+MOBILE_PLATFORM=ios ember cordova:build ${EMBER_ENV:=development}
 
 echo "Opening XCode project"
 ember cordova:open
