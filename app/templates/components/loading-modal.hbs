@@ -7,8 +7,30 @@
 <div class="content">
   <center class="weathermatic-loading-message">
     <h2>Communicating <br> with your device</h2>
-    <h4>Please stand by</h4>
 
-    {{loading-indicator}}
+    {{#if instruction}}
+      <h4>Status:</h4>
+      <br>
+      <div class="content-padded">
+        <button {{bind-attr class=':btn :btn-block instructionStatusCssClass'}}>
+          {{#if instruction.isInProgress}}
+            {{fa-icon 'gear fa-spin'}}
+          {{/if}}
+
+          {{#if instruction.isFinished}}
+            {{fa-icon 'check-circle'}}
+          {{/if}}
+
+          {{#if instruction.isError}}
+            {{fa-icon 'times-circle'}}
+          {{/if}}
+
+          {{instruction.status}}
+        </button>
+      </div>
+    {{else}}
+      <h4>Please stand by</h4>
+      {{loading-indicator}}
+    {{/if}}
   </center>
 </div>

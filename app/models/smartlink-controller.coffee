@@ -2,7 +2,10 @@
 
 RAIN_FREEZE_SENSOR_MODE_ACTIVE = 0
 
-RUN_STATUS_ACTIVE = 1
+RUN_STATUS_OFF = 0
+RUN_STATUS_RUN = 1
+RUN_STATUS_REMOTE_OFF = 2
+RUN_STATUS_RAIN_DELAY = 3
 
 WATERING_MODE_STATUS_MANUAL = 0
 WATERING_MODE_STATUS_AUTO   = 1
@@ -24,8 +27,11 @@ SmartlinkController = DS.Model.extend
   zones:                DS.hasMany 'zone',        async: false
   instructions:         DS.hasMany 'instruction', async: true
 
-  isRunning: Ember.computed 'status', ->
-    @get('runStatus') is RUN_STATUS_ACTIVE
+  isRunning: Ember.computed 'runStatus', ->
+    @get('runStatus') is RUN_STATUS_RUN
+
+  isRunStatusOff: Ember.computed 'runStatus', ->
+    @get('runStatus') is RUN_STATUS_OFF
 
   isManualWateringMode: Ember.computed 'wateringMode', ->
     @get('wateringMode') is WATERING_MODE_STATUS_MANUAL
@@ -48,5 +54,12 @@ SmartlinkController = DS.Model.extend
 
   isRainFreezeSensorEnabled: Ember.computed 'rainFreezeSensorMode', ->
     @get('rainFreezeSensorMode') is RAIN_FREEZE_SENSOR_MODE_ACTIVE
+
+  runStatusForHumans: Ember.computed 'runStatus', ->
+    switch @get('runStatus')
+      when RUN_STATUS_RUN then 'Run'
+      when RUN_STATUS_OFF then 'Off'
+      when RUN_STATUS_REMOTE_OFF then 'Remote Off'
+      when RUN_STATUS_RAIN_DELAY then 'Rain Delay'
 
 `export default SmartlinkController`

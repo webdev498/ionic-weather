@@ -64,12 +64,8 @@
       {{fa-icon 'gears'}} Controller Details
     </li>
     <li class="table-view-cell">
-      Status
-      {{#if model.isRunning}}
-        <button class="btn btn-positive">Running</button>
-      {{else}}
-        <button class="btn btn-primary">Stopped</button>
-      {{/if}}
+      System Status
+      <button {{bind-attr class=':btn runStatusCssClass'}}>{{model.runStatusForHumans}}</button>
     </li>
     <li class="table-view-cell">
       Watering Mode
@@ -92,6 +88,10 @@
       {{#if model.weather.length}}
         <button {{bind-attr class='model.isWeatherBad:btn-negative:btn-positive :btn'}}>
           {{model.weather}}
+        </button>
+      {{else}}
+        <button class="btn btn-primary">
+          No Data
         </button>
       {{/if}}
     </li>

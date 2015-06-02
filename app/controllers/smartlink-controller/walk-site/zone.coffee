@@ -32,15 +32,19 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
     start: ->
       self = this
       params = {
-        action: 'next_zone'
+        run_action: 'next_zone'
         zone: @get('model.number')
       }
+      @get('loadingModal').send('open')
       Ember.RSVP.all([
         @submitManualRun(params),
         self.get('smartlinkController.instructions').reload()
-      ]).then ->
-        self.set('isLoading', false)
-        self.send('openCommLog')
+      ]).then (response) ->
+        Ember.Logger.debug "Posted run-zone command for \
+          controller #{self.get('model.smartlinkController.id')}, \
+          zone number: #{self.get('model.number')}"
+        self.get('loadingModal').send('loadInstruction', response[0])
+
 
     stop: ->
       self = this
@@ -50,14 +54,21 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       Ember.RSVP.all([
         @submitManualRun(params)
         self.get('smartlinkController.instructions').reload()
-      ]).then ->
-        self.set('isLoading', false)
-        self.send('openCommLog')
+      ]).then (response) ->
+        Ember.Logger.debug "Manual stop complete for controller #{@get('model.smartlinkController.id')}"
+        self.get('loadingModal').send('loadInstruction', response[0])
 
     openCommLog: ->
       @get('commLog').send('open')
 
     commLogClosed: ->
       @send('closeOptionsMenu')
+
+    loadingFinished: ->
+      self = this
+      Ember.Logger.debug "Run zone command finished, refresing controller: \
+        #{@get('model.smartlinkController.id')}"
+      @get('model.smartlinkController').reload().then ->
+        self.get('loadingModal').send('close')
 
 `export default SmartlinkControllerWalkSiteZoneController`

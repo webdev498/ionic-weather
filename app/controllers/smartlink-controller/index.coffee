@@ -12,6 +12,11 @@ SmartlinkControllerIndexController = Ember.Controller.extend
   setDefaults: ->
     @send('closeOptionsMenu')
 
+  runStatusCssClass: Ember.computed 'model.runStatus', ->
+    return 'btn-positive' if @get('model.isRunning')
+    return 'btn-negative' if @get('model.isRunStatusOff')
+    return 'btn-primary'
+
   actions:
     openOptionsMenu: ->
       @set('isOptionsMenuOpen', true)

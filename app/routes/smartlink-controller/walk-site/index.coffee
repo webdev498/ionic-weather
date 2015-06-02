@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
+`import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin'`
 
-SmartlinkControllerWalkSiteIndexRoute = Ember.Route.extend
+SmartlinkControllerWalkSiteIndexRoute = Ember.Route.extend AuthenticatedRouteMixin,
   redirect: (model, transition) ->
     zone = model.get('zones.firstObject')
     if zone
