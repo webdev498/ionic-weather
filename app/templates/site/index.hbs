@@ -15,25 +15,35 @@
       </p>
     </li>
     <li class="table-view-cell table-view-divider">
-      {{fa-icon 'signal'}} Controllers
+      <center>
+        {{fa-icon 'signal'}} Controllers
+      </center>
     </li>
-    {{#each smartlinkController in model.smartlinkControllers}}
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller' smartlinkController.id class='push-right'}}
-          {{smartlinkController.name}}
-          {{#if smartlinkController.faults.length}}
-          <span class="badge badge-negative">
-            {{count-text 'fault' smartlinkController.faults.length}}
-          </span>
-          {{/if}}
-        {{/link-to}}
-      </li>
-    {{else}}
-      <li class="table-view-cell">
-        <center>
-          {{fa-icon 'times'}} There are no controllers at this site
-        </center>
-      </li>
-    {{/each}}
+   {{#if smartlinkControllersLoading}}
+    <li class="table-view-cell">
+      <center>
+        {{fa-icon 'circle-o-notch fa-spin'}} Loading
+      </center>
+    </li>
+   {{else}}
+      {{#each smartlinkController in model.smartlinkControllers}}
+        <li class="table-view-cell">
+          {{#link-to 'smartlink-controller' smartlinkController.id class='push-right'}}
+            {{smartlinkController.name}}
+            {{#if smartlinkController.faults.length}}
+            <span class="badge badge-negative">
+              {{count-text 'fault' smartlinkController.faults.length}}
+            </span>
+            {{/if}}
+          {{/link-to}}
+        </li>
+      {{else}}
+        <li class="table-view-cell">
+          <center>
+            {{fa-icon 'times'}} There are no controllers at this site
+          </center>
+        </li>
+      {{/each}}
+    {{/if}}
   </ul>
 </div>
