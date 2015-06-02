@@ -52,8 +52,13 @@
       </button>
     {{/if}}
   </div>
+
+  <div class="bar bar-standard bar-footer weathermatic-jump-to-zone">
+    <button class="btn btn-block" {{action 'openJumpToZone'}}>
+      {{fa-icon 'leaf'}} Jump to Zone
+    </button>
+  </div>
 </div>
-{{/liquid-with}}
 
 <div id="options-menu" {{bind-attr class=':modal isOptionsMenuOpen:active'}}>
   <header class="bar bar-nav weathermatic-header">
@@ -81,6 +86,27 @@
   </div>
 </div>
 
+<div id="jump-to-zone" {{bind-attr class=':modal isJumpToZoneOpen:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeJumpToZone'}}></a>
+    <h1 class="title">{{fa-icon 'leaf'}} Jump to Zone</h1>
+  </header>
+
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+      {{#each zone in model.smartlinkController.zones}}
+        <li class="table-view-cell">
+          <a href="javascript:void(0)" class="push-right" {{action 'jumpToZone' zone}}>
+            Walk Zone {{zone.number}}
+            <p>{{zone.description}}</p>
+          </a>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+{{/liquid-with}}
 
 {{!
   `actionReceiver` attribute exposes component action to the outside world.

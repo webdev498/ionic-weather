@@ -279,3 +279,13 @@ $walk-site-zone-nav-border-color: #ddd;
 .weathermatic-warning-icon {
   color: orangered;
 }
+
+.weathermatic-jump-to-zone {
+  height: 64px;
+
+  &> button {
+    height: 52px;
+    background-color: #33b5e5;
+    color: #fff;
+  }
+}

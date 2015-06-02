@@ -55,7 +55,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
         @submitManualRun(params)
         self.get('smartlinkController.instructions').reload()
       ]).then (response) ->
-        Ember.Logger.debug "Manual stop complete for controller #{@get('model.smartlinkController.id')}"
+        Ember.Logger.debug "Manual stop complete for controller #{self.get('model.smartlinkController.id')}"
         self.get('loadingModal').send('loadInstruction', response[0])
 
     openCommLog: ->
@@ -65,10 +65,25 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       @send('closeOptionsMenu')
 
     loadingFinished: ->
-      self = this
-      Ember.Logger.debug "Run zone command finished, refresing controller: \
-        #{@get('model.smartlinkController.id')}"
-      @get('model.smartlinkController').reload().then ->
-        self.get('loadingModal').send('close')
+      Ember.run.later this, ->
+        @get('loadingModal').send('close')
+      , 500
+
+    openJumpToZone: ->
+      @set('isJumpToZoneOpen', true)
+
+    closeJumpToZone: ->
+      @set('isJumpToZoneOpen', false)
+
+    jumpToZone: (zone) ->
+      @send('closeJumpToZone')
+      # Delay to let the close modal animation finish
+      Ember.run.later this, ->
+        if @get('model.number') >= zone.get('number')
+          @set('transition', 'toRight')
+        else
+          @set('transition', 'toLeft')
+        @transitionToRoute('smartlink-controller.walk-site.zone', zone)
+      , 250
 
 `export default SmartlinkControllerWalkSiteZoneController`
