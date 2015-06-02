@@ -14,4 +14,11 @@ ApplicationRoute = Ember.Route.extend ApplicationRouteMixin,
     sessionInvalidationSucceeded: ->
       @transitionTo('login')
 
+    error: (error, transition) ->
+      if transition.targetName is 'index'
+        throw new Error('Unhandled routing error', error, transition)
+      else
+        Ember.Logger.error('Unhandled routing error, redirecting to index', error, transition)
+        @transitionTo('index')
+
 `export default ApplicationRoute`
