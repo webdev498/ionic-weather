@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+echo "Removing old android project"
+ember cordova platform remove android
+
+echo "Adding android platform"
+ember cordova platform add android
+
+echo "Adding plugins"
+source  $DIR/install_plugins
+
+echo "Building android project"
+MOBILE_PLATFORM=android ember cordova:build ${EMBER_ENV:=development}
+
+echo "Running on android emulator"
+# ember cordova emulate android
