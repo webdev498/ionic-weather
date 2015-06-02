@@ -5,6 +5,11 @@ SitesAdapter = ApplicationAdapter.extend
     url = @buildURL(type.typeKey, id, snapshot)
     @ajax(url, 'GET', data: @customQueryParams)
 
+  findQuery: (store, type, query) ->
+    query = query or {}
+    Ember.merge(query, @customQueryParams)
+    this._super(arguments...)
+
   findHasMany: (store, snapshot, url, relationship) ->
     switch relationship.key
       when 'smartlinkControllers'
