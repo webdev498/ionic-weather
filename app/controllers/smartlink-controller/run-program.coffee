@@ -5,18 +5,23 @@ SmartlinkControllerRunProgramController = Ember.Controller.extend ManualRunMixin
   actions:
     runProgram: ->
       self = this
-
       params = {
         program: @get('programNumber')
       }
+      @get('loadingModal').send('open')
+      @submitManualRun(params).then (instruction) ->
+        Ember.debug "Posted run program: #{self.get('programNumber')} \
+          for controller: #{self.get('model.smartlinkController.id')}"
+        self.get('loadingModal').send('loadInstruction', instruction)
+      .catch (error) ->
+        Ember.Logger.error(error)
+        alert error
+        self.get('loadingModal').send('close')
 
-      Ember.RSVP.all([
-        @submitManualRun(params),
-        self.get('smartlinkController.instructions').reload()
-      ]).then ->
-        self.transitionToRoute('smartlink-controller.index', queryParams: {
-          showCommLog: true
-        })
+    loadingFinished: ->
+      Ember.run.later this, ->
+        @get('loadingModal').send('close')
+      , 750
 
   cssClass: Ember.computed 'model.identifier', ->
     "weathermatic-btn-run-program-#{@get('model.identifier').toLowerCase()}"

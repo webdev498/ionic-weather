@@ -16,14 +16,11 @@ Instruction = DS.Model.extend
 
   controller: DS.belongsTo 'smartlink-controller', async: true
 
-  durationMillis: Ember.computed 'startedAt', 'endedAt', ->
-    '60'
-
-  isPending:  Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_PENDING
-  isQueued:   Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_QUEUED
-  isLocked:   Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_LOCKED
-  isError:    Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_ERROR
-  isFinished: Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_FINISHED
+  isStatusPending:  Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_PENDING
+  isStautsQueued:   Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_QUEUED
+  isStatusLocked:   Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_LOCKED
+  isStatusError:    Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_ERROR
+  isStatusFinished: Ember.computed 'statusId', -> @get('statusId') is Instruction.STATUS_FINISHED
 
   isInProgress: Ember.computed 'statusId', 'isOvernight', ->
     status = @get('statusId')

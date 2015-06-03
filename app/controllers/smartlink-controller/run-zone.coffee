@@ -6,20 +6,24 @@ SmartlinkControllerRunZoneController = Ember.Controller.extend ManualRunMixin,
   actions:
     runZone: ->
       self = this
-
       params = {
         zone: @get('model.number')
         run_time: @get('runTimeMinutesTotal')
       }
+      @get('loadingModal').send('open')
+      @submitManualRun(params).then (instruction) ->
+        Ember.debug "Posted run zone: #{self.get('model.number')} \
+          for controller: #{self.get('model.smartlinkController.id')}"
+        self.get('loadingModal').send('loadInstruction', instruction)
+      .catch (error) ->
+        Ember.Logger.error(error)
+        alert error
+        self.get('loadingModal').send('close')
 
-      Ember.RSVP.all([
-        @submitManualRun(params),
-        self.get('smartlinkController.instructions').reload()
-      ]).then ->
-        self.transitionToRoute('smartlink-controller.index', queryParams: {
-          showCommLog: true
-        })
-
+    loadingFinished: ->
+      Ember.run.later this, ->
+        @get('loadingModal').send('close')
+      , 750
 
   runTimeHours: 0
 

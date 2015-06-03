@@ -36,27 +36,29 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
         zone: @get('model.number')
       }
       @get('loadingModal').send('open')
-      Ember.RSVP.all([
-        @submitManualRun(params),
-        self.get('smartlinkController.instructions').reload()
-      ]).then (response) ->
+      @submitManualRun(params).then (instruction) ->
         Ember.Logger.debug "Posted run-zone command for \
           controller #{self.get('model.smartlinkController.id')}, \
           zone number: #{self.get('model.number')}"
-        self.get('loadingModal').send('loadInstruction', response[0])
-
+        self.get('loadingModal').send('loadInstruction', instruction)
+      .catch (error) ->
+        Ember.Logger.error(error)
+        alert error
+        self.get('loadingModal').send('close')
 
     stop: ->
       self = this
       params = {
         run_action: 'manual_stop_program'
       }
-      Ember.RSVP.all([
-        @submitManualRun(params)
-        self.get('smartlinkController.instructions').reload()
-      ]).then (response) ->
+      @get('loadingModal').send('open')
+      @submitManualRun(params).then (instruction) ->
         Ember.Logger.debug "Manual stop complete for controller #{self.get('model.smartlinkController.id')}"
-        self.get('loadingModal').send('loadInstruction', response[0])
+        self.get('loadingModal').send('loadInstruction', instruction)
+      .catch (error) ->
+        Ember.Logger.error(error)
+        alert error
+        self.get('loadingModal').send('close')
 
     openCommLog: ->
       @get('commLog').send('open')
@@ -67,7 +69,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
     loadingFinished: ->
       Ember.run.later this, ->
         @get('loadingModal').send('close')
-      , 500
+      , 750
 
     openJumpToZone: ->
       @set('isJumpToZoneOpen', true)

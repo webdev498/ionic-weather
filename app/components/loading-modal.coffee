@@ -1,16 +1,24 @@
 `import ModalDialogComponent from './modal-dialog'`
 `import InboundActions from 'ember-component-inbound-actions/inbound-actions'`
+`import Instruction from '../models/instruction'`
 
 LoadingModalComponent = ModalDialogComponent.extend InboundActions,
-  store: Ember.inject.service('store:main')
+  instructionStatusCssClass: Ember.computed 'instruction.statusId', ->
+    switch @get('instruction.statusId')
+      when Instruction.STATUS_FINISHED then 'btn-positive'
+      when Instruction.STATUS_ERROR then 'btn-negative'
+      else 'btn-primary'
 
-  instructionDidChange: Ember.observer 'instruction.status', ->
+  instructionDidChange: Ember.observer 'instruction.statusId', ->
     return unless @get('instruction')
-    if @get('instruction.isInProgress')
-      @startPolling()
-    else
-      @stopPolling()
-      @sendAction('loadingFinished')
+    switch
+      when @get('instruction.isInProgress')
+        @startPolling()
+      when @get('instruction.isStatusError')
+        @stopPolling()
+      else
+        @stopPolling()
+        @sendAction('loadingFinished')
 
   startPolling: ->
     self = this
@@ -32,14 +40,8 @@ LoadingModalComponent = ModalDialogComponent.extend InboundActions,
     clearInterval(intervalId)
     @set('pollingIntervalId', null)
 
-  instructionStatusCssClass: Ember.computed 'instruction.status', ->
-    return 'btn-positive' if @get('instruction.isFinished')
-    return 'btn-negative' if @get('instruction.isError')
-    return 'btn-primary'
-
   actions:
-    loadInstruction: (instructionData) ->
-      instruction = @get('store').push('instruction', instructionData.result.instruction)
+    loadInstruction: (instruction) ->
       @set('instruction', instruction)
       @send('open')
 

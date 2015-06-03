@@ -17,16 +17,25 @@
             {{fa-icon 'gear fa-spin'}}
           {{/if}}
 
-          {{#if instruction.isFinished}}
+          {{#if instruction.isStatusFinished}}
             {{fa-icon 'check-circle'}}
           {{/if}}
 
-          {{#if instruction.isError}}
-            {{fa-icon 'times-circle'}}
+          {{#if instruction.isStatusError}}
+            {{fa-icon 'warning'}}
           {{/if}}
 
           {{instruction.status}}
         </button>
+
+        {{#if instruction.isStatusError}}
+          <p>
+            Our servers encountered a problem while processing your command.
+            Please try again later.
+          </p>
+
+          <button class="btn btn-primary" {{action 'close'}}>{{fa-icon 'times'}} Dismiss</button>
+        {{/if}}
       </div>
     {{else}}
       <h4>Please stand by</h4>

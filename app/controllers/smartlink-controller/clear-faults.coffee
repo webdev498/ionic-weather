@@ -9,11 +9,22 @@ SmartlinkControllerClearFaultsController = Ember.Controller.extend ManualRunMixi
   actions:
     clearFaults: ->
       self = this
+      @get('loadingModal').send('open')
+      Ember.RSVP.hash({
+        instruction: @submitManualRun(clear_all_faults: true),
+        reload: @get('smartlinkController').reload()
+      }).then (results) ->
+        Ember.Logger.debug "Posted clear faults for controller: \
+          #{self.get('smartlinkController.id')}"
+        self.get('loadingModal').send('loadInstruction', results.instruction)
+      .catch (error) ->
+        Ember.Logger.error(error)
+        alert error
+        self.get('loadingModal').send('close')
 
-      Ember.RSVP.all([
-        @submitManualRun(clear_all_faults: true),
-        self.get('smartlinkController').reload()
-      ]).then ->
-        self.transitionToRoute('smartlink-controller.index')
+    loadingFinished: ->
+      Ember.run.later this, ->
+        @transitionToRoute('smartlink-controller.index')
+      , 750
 
 `export default SmartlinkControllerClearFaultsController`
