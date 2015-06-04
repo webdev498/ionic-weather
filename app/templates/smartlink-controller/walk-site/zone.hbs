@@ -29,6 +29,12 @@
     </span>
   </div>
 
+  <div class="content-padded weathermatic-jump-to-zone">
+    <button class="btn btn-block" {{action 'openJumpToZone'}}>
+      {{fa-icon 'leaf'}} Jump to Zone
+    </button>
+  </div>
+
   <div class="walk-site-nav-container">
     <center class="walk-site-controls">
       <button class="btn btn-block btn-positive walk-site-control" {{action 'start'}}>
@@ -51,12 +57,6 @@
         <span class="icon icon-right-nav"></span>
       </button>
     {{/if}}
-  </div>
-
-  <div class="bar bar-standard bar-footer weathermatic-jump-to-zone">
-    <button class="btn btn-block" {{action 'openJumpToZone'}}>
-      {{fa-icon 'leaf'}} Jump to Zone
-    </button>
   </div>
 </div>
 
