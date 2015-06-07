@@ -35,9 +35,9 @@ SitesService = Ember.Service.extend
         when 'proximity'
           self.get('locations').getCurrentLocation().then (coords) ->
             Ember.merge(params, lat: coords.latitude, lng: coords.longitude)
-            resolve(doLookup())
-        else
-          resolve(doLookup())
+          .catch (error) ->
+            self.get('settings').changeSetting('sites-sort-method', 'alpha')
+      resolve(doLookup())
 
     return promise
 

@@ -13,6 +13,8 @@ SitesController = Ember.Controller.extend
 
   openSortOptions: false
 
+  isGeolocationRestricted: false
+
   searchIcon: Ember.computed 'isSearchEnabled', ->
     if @get('isSearchEnabled')
       'icon-close'
@@ -122,7 +124,10 @@ SitesController = Ember.Controller.extend
       @send('closeAllMenus')
 
     openSortOptions: ->
-      @set('openSortOptions', true)
+      if @get('isGeolocationRestricted')
+        Ember.Logger.debug 'Geolocation search restricted, not showing sort options'
+      else
+        @set('openSortOptions', true)
 
     closeSortOptions: ->
       @send('closeAllMenus')

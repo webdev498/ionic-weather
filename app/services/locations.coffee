@@ -2,7 +2,11 @@
 
 get = Ember.get
 
+ERROR_CODE_PERMISSIONS = 1
+
 LocationsService = Ember.Service.extend
+  settings: Ember.inject.service('application-settings')
+
   getCurrentLocation: ->
     self = this
     new Ember.RSVP.Promise (resolve, reject) ->
@@ -13,12 +17,20 @@ LocationsService = Ember.Service.extend
         resolve(coords)
 
   lookupCurrentLocation: ->
+    self = this
     new Ember.RSVP.Promise (resolve, reject) ->
       onGeoSuccess = (geoposition) ->
+        settings.changeSetting('geolocation-restricted', false)
         resolve(geoposition.coords)
 
       onGeoFailure = (error) ->
-        reject new Error('Geolocation lookup failed')
+        if error.code is ERROR_CODE_PERMISSIONS
+          self.get('settings').changeSetting('geolocation-restricted', true)
+
+        reject new Error({
+          message: 'Geolocation lookup failed'
+          error: error
+        })
 
       doGetLocation = -> navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFailure)
 

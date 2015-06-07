@@ -85,6 +85,7 @@
           </div>
         </a>
       </li>
+      {{#if isGeolocationRestricted}}
       <li class="table-view-cell">
         <a href="javascript:void(0)" {{action 'openSortOptions'}}>
           <div class="media-body">
@@ -93,6 +94,7 @@
           </div>
         </a>
       </li>
+      {{/if}}
     </ul>
 
     <div class="content-padded">
