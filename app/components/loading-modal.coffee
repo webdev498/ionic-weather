@@ -4,10 +4,17 @@
 
 LoadingModalComponent = ModalDialogComponent.extend InboundActions,
   instructionStatusCssClass: Ember.computed 'instruction.statusId', ->
-    switch @get('instruction.statusId')
-      when Instruction.STATUS_FINISHED then 'btn-positive'
-      when Instruction.STATUS_ERROR then 'btn-negative'
+    switch
+      when @get('instruction.isInProgress') then 'btn-positive'
+      when @get('instruction.isStatusError') then 'btn-negative'
       else 'btn-primary'
+
+  statusMessage: Ember.computed 'instruction.statusId', ->
+    if @get('instruction.isInProgress')
+      'Sending...'
+    else
+      @get('instruction.status')
+
 
   instructionDidChange: Ember.observer 'instruction.statusId', ->
     return unless @get('instruction')
