@@ -20,7 +20,7 @@ LocationsService = Ember.Service.extend
     self = this
     new Ember.RSVP.Promise (resolve, reject) ->
       onGeoSuccess = (geoposition) ->
-        settings.changeSetting('geolocation-restricted', false)
+        self.get('settings').changeSetting('geolocation-restricted', false)
         resolve(geoposition.coords)
 
       onGeoFailure = (error) ->
