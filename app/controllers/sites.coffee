@@ -9,11 +9,9 @@ SitesController = Ember.Controller.extend
 
   nextPageToLoad: 2
 
-  openOptionsMenu: false
+  isOptionsMenuOpen: false
 
-  openSortOptions: false
-
-  isGeolocationRestricted: false
+  isSortOptionsOpen: false
 
   searchIcon: Ember.computed 'isSearchEnabled', ->
     if @get('isSearchEnabled')
@@ -53,9 +51,9 @@ SitesController = Ember.Controller.extend
     return unless @get('isSearchApplied')
     wasSearchDisabled = not @get('isSearchEnabled')
 
-    controller = this
+    self = this
     callback = ->
-      controller.set('isSearchApplied', false)
+      self.set('isSearchApplied', false)
     @send('refreshData', callback) if wasSearchDisabled
 
   init: ->
@@ -73,7 +71,7 @@ SitesController = Ember.Controller.extend
       @send('refreshData')
 
     refreshData: (callback) ->
-      controller = this
+      self = this
       @set 'isLoading', true
 
       @store.unloadAll('zone')
@@ -85,32 +83,46 @@ SitesController = Ember.Controller.extend
       options = {}
       options.search = @get('search') if @get('isSearchEnabled')
 
-      @get('sites').lookupAndCacheSites(options)
-        .then (sites) ->
-          controller.set('model', sites)
-        .finally ->
-          controller.set('isLoading', false)
-          callback() if Ember.typeOf(callback) is 'function'
+      retries = 0
+      maxRetries = 3
+
+      doRefresh = ->
+        self.get('sites').lookupAndCacheSites(options).then (sites) ->
+          self.set('model', sites)
+
+      doRefresh().catch (error) ->
+        retries += 1
+        Ember.Logger.debug 'Refresh sites failed, trying again without geolocation'
+        self.get('settings').changeSetting('sites-sort-method', 'alpha')
+        self.set('sortMethod', 'alpha')
+        self.set('geolocationUnavailable', true)
+        if retries <= maxRetries
+          doRefresh()
+        else
+          throw new Error("Too many retries (#{retries}) for `refreshData` action, giving up")
+      .finally ->
+        self.set('isLoading', false)
+        callback() if Ember.typeOf(callback) is 'function'
 
       @set('nextPageToLoad', 2)
 
     loadMoreSites: ->
       return if @get 'isLoading'
 
-      controller = this
+      self = this
       @set 'isLoading', true
 
       @get('sites').lookupSites(page: @get('nextPageToLoad'))
         .then (moreSites) ->
-          controller.incrementProperty('nextPageToLoad')
+          self.incrementProperty('nextPageToLoad')
 
           moreSites.forEach (site) ->
-            controller.get('model').pushObject(site)
+            self.get('model').pushObject(site)
         .finally ->
-          controller.set 'isLoading', false
+          self.set 'isLoading', false
 
     openOptionsMenu: ->
-      @set('openOptionsMenu', true)
+      @set('isOptionsMenuOpen', true)
 
     logOut: ->
       @send('closeAllMenus')
@@ -124,17 +136,17 @@ SitesController = Ember.Controller.extend
       @send('closeAllMenus')
 
     openSortOptions: ->
-      if @get('isGeolocationRestricted')
-        Ember.Logger.debug 'Geolocation search restricted, not showing sort options'
+      if @get('geolocationUnavailable')
+        Ember.Logger.debug 'Geolocation search is not available, not showing sort options'
       else
-        @set('openSortOptions', true)
+        @set('isSortOptionsOpen', true)
 
     closeSortOptions: ->
       @send('closeAllMenus')
 
     closeAllMenus: ->
-      @set('openOptionsMenu', false)
-      @set('openSortOptions', false)
+      @set('isOptionsMenuOpen', false)
+      @set('isSortOptionsOpen', false)
 
     setSortMethod: (sortMethod) ->
       @set('sortMethod', sortMethod)

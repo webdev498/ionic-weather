@@ -35,9 +35,12 @@ SitesService = Ember.Service.extend
         when 'proximity'
           self.get('locations').getCurrentLocation().then (coords) ->
             Ember.merge(params, lat: coords.latitude, lng: coords.longitude)
+            resolve(doLookup())
           .catch (error) ->
-            self.get('settings').changeSetting('sites-sort-method', 'alpha')
-      resolve(doLookup())
+            Ember.Logger.error 'Proximity-based sites lookup failed due to geolocation error', error
+            reject(error)
+        else
+          resolve(doLookup())
 
     return promise
 

@@ -15,7 +15,7 @@ ApplicationRoute = Ember.Route.extend ApplicationRouteMixin,
       @transitionTo('login')
 
     error: (error, transition) ->
-      if transition.targetName is 'index'
+      if transition.targetName is 'index' or transition.targetName is 'sites'
         throw new Error('Unhandled routing error', error, transition)
       else
         Ember.Logger.error('Unhandled routing error, redirecting to index', error, transition)

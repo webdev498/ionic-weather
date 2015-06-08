@@ -21,7 +21,7 @@ Site = DS.Model.extend
   fullAddress: Ember.computed 'address1', 'address2', 'city', 'state', 'postalCode', ->
     "#{@get('address1')} #{@get('address2') or ''} #{@get('city')}, #{@get('state')} #{@get('postalCode')}"
 
-  milesAway: Ember.computed 'latitude', 'longitude', promisedProperty('?', ->
+  milesAway: Ember.computed 'latitude', 'longitude', promisedProperty(null, ->
     [lat, lng] = [@get('latitude'), @get('longitude')]
     @get('locations').milesAway(lat, lng)
   )

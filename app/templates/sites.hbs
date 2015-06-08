@@ -35,7 +35,9 @@
             <p>
               <small class="badge">{{site.cityState}}</small>
               <small class="badge">{{site.controllersCount}} controllers</small>
-              <small class="badge">{{format-number site.milesAway round=true}} mi</small>
+              {{#if site.milesAway}}
+                <small class="badge">{{format-number site.milesAway round=true}} mi</small>
+              {{/if}}
             </p>
           </div>
         {{/link-to}}
@@ -61,7 +63,7 @@
   {{/if}}
 </div>
 
-<div id="options-menu" {{bind-attr class=':modal openOptionsMenu:active'}}>
+<div id="options-menu" {{bind-attr class=':modal isOptionsMenuOpen:active'}}>
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeOptionsMenu'}}></a>
     <h1 class="title">{{fa-icon 'gear'}} Options</h1>
@@ -85,7 +87,7 @@
           </div>
         </a>
       </li>
-      {{#if isGeolocationRestricted}}
+      {{#unless geolocationUnavailable}}
       <li class="table-view-cell">
         <a href="javascript:void(0)" {{action 'openSortOptions'}}>
           <div class="media-body">
@@ -94,7 +96,7 @@
           </div>
         </a>
       </li>
-      {{/if}}
+      {{/unless}}
     </ul>
 
     <div class="content-padded">
@@ -105,7 +107,7 @@
   </div>
 </div>
 
-<div id="sites-sort-options" {{bind-attr class=':modal openSortOptions:active'}}>
+<div id="sites-sort-options" {{bind-attr class=':modal isSortOptionsOpen:active'}}>
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSortOptions'}}></a>
     <h1 class="title">{{fa-icon 'sort'}} Sort Options</h1>

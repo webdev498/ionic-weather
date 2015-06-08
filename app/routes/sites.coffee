@@ -7,13 +7,19 @@ SitesRoute = Ember.Route.extend AuthenticatedRouteMixin,
   sites: Ember.inject.service('sites')
 
   model: (params) ->
+    self = this
     preCachedSitesList = window.SlnMobileEmber.get('cachedSites')
     return preCachedSitesList if preCachedSitesList?
-    @get('sites').lookupAndCacheSites()
+    @get('sites').lookupAndCacheSites().then (sites) ->
+      return sites
+    .catch (error) ->
+      Ember.Logger.debug 'Sites lookup failed, trying again without geolocation'
+      self.get('settings').changeSetting('sites-sort-method', 'alpha')
+      self.set('geolocationUnavailable', true)
+      self.get('sites').lookupAndCacheSites()
 
   setupController: (controller, model) ->
     this._super(arguments...)
-    isGeolocationRestricted = @get('settings').getSetting('geolocation-restricted') is 'true'
-    controller.set('isGeolocationRestricted', isGeolocationRestricted)
+    controller.set('geolocationUnavailable', @get('geolocationUnavailable'))
 
 `export default SitesRoute`
