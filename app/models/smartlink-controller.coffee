@@ -7,8 +7,8 @@ RUN_STATUS_RUN = 1
 RUN_STATUS_REMOTE_OFF = 2
 RUN_STATUS_RAIN_DELAY = 3
 
-WATERING_MODE_STATUS_MANUAL = 0
-WATERING_MODE_STATUS_AUTO   = 1
+WATERING_MODE_STANDARD = 0
+WATERING_MODE_AUTO   = 1
 
 WEATHER_STATUS_NORMAL = 1
 WEATHER_STATUS_RAIN   = 2
@@ -33,11 +33,11 @@ SmartlinkController = DS.Model.extend
   isRunStatusOff: Ember.computed 'runStatus', ->
     @get('runStatus') is RUN_STATUS_OFF
 
-  isManualWateringMode: Ember.computed 'wateringMode', ->
-    @get('wateringMode') is WATERING_MODE_STATUS_MANUAL
+  isWateringModeStandard: Ember.computed 'wateringMode', ->
+    @get('wateringMode') is WATERING_MODE_STANDARD
 
-  isSmartWateringMode: Ember.computed 'wateringMode', ->
-    @get('wateringMode') is WATERING_MODE_STATUS_AUTO
+  isWateringModeAuto: Ember.computed 'wateringMode', ->
+    @get('wateringMode') is WATERING_MODE_AUTO
 
   weather: Ember.computed 'weatherStatus', ->
     switch @get('weatherStatus')
