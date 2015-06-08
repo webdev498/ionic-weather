@@ -59,4 +59,8 @@ LoadingModalComponent = ModalDialogComponent.extend InboundActions,
       @set('isActive', false)
       @set('instruction', null)
 
+    abandon: ->
+      @stopPolling()
+      @sendAction('loadingAbandoned')
+
 `export default LoadingModalComponent`

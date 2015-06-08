@@ -24,4 +24,7 @@ SmartlinkControllerStopAllController = Ember.Controller.extend ManualRunMixin,
         @transitionToRoute('smartlink-controller.index')
       , 750
 
+    loadingAbandoned: ->
+      @transitionToRoute('smartlink-controller.index')
+
 `export default SmartlinkControllerStopAllController`

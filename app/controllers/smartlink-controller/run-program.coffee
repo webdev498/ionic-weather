@@ -23,6 +23,9 @@ SmartlinkControllerRunProgramController = Ember.Controller.extend ManualRunMixin
         @get('loadingModal').send('close')
       , 750
 
+    loadingAbandoned: ->
+      @get('loadingModal').send('close')
+
   cssClass: Ember.computed 'model.identifier', ->
     "weathermatic-btn-run-program-#{@get('model.identifier').toLowerCase()}"
 

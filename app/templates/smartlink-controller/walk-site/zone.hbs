@@ -112,6 +112,6 @@
   `actionReceiver` attribute exposes component action to the outside world.
   Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
 }}
-{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished'}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}
 
 {{comm-log smartlinkController=model.smartlinkController close='commLogClosed' actionReceiver=commLog}}

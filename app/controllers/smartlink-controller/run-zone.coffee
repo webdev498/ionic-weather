@@ -25,6 +25,9 @@ SmartlinkControllerRunZoneController = Ember.Controller.extend ManualRunMixin,
         @get('loadingModal').send('close')
       , 750
 
+    loadingAbandoned: ->
+      @get('loadingModal').send('close')
+
   runTimeHours: 0
 
   runTimeMinutes: 5

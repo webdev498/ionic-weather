@@ -27,4 +27,7 @@ SmartlinkControllerClearFaultsController = Ember.Controller.extend ManualRunMixi
         @transitionToRoute('smartlink-controller.index')
       , 750
 
+    loadingAbandoned: ->
+      @transitionToRoute('smartlink-controller.index')
+
 `export default SmartlinkControllerClearFaultsController`

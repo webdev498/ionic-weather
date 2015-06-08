@@ -1,7 +1,10 @@
-<header class="bar bar-nav">
-  <h1 class="title">
-    {{fa-icon 'cloud-upload'}} Sending commands…
-  </h1>
+<header class="bar bar-nav weathermatic-header">
+  <a href="javascript:void(0)" {{action 'abandon'}} class="btn btn-link btn-nav pull-right">
+    <span class="icon icon-close"></span>
+  </a>
+  <div class="weathermatic-logo-container">
+    <img src="assets/images/sl-logo.png" class="weathermatic-logo">
+  </div>
 </header>
 
 <div class="content">
@@ -33,7 +36,6 @@
             Our servers encountered a problem while processing your command.
             Please try again later.
           </p>
-
           <button class="btn btn-primary" {{action 'close'}}>{{fa-icon 'times'}} Dismiss</button>
         {{/if}}
       </div>

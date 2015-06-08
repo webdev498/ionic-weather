@@ -49,10 +49,10 @@
       {{fa-icon 'times-circle'}} Cancel
     {{/link-to}}
   </div>
-
-  {{!
-    `actionReceiver` attribute exposes component action to the outside world.
-    Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
-  }}
-  {{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished'}}
 </div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

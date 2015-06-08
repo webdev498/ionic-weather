@@ -27,4 +27,7 @@ SmartlinkControllerLocateValvesController = Ember.Controller.extend ManualRunMix
         @get('loadingModal').send('close')
       , 750
 
+    loadingAbandoned: ->
+      @get('loadingModal').send('close')
+
 `export default SmartlinkControllerLocateValvesController`
