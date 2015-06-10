@@ -17,4 +17,5 @@
     <preference name="StatusBarOverlaysWebView" value="false" />
     <access origin="*" />
     <preference name="BackupWebStorage" value="local"></preference>
+    <plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 </widget>
