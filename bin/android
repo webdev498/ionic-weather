@@ -13,7 +13,7 @@ echo "Adding plugins"
 source  $DIR/install_plugins
 
 echo "Building android project"
-MOBILE_PLATFORM=android ember cordova:build ${EMBER_ENV:=staging}
+MOBILE_PLATFORM=android ember cordova:build --environment=${EMBER_ENV:=staging}
 
 echo "Running on android emulator"
 # ember cordova emulate android
