@@ -24,7 +24,9 @@ LocationsService = Ember.Service.extend
         reject(new Error(
           "Geolocation lookup failed, error code: #{error.code}, message: #{error.message}"))
 
-      doGetLocation = -> navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFailure)
+      doGetLocation = -> navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoFailure, {
+        timeout: 10000
+      })
 
       if typeof(window.cordova) is 'undefined'
         doGetLocation()
