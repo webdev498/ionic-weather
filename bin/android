@@ -1,7 +1,36 @@
 #!/bin/bash
 set -e
 
+ORIG_DIR=`pwd`
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+ANDROID_BUILD_TOOLS_VERSION=22.0.1
+KEYSTORE=${KEYSTORE:=$DIR/../smartlink.keystore}
+KEYSTORE_PASSWORD="Savewatern0w1"
+KEY_ALIAS="smartlinkmobile"
+KEY_PASSWORD="Savewatern0w1"
+ZIPALIGN_BINARY=$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION/zipalign
+UNSIGNED_APK_FILE=$DIR/../cordova/platforms/android/ant-build/MainActivity-release-unsigned.apk
+FINAL_APK_FILE=$DIR/../smartlink-android.apk
+
+if [ -f $FINAL_APK_FILE ]; then
+  echo "Removing old .apk file at $FINAL_APK_FILE"
+  rm $FINAL_APK_FILE
+fi
+
+if [ ! -f $KEYSTORE ]; then
+  echo "Cannot find keystore file at $KEYSTORE"
+  echo "To generate a new keystore, use:"
+  echo ""
+  echo "  keytool -genkey -v \\"
+  echo "    -keystore $KEYSTORE \\"
+  echo "    -alias $KEY_ALIAS \\"
+  echo "    -keyalg RSA \\"
+  echo "    -keysize 2048 \\"
+  echo "    -validity 10000"
+  echo ""
+
+  exit
+fi
 
 echo "Removing old android project"
 ember cordova platform remove android
@@ -13,13 +42,23 @@ echo "Adding plugins"
 source  $DIR/install_plugins
 
 echo "Building android project"
-MOBILE_PLATFORM=android ember cordova:build anroid --environment=${EMBER_ENV:=staging}
+MOBILE_PLATFORM=android ember cordova:build android --environment=${EMBER_ENV:=staging}
 
 echo "Compiling apk file"
 cd $DIR/../cordova
-cordova build android
+cordova build android --release
 
-cd $DIR/..
+cd $ORIG_DIR
 
-# echo "Running on android emulator"
-# ember cordova emulate android
+echo "Signing apk file"
+jarsigner -verbose \
+  -storepass $KEYSTORE_PASSWORD \
+  -keypass $KEY_PASSWORD \
+  -sigalg SHA1withRSA \
+  -digestalg SHA1 \
+  -keystore $KEYSTORE \
+  $UNSIGNED_APK_FILE \
+  $KEY_ALIAS
+
+echo "Aligning signed apk file"
+$ZIPALIGN_BINARY -v 4 $UNSIGNED_APK_FILE $FINAL_APK_FILE
