@@ -4,7 +4,7 @@ set -e
 ORIG_DIR=`pwd`
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 ANDROID_BUILD_TOOLS_VERSION=22.0.1
-KEYSTORE=${KEYSTORE:=$DIR/../smartlink.keystore}
+KEYSTORE=$DIR/../smartlink.keystore
 KEYSTORE_PASSWORD="Savewatern0w1"
 KEY_ALIAS="smartlinkmobile"
 KEY_PASSWORD="Savewatern0w1"
