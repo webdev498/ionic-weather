@@ -25,6 +25,7 @@ SmartlinkControllerAdapter = ApplicationAdapter.extend CurrentUserMixin,
 
   customQueryParams:
     embed_zones: 'true'
+    embed_programs: 'true'
     embed_site: 'false'
 
 `export default SmartlinkControllerAdapter`
