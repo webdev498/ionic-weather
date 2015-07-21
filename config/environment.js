@@ -59,8 +59,6 @@ module.exports = function(environment) {
     ENV.apiUrl   = 'http://' + addresses[0] + ':3000';
     ENV.development = true;
 
-    ENV.useMockApi = false;
-
     ENV.contentSecurityPolicy['connect-src'] = "'self' " + ENV.apiUrl;
     ENV.contentSecurityPolicy['img-src'] = "'self' data:"
   }
