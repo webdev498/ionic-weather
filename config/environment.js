@@ -82,7 +82,7 @@ module.exports = function(environment) {
 
 
   if (environment === 'production') {
-    ENV.apiUrl = 'http://sln-mobile-ember.herokuapp.com';
+    ENV.apiUrl = 'https://my.smartlinknetwork.com';
     ENV.production = true;
   }
 
