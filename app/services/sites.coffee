@@ -9,6 +9,9 @@ SitesService = Ember.Service.extend
 
   store: Ember.inject.service('store')
 
+  clearCache: ->
+    window.SlnMobileEmber.set('cachedSites', null)
+
   lookupAndCacheSites: (options) ->
     @lookupSites(options).then (sites) ->
       window.SlnMobileEmber.set('cachedSites', sites)

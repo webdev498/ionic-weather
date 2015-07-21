@@ -10,6 +10,7 @@ ApplicationRoute = Ember.Route.extend ApplicationRouteMixin,
 
     logOut: ->
       @get('session').invalidate()
+      @get('sites').clearCache()
 
     sessionInvalidationSucceeded: ->
       @transitionTo('login')
