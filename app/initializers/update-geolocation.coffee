@@ -8,6 +8,7 @@ initialize = (container, _app) ->
 
   startUpdateLoop = ->
     setInterval(updateGeolocation, 1000 * 60 * 5)
+    updateGeolocation()
 
   if typeof(window.cordova) is 'undefined'
     startUpdateLoop()
