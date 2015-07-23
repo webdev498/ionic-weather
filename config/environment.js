@@ -91,6 +91,7 @@ module.exports = function(environment) {
     crossOriginWhitelist: [ENV.apiUrl]
   };
 
+  ENV.remoteLoggingUrl = 'http://127.0.0.1:4567/logs';
 
   return ENV;
 };
