@@ -14,13 +14,18 @@ Logging = Ember.Object.extend CurrentUserMixin,
   pushLogs: ->
     q = LOGGING.get('logQueue')
     if q.length
-      url = LOGGING.get('config.remoteLoggingUrl')
+      url = LOGGING.get('config.remoteLogging.url')
       Ember.$.ajax('http://127.0.0.1:4567/logs', {
         contentType: 'application/json',
         type: 'POST',
-        data: JSON.stringify({ logs: q  })
-      })
-      q.clear()
+        data: JSON.stringify({ logs: q  }),
+        beforeSend: (xhr) ->
+          username = LOGGING.get('config.remoteLogging.username')
+          password = LOGGING.get('config.remoteLogging.password')
+          auth = btoa("#{username}:#{password}")
+          xhr.setRequestHeader('Authorization', "Basic #{auth}")
+      }).done ->
+        q.clear()
     else
       console.log('No logs, nothing to push')
 
