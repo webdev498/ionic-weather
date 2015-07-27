@@ -80,6 +80,16 @@ module.exports = function(environment) {
     ENV.staging = true;
   }
 
+  if (environment === 'beta') {
+    ENV.apiUrl = 'https://my.smartlinknetwork.com';
+    ENV.production = true;
+
+    ENV.remoteLogging = {
+      url: 'http://sln-mobile-logs.smartlinknetwork.com/logs',
+      username: 'logsuser',
+      password: 'trustno1hunter2'
+    };
+  }
 
   if (environment === 'production') {
     ENV.apiUrl = 'https://my.smartlinknetwork.com';
@@ -89,12 +99,6 @@ module.exports = function(environment) {
   ENV['simple-auth'] = {
     authorizer: 'authorizer:weathermatic',
     crossOriginWhitelist: [ENV.apiUrl]
-  };
-
-  ENV.remoteLogging = {
-    url: 'http://127.0.0.1:4567/logs',
-    username: 'logsuser',
-    password: 'trustno1hunter2'
   };
 
   return ENV;

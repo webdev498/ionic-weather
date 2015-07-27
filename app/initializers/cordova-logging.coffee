@@ -15,7 +15,7 @@ Logging = Ember.Object.extend CurrentUserMixin,
     q = LOGGING.get('logQueue')
     if q.length
       url = LOGGING.get('config.remoteLogging.url')
-      Ember.$.ajax('http://127.0.0.1:4567/logs', {
+      Ember.$.ajax(url, {
         contentType: 'application/json',
         type: 'POST',
         data: JSON.stringify({ logs: q  }),
@@ -38,7 +38,7 @@ Logging = Ember.Object.extend CurrentUserMixin,
       uuid: window.device? && window.device.uuid,
       vers: window.device? && window.device.version,
       dev: window.device? && window.device.name,
-      u: @get('currentUser.email'),
+      u: LOGGING.get('session.secure.userInfo.result.user.email'),
       t: moment.utc().unix()
     })
 
@@ -68,7 +68,7 @@ Logging = Ember.Object.extend CurrentUserMixin,
       LOGGING.logRemote('ERROR', msg)
       console.log("[ERROR] #{msg}")
 
-    @startLogPusher()
+    @startLogPusher() if config.remoteLogging
 
 initialize = (container, _app) ->
   return unless console?
