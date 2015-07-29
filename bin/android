@@ -42,7 +42,41 @@ echo "Adding plugins"
 source  $DIR/install_plugins
 
 echo "Building android project"
-MOBILE_PLATFORM=android ember cordova:build android --environment=${EMBER_ENV:=staging}
+echo "Environment: $EMBER_ENV"
+MOBILE_PLATFORM=android ember cordova:build --environment=${EMBER_ENV:=staging} --platform=android
+
+echo "Copying image files"
+
+CORDOVA_DIR=$DIR/../cordova
+SIZES="hdpi ldpi mdpi xhdpi"
+
+for SIZE in $SIZES; do
+  echo "SIZE: $SIZE"
+  rm -f $CORDOVA_DIR/platforms/android/res/drawable-$SIZE/{icon.png,screen.png}
+  rm -f $CORDOVA_DIR/platforms/android/res/drawable-port-$SIZE/{icon.png,screen.png}
+  rm -f $CORDOVA_DIR/platforms/android/res/drawable-land-$SIZE/{icon.png,screen.png}
+
+  # Icon
+  cp $CORDOVA_DIR/build_assets/android/icons/wmatic_icon.png $CORDOVA_DIR/platforms/android/res/drawable-$SIZE/icon.png
+
+  # Splash images
+  SRC_FILE=$CORDOVA_DIR/build_assets/android/splash_images/splash_$SIZE.png
+  if [ -e $SRC_FILE ]; then
+    cp $SRC_FILE $CORDOVA_DIR/platforms/android/res/drawable-$SIZE
+  else
+    echo "No image file to copy, skipping: $SRC_FILE"
+  fi
+
+  SRC_FILE=$CORDOVA_DIR/build_assets/android/splash_images/splash_"$SIZE"_land.png
+  if [ -e $SRC_FILE ]; then
+    cp $SRC_FILE $CORDOVA_DIR/platforms/android/res/drawable-land-$SIZE
+  else
+    echo "No image file to copy, skipping: $SRC_FILE"
+  fi
+done
+
+rm -f $CORDOVA_DIR/platforms/android/res/drawable/{icon.png,screen.png}
+cp $CORDOVA_DIR/build_assets/android/icons/wmatic_icon.png $CORDOVA_DIR/platforms/android/res/drawable
 
 echo "Compiling apk file"
 cd $DIR/../cordova
