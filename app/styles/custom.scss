@@ -1,3 +1,11 @@
+h2 {
+  font-size: 25px;
+}
+
+.weathermatic-controller-page {
+  margin-top: 8px;
+}
+
 .weathermatic-controller-details-faults {
   .btn {
     display: block;
@@ -6,12 +14,27 @@
   }
 }
 
+.run-zone-heading {
+  margin-bottom: 0px;
+}
+
+.location-badge {
+  background-color: #2191CC;
+  color: #fff;
+}
+
+.controller-count-badge {
+  background-color: #106AA5;
+  color: #fff;
+}
+
 .weathermatic-select-program-call-to-action {
   color: #101010 !important;
 }
 
 .weathermatic-select-program {
   font-weight: bold;
+  padding: 20px 65px 5px 15px;
 
   a {
     &.navigate-right:after, &.push-right:after {
@@ -171,7 +194,7 @@
 }
 
 .weathermatic-content {
-  padding-top: 54px !important;
+  padding-top: 52px !important;
 }
 
 
@@ -204,6 +227,7 @@
 .weathermatic-instruction-icon {
   margin-right: 12px;
   display: inline;
+  width: 30x;
 }
 
 .weathermatic-disabled {

@@ -7,7 +7,6 @@ InstructionItemComponent = Ember.Component.extend
   classNameBindings: ['instructionCssClass', ':table-view-cell']
 
   instructionCssClass: Ember.computed 'instruction.isCommand', ->
-    'weathermatic-disabled' unless @get('instruction.isCommand')
 
   statusCssClass: Ember.computed 'instruction.statusId', ->
     switch @get('instruction.statusId')
@@ -18,8 +17,8 @@ InstructionItemComponent = Ember.Component.extend
 
   iconName: Ember.computed 'instruction.typeCommonName', ->
     icon = switch @getWithDefault('instruction.typeCommonName', '').toLowerCase()
-      when 'send' then 'chevron-right'
-      when 'receive' then 'chevron-left'
+      when 'send' then 'exchange'
+      when 'receive' then 'exchange'
       when 'command' then 'gears'
       else 'asterisk'
     return "#{icon} fa-lg"
