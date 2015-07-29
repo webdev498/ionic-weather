@@ -22,8 +22,10 @@
     <p>We're about to run</p>
 
     <span class="btn btn-block btn-primary btn-outlined">
-      <h3>{{fa-icon 'leaf'}} Zone {{model.number}}</h3>
-      <p>{{model.description}}</p>
+      <h3 class="run-zone-heading">{{fa-icon 'leaf'}} Zone {{model.number}}</h3>
+      {{#if model.description}}
+        <p>{{model.description}}</p>
+      {{/if}}
     </span>
 
     <form class="weathermatic-run-zone-select-run-time">

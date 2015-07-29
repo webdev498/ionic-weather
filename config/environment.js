@@ -4,13 +4,13 @@ var os     = require('os');
 var ifaces = os.networkInterfaces();
 
 var addresses = [];
-for (var dev in ifaces) {
-  ifaces[dev].forEach(function(details){
-    if(details.family === 'IPv4' && details.address !== '127.0.0.1') {
-      addresses.push(details.address);
-    }
-  });
-}
+// for (var dev in ifaces) {
+//   ifaces[dev].forEach(function(details){
+//     if(details.family === 'IPv4' && details.address !== '127.0.0.1') {
+//       addresses.push(details.address);
+//     }
+//   });
+// }
 
 addresses[0] = addresses[0] || '127.0.0.1';
 

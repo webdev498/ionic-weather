@@ -34,9 +34,9 @@
             {{/if}}
             <p>
               <small class="badge">{{site.cityState}}</small>
-              <small class="badge">{{site.controllersCount}} controllers</small>
+              <small class="badge controller-count-badge">{{site.controllersCount}} controllers</small>
               {{#if site.milesAway}}
-                <small class="badge">{{format-number site.milesAway round=true}} mi</small>
+                <small class="badge location-badge">{{fa-icon 'location-arrow'}} {{format-number site.milesAway round=true}} mi</small>
               {{/if}}
             </p>
           </div>
