@@ -8,7 +8,7 @@ SitesRoute = Ember.Route.extend AuthenticatedRouteMixin,
 
   model: (params) ->
     self = this
-    preCachedSitesList = window.SlnMobileEmber.get('cachedSites')
+    preCachedSitesList = window.SLN_MOBILE_CACHED_SITES
     return preCachedSitesList if preCachedSitesList?
     @get('sites').lookupAndCacheSites().then (sites) ->
       return sites
