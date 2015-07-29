@@ -57,17 +57,17 @@ for SIZE in $SIZES; do
   rm -f $CORDOVA_DIR/platforms/android/res/drawable-land-$SIZE/{icon.png,screen.png}
 
   # Icon
-  cp $CORDOVA_DIR/build_assets/android/icons/wmatic_icon.png $CORDOVA_DIR/platforms/android/res/drawable-$SIZE/icon.png
+  cp $CORDOVA_DIR/res/android/icons/wmatic_icon.png $CORDOVA_DIR/platforms/android/res/drawable-$SIZE/icon.png
 
   # Splash images
-  SRC_FILE=$CORDOVA_DIR/build_assets/android/splash_images/splash_$SIZE.png
+  SRC_FILE=$CORDOVA_DIR/res/android/splash_images/splash_$SIZE.png
   if [ -e $SRC_FILE ]; then
     cp $SRC_FILE $CORDOVA_DIR/platforms/android/res/drawable-$SIZE
   else
     echo "No image file to copy, skipping: $SRC_FILE"
   fi
 
-  SRC_FILE=$CORDOVA_DIR/build_assets/android/splash_images/splash_"$SIZE"_land.png
+  SRC_FILE=$CORDOVA_DIR/res/android/splash_images/splash_"$SIZE"_land.png
   if [ -e $SRC_FILE ]; then
     cp $SRC_FILE $CORDOVA_DIR/platforms/android/res/drawable-land-$SIZE
   else
@@ -76,7 +76,7 @@ for SIZE in $SIZES; do
 done
 
 rm -f $CORDOVA_DIR/platforms/android/res/drawable/{icon.png,screen.png}
-cp $CORDOVA_DIR/build_assets/android/icons/wmatic_icon.png $CORDOVA_DIR/platforms/android/res/drawable
+cp $CORDOVA_DIR/res/android/icons/wmatic_icon.png $CORDOVA_DIR/platforms/android/res/drawable
 
 echo "Compiling apk file"
 cd $DIR/../cordova

@@ -20,7 +20,7 @@ echo "Adding plugins"
 source  $DIR/install_plugins
 
 echo "Building XCode project"
-MOBILE_PLATFORM=ios ember cordova:build --environment ${EMBER_ENV:=staging}
+MOBILE_PLATFORM=ios ember cordova:build --environment ${EMBER_ENV:=staging} --platform ios
 
 echo "Opening XCode project"
 ember cordova:open
