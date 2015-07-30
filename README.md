@@ -1,53 +1,40 @@
-# Sln-mobile-ember
+# SLN Mobile App
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is a [Cordova](https://cordova.apache.org/) app that uses [Ember.js](http://emberjs.com/)
 
-## Prerequisites
+We use [ember-cli-cordova](https://github.com/poetic/ember-cli-cordova) to help with the ember/cordova integration.
 
-You will need the following things properly installed on your computer.
+## Running locally
 
-* [Git](http://git-scm.com/)
-* [Node.js](http://nodejs.org/) (with NPM)
-* [Bower](http://bower.io/)
-* [Ember CLI](http://www.ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
+To initialize the cordova project, run:
 
-## Installation
+    ember cordova:prepare
 
-* `git clone <repository-url>` this repository
-* change into the new directory
-* `npm install`
-* `bower install`
 
-## Running / Development
 
-* `ember server`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
 
-### Code Generators
+To run a local web server so you can view the pages in a browser, run:
 
-Make use of the many generators for code, try `ember help generate` for more details
+    EMBER_CLI_CORDOVA=0 ember serve --environment=development
+    
+And visit `http://localhost:4200` in your browser
 
-### Running Tests
 
-* `ember test`
-* `ember test --server`
+### To build for ios
 
-### Building
+Run:
 
-* `ember build` (development)
-* `ember build --environment production` (production)
+    EMBER_ENV=staging bin/ios
 
-### Deploying
+This will create (or re-create) an XCode project from which you can create and deploy application archives.  To create an archive and send it to the app store, select "iOS Device" as the target device and run Product -> Archive and the publish to app store.  Be sure to bump up the app's version number first or the app store won't accept the build (e.g. 2.0.6 -> 2.0.7)
 
-Specify what it takes to deploy your app.
 
-## Further Reading / Useful Links
+### To build for android
 
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://www.ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+Run:
+
+    EMBER_ENV=staging bin/android
+
+That will produce `smartlink.apk` in the root project directory which you can upload to the google play store.
+
 
