@@ -6,6 +6,16 @@ h2 {
   margin-top: 8px;
 }
 
+.spaced-icon {
+  min-width: 25px;
+  text-align: center;
+}
+
+.fault-row {
+  min-height: 50px;
+  font-size: 0.8em;
+}
+
 .weathermatic-controller-details-faults {
   .btn {
     display: block;
@@ -140,7 +150,7 @@ h2 {
   }
 
   .weathermatic-logo {
-    margin-top: 17px;
+    margin-top: 20px;
     width: 180px;
   }
 

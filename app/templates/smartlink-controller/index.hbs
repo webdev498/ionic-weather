@@ -17,22 +17,22 @@
           </li>
           <li class="table-view-cell">
             {{#link-to 'smartlink-controller.select-program' class='push-right'}}
-              {{fa-icon 'play'}} Run Program
+              {{fa-icon 'play' classNames="spaced-icon"}} Run Program
             {{/link-to}}
           </li>
           <li class="table-view-cell">
             {{#link-to 'smartlink-controller.select-zone' class='push-right'}}
-              {{fa-icon 'leaf'}} Run Zone
+              {{fa-icon 'leaf' classNames="spaced-icon"}} Run Zone
               {{/link-to}}
           </li>
           <li class="table-view-cell">
             {{#link-to 'smartlink-controller.select-valves' class='push-right'}}
-              {{fa-icon 'crosshairs'}} Locate Valve
+              {{fa-icon 'crosshairs' classNames="spaced-icon"}} Locate Valve
             {{/link-to}}
           </li>
           <li class="table-view-cell">
             {{#link-to 'smartlink-controller.walk-site' class='push-right'}}
-              {{fa-icon 'male'}} Walk Site
+              {{fa-icon 'male' classNames="spaced-icon"}} Walk Site
             {{/link-to}}
           </li>
         </ul>
@@ -108,7 +108,7 @@
   {{#if model.faults.length}}
     <div class="content-padded weathermatic-controller-details-faults">
       {{#each fault in model.faults}}
-        <button class="btn btn-negative">{{fault.description}}</button>
+        <button class="btn btn-negative fault-row">{{fault.description}}</button>
       {{/each}}
 
       {{#if model.canRunCommands}}
