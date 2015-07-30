@@ -1,15 +1,17 @@
 #!/bin/bash
 set -e
 
-ORIG_DIR=`pwd`
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+CORDOVA_DIR=$DIR/../cordova
+APP_VERSION=$(($(cat $CORDOVA_DIR/android-last-build-version) + 1))
+ANDROID_PROJECT_DIR=$CORDOVA_DIR/platforms/android
 ANDROID_BUILD_TOOLS_VERSION=22.0.1
 KEYSTORE=$DIR/../smartlink.keystore
 KEYSTORE_PASSWORD="Savewatern0w1"
 KEY_ALIAS="smartlinkmobile"
 KEY_PASSWORD="Savewatern0w1"
 ZIPALIGN_BINARY=$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION/zipalign
-UNSIGNED_APK_FILE=$DIR/../cordova/platforms/android/ant-build/MainActivity-release-unsigned.apk
+UNSIGNED_APK_FILE=$ANDROID_PROJECT_DIR/ant-build/MainActivity-release-unsigned.apk
 FINAL_APK_FILE=$DIR/../smartlink-android.apk
 
 if [ -f $FINAL_APK_FILE ]; then
@@ -32,67 +34,76 @@ if [ ! -f $KEYSTORE ]; then
   exit
 fi
 
-echo "Removing old android project"
+function msg {
+  echo "============================================"
+  echo "$1"
+  echo "============================================"
+}
+
+msg "Removing old android project"
 ember cordova platform remove android
 
-echo "Adding android platform"
+msg "Adding android platform"
 ember cordova platform add android
 
-echo "Adding plugins"
+msg "Adding plugins"
 source  $DIR/install_plugins
 
-echo "Building android project"
-echo "Environment: $EMBER_ENV"
-MOBILE_PLATFORM=android ember cordova:build --environment=${EMBER_ENV:=staging} --platform=android
+msg "Copying image files"
 
-echo "Copying image files"
-
-CORDOVA_DIR=$DIR/../cordova
 SIZES="hdpi ldpi mdpi xhdpi"
 
 for SIZE in $SIZES; do
   echo "SIZE: $SIZE"
-  rm -f $CORDOVA_DIR/platforms/android/res/drawable-$SIZE/{icon.png,screen.png}
-  rm -f $CORDOVA_DIR/platforms/android/res/drawable-port-$SIZE/{icon.png,screen.png}
-  rm -f $CORDOVA_DIR/platforms/android/res/drawable-land-$SIZE/{icon.png,screen.png}
+  rm -f $ANDROID_PROJECT_DIR/res/drawable-$SIZE/{icon.png,screen.png}
+  rm -f $ANDROID_PROJECT_DIR/res/drawable-port-$SIZE/{icon.png,screen.png}
+  rm -f $ANDROID_PROJECT_DIR/res/drawable-land-$SIZE/{icon.png,screen.png}
 
   # Icon
-  cp $CORDOVA_DIR/res/android/icons/wmatic_icon.png $CORDOVA_DIR/platforms/android/res/drawable-$SIZE/icon.png
+  cp $CORDOVA_DIR/res/android/icons/wmatic_icon.png $ANDROID_PROJECT_DIR/res/drawable-$SIZE/icon.png
 
   # Splash images
   SRC_FILE=$CORDOVA_DIR/res/android/splash_images/splash_$SIZE.png
   if [ -e $SRC_FILE ]; then
-    cp $SRC_FILE $CORDOVA_DIR/platforms/android/res/drawable-$SIZE
+    cp $SRC_FILE $ANDROID_PROJECT_DIR/res/drawable-$SIZE
   else
     echo "No image file to copy, skipping: $SRC_FILE"
   fi
 
   SRC_FILE=$CORDOVA_DIR/res/android/splash_images/splash_"$SIZE"_land.png
   if [ -e $SRC_FILE ]; then
-    cp $SRC_FILE $CORDOVA_DIR/platforms/android/res/drawable-land-$SIZE
+    cp $SRC_FILE $ANDROID_PROJECT_DIR/res/drawable-land-$SIZE
   else
     echo "No image file to copy, skipping: $SRC_FILE"
   fi
 done
 
-rm -f $CORDOVA_DIR/platforms/android/res/drawable/{icon.png,screen.png}
-cp $CORDOVA_DIR/res/android/icons/wmatic_icon.png $CORDOVA_DIR/platforms/android/res/drawable
+rm -f $ANDROID_PROJECT_DIR/res/drawable/{icon.png,screen.png}
+cp $CORDOVA_DIR/res/android/icons/wmatic_icon.png $ANDROID_PROJECT_DIR/res/drawable
 
-echo "Compiling apk file"
-cd $DIR/../cordova
-cordova build android --release
 
-cd $ORIG_DIR
+msg "Updating app version to: $APP_VERSION"
+sed -i '.bak' "s/android-versionCode=\"[0-9]*\"/android-versionCode=\"$APP_VERSION\"/" $CORDOVA_DIR/config.xml
+if [ "$?" -ne 0 ]; then
+ echo "Could not update app version, bailing"
+ exit 1
+fi
+rm $CORDOVA_DIR/config.xml.bak
+echo $APP_VERSION > $CORDOVA_DIR/android-last-build-version
 
-echo "Signing apk file"
-jarsigner -verbose \
-  -storepass $KEYSTORE_PASSWORD \
-  -keypass $KEY_PASSWORD \
-  -sigalg SHA1withRSA \
-  -digestalg SHA1 \
-  -keystore $KEYSTORE \
-  $UNSIGNED_APK_FILE \
-  $KEY_ALIAS
 
-echo "Aligning signed apk file"
-$ZIPALIGN_BINARY -v 4 $UNSIGNED_APK_FILE $FINAL_APK_FILE
+msg "Building android cordova project and .apk"
+MOBILE_PLATFORM=android ember cordova:build --environment=${EMBER_ENV:=production} --platform=android
+
+msg "Signing apk file"
+ jarsigner -verbose \
+   -storepass $KEYSTORE_PASSWORD \
+   -keypass $KEY_PASSWORD \
+   -sigalg SHA1withRSA \
+   -digestalg SHA1 \
+   -keystore $KEYSTORE \
+   $UNSIGNED_APK_FILE \
+   $KEY_ALIAS
+
+ msg "Aligning signed apk file"
+ $ZIPALIGN_BINARY -v 4 $UNSIGNED_APK_FILE $FINAL_APK_FILE

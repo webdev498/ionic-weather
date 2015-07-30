@@ -2,6 +2,13 @@
 set -e
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+CORDOVA_DIR=$DIR/../cordova
+
+function msg {
+  echo "============================================"
+  echo "$1"
+  echo "============================================"
+}
 
 echo "Killing XCode..."
 xcodepids=$(ps aux | grep 'Xcod[e]' | awk '{print $2}')
@@ -10,17 +17,31 @@ if [ "$xcodepids" ]; then
 fi
 echo "It's dead"
 
-echo "Removing old XCode project"
+msg "Removing old XCode project"
 ember cordova platform remove ios
 
-echo "Adding ios platform"
+msg "Adding ios platform"
 ember cordova platform add ios
 
-echo "Adding plugins"
+msg "Adding plugins"
 source  $DIR/install_plugins
 
-echo "Building XCode project"
-MOBILE_PLATFORM=ios ember cordova:build --environment ${EMBER_ENV:=staging} --platform ios
+PREV_VERSION=$(cat $CORDOVA_DIR/ios-last-build-version)
+PREFIX=$(echo "$PREV_VERSION" | grep -o "[0-9]*\.[0-9]*\.")
+LAST_NODE=$(echo "$PREV_VERSION" | grep -o "[0-9]*$")
+NEW_VERSION="$PREFIX$(($LAST_NODE+1))"
 
-echo "Opening XCode project"
+msg "Updating version to: $NEW_VERSION"
+sed -i '.bak' "s/ios-CFBundleVersion=\"[0-9]*\.[0-9]*\.[0-9]*\"/ios-CFBundleVersion=\"$NEW_VERSION\"/" $CORDOVA_DIR/config.xml
+if [ "$?" -ne 0 ]; then
+  echo "Could not update version, bailing"
+  exit 1
+fi
+rm $CORDOVA_DIR/config.xml.bak
+echo $NEW_VERSION > $CORDOVA_DIR/ios-last-build-version
+
+msg "Building XCode project"
+MOBILE_PLATFORM=ios ember cordova:build --environment ${EMBER_ENV:=production} --platform ios
+
+msg "Opening XCode project"
 ember cordova:open
