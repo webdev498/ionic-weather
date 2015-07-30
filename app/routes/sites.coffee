@@ -7,6 +7,7 @@ SitesRoute = Ember.Route.extend AuthenticatedRouteMixin,
   sites: Ember.inject.service('sites')
 
   model: (params) ->
+    Ember.Logger.debug 'In SitesRoute model'
     self = this
     preCachedSitesList = window.SLN_MOBILE_CACHED_SITES
     return preCachedSitesList if preCachedSitesList?
@@ -19,6 +20,8 @@ SitesRoute = Ember.Route.extend AuthenticatedRouteMixin,
       self.get('sites').lookupAndCacheSites()
 
   setupController: (controller, model) ->
+    Ember.Logger.debug 'In SitesRoute setupController'
+    Ember.Logger.debug "geolocationUnavailable value: #{@get('geolocationUnavailable')}"
     this._super(arguments...)
     controller.set('geolocationUnavailable', @get('geolocationUnavailable'))
 

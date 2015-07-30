@@ -12,6 +12,7 @@ LoginController = Ember.Controller.extend
 
   actions:
     logIn: ->
+      Ember.Logger.debug 'LoginController logIn action'
       self = this
       @setProperties(isLoading: true, isError: false)
       @get('session').authenticate('authenticator:weathermatic', {
@@ -19,11 +20,13 @@ LoginController = Ember.Controller.extend
         password: @get('password')
       })
       .then (resp) ->
+        Ember.Logger.debug 'Login succeeded'
         self.set('isError', false)
         self.set('password', null)
         self.set('isSuccess', true)
       .catch (error) ->
         if error.type is 'badCredentials'
+          Ember.Logger.debug 'Login failed with bad creds'
           self.set('isError', true)
           self.set('hasErrored', true)
         else
