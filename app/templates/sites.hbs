@@ -1,8 +1,6 @@
 <header class="bar bar-nav weathermatic-header">
   <a href="javascript:void(0)" {{bind-attr class=':icon searchIcon :pull-left'}} {{action 'toggleSearch'}}></a>
-  <div class="weathermatic-logo-container">
-    <img src="assets/images/sl-logo.png" class="weathermatic-logo">
-  </div>
+  {{logo-header}}
   <a href="javascript:void(0)" class="icon icon-gear pull-right" {{action 'openOptionsMenu'}}></a>
 </header>
 
