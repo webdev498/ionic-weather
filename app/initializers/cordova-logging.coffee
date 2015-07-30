@@ -48,6 +48,8 @@ Logging = Ember.Object.extend CurrentUserMixin,
     setInterval(@pushLogs, 1000 * seconds)
 
   setupCordovaLogging: ->
+    defaultLogLevel = LOGGING.get('defaultLogLevel')
+
     Ember.Logger.log = (msg) ->
       LOGGING.logRemote(defaultLogLevel, msg)
       console.log("[#{defaultLogLevel}] #{msg}")
