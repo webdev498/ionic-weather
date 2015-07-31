@@ -50,25 +50,19 @@ Logging = Ember.Object.extend CurrentUserMixin,
   setupCordovaLogging: ->
     defaultLogLevel = LOGGING.get('defaultLogLevel')
 
-    Ember.Logger.log = (msg) ->
-      LOGGING.logRemote(defaultLogLevel, msg)
-      console.log("[#{defaultLogLevel}] #{msg}")
+    buildLogFunction = (level) ->
+      ->
+        msg = arguments[0]
+        args = Array.prototype.slice.call(arguments)
+        LOGGING.logRemote(level, msg)
+        args[0] = "[#{level}] #{msg}"
+        console.log.apply(console, args)
 
-    Ember.Logger.info = (msg) ->
-      LOGGING.logRemote('INFO', msg)
-      console.log("[INFO] #{msg}")
-
-    Ember.Logger.debug = (msg) ->
-      LOGGING.logRemote('DEBUG', msg)
-      console.log("[DEBUG] #{msg}")
-
-    Ember.Logger.warn = (msg) ->
-      LOGGING.logRemote('WARN', msg)
-      console.log("[WARN] #{msg}")
-
-    Ember.Logger.error = (msg) ->
-      LOGGING.logRemote('ERROR', msg)
-      console.log("[ERROR] #{msg}")
+    Ember.Logger.log = buildLogFunction(defaultLogLevel)
+    Ember.Logger.info = buildLogFunction('INFO')
+    Ember.Logger.debug = buildLogFunction('DEBUG')
+    Ember.Logger.warn = buildLogFunction('WARN')
+    Ember.Logger.error = buildLogFunction('ERROR')
 
     @startLogPusher() if config.remoteLogging
 
