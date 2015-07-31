@@ -13,7 +13,9 @@ SitesService = Ember.Service.extend
     window.SLN_MOBILE_CACHED_SITES = null
 
   lookupAndCacheSites: (options) ->
+    Ember.Logger.debug "SitesService lookupAndCacheSites called, returning promise"
     @lookupSites(options).then (sites) ->
+      Ember.Logger.debug "SitesService lookupAndCacheSites lookupSites returned, sites count: #{sites?.length}"
       window.SLN_MOBILE_CACHED_SITES = sites
       return sites
 

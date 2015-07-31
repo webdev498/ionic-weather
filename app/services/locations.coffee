@@ -4,14 +4,20 @@ get = Ember.get
 
 LocationsService = Ember.Service.extend
   getCurrentLocation: ->
+    Ember.Logger.debug "Location service getCurrentLocation, location requested, returning a promise"
     self = this
     new Ember.RSVP.Promise (resolve, reject) ->
+      Ember.Logger.debug "Location service getCurrentLocation promise executing"
       cachedCoords = self.getCachedLocation()
+      Ember.Logger.debug "Location service getCurrentLocation returning cached coordinates" if cachedCoords
       return resolve(cachedCoords) if cachedCoords
+      Ember.Logger.debug "Location service getCachedLocation fetching location"
       self.lookupCurrentLocation().then (coords) ->
+        Ember.Logger.debug "Location service getCachedLocation got response"
         self.setCachedLocation(coords)
         resolve(coords)
       .catch (error) ->
+        Ember.Logger.debug "Location service getCachedLocation got error: #{error}"
         reject(error)
 
   lookupCurrentLocation: ->
