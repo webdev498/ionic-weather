@@ -4,7 +4,7 @@
 
 <div class="content weathermatic-content">
   <div class="content-padded">
-    <form id="login-form" {{action 'logIn' on='submit'}}>
+    <form id="login-form" onsubmit="return false;" {{action 'logIn' on='submit'}}>
       <center>
         <h2>
           {{fa-icon 'key'}} Please log in
@@ -12,7 +12,19 @@
         <br>
         {{input type='email' placeholder='Email' value=email required=true}}
         {{input type='password' placeholder='Password' value=password required=true}}
-        <button class="btn btn-block btn-positive" {{bind-attr disabled=isLoading}}>
+
+        <!-- Looks stupid, but required for iOS:
+          http://stackoverflow.com/questions/5329192/search-button-works-on-simulator-but-not-on-device-jqtouch-and-phonegap
+
+          Without this, iOS ignores the onsubmit attribute on the form (in which we tell the form not to submit) and
+          the form will actually try to submit (to nowhere), which takes the user off to a useless blank screen that
+          they can't recover from without restarting the app :(
+        -->
+        <input name="dummy" type="submit" value="" style="position:absolute; visibility:hidden;"/>
+
+        <button id="login-button" class="btn btn-block btn-positive" onclick="return false;"
+          {{action 'logIn'}} {{bind-attr disabled=isLoading}}>
+
           {{#if hasErrored}}
             Retry
           {{else}}
