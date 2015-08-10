@@ -152,4 +152,7 @@ SitesController = Ember.Controller.extend
       @set('sortMethod', sortMethod)
       @send('closeSortOptions')
 
+    sendFeedback: ->
+      @send('openLink', 'mailto:feedback@smartlinknetwork.com')
+
 `export default SitesController`
