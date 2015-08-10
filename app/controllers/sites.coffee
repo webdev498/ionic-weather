@@ -153,6 +153,6 @@ SitesController = Ember.Controller.extend
       @send('closeSortOptions')
 
     sendFeedback: ->
-      @send('openLink', 'mailto:feedback@smartlinknetwork.com')
+      @send('openLink', 'mailto:feedback@smartlinknetwork.com?subject=Mobile App Feedback')
 
 `export default SitesController`

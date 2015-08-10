@@ -64,7 +64,7 @@
 <div id="options-menu" {{bind-attr class=':modal isOptionsMenuOpen:active'}}>
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeOptionsMenu'}}></a>
-    <h1 class="title">{{fa-icon 'gear'}} Options</h1>
+    <h1 class="title">{{fa-icon 'gear' classNames='spaced-icon'}} Options</h1>
   </header>
 
   <div class="content weathermatic-content">
@@ -72,7 +72,7 @@
       <li class="table-view-cell">
         <a href="javscript:void(0)" {{action 'logOut'}}>
           <div class="media-body">
-            <h2>{{fa-icon 'sign-out'}} Log out</h2>
+            <h2>{{fa-icon 'sign-out' classNames='spaced-icon'}} Log out</h2>
             <p>Enter your email and password to log back in</p>
           </div>
         </a>
@@ -80,7 +80,7 @@
       <li class="table-view-cell">
         <a href="javascript:void(0)" {{action 'syncSites'}}>
           <div class="media-body">
-            <h2>{{fa-icon 'refresh'}} Sync Sites</h2>
+            <h2>{{fa-icon 'refresh' classNames='spaced-icon'}} Sync Sites</h2>
             <p>Refresh the latest data from our servers</p>
           </div>
         </a>
@@ -89,7 +89,7 @@
       <li class="table-view-cell">
         <a href="javascript:void(0)" {{action 'openSortOptions'}}>
           <div class="media-body">
-            <h2>{{fa-icon 'sort'}} Sort Sites</h2>
+            <h2>{{fa-icon 'sort' classNames='spaced-icon'}} Sort Sites</h2>
             <p>Change the sort order for the sites list</p>
           </div>
         </a>
@@ -98,7 +98,7 @@
       <li class="table-view-cell">
         <a href="javascript:void(0)" {{action 'sendFeedback'}}>
           <div class="media-body">
-            <h2>{{fa-icon 'comment-o'}} Send Feedback</h2>
+            <h2>{{fa-icon 'comment-o' classNames='spaced-icon'}} Send Feedback</h2>
             <p>Send us feedback about this app</p>
           </div>
         </a>
@@ -116,7 +116,7 @@
 <div id="sites-sort-options" {{bind-attr class=':modal isSortOptionsOpen:active'}}>
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSortOptions'}}></a>
-    <h1 class="title">{{fa-icon 'sort'}} Sort Options</h1>
+    <h1 class="title">{{fa-icon 'sort' classNames='spaced-icon'}} Sort Options</h1>
   </header>
 
   <div class="content weathermatic-content">
@@ -124,7 +124,7 @@
       <li class="table-view-cell">
         <a href="javascript:void(0)" {{action 'setSortMethod' 'proximity'}}>
           <div class="media-body">
-            <h2>{{fa-icon 'globe'}} Sort by Location</h2>
+            <h2>{{fa-icon 'globe' classNames='spaced-icon'}} Sort by Location</h2>
             <p>Nearest sites will appear first</p>
           </div>
         </a>
@@ -132,7 +132,7 @@
       <li class="table-view-cell">
         <a href="javascript:void(0)" {{action 'setSortMethod' 'alpha'}}>
           <div class="media-body">
-            <h2>{{fa-icon 'sort-alpha-asc'}} Sort by Name</h2>
+            <h2>{{fa-icon 'sort-alpha-asc' classNames='spaced-icon'}} Sort by Name</h2>
             <p>Sites will appear A-Z by name</p>
           </div>
         </a>
