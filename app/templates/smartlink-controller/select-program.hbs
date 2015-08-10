@@ -16,6 +16,9 @@
       <li {{bind-attr class=':table-view-cell :weathermatic-select-program program.cssClass'}}>
         {{#link-to 'smartlink-controller.run-program' program.model.id class='push-right'}}
           <h3>Run Program {{upper-case program.model.identifier}}</h3>
+          {{#if program.model.description.length}}
+            <p class="weathermatic-program-description">{{short-text program.model.description}}</p>
+          {{/if}}
         {{/link-to}}
         <br>
       </li>
