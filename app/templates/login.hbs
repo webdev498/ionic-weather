@@ -45,7 +45,12 @@
             <p class="messages">Please check your email and password</p>
           </div>
         {{/if}}
-        <p class="login-help">If you don't have an account yet, please go to <strong>smartlinknetwork.com</strong> and sign up.</p>
+        <p class="login-help">If you don't have an account yet, please go to
+          <a href="javascript:void(0)" {{action 'createAccount'}}>
+            <strong>smartlinknetwork.com</strong>
+          </a>
+          and sign up.
+        </p>
       </center>
     </form>
   </div>

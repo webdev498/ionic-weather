@@ -35,4 +35,7 @@ LoginController = Ember.Controller.extend
       .finally ->
         self.set('isLoading', false)
 
+    createAccount: ->
+      @send 'openLink', 'https://my.smartlinknetwork.com/users/sign_up'
+
 `export default LoginController`
