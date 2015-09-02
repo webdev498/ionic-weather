@@ -6,3 +6,4 @@ ember cordova plugin add org.apache.cordova.statusbar
 ember cordova plugin add org.apache.cordova.console
 ember cordova plugin add org.apache.cordova.device
 ember cordova plugin add cordova-plugin-whitelist
+ember cordova plugin add org.apache.cordova.inappbrowser
