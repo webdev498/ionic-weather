@@ -81,16 +81,18 @@ done
 rm -f $ANDROID_PROJECT_DIR/res/drawable/{icon.png,screen.png}
 cp $CORDOVA_DIR/res/android/icons/wmatic_icon.png $ANDROID_PROJECT_DIR/res/drawable
 
-
-msg "Updating app version to: $APP_VERSION"
-sed -i '.bak' "s/android-versionCode=\"[0-9]*\"/android-versionCode=\"$APP_VERSION\"/" $CORDOVA_DIR/config.xml
-if [ "$?" -ne 0 ]; then
- echo "Could not update app version, bailing"
- exit 1
+if [ "$NO_VER" ]; then
+  msg "NO_VER was set, will not increment the build version"
+else
+  msg "Updating app version to: $APP_VERSION"
+  sed -i '.bak' "s/android-versionCode=\"[0-9]*\"/android-versionCode=\"$APP_VERSION\"/" $CORDOVA_DIR/config.xml
+  if [ "$?" -ne 0 ]; then
+   echo "Could not update app version, bailing"
+   exit 1
+  fi
+  rm $CORDOVA_DIR/config.xml.bak
+  echo $APP_VERSION > $CORDOVA_DIR/android-last-build-version
 fi
-rm $CORDOVA_DIR/config.xml.bak
-echo $APP_VERSION > $CORDOVA_DIR/android-last-build-version
-
 
 msg "Building android cordova project and .apk"
 MOBILE_PLATFORM=android ember cordova:build --environment=${EMBER_ENV:=production} --platform=android
