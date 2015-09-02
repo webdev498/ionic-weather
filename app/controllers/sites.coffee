@@ -155,4 +155,7 @@ SitesController = Ember.Controller.extend
     sendFeedback: ->
       @send('openLink', 'mailto:feedback@smartlinknetwork.com?subject=Mobile App Feedback')
 
+    launchFullSite: ->
+      @send('openLink', 'http://www.smartlinknetwork.com/')
+
 `export default SitesController`
