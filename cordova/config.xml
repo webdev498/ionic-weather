@@ -15,6 +15,7 @@
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
+    <allow-navigation href="*" />
     <access origin="*" />
     <access origin="mailto:*" launch-external="yes"/>
     <preference name="BackupWebStorage" value="local"></preference>
