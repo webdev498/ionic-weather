@@ -11,7 +11,7 @@ KEYSTORE_PASSWORD="Savewatern0w1"
 KEY_ALIAS="smartlinkmobile"
 KEY_PASSWORD="Savewatern0w1"
 ZIPALIGN_BINARY=$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION/zipalign
-UNSIGNED_APK_FILE=$ANDROID_PROJECT_DIR/ant-build/MainActivity-release-unsigned.apk
+UNSIGNED_APK_FILE=$ANDROID_PROJECT_DIR/build/outputs/apk/android-release-unsigned.apk
 FINAL_APK_FILE=$DIR/../smartlink-android.apk
 
 if [ -f $FINAL_APK_FILE ]; then
