@@ -13,8 +13,12 @@
     {{#each zone in controller}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.run-zone' zone.id class='push-right'}}
-          Run Zone {{zone.number}}
-          <p>{{zone.description}}</p>
+          {{#if zone.description}}
+            Run Zone: {{short-text zone.description size=20}}
+            <p>Zone {{zone.number}}</p>
+          {{else}}
+            Run Zone {{zone.number}}
+          {{/if}}
         {{/link-to}}
       </li>
     {{else}}

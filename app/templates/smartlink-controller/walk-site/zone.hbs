@@ -22,10 +22,16 @@
 
   <div class="content-padded">
     <span class="btn btn-block btn-primary btn-outlined">
-      <h3>
-        {{fa-icon 'male'}} Zone {{model.number}}
-      </h3>
-      <p>{{model.description}}</p>
+      {{#if model.description}}
+        <h3>
+          {{fa-icon 'male'}} {{short-text model.description size=20}}
+        </h3>
+        <p>Zone {{model.number}}</p>
+      {{else}}
+        <h3>
+          {{fa-icon 'male'}} Zone {{model.number}}
+        </h3>
+      {{/if}}
     </span>
   </div>
 
@@ -97,8 +103,12 @@
       {{#each zone in model.smartlinkController.zones}}
         <li class="table-view-cell">
           <a href="javascript:void(0)" class="push-right" {{action 'jumpToZone' zone}}>
-            Walk Zone {{zone.number}}
-            <p>{{zone.description}}</p>
+            {{#if zone.description}}
+              {{short-text zone.description size=30}}
+              <p>Zone {{zone.number}}</p>
+            {{else}}
+               Zone {{zone.number}}
+            {{/if}}
           </a>
         </li>
       {{/each}}

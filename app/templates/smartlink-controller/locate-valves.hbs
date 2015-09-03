@@ -26,8 +26,12 @@
     <p>About to run valve locators</p>
 
     <span class="btn btn-block btn-primary btn-outlined">
-      <h3>{{fa-icon 'crosshairs'}} Locate Zone {{model.number}}</h3>
-      <p>{{model.description}}</p>
+      {{#if model.description}}
+        <h3>{{fa-icon 'leaf'}} {{short-text model.description size=20}}</h3>
+        <p>Locate Zone {{model.number}}</p>
+      {{else}}
+        <h3>{{fa-icon 'leaf'}} Locate Zone {{model.number}}</h3>
+      {{/if}}
     </span>
 
     <p>Ready?</p>
