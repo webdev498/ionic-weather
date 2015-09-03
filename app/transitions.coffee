@@ -12,7 +12,13 @@ Transitions = ->
   )
 
   @transition(
-    @fromRoute 'site.index'
+    @fromRoute ['smartlink-controller', 'smartlink-controller.index'],
+    @toRoute 'sites'
+    @use 'toRight'
+  )
+
+  @transition(
+    @fromRoute ['sites', 'site']
     @toRoute 'smartlink-controller'
     @use 'toLeft'
     @reverse 'toRight'

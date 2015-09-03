@@ -18,6 +18,12 @@ SmartlinkControllerIndexController = Ember.Controller.extend
     return 'btn-primary'
 
   actions:
+    goBack: ->
+      if @get('model.site.smartlinkControllers.length') is 1
+        @transitionToRoute 'sites'
+      else
+       @transitionToRoute 'site', @get('model.site')
+
     openOptionsMenu: ->
       @set('isOptionsMenuOpen', true)
 

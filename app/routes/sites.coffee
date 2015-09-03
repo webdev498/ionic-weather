@@ -22,7 +22,7 @@ SitesRoute = Ember.Route.extend AuthenticatedRouteMixin,
   setupController: (controller, model) ->
     Ember.Logger.debug 'In SitesRoute setupController'
     Ember.Logger.debug "geolocationUnavailable value: #{@get('geolocationUnavailable')}"
-    this._super(arguments...)
     controller.set('geolocationUnavailable', @get('geolocationUnavailable'))
+    this._super(arguments...)
 
 `export default SitesRoute`

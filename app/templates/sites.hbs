@@ -24,7 +24,7 @@
     </li>
     {{#each site in model}}
       <li class="table-view-cell media">
-        {{#link-to 'site' site.id class='navigate-right'}}
+        <a href="javascript:void(0)" class="navigate-right" {{action 'goToSite' site}}>
           <div class="media-body">
             <strong>{{site.name}}</strong>
             {{#if site.faultsCount}}
@@ -38,7 +38,7 @@
               {{/if}}
             </p>
           </div>
-        {{/link-to}}
+        </a>
       </li>
     {{else}}
       {{#unless isLoading}}

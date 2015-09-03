@@ -1,1 +1,22 @@
-{{liquid-outlet}}
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'sites' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">
+    {{fa-icon 'building'}} {{short-text model.name size=30}}
+  </h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell">
+      <p>
+        {{model.fullAddress}}
+      </p>
+    </li>
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'signal'}} Controllers
+    </li>
+    {{outlet}}
+  </ul>
+</div>

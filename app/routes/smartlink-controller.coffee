@@ -5,4 +5,7 @@ SmartlinkControllerRoute = Ember.Route.extend AuthenticatedRouteMixin,
   model: (params) ->
     @store.find 'smartlink-controller', params.controllerId
 
+  serialize: (model) ->
+    { controllerId: model.get('id') }
+
 `export default SmartlinkControllerRoute`

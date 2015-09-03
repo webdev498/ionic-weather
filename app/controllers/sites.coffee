@@ -61,6 +61,15 @@ SitesController = Ember.Controller.extend
     @set('sortMethod', defaultSortMethod)
 
   actions:
+    goToSite: (site) ->
+      if site.get('controllersCount') is 1
+        @transitionToRoute('loading')
+        self = this
+        site.get('smartlinkControllers').then (controllers) ->
+          self.transitionToRoute('smartlink-controller', controllers.get('firstObject'))
+      else
+        @transitionToRoute('site.index', site)
+
     toggleSearch: ->
       @toggleProperty('isSearchEnabled')
       return false
