@@ -12,7 +12,7 @@ ManualRunMixin = Ember.Mixin.create
 
   timeoutThresholdMillis: 20000
 
-  url: Ember.computed 'config.apiUrl', ->
+  url: Ember.computed 'config.apiUrl', 'smartlinkController.id', ->
     "#{@get('config.apiUrl')}/api/v2/controllers/#{@get('smartlinkController.id')}/manual_run"
 
   submitManualRun: (manualRunParams) ->
