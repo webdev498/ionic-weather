@@ -1,4 +1,5 @@
 `import Ember from 'ember'`
+`import promisedProperty from '../util/promised-property'`
 
 SitesController = Ember.Controller.extend
   settings: Ember.inject.service('applicationSettings')
@@ -55,6 +56,13 @@ SitesController = Ember.Controller.extend
     callback = ->
       self.set('isSearchApplied', false)
     @send('refreshData', callback) if wasSearchDisabled
+
+  appVersion: Ember.computed promisedProperty(null, ->
+    if cordova?
+      cordova.getAppVersion.getVersionCode()
+    else
+      Ember.RSVP.Promise.resolve(null)
+  )
 
   init: ->
     defaultSortMethod = @get('settings').getSetting('sites-sort-method')

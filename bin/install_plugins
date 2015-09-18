@@ -7,3 +7,4 @@ ember cordova plugin add org.apache.cordova.console
 ember cordova plugin add org.apache.cordova.device
 ember cordova plugin add cordova-plugin-whitelist
 ember cordova plugin add org.apache.cordova.inappbrowser
+ember cordova plugin add https://github.com/whiteoctober/cordova-plugin-app-version.git
