@@ -2,7 +2,136 @@
 `import ManualRunMixin from '../../../mixins/manual-run'`
 
 SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMixin,
+  init: ->
+
+    ############ SPRINKLER SETTINGS ################
+    availSprinklers = [
+      {
+        label: 'Standard (non-ET)'
+        value: 0
+      },
+      {
+        label: 'Off'
+        value: 1
+      },
+      {
+        label: 'Spray (1.5")'
+        value: 2
+      },
+      {
+        label: 'Rotor (0.5")'
+        value: 3
+      },
+      {
+        label: 'Drip (1.1")'
+        value: 4
+      },
+      {
+        label: 'Bubbler (2.3")'
+        value: 5
+      }
+    ]
+
+    sprinklerIndex = 20
+    while sprinklerIndex < 211
+      if sprinklerIndex > 200
+        remainder = sprinklerIndex - 200
+        availSprinklers.push {
+          label: ((200 + remainder * 10) * 0.01).toFixed(2).toString() + '"'
+          value: 200 + remainder * 10
+        }
+      else
+        availSprinklers.push {
+          label: (sprinklerIndex * 0.01).toFixed(2).toString() + '"'
+          value: sprinklerIndex
+        }
+
+      sprinklerIndex++
+
+    @set('availableSprinklerTypes', availSprinklers)
+
+    ############ SOIL SLOPE SETTINGS ################
+    availSlopes = [0..25].map (num) -> 
+      {
+        label: num + "°"
+        value: num
+      }
+
+    @set('availableSoilSlopes', availSlopes)
+
+    ############ SOIL TYPE SETTINGS ################
+    availSoils = [{
+        label: 'Sand'
+        value: 0
+      },
+      {
+        label: 'Loam'
+        value: 1
+      },
+      {
+        label: 'Clay'
+        value: 2
+      }]
+
+    @set('availableSoilTypes', availSoils)
+
+    ############ PLANT TYPE SETTINGS ################
+    availPlants = [
+      {
+        label: 'CTURF'
+        value: 0
+      },
+      {
+        label: 'WTURF'
+        value: 1
+      },
+      {
+        label: 'Shrubs'
+        value: 2
+      },
+      {
+        label: 'Annuals'
+        value: 3
+      },
+      {
+        label: 'Trees'
+        value: 4
+      },
+      {
+        label: 'Native'
+        value: 5
+      }
+    ]
+
+    plantTypeIndex = 10
+    while plantTypeIndex < 121
+      if plantTypeIndex > 100
+        remainder = plantTypeIndex - 100
+        availPlants.push {
+          label: 100 + remainder * 10 + "%"
+          value: 100 + remainder * 10
+        }
+      else
+        availPlants.push {
+          label: plantTypeIndex + '%'
+          value: plantTypeIndex
+        }
+
+      plantTypeIndex++
+
+    @set('availablePlantTypes', availPlants)
+    
+    ############ MORE LESS SETTINGS ################
+    availMoreLess = [0..75].map (num) ->
+        {
+          label: (num - 50) + '%'
+          value: num - 50
+        }
+
+    @set('availableMoreLess', availMoreLess)
+
   isOptionsMenuOpen: false
+  isAutoAdjustMenuOpen: false
 
   isPreviousZoneAvailable: Ember.computed 'model.number', ->
     "#{@get('model.number')}" != '1'
@@ -17,13 +146,21 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
     closeOptionsMenu: ->
       @set('isOptionsMenuOpen', false)
 
+    openAutoAdjustMenu: ->
+      @set('isAutoAdjustMenuOpen', true)
+
+    closeAutoAdjustMenu: ->
+      @set('isAutoAdjustMenuOpen', false)
+
     goToNextZone: ->
+      @set('isAutoAdjustMenuOpen', false)
       nextZoneNumber = +@get('model.number') + 1
       nextZone = @get('model.smartlinkController.zones').findBy('number', nextZoneNumber)
       @set('transition', 'toLeft')
       @transitionToRoute('smartlink-controller.walk-site.zone', nextZone)
 
     goToPreviousZone: ->
+      @set('isAutoAdjustMenuOpen', false)
       prevZoneNumber = +@get('model.number') - 1
       prevZone = @get('model.smartlinkController.zones').findBy('number', prevZoneNumber)
       @set('transition', 'toRight')
@@ -59,6 +196,90 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
         Ember.Logger.error(error)
         alert error
         self.get('loadingModal').send('close')
+
+    openAutoAdjust: ->
+      self = this
+      $('.btn-auto-adjust').html("Loading...")
+
+      zoneNumber = @get('model.number')
+      controllerId = @get('model.smartlinkController.id')
+      zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
+
+      url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
+
+      queryParams = {
+        timestamp: new Date().getTime()
+      }
+      
+      new Ember.RSVP.Promise (resolve, reject) ->
+        Ember.$.ajax(url,
+          type: 'GET',
+          dataType: 'json'
+          data: queryParams
+          success: (response) ->
+            Ember.Logger.debug response
+            self.set('model.soil_type', response.result.zone.soil_type)
+            self.set('model.soil_slope', response.result.zone.soil_type)
+            self.set('model.description', response.result.zone.description)
+            self.set('model.plant_type', response.result.zone.plant_type)
+            self.set('model.adjustment', response.result.zone.adjustment)
+            self.set('model.sprinkler_type', response.result.zone.sprinkler_type)
+            self.set('isAutoAdjustMenuOpen', true)
+          error: (xhr, status, error) ->
+            $('.btn-auto-adjust').html("Something Went Wrong!")
+            setTimeout (->
+              $('.btn-auto-adjust').html("Configure Auto Adjust")
+            ), 2000
+            Ember.Logger.debug status
+            Ember.Logger.debug error
+        )
+
+    saveAutoAdjust: ->
+      self = this
+      
+      zoneNumber = @get('model.number')
+      controllerId = @get('model.smartlinkController.id')
+      zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
+
+      url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
+
+      queryParams = { 
+        timestamp: new Date().getTime(), 
+        zone: { 
+          adjustment: self.get('model.adjustment'), 
+          description: self.get('model.description'), 
+          sprinkler_type: self.get('model.sprinkler_type'), 
+          plant_type: self.get('model.plant_type'), 
+          soil_type: self.get('model.soil_type'), 
+          soil_slope: self.get('model.soil_slope') 
+        } 
+      }
+
+      new Ember.RSVP.Promise (resolve, reject) ->
+        Ember.$.ajax(url,
+          type: 'PUT',
+          data: queryParams
+          success: (response) ->
+            Ember.Logger.debug response
+            self.set('isAutoAdjustMenuOpen', false)
+            $('.btn-auto-adjust').html("Settings Saved!")
+            setTimeout (->
+              $('.btn-auto-adjust').html("Configure Auto Adjust")
+            ), 2000
+          error: (xhr, status, error) ->
+            $('.btn-auto-adjust').html("Something Went Wrong!")
+            setTimeout (->
+              $('.btn-auto-adjust').html("Configure Auto Adjust")
+            ), 2000
+            Ember.Logger.debug status
+            Ember.Logger.debug error
+        )
+
+    closeAutoAdjust: ->
+      self = this
+      $('.btn-auto-adjust').html("Configure Auto Adjust")
+      self.set('isAutoAdjustMenuOpen', false)
+
 
     openCommLog: ->
       @get('commLog').send('open')

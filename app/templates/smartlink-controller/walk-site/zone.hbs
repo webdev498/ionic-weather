@@ -50,6 +50,10 @@
       <button class="btn btn-block btn-negative walk-site-control" {{action 'stop'}}>
         {{fa-icon 'stop'}} Stop
       </button>
+
+      <button class="btn btn-block btn-auto-adjust walk-site-control" {{action 'openAutoAdjust'}}>
+        Configure Auto-Adjust
+      </button>
     </center>
 
     {{#if isPreviousZoneAvailable}}
@@ -90,6 +94,61 @@
       </button>
     </div>
   </div>
+</div>
+
+<div id="auto-adjust-menu" {{bind-attr class=':modal isAutoAdjustMenuOpen:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeAutoAdjust'}}></a>
+    <h1 class="title">{{fa-icon 'gear'}} Auto Adjust Settings</h1>
+  </header>
+
+  <center>
+    <form class="weathermatic-zone-configure-auto-adjust">
+      <p>Zone Name:</p>
+      <center>
+        {{input value=model.description}}
+      </center>
+
+      <p>Sprinkler Type:</p>
+      <center>
+        {{view 'select' content=availableSprinklerTypes value=model.sprinkler_type
+        optionLabelPath='content.label' optionValuePath='content.value'}}
+      </center>
+
+      <p>Plant Type:</p>
+      <center>
+        {{view 'select' content=availablePlantTypes value=model.plant_type
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </center>
+
+      <p>Soil Type:</p>
+      <center>
+        {{view 'select' content=availableSoilTypes value=model.soil_type
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </center>
+
+      <p>Soil Slope:</p>
+      <center>
+        {{view 'select' content=availableSoilSlopes value=model.soil_slope
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </center>
+
+      <p>More/Less:</p>
+      <center>
+        {{view 'select' content=availableMoreLess value=model.adjustment
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </center>
+    </form>
+
+    <div class="content-padded">
+      <button class="btn btn-negative btn-block btn-auto-adjust-menu" {{action 'closeAutoAdjust'}}>
+        Cancel
+      </button>
+      <button class="btn btn-positive btn-block btn-auto-adjust-menu" {{action 'saveAutoAdjust'}}>
+        Submit
+      </button>
+    </div>
+  </center>
 </div>
 
 <div id="jump-to-zone" {{bind-attr class=':modal isJumpToZoneOpen:active'}}>
