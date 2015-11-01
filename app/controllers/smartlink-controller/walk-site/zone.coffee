@@ -198,41 +198,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
         self.get('loadingModal').send('close')
 
     openAutoAdjust: ->
-      self = this
-      $('.btn-auto-adjust').html("Loading...")
-
-      zoneNumber = @get('model.number')
-      controllerId = @get('model.smartlinkController.id')
-      zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
-
-      url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
-
-      queryParams = {
-        timestamp: new Date().getTime()
-      }
-      
-      new Ember.RSVP.Promise (resolve, reject) ->
-        Ember.$.ajax(url,
-          type: 'GET',
-          dataType: 'json'
-          data: queryParams
-          success: (response) ->
-            Ember.Logger.debug response
-            self.set('model.soil_type', response.result.zone.soil_type)
-            self.set('model.soil_slope', response.result.zone.soil_type)
-            self.set('model.description', response.result.zone.description)
-            self.set('model.plant_type', response.result.zone.plant_type)
-            self.set('model.adjustment', response.result.zone.adjustment)
-            self.set('model.sprinkler_type', response.result.zone.sprinkler_type)
-            self.set('isAutoAdjustMenuOpen', true)
-          error: (xhr, status, error) ->
-            $('.btn-auto-adjust').html("Something Went Wrong!")
-            setTimeout (->
-              $('.btn-auto-adjust').html("Configure Auto Adjust")
-            ), 2000
-            Ember.Logger.debug status
-            Ember.Logger.debug error
-        )
+      this.set('isAutoAdjustMenuOpen', true)
 
     saveAutoAdjust: ->
       self = this
@@ -248,10 +214,10 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
         zone: { 
           adjustment: self.get('model.adjustment'), 
           description: self.get('model.description'), 
-          sprinkler_type: self.get('model.sprinkler_type'), 
-          plant_type: self.get('model.plant_type'), 
-          soil_type: self.get('model.soil_type'), 
-          soil_slope: self.get('model.soil_slope') 
+          sprinkler_type: self.get('model.sprinklerType'), 
+          plant_type: self.get('model.plantType'), 
+          soil_type: self.get('model.soilType'), 
+          soil_slope: self.get('model.soilSlope') 
         } 
       }
 
@@ -260,12 +226,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
           type: 'PUT',
           data: queryParams
           success: (response) ->
-            Ember.Logger.debug response
             self.set('isAutoAdjustMenuOpen', false)
-            $('.btn-auto-adjust').html("Settings Saved!")
-            setTimeout (->
-              $('.btn-auto-adjust').html("Configure Auto Adjust")
-            ), 2000
           error: (xhr, status, error) ->
             $('.btn-auto-adjust').html("Something Went Wrong!")
             setTimeout (->
@@ -277,9 +238,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
     closeAutoAdjust: ->
       self = this
-      $('.btn-auto-adjust').html("Configure Auto Adjust")
       self.set('isAutoAdjustMenuOpen', false)
-
 
     openCommLog: ->
       @get('commLog').send('open')
