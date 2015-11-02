@@ -228,10 +228,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
           success: (response) ->
             self.set('isAutoAdjustMenuOpen', false)
           error: (xhr, status, error) ->
-            $('.btn-auto-adjust').html("Something Went Wrong!")
-            setTimeout (->
-              $('.btn-auto-adjust').html("Configure Auto Adjust")
-            ), 2000
+            self.set('isAutoAdjustMenuOpen', false)
             Ember.Logger.debug status
             Ember.Logger.debug error
         )
