@@ -60,10 +60,18 @@
       <button class="walk-site-prev-zone" {{action 'goToPreviousZone'}}>
         <span class="icon icon-left-nav"></span>
       </button>
+    {{else}}
+      <button class="walk-site-prev-zone walk-zone-disabled">
+        <span class="icon icon-left-nav"></span>
+      </button>    
     {{/if}}
 
     {{#if isNextZoneAvailable}}
       <button class="walk-site-next-zone" {{action 'goToNextZone'}}>
+        <span class="icon icon-right-nav"></span>
+      </button>
+    {{else}}
+      <button class="walk-site-next-zone walk-zone-disabled">
         <span class="icon icon-right-nav"></span>
       </button>
     {{/if}}
@@ -160,7 +168,7 @@
   <div class="content weathermatic-content">
     <ul class="table-view">
       {{#each zone in model.smartlinkController.zones}}
-        <li class="table-view-cell">
+        <li class="table-view-cell high-contrast">
           <a href="javascript:void(0)" class="push-right" {{action 'jumpToZone' zone}}>
             {{#if zone.description}}
               {{short-text zone.description size=30}}
