@@ -16,11 +16,34 @@ h2 {
   font-size: 0.8em;
 }
 
+.high-contrast {
+  padding-top: 15px;
+  height: 3.5em;
+  a {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+}
+
 .weathermatic-controller-details-faults {
   .btn {
     display: block;
     margin-top: 0.3em;
     width: 100%;
+  }
+}
+
+.warning-message {
+  border: 1px dashed red;
+  text-align: center;
+  background: #FFE9E9;
+  margin-bottom: 0.5em;
+  p {
+    padding-top: 1.0em;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    font-weight: bold;
+    color: #690000;
   }
 }
 
@@ -302,6 +325,10 @@ $walk-site-zone-nav-border-color: #ddd;
   }
 }
 
+.walk-zone-disabled {
+  background-color: #D6D6D6;
+}
+
 .walk-site-controls {
   position: fixed;
   top: 55%;
@@ -310,7 +337,7 @@ $walk-site-zone-nav-border-color: #ddd;
 
 .walk-site-control {
   width: 60%;
-  height: 95px;
+  height: 60px;
 }
 
 .weathermatic-error-list-item {
@@ -345,4 +372,22 @@ $walk-site-zone-nav-border-color: #ddd;
   right: 0;
   width: 100px;
   height: 20px;
+}
+
+.weathermatic-zone-configure-auto-adjust {
+  padding-top:75px;
+  width:90%;
+}
+
+.btn-auto-adjust-menu {
+  width: 90%;
+}
+
+#auto-adjust-menu {
+  overflow:auto !important;
+
+  .ember-select {
+    height: 2.5em;
+    font-size: 17px;
+  }
 }

@@ -50,16 +50,28 @@
       <button class="btn btn-block btn-negative walk-site-control" {{action 'stop'}}>
         {{fa-icon 'stop'}} Stop
       </button>
+
+      <button class="btn btn-block btn-auto-adjust walk-site-control" {{action 'openAutoAdjust'}}>
+        Configure Auto-Adjust
+      </button>
     </center>
 
     {{#if isPreviousZoneAvailable}}
       <button class="walk-site-prev-zone" {{action 'goToPreviousZone'}}>
         <span class="icon icon-left-nav"></span>
       </button>
+    {{else}}
+      <button class="walk-site-prev-zone walk-zone-disabled">
+        <span class="icon icon-left-nav"></span>
+      </button>    
     {{/if}}
 
     {{#if isNextZoneAvailable}}
       <button class="walk-site-next-zone" {{action 'goToNextZone'}}>
+        <span class="icon icon-right-nav"></span>
+      </button>
+    {{else}}
+      <button class="walk-site-next-zone walk-zone-disabled">
         <span class="icon icon-right-nav"></span>
       </button>
     {{/if}}
@@ -92,6 +104,61 @@
   </div>
 </div>
 
+<div id="auto-adjust-menu" {{bind-attr class=':modal isAutoAdjustMenuOpen:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeAutoAdjust'}}></a>
+    <h1 class="title">{{fa-icon 'gear'}} Auto Adjust Settings</h1>
+  </header>
+
+  <center>
+    <form class="weathermatic-zone-configure-auto-adjust">
+      <p>Zone Name:</p>
+      <center>
+        {{input value=model.description}}
+      </center>
+
+      <p>Sprinkler Type:</p>
+      <center>
+        {{view 'select' content=availableSprinklerTypes value=model.sprinklerType
+        optionLabelPath='content.label' optionValuePath='content.value'}}
+      </center>
+
+      <p>Plant Type:</p>
+      <center>
+        {{view 'select' content=availablePlantTypes value=model.plantType
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </center>
+
+      <p>Soil Type:</p>
+      <center>
+        {{view 'select' content=availableSoilTypes value=model.soilType
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </center>
+
+      <p>Soil Slope:</p>
+      <center>
+        {{view 'select' content=availableSoilSlopes value=model.soilSlope
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </center>
+
+      <p>More/Less:</p>
+      <center>
+        {{view 'select' content=availableMoreLess value=model.adjustment
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </center>
+    </form>
+
+    <div class="content-padded">
+      <button class="btn btn-positive btn-block btn-auto-adjust-menu" {{action 'saveAutoAdjust'}}>
+        Save
+      </button>    
+      <button class="btn btn-negative btn-block btn-auto-adjust-menu" {{action 'closeAutoAdjust'}}>
+        Cancel
+      </button>
+    </div>
+  </center>
+</div>
+
 <div id="jump-to-zone" {{bind-attr class=':modal isJumpToZoneOpen:active'}}>
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeJumpToZone'}}></a>
@@ -101,7 +168,7 @@
   <div class="content weathermatic-content">
     <ul class="table-view">
       {{#each zone in model.smartlinkController.zones}}
-        <li class="table-view-cell">
+        <li class="table-view-cell high-contrast">
           <a href="javascript:void(0)" class="push-right" {{action 'jumpToZone' zone}}>
             {{#if zone.description}}
               {{short-text zone.description size=30}}
