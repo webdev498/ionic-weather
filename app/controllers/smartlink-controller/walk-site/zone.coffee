@@ -1,8 +1,16 @@
 `import Ember from 'ember'`
 `import ManualRunMixin from '../../../mixins/manual-run'`
+`import Base from 'simple-auth/authenticators/base'`
+`import AuthenticationMixin from '../../../mixins/authentication'`
 
 SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMixin,
   init: ->
+    self = this
+
+    $('body').change '#image-upload-input', ->
+      self.send('saveZoneImage')
+      return
+
 
     ############ SPRINKLER SETTINGS ################
     availSprinklers = [
@@ -51,7 +59,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
     @set('availableSprinklerTypes', availSprinklers)
 
     ############ SOIL SLOPE SETTINGS ################
-    availSlopes = [0..25].map (num) -> 
+    availSlopes = [0..25].map (num) ->
       {
         label: num + "°"
         value: num
@@ -120,7 +128,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       plantTypeIndex++
 
     @set('availablePlantTypes', availPlants)
-    
+
     ############ MORE LESS SETTINGS ################
     availMoreLess = [0..75].map (num) ->
         {
@@ -132,6 +140,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
   isOptionsMenuOpen: false
   isAutoAdjustMenuOpen: false
+  isZoneImageViewOpen: false
 
   isPreviousZoneAvailable: Ember.computed 'model.number', ->
     "#{@get('model.number')}" != '1'
@@ -140,6 +149,49 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
     +@get('model.number') < @get('model').get('smartlinkController.zones.length')
 
   actions:
+    saveZoneImage: ->
+      self = this
+      self.set('model.isLoading', true)
+
+      zone = @get('model')
+      zoneNumber = @get('model.number')
+      controllerId = @get('model.smartlinkController.id')
+      zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
+
+      api_url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}/photo"
+
+      formData = new FormData(document.querySelector("form"))
+
+      uploadZoneImage = (url, form_data) ->
+        new Promise((resolve, reject) ->
+          xhr = new XMLHttpRequest
+          handler = ->
+            if @readyState == @DONE
+              if @status == 201
+                resolve @response
+              else
+                reject new Error('getJSON: `' + url + '` failed with status: [' + @status + ']')
+            return
+          xhr.open 'POST', api_url
+          xhr.onreadystatechange = handler
+          email = self.get('session.content.secure.email')
+          password = self.get('session.content.secure.password')
+          auth = btoa("#{email}:#{password}")
+          xhr.setRequestHeader("Authorization", "Basic #{auth}")
+          xhr.send(form_data)
+          return
+      )
+
+      uploadZoneImage(api_url, formData).then ->
+        self.set('model.photo', true)
+        file = Ember.$('#image-upload-input').get(0).files[0]
+        reader = new FileReader()
+        reader.onload = (e) ->
+          Ember.$('#zone-image').attr('src', e.target.result)
+        reader.readAsDataURL(file)
+        self.set('isZoneImageViewOpen', true)
+        self.set('model.isLoading', false)
+
     openOptionsMenu: ->
       @set('isOptionsMenuOpen', true)
 
@@ -151,6 +203,12 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
     closeAutoAdjustMenu: ->
       @set('isAutoAdjustMenuOpen', false)
+
+    openZoneImageView: ->
+      @set('isZoneImageViewOpen', true)
+
+    closeZoneImageView: ->
+      @set('isZoneImageViewOpen', false)
 
     goToNextZone: ->
       @set('isAutoAdjustMenuOpen', false)
@@ -202,23 +260,23 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
     saveAutoAdjust: ->
       self = this
-      
+
       zoneNumber = @get('model.number')
       controllerId = @get('model.smartlinkController.id')
       zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
 
       url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
 
-      queryParams = { 
-        timestamp: new Date().getTime(), 
-        zone: { 
-          adjustment: self.get('model.adjustment'), 
-          description: self.get('model.description'), 
-          sprinkler_type: self.get('model.sprinklerType'), 
-          plant_type: self.get('model.plantType'), 
-          soil_type: self.get('model.soilType'), 
-          soil_slope: self.get('model.soilSlope') 
-        } 
+      queryParams = {
+        timestamp: new Date().getTime(),
+        zone: {
+          adjustment: self.get('model.adjustment'),
+          description: self.get('model.description'),
+          sprinkler_type: self.get('model.sprinklerType'),
+          plant_type: self.get('model.plantType'),
+          soil_type: self.get('model.soilType'),
+          soil_slope: self.get('model.soilSlope')
+        }
       }
 
       new Ember.RSVP.Promise (resolve, reject) ->

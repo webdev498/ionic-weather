@@ -35,6 +35,14 @@
     </span>
   </div>
 
+  {{#if model.photo}}
+    <div class="content-padded weathermatic-jump-to-zone show-zone-image">
+      <button class="btn btn-block btn-show-zone-image" {{action 'openZoneImageView'}}>
+        {{fa-icon 'photo'}} View Zone Image
+      </button>
+    </div>
+  {{/if}}
+
   <div class="content-padded weathermatic-jump-to-zone">
     <button class="btn btn-block" {{action 'openJumpToZone'}}>
       {{fa-icon 'leaf'}} Jump to Zone
@@ -54,6 +62,17 @@
       <button class="btn btn-block btn-auto-adjust walk-site-control" {{action 'openAutoAdjust'}}>
         Configure Auto-Adjust
       </button>
+
+      <a class="btn walk-site-control upload-image-control">
+        {{#if model.isLoading}}
+          <p class="upload-image-title">Uploading...</p>
+        {{else}}
+          <p class="upload-image-title">Upload Image:</p>
+        {{/if}}
+          <form id="image-upload" enctype="multipart/form-data" method="POST">
+            <input id="image-upload-input" class="align-center" type="file" name="photo" />
+          </form>
+      </a>
     </center>
 
     {{#if isPreviousZoneAvailable}}
@@ -63,7 +82,7 @@
     {{else}}
       <button class="walk-site-prev-zone walk-zone-disabled">
         <span class="icon icon-left-nav"></span>
-      </button>    
+      </button>
     {{/if}}
 
     {{#if isNextZoneAvailable}}
@@ -151,12 +170,21 @@
     <div class="content-padded">
       <button class="btn btn-positive btn-block btn-auto-adjust-menu" {{action 'saveAutoAdjust'}}>
         Save
-      </button>    
+      </button>
       <button class="btn btn-negative btn-block btn-auto-adjust-menu" {{action 'closeAutoAdjust'}}>
         Cancel
       </button>
     </div>
   </center>
+</div>
+
+<div id="zone-image-view" {{bind-attr class=':modal isZoneImageViewOpen:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeZoneImageView'}}></a>
+    <h1 class="title">{{fa-icon 'photo'}} Zone Image</h1>
+  </header>
+
+  <img id="zone-image" {{bind-attr src=model.photo}} />
 </div>
 
 <div id="jump-to-zone" {{bind-attr class=':modal isJumpToZoneOpen:active'}}>

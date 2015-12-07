@@ -383,6 +383,10 @@ $walk-site-zone-nav-border-color: #ddd;
   width: 90%;
 }
 
+div.ember-view.liquid-child {
+  overflow-y:scroll !important;
+}
+
 #auto-adjust-menu {
   overflow:auto !important;
 
@@ -390,4 +394,40 @@ $walk-site-zone-nav-border-color: #ddd;
     height: 2.5em;
     font-size: 17px;
   }
+}
+
+#zone-image {
+  margin-top:60px;
+  width:100%;
+}
+
+.weathermatic-content {
+  overflow-y:scroll !important;
+  height:800px;
+  position:relative;
+}
+
+.show-zone-image {
+  margin-bottom:0px;
+  height:54px;
+}
+
+.btn-show-zone-image {
+  margin-bottom:0px;
+}
+
+.upload-image-control {
+  margin-bottom:10px;
+}
+
+.upload-image-title {
+  font-size:1em;
+  font-weight: 400;
+  color: #333;
+  margin-bottom:5px;
+  font-size: 18px;
+}
+
+#image-upload-input {
+  width:210px;
 }
