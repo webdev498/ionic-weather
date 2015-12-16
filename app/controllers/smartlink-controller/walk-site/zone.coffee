@@ -132,6 +132,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
   isOptionsMenuOpen: false
   isAutoAdjustMenuOpen: false
+  isZoneImageViewOpen: false
 
   isPreviousZoneAvailable: Ember.computed 'model.number', ->
     "#{@get('model.number')}" != '1'
@@ -151,6 +152,12 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
     closeAutoAdjustMenu: ->
       @set('isAutoAdjustMenuOpen', false)
+
+    openZoneImageView: ->
+      @set('isZoneImageViewOpen', true)
+
+    hideZoneImageButton: ->
+      @set('showZoneSubmit', false)
 
     goToNextZone: ->
       @set('isAutoAdjustMenuOpen', false)
@@ -232,6 +239,53 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
             Ember.Logger.debug status
             Ember.Logger.debug error
         )
+
+    saveZoneImage: ->
+      self = this
+      
+      zone = @get('model')
+      zoneNumber = @get('model.number')
+      controllerId = @get('model.smartlinkController.id')
+      zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
+
+      api_url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}/photo"
+
+      formData = new FormData(document.querySelector("form"))
+
+      uploadZoneImage = (url, form_data) ->
+        new Promise((resolve, reject) ->
+          xhr = new XMLHttpRequest
+
+          handler = ->
+            if @readyState == @DONE
+              if @status == 201
+                #console.log @response
+                #console.log @response["result"]
+                resolve @response
+              else
+                reject new Error('getJSON: `' + url + '` failed with status: [' + @status + ']')
+            return
+
+          xhr.open 'POST', api_url
+          xhr.onreadystatechange = handler
+          #xhr.responseType = 'json'
+          xhr.setRequestHeader("Authorization", "Basic ZGV2c0BicmFuZG5ld3NoaXAuY29tOnRlc3RwYXNz")
+          xhr.send(form_data)
+          return
+      )
+
+      if $('#image-upload-input')[0].files.length > 0
+        uploadZoneImage(api_url, formData).then ((json) ->
+          console.log 'Successful zone image upload'
+          self.get('model').reload
+          self.get('model.smartlinkController').reload
+          self.get('model.smartlinkController.site').reload
+          self.set('isZoneImageViewOpen', true)
+          return
+        ), (reason) ->
+          console.log 'Unsuccessful zone image upload'
+          Ember.Logger.debug reason
+          return
 
     closeAutoAdjust: ->
       self = this

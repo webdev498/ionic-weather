@@ -8,6 +8,7 @@ Zone = DS.Model.extend
   sprinklerType: DS.attr 'number'
   plantType: DS.attr 'number'
   soilType: DS.attr 'number'
+  photo: DS.attr 'string'
 
   smartlinkController: DS.belongsTo 'smartlinkController', async: false
 
