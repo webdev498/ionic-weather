@@ -7,7 +7,7 @@
   <h1 class="title">{{fa-icon 'signal'}} {{short-text smartlinkController.name size=10}} - Walk Site</h1>
 </header>
 
-<div class="content weathermatic-content" style="overflow-y:scroll !important;height:800px;position:relative;">
+<div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
       {{fa-icon 'male'}} Walk Site
@@ -36,8 +36,8 @@
   </div>
 
   {{#if model.photo}}
-    <div class="content-padded weathermatic-jump-to-zone" style="margin-bottom:0px;height:54px;">
-      <button class="btn btn-block" {{action 'openZoneImageView'}} style="margin-bottom:0px;">
+    <div class="content-padded weathermatic-jump-to-zone show-zone-image">
+      <button class="btn btn-block btn-show-zone-image" {{action 'openZoneImageView'}}>
         {{fa-icon 'photo'}} View Zone Image
       </button>
     </div>
@@ -63,10 +63,10 @@
         Configure Auto-Adjust
       </button>
 
-      <a class="btn walk-site-control" style="margin-bottom:10px;">
-        <p style="font-size:1em;font-weight: 400;color: #333;margin-bottom:5px;font-size: 18px;">Upload Image:</p>
+      <a class="btn walk-site-control upload-image-control">
+        <p class="upload-image-title">Upload Image:</p>
         <form id="image-upload" enctype="multipart/form-data" method="POST">
-          <input id="image-upload-input" style="width:210px;" class="align-center" type="file" name="photo" />
+          <input id="image-upload-input" class="align-center" type="file" name="photo" />
         </form>
       </a>
     </center>
@@ -180,7 +180,7 @@
     <h1 class="title">{{fa-icon 'photo'}} Zone Image</h1>
   </header>
   
-  <img style="margin-top:60px;width:100%;" src="{{model.photo}}" />
+  <img id="zone-image" src="{{model.photo}}" />
 </div>
 
 <div id="jump-to-zone" {{bind-attr class=':modal isJumpToZoneOpen:active'}}>
