@@ -66,14 +66,9 @@
       <a class="btn walk-site-control" style="margin-bottom:10px;">
         <p style="font-size:1em;font-weight: 400;color: #333;margin-bottom:5px;font-size: 18px;">Upload Image:</p>
         <form id="image-upload" enctype="multipart/form-data" method="POST">
-          {{!-- <input class="btn btn-save-zone-image walk-site-control" type="file" name="photo" /> --}}
           <input id="image-upload-input" style="width:210px;" class="align-center" type="file" name="photo" />
         </form>
       </a>
-
-      <button class="btn btn-block btn-save-zone-image walk-site-control" {{action 'saveZoneImage'}}>
-        Submit Photo
-      </button>
     </center>
 
     {{#if isPreviousZoneAvailable}}
