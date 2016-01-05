@@ -186,33 +186,36 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       uploadZoneImage(api_url, formData).then ((json) ->
         formatted_json = JSON.parse json
 
+        console.log "Reloading model now"
+        self.get('model.smartlinkController').reload()
+
         ##### TEST GET CALL #####
-        console.log "Running get call in 30 seconds"
-
-        Ember.run.later (-> 
-          console.log "Inside set timeout now"
-
-          url = "#{self.get('config.apiUrl')}/api/v2/controllers/#{controllerId}"
-
-          queryParams = {
-            wrap_result: true,
-            embed_zones: true,
-            embed_programs: true,
-            embed_site: false,
-            timestamp: new Date().getTime(), 
-          }
-
-          new Ember.RSVP.Promise (resolve, reject) ->
-            Ember.$.ajax(url,
-              type: 'GET',
-              data: queryParams
-              success: (get_response) ->
-                console.log get_response
-              error: (xhr, status, error) ->
-                Ember.Logger.debug status
-                Ember.Logger.debug error
-            )
-        ), 30000
+        #console.log "Running get call in 30 seconds"
+        #
+        #Ember.run.later (-> 
+        #  console.log "Inside set timeout now"
+        #
+        #  url = "#{self.get('config.apiUrl')}/api/v2/controllers/#{controllerId}"
+        #
+        #  queryParams = {
+        #    wrap_result: true,
+        #   embed_zones: true,
+        #    embed_programs: true,
+        #    embed_site: false,
+        #    timestamp: new Date().getTime(), 
+        #  }
+        #
+        #  new Ember.RSVP.Promise (resolve, reject) ->
+        #    Ember.$.ajax(url,
+        #      type: 'GET',
+        #      data: queryParams
+        #      success: (get_response) ->
+        #        console.log get_response
+        #      error: (xhr, status, error) ->
+        #        Ember.Logger.debug status
+        #        Ember.Logger.debug error
+        #    )
+        #), 30000
         ##### END GET CALL #####
 
         if formatted_json.result.zone.photo
