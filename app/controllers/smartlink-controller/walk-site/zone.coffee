@@ -183,15 +183,44 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
           return
       )
 
-      if $('#image-upload-input')[0].files.length > 0
-        uploadZoneImage(api_url, formData).then ((json) ->
-          formatted_json = JSON.parse json
-          if formatted_json.result.zone.photo
-            self.set('isZoneImageViewOpen', true)
-          return
-        ), (reason) ->
-          Ember.Logger.debug reason
-          return
+      uploadZoneImage(api_url, formData).then ((json) ->
+        formatted_json = JSON.parse json
+
+        ##### TEST GET CALL #####
+        console.log "Running get call in 30 seconds"
+
+        Ember.run.later (-> 
+          console.log "Inside set timeout now"
+
+          url = "#{self.get('config.apiUrl')}/api/v2/controllers/#{controllerId}"
+
+          queryParams = {
+            wrap_result: true,
+            embed_zones: true,
+            embed_programs: true,
+            embed_site: false,
+            timestamp: new Date().getTime(), 
+          }
+
+          new Ember.RSVP.Promise (resolve, reject) ->
+            Ember.$.ajax(url,
+              type: 'GET',
+              data: queryParams
+              success: (get_response) ->
+                console.log get_response
+              error: (xhr, status, error) ->
+                Ember.Logger.debug status
+                Ember.Logger.debug error
+            )
+        ), 30000
+        ##### END GET CALL #####
+
+        if formatted_json.result.zone.photo
+          self.set('isZoneImageViewOpen', true)
+        return
+      ), (reason) ->
+        Ember.Logger.debug reason
+        return
 
     openOptionsMenu: ->
       @set('isOptionsMenuOpen', true)
