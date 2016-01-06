@@ -64,10 +64,14 @@
       </button>
 
       <a class="btn walk-site-control upload-image-control">
-        <p class="upload-image-title">Upload Image:</p>
-        <form id="image-upload" enctype="multipart/form-data" method="POST">
-          <input id="image-upload-input" class="align-center" type="file" name="photo" />
-        </form>
+        {{#if model.isLoading}}
+          <p class="upload-image-title">Uploading...</p>
+        {{else}}
+          <p class="upload-image-title">Upload Image:</p>
+        {{/if}}
+          <form id="image-upload" enctype="multipart/form-data" method="POST">
+            <input id="image-upload-input" class="align-center" type="file" name="photo" />
+          </form>
       </a>
     </center>
 

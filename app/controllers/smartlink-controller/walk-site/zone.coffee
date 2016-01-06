@@ -151,6 +151,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
   actions:
     saveZoneImage: ->
       self = this
+      self.set('model.isLoading', true)
 
       zone = @get('model')
       zoneNumber = @get('model.number')
@@ -182,13 +183,14 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       )
 
       uploadZoneImage(api_url, formData).then ->
-        debugger
-
+        self.set('model.photo', true)
         file = Ember.$('#image-upload-input').get(0).files[0]
         reader = new FileReader()
         reader.onload = (e) ->
           Ember.$('#zone-image').attr('src', e.target.result)
         reader.readAsDataURL(file)
+        self.set('isZoneImageViewOpen', true)
+        self.set('model.isLoading', false)
 
     openOptionsMenu: ->
       @set('isOptionsMenuOpen', true)
