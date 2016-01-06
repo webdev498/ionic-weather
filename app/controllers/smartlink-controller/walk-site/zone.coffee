@@ -59,7 +59,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
     @set('availableSprinklerTypes', availSprinklers)
 
     ############ SOIL SLOPE SETTINGS ################
-    availSlopes = [0..25].map (num) -> 
+    availSlopes = [0..25].map (num) ->
       {
         label: num + "°"
         value: num
@@ -128,7 +128,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       plantTypeIndex++
 
     @set('availablePlantTypes', availPlants)
-    
+
     ############ MORE LESS SETTINGS ################
     availMoreLess = [0..75].map (num) ->
         {
@@ -151,7 +151,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
   actions:
     saveZoneImage: ->
       self = this
-      
+
       zone = @get('model')
       zoneNumber = @get('model.number')
       controllerId = @get('model.smartlinkController.id')
@@ -164,7 +164,6 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       uploadZoneImage = (url, form_data) ->
         new Promise((resolve, reject) ->
           xhr = new XMLHttpRequest
-
           handler = ->
             if @readyState == @DONE
               if @status == 201
@@ -172,7 +171,6 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
               else
                 reject new Error('getJSON: `' + url + '` failed with status: [' + @status + ']')
             return
-
           xhr.open 'POST', api_url
           xhr.onreadystatechange = handler
           email = self.get('session.content.secure.email')
@@ -183,47 +181,14 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
           return
       )
 
-      uploadZoneImage(api_url, formData).then ((json) ->
-        formatted_json = JSON.parse json
+      uploadZoneImage(api_url, formData).then ->
+        debugger
 
-        console.log "Reloading model now"
-        self.get('model.smartlinkController').reload()
-
-        ##### TEST GET CALL #####
-        #console.log "Running get call in 30 seconds"
-        #
-        #Ember.run.later (-> 
-        #  console.log "Inside set timeout now"
-        #
-        #  url = "#{self.get('config.apiUrl')}/api/v2/controllers/#{controllerId}"
-        #
-        #  queryParams = {
-        #    wrap_result: true,
-        #   embed_zones: true,
-        #    embed_programs: true,
-        #    embed_site: false,
-        #    timestamp: new Date().getTime(), 
-        #  }
-        #
-        #  new Ember.RSVP.Promise (resolve, reject) ->
-        #    Ember.$.ajax(url,
-        #      type: 'GET',
-        #      data: queryParams
-        #      success: (get_response) ->
-        #        console.log get_response
-        #      error: (xhr, status, error) ->
-        #        Ember.Logger.debug status
-        #        Ember.Logger.debug error
-        #    )
-        #), 30000
-        ##### END GET CALL #####
-
-        if formatted_json.result.zone.photo
-          self.set('isZoneImageViewOpen', true)
-        return
-      ), (reason) ->
-        Ember.Logger.debug reason
-        return
+        file = Ember.$('#image-upload-input').get(0).files[0]
+        reader = new FileReader()
+        reader.onload = (e) ->
+          Ember.$('#zone-image').attr('src', e.target.result)
+        reader.readAsDataURL(file)
 
     openOptionsMenu: ->
       @set('isOptionsMenuOpen', true)
@@ -293,23 +258,23 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
     saveAutoAdjust: ->
       self = this
-      
+
       zoneNumber = @get('model.number')
       controllerId = @get('model.smartlinkController.id')
       zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
 
       url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
 
-      queryParams = { 
-        timestamp: new Date().getTime(), 
-        zone: { 
-          adjustment: self.get('model.adjustment'), 
-          description: self.get('model.description'), 
-          sprinkler_type: self.get('model.sprinklerType'), 
-          plant_type: self.get('model.plantType'), 
-          soil_type: self.get('model.soilType'), 
-          soil_slope: self.get('model.soilSlope') 
-        } 
+      queryParams = {
+        timestamp: new Date().getTime(),
+        zone: {
+          adjustment: self.get('model.adjustment'),
+          description: self.get('model.description'),
+          sprinkler_type: self.get('model.sprinklerType'),
+          plant_type: self.get('model.plantType'),
+          soil_type: self.get('model.soilType'),
+          soil_slope: self.get('model.soilSlope')
+        }
       }
 
       new Ember.RSVP.Promise (resolve, reject) ->

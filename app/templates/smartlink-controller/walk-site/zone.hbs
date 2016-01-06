@@ -78,7 +78,7 @@
     {{else}}
       <button class="walk-site-prev-zone walk-zone-disabled">
         <span class="icon icon-left-nav"></span>
-      </button>    
+      </button>
     {{/if}}
 
     {{#if isNextZoneAvailable}}
@@ -166,7 +166,7 @@
     <div class="content-padded">
       <button class="btn btn-positive btn-block btn-auto-adjust-menu" {{action 'saveAutoAdjust'}}>
         Save
-      </button>    
+      </button>
       <button class="btn btn-negative btn-block btn-auto-adjust-menu" {{action 'closeAutoAdjust'}}>
         Cancel
       </button>
@@ -179,8 +179,8 @@
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeZoneImageView'}}></a>
     <h1 class="title">{{fa-icon 'photo'}} Zone Image</h1>
   </header>
-  
-  <img id="zone-image" src="{{model.photo}}" />
+
+  <img id="zone-image" {{bind-attr src=model.photo}} />
 </div>
 
 <div id="jump-to-zone" {{bind-attr class=':modal isJumpToZoneOpen:active'}}>

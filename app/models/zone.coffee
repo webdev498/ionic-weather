@@ -9,6 +9,7 @@ Zone = DS.Model.extend
   plantType: DS.attr 'number'
   soilType: DS.attr 'number'
   photo: DS.attr 'string'
+  photoUrl: DS.attr 'string'
 
   smartlinkController: DS.belongsTo 'smartlinkController', async: false
 
