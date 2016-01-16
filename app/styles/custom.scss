@@ -445,8 +445,16 @@ div.ember-view.liquid-child {
 }
 
 .show-zone-image {
+  width: 100%;
   margin-bottom:0px;
-  height:54px;
+  height:100px;
+}
+
+#zone-thumbnail {
+  display:block;
+  margin:auto;
+  height:100px;
+  width:100px;
 }
 
 .btn-show-zone-image {
