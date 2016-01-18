@@ -187,6 +187,8 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
         file = Ember.$('#image-upload-input').get(0).files[0]
         reader = new FileReader()
         reader.onload = (e) ->
+          self.set('model.photo', e.target.result)
+          self.set('model.photoThumbnail', e.target.result)
           Ember.$('#zone-image').attr('src', e.target.result)
           Ember.$('#zone-thumbnail').attr('src', e.target.result)
         reader.readAsDataURL(file)
