@@ -316,7 +316,7 @@ h2 {
 }
 
 .walk-site-nav-container {
-  margin-top: 2em;
+  margin-top: 15px;
 }
 
 $walk-site-zone-nav-border-color: #ddd;
@@ -374,7 +374,7 @@ $walk-site-zone-nav-border-color: #ddd;
 
 .walk-site-control {
   width: 60%;
-  height: 60px;
+  height: 50px;
 }
 
 .weathermatic-error-list-item {
@@ -386,7 +386,7 @@ $walk-site-zone-nav-border-color: #ddd;
 }
 
 .weathermatic-jump-to-zone {
-  height: 64px;
+  height: 50px;
 
   &> button {
     height: 52px;
@@ -462,6 +462,7 @@ div.ember-view.liquid-child {
 }
 
 .upload-image-control {
+  height: 64px;
   margin-bottom:10px;
 }
 
