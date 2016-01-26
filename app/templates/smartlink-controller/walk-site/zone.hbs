@@ -36,9 +36,9 @@
   </div>
 
   {{#if model.photo}}
-    <div class="content-padded show-zone-image">
+    <span class="content-padded show-zone-image">
       <button id="zone-thumbnail" style="background-image: url({{model.photoThumbnail}});width:100px;height:100px;background-size:100% 100%;" {{action 'openZoneImageView'}}></button>
-    </div>
+    </span>
   {{/if}}
 
   <div class="content-padded weathermatic-jump-to-zone">

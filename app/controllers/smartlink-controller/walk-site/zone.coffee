@@ -168,6 +168,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
           handler = ->
             if @readyState == @DONE
               if @status == 201
+                formData = null
                 resolve @response
               else
                 reject new Error('getJSON: `' + url + '` failed with status: [' + @status + ']')
