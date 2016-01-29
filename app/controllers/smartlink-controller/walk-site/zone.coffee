@@ -157,6 +157,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       zoneNumber = @get('model.number')
       controllerId = @get('model.smartlinkController.id')
       zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
+      file = Ember.$('#image-upload-input').get(0).files[0]
 
       api_url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}/photo"
 
@@ -184,15 +185,18 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       )
 
       uploadZoneImage(api_url, formData).then ->
-        self.set('model.photo', true)
-        file = Ember.$('#image-upload-input').get(0).files[0]
         reader = new FileReader()
         reader.onload = (e) ->
-          self.set('model.photo', e.target.result)
-          self.set('model.photoThumbnail', e.target.result)
-          Ember.$('#zone-image').attr('src', e.target.result)
+          if self.get('model.id') == zoneId
+            self.set('model.photo', e.target.result)
+            self.set('model.photoThumbnail', e.target.result)
+            self.set('isZoneImageViewOpen', true)
+            self.set('model.isLoading', false)
+          else
+            oldZone = self.get('model.smartlinkController.zones').findBy('number', zoneNumber)
+            oldZone.set('photo', e.target.result)
+            oldZone.set('photoThumbnail', e.target.result)
         reader.readAsDataURL(file)
-        self.set('isZoneImageViewOpen', true)
         self.set('model.isLoading', false)
 
     openOptionsMenu: ->
@@ -214,6 +218,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       @set('isZoneImageViewOpen', false)
 
     goToNextZone: ->
+      @set('model.isLoading', false)
       @set('isAutoAdjustMenuOpen', false)
       nextZoneNumber = +@get('model.number') + 1
       nextZone = @get('model.smartlinkController.zones').findBy('number', nextZoneNumber)
@@ -221,6 +226,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       @transitionToRoute('smartlink-controller.walk-site.zone', nextZone)
 
     goToPreviousZone: ->
+      @set('model.isLoading', false)
       @set('isAutoAdjustMenuOpen', false)
       prevZoneNumber = +@get('model.number') - 1
       prevZone = @get('model.smartlinkController.zones').findBy('number', prevZoneNumber)
