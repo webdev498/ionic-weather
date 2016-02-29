@@ -294,8 +294,10 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
           data: queryParams
           success: (response) ->
             self.set('isAutoAdjustMenuOpen', false)
+            self.set('model.isLoading', false)
           error: (xhr, status, error) ->
             self.set('isAutoAdjustMenuOpen', false)
+            self.set('model.isLoading', false)
             Ember.Logger.debug status
             Ember.Logger.debug error
         )
