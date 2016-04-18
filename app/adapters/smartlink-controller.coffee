@@ -24,8 +24,6 @@ SmartlinkControllerAdapter = ApplicationAdapter.extend CurrentUserMixin,
     @findHasManyWithExtraParams(store, snapshot, url, relationship, extraParams)
 
   customQueryParams:
-    embed_zones: 'true'
-    embed_programs: 'true'
     embed_site: 'false'
 
 `export default SmartlinkControllerAdapter`

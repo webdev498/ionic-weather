@@ -23,8 +23,8 @@ SmartlinkController = DS.Model.extend
   canRunCommands:       DS.attr 'boolean'
   site:                 DS.belongsTo 'site',      async: true
   faults:               DS.hasMany 'fault',       async: false
-  programs:             DS.hasMany 'program',     async: false
-  zones:                DS.hasMany 'zone',        async: false
+  programs:             DS.hasMany 'program',     async: true
+  zones:                DS.hasMany 'zone',        async: true
   instructions:         DS.hasMany 'instruction', async: true
 
   isRunning: Ember.computed 'runStatus', ->
