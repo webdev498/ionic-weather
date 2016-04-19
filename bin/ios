@@ -35,12 +35,12 @@ else
   NEW_VERSION="$PREFIX$(($LAST_NODE+1))"
 
   msg "Updating version to: $NEW_VERSION"
-  sed -i '.bak' "s/ios-CFBundleVersion=\"[0-9]*\.[0-9]*\.[0-9]*\"/ios-CFBundleVersion=\"$NEW_VERSION\"/" $CORDOVA_DIR/config.xml
+  sed -i '.tmp' "s/ios-CFBundleVersion=\"[0-9]*\.[0-9]*\.[0-9]*\"/ios-CFBundleVersion=\"$NEW_VERSION\"/" $CORDOVA_DIR/config.xml
   if [ "$?" -ne 0 ]; then
     echo "Could not update version, bailing"
     exit 1
   fi
-  rm $CORDOVA_DIR/config.xml.bak
+  rm $CORDOVA_DIR/config.xml.tmp
   echo $NEW_VERSION > $CORDOVA_DIR/ios-last-build-version
 fi
 
