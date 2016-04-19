@@ -95,6 +95,8 @@
   </div>
 </div>
 
+{{/liquid-with}}
+
 <div id="options-menu" {{bind-attr class=':modal isOptionsMenuOpen:active'}}>
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeOptionsMenu'}}></a>
@@ -208,8 +210,6 @@
     </ul>
   </div>
 </div>
-
-{{/liquid-with}}
 
 {{!
   `actionReceiver` attribute exposes component action to the outside world.
