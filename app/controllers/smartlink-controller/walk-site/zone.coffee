@@ -151,7 +151,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
   actions:
     saveZoneImage: ->
       self = this
-      self.set('model.isLoading', true)
+      self.set('isLoading', true)
 
       zone = @get('model')
       zoneNumber = @get('model.number')
@@ -191,13 +191,13 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
             self.set('model.photo', e.target.result)
             self.set('model.photoThumbnail', e.target.result)
             self.set('isZoneImageViewOpen', true)
-            self.set('model.isLoading', false)
+            self.set('isLoading', false)
           else
             oldZone = self.get('model.smartlinkController.zones').findBy('number', zoneNumber)
             oldZone.set('photo', e.target.result)
             oldZone.set('photoThumbnail', e.target.result)
         reader.readAsDataURL(file)
-        self.set('model.isLoading', false)
+        self.set('isLoading', false)
 
     openOptionsMenu: ->
       @set('isOptionsMenuOpen', true)
@@ -218,7 +218,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       @set('isZoneImageViewOpen', false)
 
     goToNextZone: ->
-      @set('model.isLoading', false)
+      @set('isLoading', false)
       @set('isAutoAdjustMenuOpen', false)
       nextZoneNumber = +@get('model.number') + 1
       nextZone = @get('model.smartlinkController.zones').findBy('number', nextZoneNumber)
@@ -226,7 +226,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       @transitionToRoute('smartlink-controller.walk-site.zone', nextZone)
 
     goToPreviousZone: ->
-      @set('model.isLoading', false)
+      @set('isLoading', false)
       @set('isAutoAdjustMenuOpen', false)
       prevZoneNumber = +@get('model.number') - 1
       prevZone = @get('model.smartlinkController.zones').findBy('number', prevZoneNumber)
@@ -294,17 +294,16 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
           data: queryParams
           success: (response) ->
             self.set('isAutoAdjustMenuOpen', false)
-            self.set('model.isLoading', false)
+            self.set('isLoading', false)
           error: (xhr, status, error) ->
             self.set('isAutoAdjustMenuOpen', false)
-            self.set('model.isLoading', false)
+            self.set('isLoading', false)
             Ember.Logger.debug status
             Ember.Logger.debug error
         )
 
     closeAutoAdjust: ->
-      self = this
-      self.set('isAutoAdjustMenuOpen', false)
+      @set('isAutoAdjustMenuOpen', false)
 
     openCommLog: ->
       @get('commLog').send('open')
