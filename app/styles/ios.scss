@@ -5,8 +5,3 @@
 header.bar.bar-nav {
   -webkit-transform: translateZ(0);
 }
-
-// Address issue where bottom of scrolled list is not visible, see SM-49, SM-50
-ul.table-view {
-  margin-bottom: 100px;
-}
