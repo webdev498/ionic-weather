@@ -2,8 +2,11 @@
 `import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin'`
 
 SmartlinkControllerWalkSiteIndexRoute = Ember.Route.extend AuthenticatedRouteMixin,
+  model: ->
+    @modelFor('smartlink-controller').get('zones')
+
   redirect: (model, transition) ->
-    zone = model.get('zones.firstObject')
+    zone = model.get('firstObject')
     if zone
       @transitionTo('smartlink-controller.walk-site.zone', zone)
     else
