@@ -40,6 +40,10 @@ ApplicationAdapter = DS.RESTAdapter.extend
       timestamp: new Date().getTime()
       wrap_result: true
     })
+    options.headers = options.headers || {}
+    Ember.merge(options.headers, {
+      'X-Weathermatic-Mobile': 1
+    })
 
   findHasManyWithExtraParams: (store, snapshot, url, relationship, extraParams) ->
     host = Ember.get(this, 'host')
