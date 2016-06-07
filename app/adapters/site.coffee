@@ -23,5 +23,6 @@ SitesAdapter = ApplicationAdapter.extend
   customQueryParams:
     embed_controllers: 'false'
     include_faults_count: 'true'
+    include_controllers_count: 'true'
 
 `export default SitesAdapter`
