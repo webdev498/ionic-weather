@@ -76,4 +76,60 @@ Transitions = ->
     @use 'toRight'
   )
 
+  @transition(
+    @fromRoute 'smartlink-controller.settings.index'
+    @toRoute 'smartlink-controller.settings.flow'
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
+  @transition(
+    @fromRoute 'smartlink-controller.settings.flow'
+    @toRoute 'smartlink-controller.settings.edit-flow'
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
+  @transition(
+    @fromRoute 'smartlink-controller.settings.index'
+    @toRoute 'smartlink-controller.settings.program-run-times'
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
+  @transition(
+    @fromRoute 'smartlink-controller.settings.program-run-times'
+    @toRoute 'smartlink-controller.settings.edit-program-run-time'
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
+  @transition(
+    @fromRoute 'smartlink-controller.settings.index'
+    @toRoute 'smartlink-controller.settings.seasonal-adjust'
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
+  @transition(
+    @fromRoute 'smartlink-controller.settings.seasonal-adjust'
+    @toRoute 'smartlink-controller.settings.edit-seasonal-adjust'
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
+  @transition(
+    @fromRoute 'smartlink-controller.settings.index'
+    @toRoute 'smartlink-controller.settings.edit-controller-basic'
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
+  @transition(
+    @fromRoute 'smartlink-controller.settings.index'
+    @toRoute 'smartlink-controller.settings.edit-controller-advanced'
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
 `export default Transitions`

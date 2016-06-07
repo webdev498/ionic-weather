@@ -1,0 +1,54 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Settings</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <div class="content-padded">
+    <ul class="table-view">
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.flow'}}
+          <div class="media-body">
+            <h2>{{fa-icon 'gear'}} Flow Settings</h2>
+            <p>Edit flow settings</p>
+          </div>
+        {{/link-to}}
+      </li>
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.program-run-times'}}
+          <div class="media-body">
+            <h2>{{fa-icon 'clock-o'}} Program Run Times</h2>
+            <p>Edit run times for programs</p>
+          </div>
+        {{/link-to}}
+      </li>
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.seasonal-adjust'}}
+          <div class="media-body">
+            <h2>{{fa-icon 'calendar'}} Seasonal Adjust</h2>
+            <p>Adjust programs for different seasons</p>
+          </div>
+        {{/link-to}}
+      </li>
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.edit-controller-basic'}}
+          <div class="media-body">
+            <h2>{{fa-icon 'gear'}} Basic Settings</h2>
+            <p>Edit basic controller settings</p>
+          </div>
+        {{/link-to}}
+      </li>
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.edit-controller-advanced'}}
+          <div class="media-body">
+            <h2>{{fa-icon 'gear'}} Advanced Settings</h2>
+            <p>Edit advanced controller settings</p>
+          </div>
+        {{/link-to}}
+      </li>
+    </ul>
+  </div>
+</div>

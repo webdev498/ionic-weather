@@ -15,6 +15,15 @@ Router = Ember.Router.extend(location: config.locationType).map ->
     @route 'locate-valves', path: 'locate-valves/:zoneId'
     @route 'walk-site', ->
       @route 'zone', path: 'zone/:zoneId'
+    @route 'settings', path: 'settings', ->
+      @route 'flow'
+      @route 'edit-flow', path: 'zone-flow/:zoneId'
+      @route 'program-run-times'
+      @route 'edit-program-run-time', path: 'program-run-time/:zoneId'
+      @route 'seasonal-adjust'
+      @route 'edit-seasonal-adjust', path: 'edit-seasonal-adjust/:monthIndex'
+      @route 'edit-controller-basic'
+      @route 'edit-controller-advanced'
     @route 'stop-all'
     @route 'clear-faults'
     @route 'command-success'

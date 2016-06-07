@@ -1,0 +1,69 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.index' model class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Basic Settings</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell">
+      <span>Controller Date</span>
+      <span class="pull-right weathermatic-settings-date">
+        {{input type='date' value=model.controllerDate}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Controller Time</span>
+      <span class="pull-right weathermatic-settings-input-time">
+        {{view 'select' content=availableHours value=model.controllerDateHours
+          optionLabelPath='content.label' optionValuePath='content.value'}} :
+
+        {{view 'select' content=availableMinutes value=model.controllerDateMinutes
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+
+        {{view 'select' content=availableAmPm value=model.controllerDateAmPm
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Controller Time Zone</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        {{view 'select' content=availableTimezones value=model.controllerTimezone}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Run Status</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        {{view 'select' content=availableRunStatuses
+          optionLabelPath='content.label' optionValuPath='content.value'}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Watering Mode</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        {{view 'select' content=availableWateringModes
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Rain/Freeze</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        {{view 'select' content=availableRainFreeze
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+  </ul>
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} Save Changes
+    </button>
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

@@ -14,6 +14,9 @@ WEATHER_STATUS_NORMAL = 1
 WEATHER_STATUS_RAIN   = 2
 WEATHER_STATUS_FREEZE = 3
 
+FLOW_MODE_VIRTUAL = 0
+FLOW_MODE_REALTIME = 1
+
 SmartlinkController = DS.Model.extend
   name:                 DS.attr 'string'
   runStatus:            DS.attr 'number'
@@ -21,6 +24,7 @@ SmartlinkController = DS.Model.extend
   rainFreezeSensorMode: DS.attr 'number'
   weatherStatus:        DS.attr 'number'
   canRunCommands:       DS.attr 'boolean'
+  flowMode:             DS.attr 'number'
   site:                 DS.belongsTo 'site',      async: true
   faults:               DS.hasMany 'fault',       async: false
   programs:             DS.hasMany 'program',     async: true
@@ -61,5 +65,23 @@ SmartlinkController = DS.Model.extend
       when RUN_STATUS_OFF then 'Off'
       when RUN_STATUS_REMOTE_OFF then 'Remote Off'
       when RUN_STATUS_RAIN_DELAY then 'Rain Delay'
+
+  isVirtualFlow: Ember.computed 'flowMode', ->
+    @get('flowMode') == FLOW_MODE_VIRTUAL
+
+  isRealtimeFlow: Ember.computed 'flowMode', ->
+    @get('flowMode') == FLOW_MODE_REALTIME
+
+  programASeasonalAdjust: Ember.computed ->
+    100
+
+  programBSeasonalAdjust: Ember.computed ->
+    100
+
+  programCSeasonalAdjust: Ember.computed ->
+    100
+
+  programDSeasonalAdjust: Ember.computed ->
+    100
 
 `export default SmartlinkController`

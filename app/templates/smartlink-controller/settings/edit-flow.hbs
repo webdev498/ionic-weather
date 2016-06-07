@@ -1,0 +1,89 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.flow' model class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Flow Settings</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view">
+    {{#if model.smartlinkController.isVirtualFlow}}
+      <li class="table-view-cell">
+        <span>Flow Rate GPM</span>
+        <span class="pull-right weathermatic-settings-input-small">
+          {{input type='number' value=model.gpm}}
+        </span>
+        <div style="clear: both;"></div>
+      </li>
+    {{/if}}
+
+    {{#if model.smartlinkController.isRealtimeFlow}}
+      <li class="table-view-cell">
+        <span class="pull-left">Enable Shutdown</span>
+        <div id="weathermatic-toggle-realtime-flow-enabled" class="{{if model.realtimeFlowEnabled 'active'}} toggle">
+          <div class="toggle-handle"></div>
+        </div>
+      </li>
+      <li class="table-view-cell">
+        <span class="pull-left">Low Flow Limit</span>
+        <div id="weathermatic-toggle-low-flow" class="{{if isLowFlowLimitEnabled 'active'}} toggle">
+          <div class="toggle-handle"></div>
+        </div>
+      </li>
+      <li class="table-view-cell">
+        <span class="{{if isLowFlowLimitDisabled 'weathermatic-disabled'}}">
+          {{#if isMetricEnabled}}
+            LPM
+          {{else}}
+            GPM
+          {{/if}}
+        </span>
+        <span class="pull-right weathermatic-settings-input-small">
+          {{view 'select' content=availableFlowValues value=model.lowFlowLimit
+            optionLabelPath='content.label' optionValuePath='content.value' disabled=isLowFlowLimitDisabled}}
+        </span>
+        <div style="clear: both;"></div>
+      </li>
+      <li class="table-view-cell">
+        <span class="pull-left">High Flow Limit</span>
+        <div id="weathermatic-toggle-high-flow" class="{{if isLowFlowLimitEnabled 'active'}} toggle">
+          <div class="toggle-handle"></div>
+        </div>
+      </li>
+      <li class="table-view-cell">
+        <span class="{{if isHighFlowLimitDisabled 'weathermatic-disabled'}}">
+          {{#if isMetricEnabled}}
+            LPM
+          {{else}}
+            GPM
+          {{/if}}
+        </span>
+        <span class="pull-right weathermatic-settings-input-small">
+          {{view 'select' content=availableFlowValues value=model.highFlowLimit
+            optionLabelPath='content.label' optionValuePath='content.value' disabled=isHighFlowLimitDisabled}}
+        </span>
+        <div style="clear: both;"></div>
+      </li>
+    {{/if}}
+    <li class="table-view-cell">
+      <span class="pull-left">Valve Size</span>
+      <span class="pull-right weathermatic-settings-input-small">
+        {{view 'select' content=availableValveSizes value=model.valveSize
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+      <div style="clear: both;"></div>
+    </li>
+  </ul>
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} Save Changes
+    </button>
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

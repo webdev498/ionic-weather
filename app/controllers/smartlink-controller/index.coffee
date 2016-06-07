@@ -36,6 +36,9 @@ SmartlinkControllerIndexController = Ember.Controller.extend
     commLogClosed: ->
       @send('closeOptionsMenu')
 
+    editSettings: ->
+      @transitionToRoute('smartlink-controller.settings')
+
     refreshData: ->
       self = this
       @send 'closeOptionsMenu'

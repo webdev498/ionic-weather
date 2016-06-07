@@ -188,6 +188,49 @@ h2 {
   }
 }
 
+.weathermatic-settings-input-small {
+  margin-right: -2.7em;
+  select,input {
+    margin: 0;
+    width: 75px;
+  }
+}
+
+.weathermatic-settings-input-medium {
+  margin-right: -2.7em;
+  select,input {
+    margin: 0;
+    width: 90px;
+  }
+}
+
+.weathermatic-settings-input-large {
+  margin-right: -2.7em;
+  select,input {
+    margin: 0;
+    width: 170px;
+  }
+}
+
+.weathermatic-settings-input-time {
+  margin-right: -2.7em;
+  select,input {
+    margin: 0;
+    width: 55px;
+  }
+}
+
+.weathermatic-settings-date {
+  input {
+    width: 170px;
+    margin-right: -2.7em;
+  }
+}
+
+.weathermatic-disabled-label {
+  color: lightgray;
+}
+
 .weathermatic-manual-run-success {
   margin: 150px auto;
   color: $positive-color;

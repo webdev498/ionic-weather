@@ -1,0 +1,64 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.seasonal-adjust' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Seasonal Adjust</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <br>
+  <p>
+    <strong class="pull-right" style="margin-right: 1em;">{{model.name}}</strong>
+  </p>
+  <br>
+  <ul class="table-view">
+    <li class="table-view-cell">
+      <span>Program A</span>
+      <span class="pull-right weathermatic-settings-input-small">
+        {{view 'select' content=availableSeasonalAdjustValues
+          value=model.smartlinkController.programASeasonalAdjust
+          optionLabelPath='content.label'
+          optionValuePath='content.value'}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Program B</span>
+      <span class="pull-right weathermatic-settings-input-small">
+        {{view 'select' content=availableSeasonalAdjustValues
+          value=model.smartlinkController.programBSeasonalAdjust
+          optionLabelPath='content.label'
+          optionValuePath='content.value'}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Program C</span>
+      <span class="pull-right weathermatic-settings-input-small">
+        {{view 'select' content=availableSeasonalAdjustValues
+          value=model.smartlinkController.programCSeasonalAdjust
+          optionLabelPath='content.label'
+          optionValuePath='content.value'}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Program D</span>
+      <span class="pull-right weathermatic-settings-input-small">
+        {{view 'select' content=availableSeasonalAdjustValues
+          value=model.smartlinkController.programDSeasonalAdjust
+          optionLabelPath='content.label'
+          optionValuePath='content.value'}}
+      </span>
+    </li>
+  </ul>
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} Save Changes
+    </button>
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}
