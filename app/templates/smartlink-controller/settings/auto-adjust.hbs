@@ -1,0 +1,24 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Select a Zone</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view weathermatic-page-bottom">
+	{{#each model as |zone|}}
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.edit-auto-adjust' zone.id}}
+          {{#if zone.description}}
+            {{short-text zone.description size=20}}
+            <p>Zone {{zone.number}}</p>
+          {{else}}
+            Zone {{zone.number}}
+          {{/if}}
+        {{/link-to}}
+      </li>
+    {{/each}}
+  </ul>
+</div>

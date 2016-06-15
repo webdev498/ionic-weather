@@ -1,0 +1,57 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.auto-adjust' model class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Edit Auto Adjust</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view">
+  	<li class="table-view-cell">
+      <span>Sprinkler Type</span>
+      <span class="pull-right weathermatic-settings-input-large">
+        {{view 'select' content=availableSprinklerTypes value=model.sprinklerType
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+
+    <li class="table-view-cell">
+      <span>Plant Type</span>
+      <span class="pull-right weathermatic-settings-input-medium">
+        {{view 'select' content=availablePlantTypes value=model.plantType
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+
+    <li class="table-view-cell">
+      <span>Soil Type</span>
+      <span class="pull-right weathermatic-settings-input-small">
+        {{view 'select' content=availableSoilTypes value=model.soilType
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+
+    <li class="table-view-cell">
+      <span>Slope</span>
+      <span class="pull-right weathermatic-settings-input-small">
+        {{view 'select' content=slopeValues value=model.soilSlope
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+
+    <li class="table-view-cell">
+      <span>More / Less</span>
+      <span class="pull-right weathermatic-settings-input-small">
+        {{view 'select' content=moreLessValues value=model.adjustment
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+  </ul>
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} Save Changes
+    </button>
+  </div>
+
+</div>
