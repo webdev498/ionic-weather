@@ -132,4 +132,18 @@ Transitions = ->
     @reverse 'toRight'
   )
 
+  @transition(
+    @fromRoute 'smartlink-controller.settings.edit-controller-advanced'
+    @toRoute 'smartlink-controller.settings.edit-zone-activations'
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
+  @transition(
+    @fromRoute 'smartlink-controller.settings.edit-controller-advanced'
+    @toRoute 'smartlink-controller.settings.edit-zone-rain-sensor'
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
 `export default Transitions`

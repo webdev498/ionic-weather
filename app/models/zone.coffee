@@ -16,6 +16,7 @@ Zone = DS.Model.extend
   gpm:                 DS.attr 'number'
   lowFlowLimit:        DS.attr 'number'
   highFlowLimit:       DS.attr 'number'
+  active:              DS.attr 'boolean'
 
   smartlinkController: DS.belongsTo 'smartlinkController', async: false
   # programRunTimes: DS.hasMany 'program-run-time', async: true

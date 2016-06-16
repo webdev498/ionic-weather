@@ -24,6 +24,8 @@ Router = Ember.Router.extend(location: config.locationType).map ->
       @route 'edit-seasonal-adjust', path: 'edit-seasonal-adjust/:monthIndex'
       @route 'edit-controller-basic'
       @route 'edit-controller-advanced'
+      @route 'edit-zone-activations'
+      @route 'edit-zone-rain-sensor'
     @route 'stop-all'
     @route 'clear-faults'
     @route 'command-success'

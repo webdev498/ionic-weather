@@ -11,49 +11,106 @@
     <li class="table-view-cell">
       <span>Number of Starts</span>
       <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableNumberOfStarts}}
+        {{view 'select' content=availableNumberOfStarts value=model.numberOfStarts}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>SLW Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableSlwDelayHours
+        {{view 'select' content=availableSlwDelayHours value=model.slwDelayHours
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>Rain Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableRainDelayDays
+        {{view 'select' content=availableRainDelayDays value=model.rainDelayDays
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>Zone-to-zone Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableZoneToZoneDelay
+        {{view 'select' content=availableZoneToZoneDelay value=model.zoneToZoneDelay
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>Master Valve/Zone-on Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableMasterValveZoneOnDelay
+        {{view 'select' content=availableMasterValveZoneOnDelay value=model.masterValveOnZoneDelay
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>Master Valve/Zone-off Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableMasterValveZoneOffDelay
+        {{view 'select' content=availableMasterValveZoneOffDelay value=model.masterValveZoneOffDelay
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span>Minimum Deficit</span>
+      <span class="pull-right weathermatic-settings-input-small">
+        {{view 'select' content=availableMinDeficit
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>Automatically Set Time</span>
-      <div id="weathermatic-toggle-realtime-flow-enabled" class="{{if model.isAutomaticallySetTime 'active'}} toggle">
+      <div id="weathermatic-toggle-automatically-set-time" class="{{if model.isAutomaticallySetTime 'active'}} toggle">
         <div class="toggle-handle"></div>
       </div>
+    </li>
+    <li class="table-view-cell">
+      <span>DST Enabled</span>
+      <div id="weathermatic-toggle-dst-enabled" class="{{if model.dstEnabled 'active'}} toggle">
+        <div class="toggle-handle"></div>
+      </div>
+    </li>
+    {{#if model.dstEnabled}}
+      <li class="table-view-cell">
+        <span>DST Start</span>
+        <span class="pull-right weathermatic-settings-input-small">
+          {{view 'select' content=availableDaysOfWeek value=model.dstStartDay
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+
+          {{view 'select' content=availableWeeksOfMonth value=model.dstStartWeek
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+
+          {{view 'select' content=availableMonths value=model.dstStartMonth
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+        </span>
+      </li>
+      <li class="table-view-cell">
+        <span>DST End</span>
+        <span class="pull-right weathermatic-settings-input-small">
+          {{view 'select' content=availableDaysOfWeek value=model.dstEndDay
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+
+          {{view 'select' content=availableWeeksOfMonth value=model.dstEndWeek
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+
+          {{view 'select' content=availableMonths value=model.dstEndMonth
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+        </span>
+      </li>
+    {{/if}}
+    <li class="table-view-cell">
+      <span>Winterized</span>
+      <div id="weathermatic-toggle-winterized" class="{{if model.winterized 'active'}} toggle">
+        <div class="toggle-handle"></div>
+      </div>
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-zone-activations' model}}
+        {{fa-icon 'gear'}} Zone Activations
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-zone-rain-sensor' model}}
+        {{fa-icon 'umbrella'}} Rain Sensor Settings
+      {{/link-to}}
     </li>
   </ul>
   <div class="content-padded">

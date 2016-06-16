@@ -1,6 +1,5 @@
 `import RatchetToggleView from '../../ratchet-toggle-view'`
 
-
 SmartlinkControllerSettingsEditFlowView = RatchetToggleView.extend
   didInsertElement: ->
     this._super()
