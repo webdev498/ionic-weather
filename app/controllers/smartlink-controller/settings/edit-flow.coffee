@@ -71,7 +71,7 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend CurrentU
   config: Ember.computed ->
     @container.lookupFactory('config:environment')
 
-  saveUrl: Ember.computed 'model.smartlinkController.d', ->
+  saveUrl: Ember.computed 'model.smartlinkController.id', ->
     controllerId = @get('model.smartlinkController.id')
     zoneId = @get('model.id')
     baseUrl = @get('config.apiUrl')
