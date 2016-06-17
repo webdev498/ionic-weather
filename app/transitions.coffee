@@ -112,6 +112,13 @@ Transitions = ->
   )
 
   @transition(
+    @fromRoute 'smartlink-controller.settings.auto-adjust'
+    @toRoute 'smartlink-controller.settings.edit-auto-adjust'
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
+  @transition(
     @fromRoute 'smartlink-controller.settings.index'
     @toRoute 'smartlink-controller.settings.seasonal-adjust'
     @use 'toLeft'

@@ -109,7 +109,11 @@ SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend({
 
       allParams = {
         zone: {
+          sprinkler_type: @get('model.sprinklerType')
+          plant_type: @get('model.plantType')
           soil_type: @get('model.soilType')
+          soil_slope: @get('model.soilSlope')
+          adjustment: @get('model.adjustment')
         }
         timestamp: new Date().getTime()
       }
@@ -136,7 +140,7 @@ SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend({
 
         Ember.$.ajax(url, ajaxOptions)
 
-        savePromise
+      savePromise
         .finally ->
           Ember.run.cancel(timeoutWatcher) if timeoutWatcher
 

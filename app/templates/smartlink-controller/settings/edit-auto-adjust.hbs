@@ -4,6 +4,12 @@
   {{/link-to}}
 
   <h1 class="title">{{fa-icon 'gear'}} Edit Auto Adjust</h1>
+  <p class="pull-right">
+    {{#if model.description}}
+      {{model.description}}
+    {{else}}
+      Zone # {{model.number}}
+    {{/if}}</p>
 </header>
 
 <div class="content weathermatic-content">
