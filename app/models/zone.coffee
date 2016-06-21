@@ -22,7 +22,7 @@ Zone = DS.Model.extend
   ignoreSensor:        DS.attr 'boolean'
   mvEnabled:           DS.attr 'boolean'
 
-  smartlinkController: DS.belongsTo 'smartlinkController', async: false
+  smartlinkController: DS.belongsTo 'smartlinkController', async: true
   # programRunTimes: DS.hasMany 'program-run-time', async: true
 
   programARunTime: Ember.computed ->

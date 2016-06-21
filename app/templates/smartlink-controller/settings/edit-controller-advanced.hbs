@@ -70,7 +70,7 @@
     </li>
     {{#if model.dstEnabled}}
       <li class="table-view-cell">
-        <span>DST Start</span>
+        <small>DST Start</small>
         <span class="pull-right weathermatic-settings-input-small">
           {{view 'select' content=availableDaysOfWeek value=model.dstStartDay
             optionLabelPath='content.label' optionValuePath='content.value'}}
@@ -83,7 +83,7 @@
         </span>
       </li>
       <li class="table-view-cell">
-        <span>DST End</span>
+        <small>DST End</small>
         <span class="pull-right weathermatic-settings-input-small">
           {{view 'select' content=availableDaysOfWeek value=model.dstEndDay
             optionLabelPath='content.label' optionValuePath='content.value'}}
@@ -102,34 +102,43 @@
         <div class="toggle-handle"></div>
       </div>
     </li>
+    <li class="table-view-cell table-view-divider">
+      Other settings
+    </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-zone-activations' model}}
         <strong>{{fa-icon 'gear'}} Zone Activations</strong>
+        <p>Select which zones are active in Smartlink</p>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-zone-rain-sensor' model}}
         <strong>{{fa-icon 'umbrella'}} Rain Sensor Settings</strong>
+        <p>Enable/disable the rain sensor by zone</p>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-zone-freeze-sensor' model}}
         <strong>{{fa-icon 'cloud'}} Freeze Sensor Settings</strong>
+        <p>Enable/disable freeze sensor by zone</p>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-zone-sensor' model}}
         <strong>{{fa-icon 'retweet'}} Sensor Loop Settings</strong>
+        <p>Enable/disable sensor loop by zone</p>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-zone-master-valve' model}}
         <strong>{{fa-icon 'gear'}} Master Valve Settings</strong>
+        <p>Enable/disable master valve by zone</p>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-program-max-run'}}
         <strong>{{fa-icon 'sliders'}} Program Max Run</strong>
+        <p>Set program max run/min soak times by zone</p>
       {{/link-to}}
     </li>
   </ul>

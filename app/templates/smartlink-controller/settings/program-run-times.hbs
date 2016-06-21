@@ -8,7 +8,7 @@
 
 <div class="content weathermatic-content">
   <ul class="table-view weathermatic-page-bottom">
-    {{#each model as |zone|}}
+    {{#each model.zones as |zone|}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.settings.edit-program-run-time' zone.id}}
           {{#if zone.description}}

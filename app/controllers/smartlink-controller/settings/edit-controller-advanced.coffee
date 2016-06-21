@@ -97,6 +97,9 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
       { label: 'Dec', value: 11 }
     ]
 
+  actions:
+    save: ->
+      alert 'todo'
 })
 
 `export default SmartlinkControllerSettingsEditControllerAdvancedController`

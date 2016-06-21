@@ -70,7 +70,7 @@ SmartlinkControllerSettingsAutoAdjustController = Ember.Controller.extend({
   postalElementChanged: Ember.observer 'model.postalCode', ->
     return unless @get('model')
     val = @get('model.postalCode')
-    if val.length == 5
+    if val && val.length == 5
       @set('model.latitude', @computeLatForPostalCode(val))
 
 })
