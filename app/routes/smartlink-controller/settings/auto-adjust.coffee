@@ -3,7 +3,7 @@
 
 SmartlinkControllerSettingsAutoAdjustRoute = Ember.Route.extend(AuthenticatedRouteMixin, {
   model: (params) ->
-    @modelFor('smartlink-controller.index').get('zones')
+    @modelFor('smartlink-controller.index')
 })
 
 `export default SmartlinkControllerSettingsAutoAdjustRoute`
