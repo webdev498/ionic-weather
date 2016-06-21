@@ -1,0 +1,20 @@
+<ul class="table-view">
+  <li class="table-view-cell table-view-divider {{programClass}}">
+    {{fa-icon 'play'}} Program {{program.identifier}}
+  </li>
+  <li class="table-view-cell">
+    <span>Max Run</span>
+    <span class="pull-right weathermatic-settings-input-medium">
+      {{view 'select' value=program.maxRun content=availableMaxRun
+        optionLabelPath='content.label' optionValuePath='content.value'}}
+    </span>
+  </li>
+  <li class="table-view-cell">
+    <span class="{{if isMaxRunDisabled 'weathermatic-disabled'}}">Min Soak</span>
+    <span class="pull-right weathermatic-settings-input-medium">
+      {{view 'select' value=program.minSoak content=availableMinSoak
+        optionLabelPath='content.label' optionValuePath='content.value'
+        disabled=isMaxRunDisabled}}
+    </span>
+  </li>
+</ul>

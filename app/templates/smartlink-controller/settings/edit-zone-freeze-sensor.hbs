@@ -3,19 +3,19 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'gear'}} Select Active Zones</h1>
+  <h1 class="title">{{fa-icon 'cloud'}} Enable/Disable Freeze Sensor</h1>
 </header>
 
 <div class="content weathermatic-content" style="padding-bottom: 200px;">
   <ul class="table-view">
     {{#each model.zones as |zone|}}
       <li class="table-view-cell">
-        <span class="pull-left">
+        <span>
           <strong>Zone {{zone.number}}</strong>
           <br>
           <small>{{zone.description}}</small>
         </span>
-        <div class="{{if zone.active 'active'}} toggle">
+        <div class="{{if zone.usesFreezeSensor 'active'}} toggle">
           <div class="toggle-handle"></div>
         </div>
       </li>

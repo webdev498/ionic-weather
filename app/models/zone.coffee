@@ -17,6 +17,10 @@ Zone = DS.Model.extend
   lowFlowLimit:        DS.attr 'number'
   highFlowLimit:       DS.attr 'number'
   active:              DS.attr 'boolean'
+  ignoreRain:          DS.attr 'boolean'
+  ignoreFreeze:        DS.attr 'boolean'
+  ignoreSensor:        DS.attr 'boolean'
+  mvEnabled:           DS.attr 'boolean'
 
   smartlinkController: DS.belongsTo 'smartlinkController', async: false
   # programRunTimes: DS.hasMany 'program-run-time', async: true
@@ -32,5 +36,14 @@ Zone = DS.Model.extend
 
   programDRunTime: Ember.computed ->
     0
+
+  usesRainSensor: Ember.computed 'ignoreRain', ->
+    !@get('ignoreRain')
+
+  usesFreezeSensor: Ember.computed 'ignoreFreeze', ->
+    !@get('ignoreFreeze')
+
+  usesSensorLoop: Ember.computed 'ignoreSensor', ->
+    !@get('ignoreSensor')
 
 `export default Zone`

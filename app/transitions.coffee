@@ -78,7 +78,13 @@ Transitions = ->
 
   @transition(
     @fromRoute 'smartlink-controller.settings.index'
-    @toRoute 'smartlink-controller.settings.flow'
+    @toRoute [
+      'smartlink-controller.settings.flow'
+      'smartlink-controller.settings.program-run-times'
+      'smartlink-controller.settings.seasonal-adjust'
+      'smartlink-controller.settings.edit-controller-basic'
+      'smartlink-controller.settings.edit-controller-advanced'
+    ]
     @use 'toLeft'
     @reverse 'toRight'
   )
@@ -91,22 +97,8 @@ Transitions = ->
   )
 
   @transition(
-    @fromRoute 'smartlink-controller.settings.index'
-    @toRoute 'smartlink-controller.settings.program-run-times'
-    @use 'toLeft'
-    @reverse 'toRight'
-  )
-
-  @transition(
     @fromRoute 'smartlink-controller.settings.program-run-times'
     @toRoute 'smartlink-controller.settings.edit-program-run-time'
-    @use 'toLeft'
-    @reverse 'toRight'
-  )
-
-  @transition(
-    @fromRoute 'smartlink-controller.settings.index'
-    @toRoute 'smartlink-controller.settings.seasonal-adjust'
     @use 'toLeft'
     @reverse 'toRight'
   )
@@ -119,29 +111,15 @@ Transitions = ->
   )
 
   @transition(
-    @fromRoute 'smartlink-controller.settings.index'
-    @toRoute 'smartlink-controller.settings.edit-controller-basic'
-    @use 'toLeft'
-    @reverse 'toRight'
-  )
-
-  @transition(
-    @fromRoute 'smartlink-controller.settings.index'
-    @toRoute 'smartlink-controller.settings.edit-controller-advanced'
-    @use 'toLeft'
-    @reverse 'toRight'
-  )
-
-  @transition(
     @fromRoute 'smartlink-controller.settings.edit-controller-advanced'
-    @toRoute 'smartlink-controller.settings.edit-zone-activations'
-    @use 'toLeft'
-    @reverse 'toRight'
-  )
-
-  @transition(
-    @fromRoute 'smartlink-controller.settings.edit-controller-advanced'
-    @toRoute 'smartlink-controller.settings.edit-zone-rain-sensor'
+    @toRoute [
+      'smartlink-controller.settings.edit-zone-activations'
+      'smartlink-controller.settings.edit-zone-rain-sensor'
+      'smartlink-controller.settings.edit-zone-freeze-sensor'
+      'smartlink-controller.settings.edit-zone-sensor'
+      'smartlink-controller.settings.edit-zone-master-valve'
+      'smartlink-controller.settings.edit-program-max-run'
+    ]
     @use 'toLeft'
     @reverse 'toRight'
   )

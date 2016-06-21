@@ -104,16 +104,36 @@
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-zone-activations' model}}
-        {{fa-icon 'gear'}} Zone Activations
+        <strong>{{fa-icon 'gear'}} Zone Activations</strong>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-zone-rain-sensor' model}}
-        {{fa-icon 'umbrella'}} Rain Sensor Settings
+        <strong>{{fa-icon 'umbrella'}} Rain Sensor Settings</strong>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-zone-freeze-sensor' model}}
+        <strong>{{fa-icon 'cloud'}} Freeze Sensor Settings</strong>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-zone-sensor' model}}
+        <strong>{{fa-icon 'retweet'}} Sensor Loop Settings</strong>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-zone-master-valve' model}}
+        <strong>{{fa-icon 'gear'}} Master Valve Settings</strong>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-program-max-run'}}
+        <strong>{{fa-icon 'sliders'}} Program Max Run</strong>
       {{/link-to}}
     </li>
   </ul>
-  <div class="content-padded">
+  <div class="content-padded" style="margin-bottom: 10em;">
     <button class="btn btn-block btn-positive" {{action 'save'}}>
       {{fa-icon 'save'}} Save Changes
     </button>

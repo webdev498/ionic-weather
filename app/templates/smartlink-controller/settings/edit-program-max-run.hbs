@@ -1,0 +1,27 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings.edit-controller-advanced' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Max Run/Min Soak</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <br>
+  {{program-max-run program=model.programA}}
+  {{program-max-run program=model.programB}}
+  {{program-max-run program=model.programC}}
+  {{program-max-run program=model.programD}}
+
+  <div class="content-padded" style="margin-bottom: 10em;">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} Save Changes
+    </button>
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}
