@@ -1,0 +1,49 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'gear'}} Edit Auto Adjust Setting</h1>
+
+</header>
+
+<div class="content weathermatic-content">
+
+  <ul class="table-view">
+    <li class="table-view-cell">
+      <span>Postal Code</span>
+      <span class="pull-right postalElement weathermatic-settings-input-medium">
+        {{input value=model.postalCode}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+       <span>Latitude</span>
+       <span class="pull-right latitudeElement weathermatic-settings-input-small">
+         {{view 'select' content=availableLatitudes value=model.latitude
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+       </span>
+    </li>
+  </ul>
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} Save Changes
+    </button>
+  </div>
+    <ul class="table-view weathermatic-page-bottom">
+      <h4 class="table-view-cell table-view-divider">
+        Select for zone options:
+      </h4>
+  	{{#each model.zones as |zone|}}
+        <li class="table-view-cell">
+          {{#link-to 'smartlink-controller.settings.edit-auto-adjust' zone.id}}
+            {{#if zone.description}}
+              {{short-text zone.description size=20}}
+              <p>Zone {{zone.number}}</p>
+            {{else}}
+              Zone {{zone.number}}
+            {{/if}}
+          {{/link-to}}
+        </li>
+      {{/each}}
+    </ul>
+</div>

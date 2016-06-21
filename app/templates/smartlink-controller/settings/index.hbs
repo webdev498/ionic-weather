@@ -26,6 +26,14 @@
         {{/link-to}}
       </li>
       <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.auto-adjust'}}
+          <div class="media-body">
+            <h2>{{fa-icon 'tree'}} Auto Adjust</h2>
+            <p>Edit auto adjust settings</p>
+          </div>
+        {{/link-to}}
+      </li>
+      <li class="table-view-cell">
         {{#link-to 'smartlink-controller.settings.seasonal-adjust'}}
           <div class="media-body">
             <h2>{{fa-icon 'calendar'}} Seasonal Adjust</h2>

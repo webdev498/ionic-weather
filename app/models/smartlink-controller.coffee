@@ -25,6 +25,8 @@ SmartlinkController = DS.Model.extend
   weatherStatus:        DS.attr 'number'
   canRunCommands:       DS.attr 'boolean'
   flowMode:             DS.attr 'number'
+  latitude:             DS.attr 'number'
+  postalCode:           DS.attr 'string'
   site:                 DS.belongsTo 'site',      async: true
   faults:               DS.hasMany 'fault',       async: false
   programs:             DS.hasMany 'program',     async: true
