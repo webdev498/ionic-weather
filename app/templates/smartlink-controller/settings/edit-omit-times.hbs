@@ -1,0 +1,45 @@
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller.settings' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'times-circle-o'}} Omit Days & Times</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view weathermatic-page-bottom">
+    <h4 class="table-view-cell table-view-divider">
+        Omit Specific Times:
+    </h4>
+    <li class="table-view-cell">
+      <span> From </span>
+      <span class="pull-right weathermatic-settings-input-small">
+      	{{view 'select' content=availableOmitTimes value=0
+      	optionLabelPath='content.label' optionValuePath='content.value'}}
+
+      	{{view 'select' content=timeSuffix value='am'
+      	optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+    <li class="table-view-cell">
+      <span> To </span>
+      <span class="pull-right weathermatic-settings-input-small">
+      	{{view 'select' content=availableOmitTimes value=12:00
+      	optionLabelPath='content.label' optionValuePath='content.value'}}
+
+      	{{view 'select' content=timeSuffix value='am'
+      	optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+    <h4 class="table-view-cell table-view-divider">
+        Omit Days of Week:
+    </h4>
+    <li class="table-view-cell">
+      <span>Sunday</span>
+
+    </li>
+    <h4 class="table-view-cell table-view-divider">
+        Omit Event Dates:
+    </h4>
+  </ul>
+</div>
