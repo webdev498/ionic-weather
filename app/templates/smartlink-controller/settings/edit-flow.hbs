@@ -33,7 +33,7 @@
       </li>
       <li class="table-view-cell">
         <span class="{{if isLowFlowLimitDisabled 'weathermatic-disabled'}}">
-          {{#if isMetricEnabled}}
+          Low Flow {{#if isMetricEnabled}}
             LPM
           {{else}}
             GPM
@@ -47,13 +47,13 @@
       </li>
       <li class="table-view-cell">
         <span class="pull-left">High Flow Limit</span>
-        <div id="weathermatic-toggle-high-flow" class="{{if isLowFlowLimitEnabled 'active'}} toggle">
+        <div id="weathermatic-toggle-high-flow" class="{{if isHighFlowLimitEnabled 'active'}} toggle">
           <div class="toggle-handle"></div>
         </div>
       </li>
       <li class="table-view-cell">
         <span class="{{if isHighFlowLimitDisabled 'weathermatic-disabled'}}">
-          {{#if isMetricEnabled}}
+          High Flow {{#if isMetricEnabled}}
             LPM
           {{else}}
             GPM
