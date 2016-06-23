@@ -10,7 +10,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend({
     @initMonthsOfYear()
 
   initAvailableOmitTimes: ->
-    opts = [{label: "Off", value: 0}]
+    opts = [{label: "Off", value: null}]
     [0...72].forEach (n) ->
       time = moment().startOf('day').add(n * 10, 'minutes').format('hh:mm')
       opts.push({label: time, value: time})
@@ -52,8 +52,11 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend({
     @get('omissionDayNumbers').includes(5) 
 
   isSaturdaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(6) 
+    @get('omissionDayNumbers').includes(6)
 
+  omissionTime: Ember.computed 'model.omissionTimes.length', ->
+    @get('model.omissionTimes.firstObject') || @get('model.omissionTimes').createRecord()
+    
 })
 
 `export default SmartlinkControllerSettingsEditOmitTimesController`

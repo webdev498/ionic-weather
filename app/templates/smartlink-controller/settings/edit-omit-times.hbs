@@ -3,7 +3,7 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'times-circle-o'}} Omit Days & Times</h1>
+  <h1 class="title">{{fa-icon 'times-circle-o'}} Omit Days &amp; Times</h1>
 </header>
 
 <div class="content weathermatic-content">
@@ -14,21 +14,21 @@
     <li class="table-view-cell">
       <span> From </span>
       <span class="pull-right weathermatic-settings-input-small">
-      	{{view 'select' content=availableOmitTimes value=0
-      	optionLabelPath='content.label' optionValuePath='content.value'}}
+      	{{view 'select' content=availableOmitTimes value=omissionTime.startTimeHours
+            optionLabelPath='content.label' optionValuePath='content.value'}}
 
-      	{{view 'select' content=timeSuffix value='am'
-      	optionLabelPath='content.label' optionValuePath='content.value'}}
+      	{{view 'select' content=timeSuffix value=omissionTime.startTimeAmPm
+            optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span> To </span>
       <span class="pull-right weathermatic-settings-input-small">
-      	{{view 'select' content=availableOmitTimes value=12:00
-      	optionLabelPath='content.label' optionValuePath='content.value'}}
+      	{{view 'select' content=availableOmitTimes value=omissionTime.endTimeHours
+      	    optionLabelPath='content.label' optionValuePath='content.value'}}
 
-      	{{view 'select' content=timeSuffix value='am'
-      	optionLabelPath='content.label' optionValuePath='content.value'}}
+      	{{view 'select' content=timeSuffix value=omissionTime.endTimeAmPm
+      	    optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell table-view-divider">
