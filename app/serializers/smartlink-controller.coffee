@@ -11,6 +11,9 @@ SmartlinkControllerSerializer = DS.ActiveModelSerializer.extend DS.EmbeddedRecor
     omissionDays:
       serialize: false
       deserialize: 'records'
+    omissionTimes:
+      serialize: false
+      deserialize: 'records'
 
   keyForAttribute: (attr) ->
     switch attr
@@ -24,6 +27,7 @@ SmartlinkControllerSerializer = DS.ActiveModelSerializer.extend DS.EmbeddedRecor
     this._super(arguments...)
     switch rawKey
       when 'omissionDays' then 'controller_omission_days'
+      when 'omissionTimes' then 'controller_omission_times'
       else this._super(arguments...)
 
   normalizePayload: (payload) ->

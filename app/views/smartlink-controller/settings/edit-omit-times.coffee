@@ -13,7 +13,4 @@ SmartlinkControllerSettingsEditOmitTimesView = RatchetToggleView.extend(
 
 )
 
-
-
-
 `export default SmartlinkControllerSettingsEditOmitTimesView`
