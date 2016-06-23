@@ -8,6 +8,9 @@ SmartlinkControllerSerializer = DS.ActiveModelSerializer.extend DS.EmbeddedRecor
     faults:
       serialize: false
       deserialize: 'records'
+    omissionDays:
+      serialize: false
+      deserialize: 'records'
 
   keyForAttribute: (attr) ->
     switch attr
@@ -16,6 +19,12 @@ SmartlinkControllerSerializer = DS.ActiveModelSerializer.extend DS.EmbeddedRecor
       when 'rainFreezeSensorMode' then 'sensor_mode'
       when 'canRunCommands' then 'run_remote'
       else this._super(attr)
+
+  keyForRelationship: (rawKey, kind) ->
+    this._super(arguments...)
+    switch rawKey
+      when 'omissionDays' then 'controller_omission_days'
+      else this._super(arguments...)
 
   normalizePayload: (payload) ->
     if payload.controller

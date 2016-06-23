@@ -27,11 +27,13 @@ SmartlinkController = DS.Model.extend
   flowMode:             DS.attr 'number'
   latitude:             DS.attr 'number'
   postalCode:           DS.attr 'string'
-  site:                 DS.belongsTo 'site',      async: true
-  faults:               DS.hasMany 'fault',       async: false
-  programs:             DS.hasMany 'program',     async: true
-  zones:                DS.hasMany 'zone',        async: true
-  instructions:         DS.hasMany 'instruction', async: true
+  site:                 DS.belongsTo 'site',        async: true
+  faults:               DS.hasMany 'fault',         async: false
+  programs:             DS.hasMany 'program',       async: true
+  zones:                DS.hasMany 'zone',          async: true
+  instructions:         DS.hasMany 'instruction',   async: true
+  omissionDays:         DS.hasMany 'omission-day',  async: false
+
 
   isRunning: Ember.computed 'runStatus', ->
     @get('runStatus') is RUN_STATUS_RUN
