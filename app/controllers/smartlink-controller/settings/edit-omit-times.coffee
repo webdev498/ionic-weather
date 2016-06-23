@@ -10,21 +10,11 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend({
     @initMonthsOfYear()
 
   initAvailableOmitTimes: ->
-    opts = []
-
-    time_array = []
-    i = 0
-    while i < 72
-      time_array.push i
-      i++
-
-    opts.push {label: "Off", value: 0}
-
-    time_array.forEach( (n) ->
-      time = moment().startOf('day').add(n*10, 'minutes').format('hh:mm')
-
+    opts = [{label: "Off", value: 0}]
+    [0...72].forEach (n) ->
+      time = moment().startOf('day').add(n * 10, 'minutes').format('hh:mm')
       opts.push({label: time, value: time})
-    )
+    
     @set 'availableOmitTimes', opts
 
   initTimeSuffix: ->
@@ -38,6 +28,31 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend({
 
   initMonthsOfYear: ->
     @set 'monthsOfYear'
+
+  omissionDayNumbers: Ember.computed 'model.omissionDays.length', ->
+    @get('model.omissionDays').map (omissionDay) ->
+      omissionDay.get('day')
+
+  isSundaySelected: Ember.computed 'omissionDayNumbers', ->
+    @get('omissionDayNumbers').includes(0) 
+
+  isMondaySelected: Ember.computed 'omissionDayNumbers', ->
+    @get('omissionDayNumbers').includes(1) 
+
+  isTuesdaySelected: Ember.computed 'omissionDayNumbers', ->
+    @get('omissionDayNumbers').includes(2) 
+
+  isWednesdaySelected: Ember.computed 'omissionDayNumbers', ->
+    @get('omissionDayNumbers').includes(3) 
+
+  isThursdaySelected: Ember.computed 'omissionDayNumbers', ->
+    @get('omissionDayNumbers').includes(4) 
+
+  isFridaySelected: Ember.computed 'omissionDayNumbers', ->
+    @get('omissionDayNumbers').includes(5) 
+
+  isSaturdaySelected: Ember.computed 'omissionDayNumbers', ->
+    @get('omissionDayNumbers').includes(6) 
 
 })
 

@@ -25,5 +25,8 @@ SmartlinkControllerAdapter = ApplicationAdapter.extend CurrentUserMixin,
 
   customQueryParams:
     embed_site: 'false'
+    embed_controller_omission_days: 'true'
+    embed_controller_omission_dates: 'true'
+    embed_controller_omission_times: 'true'
 
 `export default SmartlinkControllerAdapter`
