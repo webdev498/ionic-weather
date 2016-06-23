@@ -34,10 +34,14 @@
     <h4 class="table-view-cell table-view-divider">
         Omit Days of Week:
     </h4>
-    <li class="table-view-cell">
-      <span>Sunday</span>
-
-    </li>
+    {{#each daysOfWeek as |day|}}
+      <li class="table-view-cell">
+        <span>{{day}}</span>
+        <span class="pull-right">
+      	  {{input type="checkbox" checked=1}}
+        </span>
+      </li>
+    {{/each}}
     <h4 class="table-view-cell table-view-divider">
         Omit Event Dates:
     </h4>

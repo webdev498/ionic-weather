@@ -6,6 +6,8 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend({
   init: ->
     @initAvailableOmitTimes()
     @initTimeSuffix()
+    @initDaysOfWeek()
+    @initMonthsOfYear()
 
   initAvailableOmitTimes: ->
     opts = []
@@ -30,6 +32,12 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend({
       {label: "am", value: 'am'},
       {label: "pm", value: 'pm'}
     ]
+
+  initDaysOfWeek: ->
+    @set 'daysOfWeek', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+  initMonthsOfYear: ->
+    @set 'monthsOfYear'
 
 })
 
