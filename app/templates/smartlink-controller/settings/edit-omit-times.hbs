@@ -7,7 +7,7 @@
 </header>
 
 <div class="content weathermatic-content">
-  <ul class="table-view weathermatic-page-bottom">
+  <ul class="table-view">
     <li class="table-view-cell table-view-divider">
         Omit Specific Times:
     </li>
@@ -108,4 +108,16 @@
     {{/each}}
     
   </ul>
+  <div class="content-padded weathermatic-page-bottom">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} Save Changes
+    </button>
+  </div>
+
 </div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}
