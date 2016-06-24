@@ -93,5 +93,19 @@
     <li class="table-view-cell table-view-divider">
       Omit Event Dates:
     </li>
+    {{#each omissionDates as |od|}}
+      <li class="table-view-cell">
+        <span class='pull-left'>
+          <span class='badge badge-primary'>{{od.number}}</span>
+        </span>
+        <span class="pull-right weathermatic-settings-input-small ">
+          {{view 'select' content=monthsOfYear value=od.object.monthNumber
+              optionLabelPath='content.label' optionValuePath='content.value'}}
+          {{view 'select' content=daysOfMonth value=od.object.dayNumber
+              optionLabelPath='content.label' optionValuePath='content.value'}}
+        </span>
+      </li>
+    {{/each}}
+    
   </ul>
 </div>
