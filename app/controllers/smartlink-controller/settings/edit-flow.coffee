@@ -1,11 +1,12 @@
 `import Ember from 'ember'`
 `import CurrentUserMixin from '../../../mixins/current-user'`
+`import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 
 VOLUME_MEASURE_LITERS = 1
 
 HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER = 65535
 
-SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend CurrentUserMixin,
+SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend CurrentUserMixin, SmartlinkSaveMixin,
   setupDefaults: (model) ->
     @initAvailableFlowValues()
     @initAvailableValveSizes()
@@ -68,14 +69,10 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend CurrentU
   isMetricEnabled: Ember.computed 'currentUser', ->
     @get('currentUser.volume_measure') == VOLUME_MEASURE_LITERS
 
-  config: Ember.computed ->
-    @container.lookupFactory('config:environment')
-
   saveUrl: Ember.computed 'model.smartlinkController.id', ->
     controllerId = @get('model.smartlinkController.id')
     zoneId = @get('model.id')
-    baseUrl = @get('config.apiUrl')
-    "#{baseUrl}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
+    "#{@get('baseUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
 
   timeoutThresholdMillis: 20000
 

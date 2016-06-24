@@ -1,8 +1,7 @@
 `import Ember from 'ember'`
+`import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 
-
-
-SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend({
+SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(SmartlinkSaveMixin, {
   init: ->
     @initAvailableOmitTimes()
     @initTimeSuffix()
@@ -74,7 +73,33 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend({
 
   omissionTime: Ember.computed 'model.omissionTimes.length', ->
     @get('model.omissionTimes.firstObject') || @get('model.omissionTimes').createRecord()
+
+  saveUrl: Ember.computed 'model.id', 'baseUrl', ->
+    "#{@get('baseUrl')}/api/v2/controllers/#{@get('model.id')}/controller_omissions"
     
+  actions:
+    save: ->
+      @save(
+        url: @get('saveUrl')
+        successRoute: 'smartlink-controller.settings'
+        successModel: @get('model')
+        params: {
+          controller_omissions: {
+            controller_omission_dates: []
+            controller_omission_days: []
+            controller_omission_times: []
+          }
+        }
+      )
+
+    loadingFinished: ->
+      Ember.run.later this, ->
+        @transitionToRoute('smartlink-controller.index')
+      , 750
+
+    loadingAbandoned: ->
+      @transitionToRoute('smartlink-controller.index')
+
 })
 
 `export default SmartlinkControllerSettingsEditOmitTimesController`
