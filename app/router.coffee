@@ -16,6 +16,9 @@ Router = Ember.Router.extend(location: config.locationType).map ->
     @route 'walk-site', ->
       @route 'zone', path: 'zone/:zoneId'
     @route 'settings', path: 'settings', ->
+      @route 'programming'
+      @route 'program-details'
+      @route 'edit-program-details', path: 'program-details/:programId'
       @route 'flow'
       @route 'edit-flow', path: 'zone-flow/:zoneId'
       @route 'program-run-times'

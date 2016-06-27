@@ -1,0 +1,170 @@
+{{log model}}
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller.settings.program-details' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">
+    {{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - Select Program
+  </h1>
+</header>
+
+<div class="content weathermatic-content program-detail">
+  <ul class="table-view">
+    {{#if isDayOfWeekProgramTypeSelected}}
+      <li class="table-view-cell">
+        <div class="btn-group">
+        {{#each day in programInstance.DaysOfWeek}}
+          <button type="button" class="btn {{if day.checked 'btn-success btn-active' 'btn-danger'}}" {{action "toggleDay" day}}>{{day.label}}</button>
+        {{/each}}
+        </div>
+      </li>
+    {{else}}
+      <li class="table-view-cell">
+        <div class="btn-group">
+        {{#each day in programInstance.DaysOfWeek}}
+          <button type="button" class="btn {{if day.checked 'btn-success btn-active' 'btn-danger'}}">{{day.label}}</button>
+        {{/each}}
+        </div>
+      </li>
+    {{/if}}
+    <li class="table-view-cell">
+      <a href="javascript:void(0)" class="push-right" {{action 'setProgramTypeOpen'}} data-value="{{programInstance.selectedProgramType.value}}">
+        {{programInstance.selectedProgramType.label}}
+      </a>
+    </li>
+
+    {{#if isOddEvenProgramTypeSelected}}
+     <li class="table-view-cell">
+      <a href="javascript:void(0)" class="push-right" {{action 'setOddEvenOpen'}} data-value="{{programInstance.selectedOddEvenProgram.value}}">
+        {{programInstance.selectedOddEvenProgram.label}}
+      </a>
+    </li>
+    {{else if isIntervalProgramTypeSelected}}
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" class="push-right" {{action 'setIntervalOpen'}} data-value="{{programInstance.selectedIntervalProgram.interval_start}}">
+          {{programInstance.selectedIntervalProgram.interval_start_label}}
+        </a>
+      </li>
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" class="push-right" data-value="{{programInstance.selectedIntervalProgram.days_interval}}">
+          {{programInstance.selectedIntervalProgram.days_interval_label}}
+        </a>
+      </li>
+    {{/if}}
+    {{#each programInstance.programStartTimes as |programStartTime|}}
+       <li class="table-view-cell">
+        <a href="javascript:void(0)" class="push-right" {{action 'setStartTimeOpen' programStartTime.id}}>
+          {{#if programStartTime.start_time.length}}
+            Start Time {{programStartTime.id}}: {{format-time programStartTime.start_time '12H'}}
+          {{else}}
+            Start Time {{programStartTime.id}}: Off
+          {{/if}}
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+
+<div id="set-program-type" {{bind-attr class=':modal isSetProgramTypeOpen:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetProgramType'}}></a>
+    <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
+  </header>
+
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+    {{#each availableProgramTypes as |programType|}}
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" class="push-right" {{action 'setProgramType' programType.value}}>
+            {{programType.label}}
+        </a>
+      </li>
+    {{/each}}
+    </ul>
+  </div>
+</div>
+
+<div id="set-odd-even" {{bind-attr class=':modal isSetOddEvenOpen:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetOddEven'}}></a>
+    <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
+  </header>
+
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+    {{#each OddEven as |od|}}
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" class="push-right" {{action 'setOddEven' od.value}}>
+            {{od.label}}
+        </a>
+      </li>
+    {{/each}}
+    </ul>
+  </div>
+</div>
+
+<div id="set-interval" {{bind-attr class=':modal isSetIntervalOpen:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetInterval'}}></a>
+    <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
+  </header>
+
+  <div class="content weathermatic-content">
+    <center>
+    <form class="weathermatic-zone-configure-auto-adjust">
+      <p>Interval Start Day:</p>
+      <center>
+       {{view "select" content=programInstance.DaysOfWeek
+       optionValuePath="content.value"
+       optionLabelPath="content.label"
+       value=programInstance.selectedIntervalProgram.interval_start}}
+      </center>
+          <p>Interval Days:</p>
+      <center>
+        {{view "select" content=DaysInterval
+       value=programInstance.selectedIntervalProgram.days_interval}}
+      </center>
+    </form>
+    </center>
+
+    <button class="btn btn-block btn-positive" {{action 'setInterval'}}>
+      {{fa-icon 'check'}} Ok
+    </button>
+  </div>
+</div>
+
+<div id="set-start-times" {{bind-attr class=':modal isSetStartTimeOpen:active'}}>
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetStartTime'}}></a>
+    <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
+  </header>
+
+  <div class="content weathermatic-content" data-value="{{programInstance.currentSelectedStartTime.id}}">
+    <center>
+    <form class="weathermatic-zone-configure-auto-adjust">
+      <p>Start Time:</p>
+      <center>
+       {{view "select" content=availableTimeSlots
+       optionValuePath="content.id"
+       optionLabelPath="content.value"
+       value=programInstance.currentSelectedTimeSlot.id}} &nbsp;
+      {{view "select" content=availableAmPm
+       value=programInstance.currentSelectedAmPm}}
+      </center>
+    </form>
+    </center>
+
+    <button class="btn btn-block btn-positive" {{action 'setStartTime'}}>
+      {{fa-icon 'check'}} Ok
+    </button>
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}
+
+{{comm-log smartlinkController=model.smartlinkController close='commLogClosed' actionReceiver=commLog}}
+{{log model}}

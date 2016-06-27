@@ -79,13 +79,30 @@ Transitions = ->
   @transition(
     @fromRoute 'smartlink-controller.settings.index'
     @toRoute [
+      'smartlink-controller.settings.programming'
       'smartlink-controller.settings.flow'
-      'smartlink-controller.settings.program-run-times'
       'smartlink-controller.settings.seasonal-adjust'
       'smartlink-controller.settings.edit-controller-basic'
       'smartlink-controller.settings.edit-controller-advanced'
+    ]
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
+  @transition(
+    @fromRoute 'smartlink-controller.settings.programming'
+    @toRoute [
+      'smartlink-controller.settings.program-details'
+      'smartlink-controller.settings.program-run-times'
       'smartlink-controller.settings.auto-adjust'
     ]
+    @use 'toLeft'
+    @reverse 'toRight'
+  )
+
+  @transition(
+    @fromRoute 'smartlink-controller.settings.program-details'
+    @toRoute 'smartlink-controller.settings.edit-program-details'
     @use 'toLeft'
     @reverse 'toRight'
   )

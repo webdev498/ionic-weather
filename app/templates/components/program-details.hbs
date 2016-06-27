@@ -1,0 +1,7 @@
+{{#link-to 'smartlink-controller.settings.edit-program-details' program class='push-right'}}
+  <h3>Run Program {{upper-case program.identifier}}</h3>
+  {{#if program.description.length}}
+    <p class="weathermatic-program-description">{{short-text program.description}}</p>
+  {{/if}}
+{{/link-to}}
+<br>

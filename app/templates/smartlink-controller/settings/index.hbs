@@ -10,26 +10,18 @@
   <div class="content-padded">
     <ul class="table-view">
       <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.programming'}}
+          <div class="media-body">
+            <h2>{{fa-icon 'play'}} Programming</h2>
+            <p>Edit programming settings</p>
+          </div>
+        {{/link-to}}
+      </li>
+      <li class="table-view-cell">
         {{#link-to 'smartlink-controller.settings.flow'}}
           <div class="media-body">
             <h2>{{fa-icon 'gear'}} Flow Settings</h2>
             <p>Edit flow settings</p>
-          </div>
-        {{/link-to}}
-      </li>
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.program-run-times'}}
-          <div class="media-body">
-            <h2>{{fa-icon 'clock-o'}} Program Run Times</h2>
-            <p>Edit run times for programs</p>
-          </div>
-        {{/link-to}}
-      </li>
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.auto-adjust'}}
-          <div class="media-body">
-            <h2>{{fa-icon 'tree'}} Auto Adjust</h2>
-            <p>Edit auto adjust settings</p>
           </div>
         {{/link-to}}
       </li>
