@@ -1,11 +1,13 @@
-{{log model}}
-<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+<header class="bar bar-nav weathermatic-header">
   {{#link-to 'smartlink-controller.settings.program-details' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">
-    {{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - Select Program
-  </h1>
+  <a href="javascript:void(0)" class="icon pull-right" {{action 'editProgram'}}>Save</a>
+  <h1 class="title">{{#if model.description.length}}
+          {{short-text model.description}}
+          {{else}}
+          Program {{upper-case model.identifier}}
+          {{/if}}</h1>
 </header>
 
 <div class="content weathermatic-content program-detail">
@@ -167,4 +169,3 @@
 {{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}
 
 {{comm-log smartlinkController=model.smartlinkController close='commLogClosed' actionReceiver=commLog}}
-{{log model}}

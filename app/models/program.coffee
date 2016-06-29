@@ -5,7 +5,21 @@ Program = DS.Model.extend
   description:          DS.attr 'string'
   maxRun:               DS.attr 'number'
   minSoak:              DS.attr 'number'
+  daysOfWeek:           DS.attr 'string'
+  daysInterval:         DS.attr 'number'
+  oddeven:              DS.attr 'number'
+  intervalStart:        DS.attr 'number'
+
+  # buhhh, somebody didn't follow conventions :(
+  # aliased for now, should find/replace them to camelCase eventually
+  days_of_week:   Ember.computed.alias 'daysOfWeek'
+  days_interval:  Ember.computed.alias 'daysInterval'
+  interval_start: Ember.computed.alias 'intervalStart'
+  min_soak:       Ember.computed.alias 'minSoak'
+
 
   smartlinkController:  DS.belongsTo 'smartlinkController'
+
+  # programStartTimes: DS.hasMany 'program-start-time', async: true
 
 `export default Program`
