@@ -87,7 +87,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
           controller_omissions: {
             controller_omission_dates: []
             controller_omission_days: []
-            controller_omission_times: []
+            controller_omission_times: [ @get('omissionTime').getProperties('id', 'startTime', 'endTime') ]
           }
         }
       )
