@@ -3,10 +3,7 @@
 
 SmartlinkControllerSettingsEditOmitTimesRoute = Ember.Route.extend(AuthenticatedRouteMixin, {
   model: (params) ->
-    Ember.Logger.debug('SmartlinkControllerSettingsEditOmitTimesRoute route:model')
-    m = @modelFor('smartlink-controller')
-    Ember.Logger.debug('SmartlinkControllerSettingsEditOmitTimesRoute loaded model')
-    return m
+    @modelFor('smartlink-controller')
 })
 
 `export default SmartlinkControllerSettingsEditOmitTimesRoute`
