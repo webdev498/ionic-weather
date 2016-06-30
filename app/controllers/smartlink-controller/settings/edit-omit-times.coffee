@@ -14,7 +14,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     [0...72].forEach (n) ->
       time = moment().startOf('day').add(n * 10, 'minutes').format('hh:mm')
       opts.push({label: time, value: time})
-    
+
     @set 'availableOmitTimes', opts
 
   initTimeSuffix: ->
@@ -43,30 +43,30 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     [1..15].map (n) =>
       Ember.Object.create({
         number: n
-        object: @get('model.omissionDates').toArray()[n-1] || @get('model.omissionDates').createRecord()  
-      })     
+        object: @get('model.omissionDates').toArray()[n-1] || @get('model.omissionDates').createRecord()
+      })
 
   omissionDayNumbers: Ember.computed 'model.omissionDays.length', ->
     @get('model.omissionDays').map (omissionDay) ->
       omissionDay.get('day')
 
   isSundaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(0) 
+    @get('omissionDayNumbers').includes(0)
 
   isMondaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(1) 
+    @get('omissionDayNumbers').includes(1)
 
   isTuesdaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(2) 
+    @get('omissionDayNumbers').includes(2)
 
   isWednesdaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(3) 
+    @get('omissionDayNumbers').includes(3)
 
   isThursdaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(4) 
+    @get('omissionDayNumbers').includes(4)
 
   isFridaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(5) 
+    @get('omissionDayNumbers').includes(5)
 
   isSaturdaySelected: Ember.computed 'omissionDayNumbers', ->
     @get('omissionDayNumbers').includes(6)
@@ -76,7 +76,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
 
   saveUrl: Ember.computed 'model.id', 'baseUrl', ->
     "#{@get('baseUrl')}/api/v2/controllers/#{@get('model.id')}/controller_omissions"
-    
+
   actions:
     save: ->
       @save(
