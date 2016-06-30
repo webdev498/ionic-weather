@@ -88,8 +88,8 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     [
       {
         id: ot.get('id')
-        startTime: ot.getCalcdStartTime()
-        endTime: ot.getCalcdEndTime()
+        start_time: ot.getCalcdStartTime()
+        end_time: ot.getCalcdEndTime()
       }
     ]
 
