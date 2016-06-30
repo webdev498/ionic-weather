@@ -4,59 +4,49 @@ formatTimeString = (timeString, format) ->
   return null if (typeof(timeString) == 'undefined' || timeString == null)
   moment(timeString).utc().format(format)
 
-X = 0
+buildTimeString = (timeString, hoursMinutes, amPm) ->
+  time = moment(timeString).utc()
+  parts = hoursMinutes.split(':')
+  time.hour(parts[0]).minute(parts[1])
+  time.hour(time.hour() + 12) if amPm == 'pm'
+  time.toISOString()
 
 OmissionTime = DS.Model.extend {
   startTime:              DS.attr 'string'
+  _startTimeHours:        DS.attr 'string'
+  _startTimeAmPm:         DS.attr 'string'
   endTime:                DS.attr 'string'
   smartlinkController:    DS.belongsTo 'smartlink-controller'
 
   startTimeHours: ( (key, value) ->
-    X += 1
-    if X > 20
-      diediedie()
-
-    Ember.Logger.debug 'args', arguments
     if typeof(value) == 'undefined' || value == null
-      st = @get('startTime')
-      Ember.Logger.debug 'get, startTime set to', st
-      formatted = formatTimeString(st, 'hh:mm')
-      Ember.Logger.debug 'formatted result: ', formatted
-      return formatted
+      @get('_startTimeHours') || formatTimeString(@get('startTime'), 'hh:mm')
     else
-      st = @get('startTime')
-      Ember.Logger.debug 'set, startTime set to', st
-      start = moment(st).utc()
-      parts = value.split(':')
-      start.hour(parts[0])
-      start.minute(parts[1])
-      newst = start.toISOString()
-      Ember.Logger.debug 'setting new start time', newst
-      @set 'startTime', newst
-      return null
-  ).property('startTime').cacheable(false)
+      @set '_startTimeHours', value
+  ).property('startTime').volatile()
 
-#   startTimeAmPm: Ember.computed 'startTime', (key, value) ->
-#     if arguments.length > 1
-#       start = '2002-02-02'
-#       # TODO: moment js stuf...
-#       # @set 'startTime', start
-#     else
-#       formatTimeString(@get('startTime'), 'a')
-#
-#   endTimeHours: Ember.computed 'endTime', (key, value) ->
-#     if arguments.length > 1
-#       end = '2003-03-03'
-#       #  @set 'endTime', end
-#     else
-#       formatTimeString(@get('endTime', 'hh:mm'))
-#
-#   endTimeAmPm: Ember.computed 'endTime', (key, value) ->
-#     if arguments.length > 1
-#       end = '2004-04-04'
-#       # @set 'endTime', end
-#     else
-#       formatTimeString(@get('endTime', 'a'))
+  startTimeAmPm: ( (key, value) ->
+    if typeof(value) == 'undefined' || value == null
+      @get('_startTimeAmPm') || formatTimeString(@get('startTime'), 'a')
+    else
+      @set '_startTimeAmPm', value
+  ).property('startTime').volatile()
+
+  getCalcdStartTime: ->
+    return @get('startTime') unless @get('_startTimeHours')
+    buildTimeString(
+      @get('startTime'),
+      @get('_startTimeHours')
+      @get('_startTimeAmPm')
+    )
+
+  getCalcdEndTime: ->
+    return @get('endTime') unless @get('_endTimeHours')
+    buildTimeString(
+      @get('endTime'),
+      @get('endTimeHours')
+      @get('endTimeAmPm')
+    )
 }
 
 `export default OmissionTime`

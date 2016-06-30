@@ -84,6 +84,7 @@ Transitions = ->
       'smartlink-controller.settings.seasonal-adjust'
       'smartlink-controller.settings.edit-controller-basic'
       'smartlink-controller.settings.edit-controller-advanced'
+      'smartlink-controller.settings.edit-omit-times'
     ]
     @use 'toLeft'
     @reverse 'toRight'

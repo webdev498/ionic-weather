@@ -77,6 +77,22 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
   saveUrl: Ember.computed 'model.id', 'baseUrl', ->
     "#{@get('baseUrl')}/api/v2/controllers/#{@get('model.id')}/controller_omissions"
 
+  getOmissionDateProperties: ->
+    []
+
+  getOmissionDayProperties: ->
+    []
+
+  getOmissionTimeProperties: ->
+    ot = @get('omissionTime')
+    [
+      {
+        id: ot.get('id')
+        startTime: ot.getCalcdStartTime()
+        endTime: ot.getCalcdEndTime()
+      }
+    ]
+
   actions:
     save: ->
       @save(
@@ -85,9 +101,9 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
         successModel: @get('model')
         params: {
           controller_omissions: {
-            controller_omission_dates: []
-            controller_omission_days: []
-            controller_omission_times: [ @get('omissionTime').getProperties('id', 'startTime', 'endTime') ]
+            controller_omission_dates: @getOmissionDateProperties()
+            controller_omission_days: @getOmissionDayProperties()
+            controller_omission_times: @getOmissionTimeProperties()
           }
         }
       )
