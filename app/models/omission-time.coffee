@@ -13,8 +13,6 @@ buildTimeString = (timeString, hoursMinutes, amPm) ->
 
 OmissionTime = DS.Model.extend {
   startTime:              DS.attr 'string'
-  _startTimeHours:        DS.attr 'string'
-  _startTimeAmPm:         DS.attr 'string'
   endTime:                DS.attr 'string'
   smartlinkController:    DS.belongsTo 'smartlink-controller'
 
@@ -32,6 +30,20 @@ OmissionTime = DS.Model.extend {
       @set '_startTimeAmPm', value
   ).property('startTime').volatile()
 
+  endTimeHours: ( (key, value) ->
+    if typeof(value) == 'undefined' || value == null
+      @get('_endTimeHours') || formatTimeString(@get('endTime'), 'hh:mm')
+    else
+      @set '_endTimeHours', value
+  ).property('endTime').volatile()
+
+  endTimeAmPm: ( (key, value) ->
+    if typeof(value) == 'undefined' || value == null
+      @get('_endTimeAmPm') || formatTimeString(@get('endTime'), 'a')
+    else
+      @set '_endTimeAmPm', value
+  ).property('endTime').volatile()
+
   getCalcdStartTime: ->
     return @get('startTime') unless @get('_startTimeHours')
     buildTimeString(
@@ -44,8 +56,8 @@ OmissionTime = DS.Model.extend {
     return @get('endTime') unless @get('_endTimeHours')
     buildTimeString(
       @get('endTime'),
-      @get('endTimeHours')
-      @get('endTimeAmPm')
+      @get('_endTimeHours')
+      @get('_endTimeAmPm')
     )
 }
 
