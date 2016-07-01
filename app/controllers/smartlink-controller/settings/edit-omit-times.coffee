@@ -1,5 +1,6 @@
 `import Ember from 'ember'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
+`import OmissionTime from '../../../models/omission-time'`
 
 SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(SmartlinkSaveMixin, {
   init: ->
@@ -10,7 +11,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     @initDaysOfMonth()
 
   initAvailableOmitTimes: ->
-    opts = [{label: "Off", value: null}]
+    opts = [{label: "Off", value: OmissionTime.OFF_VALUE }]
     [0...72].forEach (n) ->
       time = moment().startOf('day').add(n * 10, 'minutes').format('hh:mm')
       opts.push({label: time, value: time})
@@ -81,7 +82,24 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     []
 
   getOmissionDayProperties: ->
-    []
+    map = [
+      'isSundaySelected', 'isMondaySelected', 'isTuesdaySelected',
+      'isWednesdaySelected', 'isThursdaySelected', 'isFridaySelected',
+      'isSaturdaySelected'
+    ]
+
+    [0..6].map( (n) =>
+      if @get(map[n])
+        omissionDay = @get('model.omissionDays').findBy('day', n)
+        if omissionDay
+          return omissionDay.getProperties('id', 'day')
+        else
+          return { day: n }
+      else
+        null
+    ).filter((item) ->
+      item != null
+    )
 
   getOmissionTimeProperties: ->
     ot = @get('omissionTime')
