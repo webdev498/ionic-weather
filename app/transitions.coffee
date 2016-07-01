@@ -81,10 +81,8 @@ Transitions = ->
     @toRoute [
       'smartlink-controller.settings.programming'
       'smartlink-controller.settings.flow'
-      'smartlink-controller.settings.seasonal-adjust'
       'smartlink-controller.settings.edit-controller-basic'
       'smartlink-controller.settings.edit-controller-advanced'
-      'smartlink-controller.settings.edit-omit-times'
     ]
     @use 'toLeft'
     @reverse 'toRight'
@@ -96,6 +94,8 @@ Transitions = ->
       'smartlink-controller.settings.program-details'
       'smartlink-controller.settings.program-run-times'
       'smartlink-controller.settings.auto-adjust'
+      'smartlink-controller.settings.edit-omit-times'
+      'smartlink-controller.settings.seasonal-adjust'
     ]
     @use 'toLeft'
     @reverse 'toRight'
