@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 `import OmissionTime from '../../../models/omission-time'`
+`import leftPad  from '../../../util/strings/left-pad'`
 
 SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(SmartlinkSaveMixin, {
   init: ->
@@ -79,7 +80,20 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     "#{@get('baseUrl')}/api/v2/controllers/#{@get('model.id')}/controller_omissions"
 
   getOmissionDateProperties: ->
-    []
+    @get('omissionDates').map( (omissionDate) ->
+      od = omissionDate.get('object')
+      return null if od.get('dayNumber') == 0 || od.get('monthNumber') == 0
+      m = leftPad(2, od.get('monthNumber') - 1)
+      d = leftPad(2, od.get('dayNumber'))
+      date = moment("2016-#{m}-#{d}", "YYYY-MM-DD", true)
+      return null unless date.isValid()
+      {
+        id: omissionDate.get('object.id')
+        date: date.toISOString()
+      }
+    ).filter((item) ->
+      item != null
+    )
 
   getOmissionDayProperties: ->
     map = [
