@@ -137,6 +137,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
 
     @set('OddEven', oddEven)
 
+    # buhhh, I've never heard of loops, I'm an expert coder!!!! DUHHHHHH!!!!!!
     timeSlots = [
       { id: 0, value: 'Off' },
       { id: 1, value: '12:00' },

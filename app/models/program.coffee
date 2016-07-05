@@ -19,9 +19,7 @@ Program = DS.Model.extend
   interval_start: Ember.computed.alias 'intervalStart'
   min_soak:       Ember.computed.alias 'minSoak'
 
-
   smartlinkController:  DS.belongsTo 'smartlinkController', async: true
-
-  # programStartTimes: DS.hasMany 'program-start-time', async: true
+  programStartTimes: DS.hasMany 'program-start-time', async: false
 
 `export default Program`
