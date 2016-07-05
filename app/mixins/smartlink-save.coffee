@@ -67,6 +67,7 @@ SmartlinkSaveMixin = Ember.Mixin.create(
       Ember.run.cancel(timeoutWatcher) if timeoutWatcher
 
     return savePromise
+
 )
 
 `export default SmartlinkSaveMixin`

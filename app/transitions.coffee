@@ -83,6 +83,7 @@ Transitions = ->
       'smartlink-controller.settings.flow'
       'smartlink-controller.settings.edit-controller-basic'
       'smartlink-controller.settings.edit-controller-advanced'
+      'smartlink-controller.settings.edit-omit-times'
     ]
     @use 'toLeft'
     @reverse 'toRight'
