@@ -3,14 +3,12 @@
 
 SmartlinkControllerSettingsEditProgramDetailsController = Ember.Route.extend(AuthenticatedRouteMixin, {
   model: (params) ->
-    id = @paramsFor('smartlink-controller').controllerId
-    @store.find('smartlink-controller', id).then (ctrl) ->
-      ctrl.get('programs').find(params.programId)
+    @store.find('program', params.programId)
 
-  setupController: (controller, _model) ->
+  setupController: (controller, model) ->
     this._super(arguments...)
-    # _model.programStartTimes = _model._data.program_start_times
-    # controller.set 'model', _model
+    # model.programStartTimes = model._data.program_start_times
+    # controller.set 'model', model
     controller.setDefaults()
 
   serialize: (model, params) ->
