@@ -1,14 +1,18 @@
 `import Ember from 'ember'`
+`import CurrentUserMixin from '../../../mixins/current-user'`
 
-SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend({
+VOLUME_MEASURE_LITERS = 1
+
+SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend(CurrentUserMixin, {
   init: ->
-    @initAvailableSprinklerTypes()
+    @initAvailableSprinklerTypesImperial()
+    @initAvailableSprinklerTypesMetric()
     @initAvailablePlantTypes()
     @initAvailableSoilTypes()
     @initSlopeValues()
     @initMoreLessValues()
 
-  initAvailableSprinklerTypes: ->
+  initAvailableSprinklerTypesImperial: ->
     opts = []
 
     [
@@ -31,7 +35,32 @@ SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend({
       opts.push {label: "#{lbl}\"", value: val}
     )
 
-    @set 'availableSprinklerTypes', opts
+    @set 'availableSprinklerTypesImperial', opts
+
+  initAvailableSprinklerTypesMetric: ->
+    opts = []
+
+    [
+      { label: "Standard (non-ET)", value: 0 },
+      { label: "Off", value: 1 },
+      { label: "Spray (38.1 mm)", value: 2 },
+      { label: "Rotor (12.7 mm)", value: 3 },
+      { label: "Drip (27.9 mm)", value: 4 },
+      { label: "Bubbler (58.4 mm)", value: 5 }
+    ].forEach( (sprinklerType) ->
+      opts.push sprinklerType
+    )
+    [20..199].forEach( (n) ->
+      lbl = ((n/100)*25.4).toFixed(2)
+      opts.push {label: "#{lbl} mm", value: n}
+    )
+    [20..30].forEach( (n) ->
+      lbl = ((n/10)*25.4).toFixed(2)
+      val = n*10
+      opts.push {label: "#{lbl} mm", value: val}
+    )
+
+    @set 'availableSprinklerTypesMetric', opts
 
   initAvailablePlantTypes: ->
     opts = []
@@ -85,6 +114,9 @@ SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend({
       }
     )
     @set 'moreLessValues', opts
+
+  isMetricEnabled: Ember.computed 'currentUser', ->
+    @get('currentUser.volume_measure') == VOLUME_MEASURE_LITERS
 
   config: Ember.computed ->
     @container.lookupFactory('config:environment')

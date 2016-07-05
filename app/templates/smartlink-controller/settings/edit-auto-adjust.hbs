@@ -4,23 +4,27 @@
   {{/link-to}}
 
   <h1 class="title">{{fa-icon 'gear'}} Edit Auto Adjust</h1>
-  <p class="pull-right">
-    {{#if model.description}}
-      {{model.description}}
-    {{else}}
-      Zone # {{model.number}}
-    {{/if}}</p>
 </header>
 
 <div class="content weathermatic-content">
   <ul class="table-view">
-  	<li class="table-view-cell">
-      <span>Sprinkler Type</span>
-      <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=availableSprinklerTypes value=model.sprinklerType
-          optionLabelPath='content.label' optionValuePath='content.value'}}
-      </span>
-    </li>
+    {{#if isMetricEnabled}}
+      <li class="table-view-cell">
+        <span>Sprinkler Type</span>
+        <span class="pull-right weathermatic-settings-input-large">
+          {{view 'select' content=availableSprinklerTypesMetric value=model.sprinklerType
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+        </span>
+      </li>
+    {{else}}
+    	<li class="table-view-cell">
+        <span>Sprinkler Type</span>
+        <span class="pull-right weathermatic-settings-input-large">
+          {{view 'select' content=availableSprinklerTypesImperial value=model.sprinklerType
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+        </span>
+      </li>
+    {{/if}}
 
     <li class="table-view-cell">
       <span>Plant Type</span>
