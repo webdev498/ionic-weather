@@ -129,7 +129,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     save: ->
       @save(
         url: @get('saveUrl')
-        successRoute: 'smartlink-controller.settings'
+        successRoute: 'smartlink-controller.settings.programming'
         successModel: @get('model')
         params: {
           controller_omissions: {
@@ -139,15 +139,6 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
           }
         }
       )
-
-    loadingFinished: ->
-      Ember.run.later this, ->
-        @transitionToRoute('smartlink-controller.index')
-      , 750
-
-    loadingAbandoned: ->
-      @transitionToRoute('smartlink-controller.index')
-
 })
 
 `export default SmartlinkControllerSettingsEditOmitTimesController`

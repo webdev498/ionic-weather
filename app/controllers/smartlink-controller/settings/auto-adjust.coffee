@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
+`import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 
-SmartlinkControllerSettingsAutoAdjustController = Ember.Controller.extend({
+SmartlinkControllerSettingsAutoAdjustController = Ember.Controller.extend(SmartlinkSaveMixin, {
   init: ->
     @initAvailableLatitudes()
 
@@ -19,9 +20,8 @@ SmartlinkControllerSettingsAutoAdjustController = Ember.Controller.extend({
 
     @set 'availableLatitudes', opts
 
-  actions:
-    save: ->
-      alert('TODO')
+  saveUrl: Ember.computed 'model.id', 'baseUrl', ->
+    "#{@get('baseUrl')}/api/v2/controllers/#{@get('model.id')}"
 
   computeLatForPostalCode: (val) ->
     if 1001 <= val <= 15000
@@ -72,6 +72,22 @@ SmartlinkControllerSettingsAutoAdjustController = Ember.Controller.extend({
     val = @get('model.postalCode')
     if val && val.length == 5
       @set('model.latitude', @computeLatForPostalCode(val))
+
+  actions:
+    save: ->
+      @save(
+        url: @get('saveUrl')
+        successRoute: 'smartlink-controller.settings.programming'
+        successModel: @get('model')
+        params: {
+          control: {
+            postal_code: @get('model.postalCode')
+            latitude: @get('model.latitude')
+          }
+        }
+      ).fail (errors) ->
+        errors.map (err) ->
+
 
 })
 

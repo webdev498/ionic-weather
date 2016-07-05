@@ -36,6 +36,11 @@ SmartlinkSaveMixin = Ember.Mixin.create(
         reject new Error(options.errorMessage || defaultErrorMessage)
       , timeoutThresholdMillis)
 
+      buildErrors = (response) ->
+        Ember.get(response, 'meta.errors') || [{
+          _default: defaultErrorMessage
+        }]
+
       ajaxOptions = {
         type: httpMethod
         data: JSON.stringify(allParams)
@@ -46,9 +51,9 @@ SmartlinkSaveMixin = Ember.Mixin.create(
           if Ember.get(response, 'meta.success')
             resolve(response)
           else
-            reject new Error(defaultErrorMessage, response)
-        error: ->
-          reject new Error(defaultErrorMessage)
+            reject new Error(buildErrors(response), response)
+        error: (xhr) ->
+          reject new Error(buildErrors(xhr.responseJSON))
       }
 
       Ember.Logger.debug("Save - #{httpMethod}: #{options.url}, ajax options:",
@@ -61,7 +66,7 @@ SmartlinkSaveMixin = Ember.Mixin.create(
     ).finally ->
       Ember.run.cancel(timeoutWatcher) if timeoutWatcher
 
-    return null
+    return savePromise
 )
 
 `export default SmartlinkSaveMixin`
