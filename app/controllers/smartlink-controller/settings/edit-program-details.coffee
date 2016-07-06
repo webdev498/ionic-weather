@@ -39,7 +39,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
 
   smartlinkController: Ember.computed.alias 'controllers.smartlinkController.model'
 
-  init: ->
+  init: () -> (
     PROGRAM_TYPE_ENUM = {
       DAYS_OF_WEEK: 1,
       ODD_EVEN: 2,
@@ -137,7 +137,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
 
     @set('OddEven', oddEven)
 
-    # buhhh, I've never heard of loops, I'm an expert coder!!!! DUHHHHHH!!!!!!
+    # buhhh, I've never heard of loops
     timeSlots = [
       { id: 0, value: 'Off' },
       { id: 1, value: '12:00' },
@@ -240,8 +240,9 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
     isSetOddEvenOpen: false
     isSetIntervalOpen: false
     isSetStartTimeOpen: false
+  )
 
-  setDefaults: ->
+  setDefaults: -> (
     self = this
     @set('programInstance.programStartTimes',@get('model.programStartTimes'))
 
@@ -280,9 +281,81 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
         @set('programInstance.selectedIntervalProgram', intervalProgram)
 
     @send('initProgram')
+  )
 
-  actions:
-    initProgram: ->
+  programType: Ember.computed 'model.program_type', ->
+    @get('model.program_type')
+
+  cssClass: Ember.computed 'model.identifier', ->
+    "weathermatic-btn-run-program-#{@get('model.identifier').toLowerCase()}"
+
+  isDayOfWeekProgramTypeSelected: Ember.computed 'programInstance.selectedProgramType', ->
+    @get('programInstance.selectedProgramType').value is @get('PROGRAM_TYPE_ENUM').DAYS_OF_WEEK
+
+  isOddEvenProgramTypeSelected: Ember.computed 'programInstance.selectedProgramType', ->
+    @get('programInstance.selectedProgramType').value is @get('PROGRAM_TYPE_ENUM').ODD_EVEN
+
+  isIntervalProgramTypeSelected: Ember.computed 'programInstance.selectedProgramType', ->
+    @get('programInstance.selectedProgramType').value is @get('PROGRAM_TYPE_ENUM').INTERVAL
+
+  config: Ember.computed -> @container.lookupFactory('config:environment')
+
+  saveUrl: Ember.computed 'config.apiUrl', 'smartlinkController.id', ->
+    "#{@get('config.apiUrl')}/api/v2/programs/#{@get('model.id')}"
+
+  submitProgram: (programParams) ->
+    self = this
+
+    allParams = {
+      timestamp: new Date().getTime(),
+      program: {}
+    }
+
+    Ember.merge(allParams.program, programParams.program)
+
+    url = @get('url') + programParams.id
+    timeoutWatcher = null
+
+    defaultErrorMessage = 'There was a problem communicating with your device. \
+      Please try again later'
+
+    programPromise = new Ember.RSVP.Promise (resolve, reject) ->
+
+      timeoutWatcher = Ember.run.later(this, ->
+        reject new Error(defaultErrorMessage)
+      self.timeoutThresholdMillis)
+
+      ajaxOptions = {
+        type: 'PUT'
+        data: allParams
+        success: (response) ->
+          if Ember.get(response, 'meta.success')
+            resolve({
+              program: response
+            })
+          else
+            message = Ember.get(response, 'result.exception')
+            reject new Error(message)
+        error: (xhr, status, error) ->
+          if (xhr.status is 422)
+            reject({
+              type: 'Unprocessable Entity'
+              responseData: xhr.responseJSON
+            })
+          else
+            reject(new Error("Unexpected response from server: #{xhr.status}, #{error}"))
+      }
+
+      Ember.$.ajax(url, ajaxOptions)
+
+    programPromise
+      .finally ->
+        Ember.run.cancel(timeoutWatcher) if timeoutWatcher
+
+    return programPromise
+
+  actions: {
+    initProgram: -> (
       self = this
       programDaysOfWeek = []
       selectedDaysOfWeek = []
@@ -356,16 +429,21 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
               intervalDayIndex = intervalDayIndex % 7
 
       self.set('programInstance.DaysOfWeek', programDaysOfWeek)
+    )
 
-    editProgram: ->
+    save: -> (
       self = this
       @get('loadingModal').send('open')
 
       progStartTimes = @get('programInstance.programStartTimes')
 
       program_start_times = new Array()
-      progStartTimes.forEach (st, index, array) ->
-        program_start_times.push { number: st.id, start_time: st.start_time }
+      progStartTimes.forEach( (st, index, array) ->
+        program_start_times.push {
+          number: Ember.get(st, 'number'),
+          start_time: Ember.get(st, 'start_time')
+        }
+      )
 
       params = {
         id: Number(@get('model.id')),
@@ -380,6 +458,11 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
         }
       }
 
+      Ember.Logger.debug params
+      alert @get('saveUrl')
+
+      return
+
       @submitProgram(params).then (response) ->
         Ember.Logger.debug "Posted program #{self.get('model.id')} for controller: #{self.get('smartlinkController.id')}"
         self.get('smartlinkController').reload().finally ->
@@ -392,16 +475,16 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
           Ember.Logger.error(error)
           alert error
         self.get('loadingModal').send('close')
+    )
 
     loadingFinished: ->
       Ember.run.later this, ->
         @get('loadingModal').send('close')
-        @transitionToRoute('smartlink-controller.program-list')
+        @transitionToRoute('smartlink-controller.settings.programming')
       , 750
 
     loadingAbandoned: ->
       @get('loadingModal').send('close')
-      @transitionToRoute('smartlink-controller.program-list')
 
     setProgramTypeOpen: ->
       @set('isSetProgramTypeOpen', true)
@@ -452,15 +535,15 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
       @send('initProgram')
       @send('closeSetInterval')
 
-    setStartTimeOpen: (index) ->
+    setStartTimeOpen: (index) -> (
       progStartTimes = @get('programInstance.programStartTimes')
       progStartTime = (progStartTimes.filter (st) -> st.id == index)[0]
 
       @set('programInstance.currentSelectedTimeSlot.id', 0)
       @set('programInstance.currentSelectedStartTime.id', index)
 
-      if progStartTime.start_time != null
-        time = formatTime('12H', progStartTime.start_time)
+      if Ember.get(progStartTime, 'start_time')
+        time = formatTime('12H', Ember.get(progStartTime, 'start_time') || '')
         timeArr = time.split ' '
         availableTimeSlots = @get('availableTimeSlots')
         availableAmPm = @get('availableAmPm')
@@ -470,11 +553,12 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
 
 
       @set('isSetStartTimeOpen', true)
+    )
 
     closeSetStartTime: ->
       @set('isSetStartTimeOpen', false)
 
-    setStartTime: ->
+    setStartTime: -> (
       startTimeIndex = @get('programInstance.currentSelectedStartTime.id');
       selectTimeSlotId = @get('programInstance.currentSelectedTimeSlot.id')
       availableTimeSlots = @get('availableTimeSlots')
@@ -497,25 +581,13 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
       @set('programInstance.programStartTimes', neProgStartTimes)
 
       @send('closeSetStartTime')
+    )
 
-    toggleDay: (day) ->
+    toggleDay: (day) -> (
       isChecked = !day.checked
       Ember.set(day, "checked", isChecked)
       @send('updateDaysOfWeek')
-
-  programType: Ember.computed 'model.program_type', ->
-    @get('model.program_type')
-
-  cssClass: Ember.computed 'model.identifier', ->
-    "weathermatic-btn-run-program-#{@get('model.identifier').toLowerCase()}"
-
-  isDayOfWeekProgramTypeSelected: Ember.computed 'programInstance.selectedProgramType', ->
-    @get('programInstance.selectedProgramType').value is @get('PROGRAM_TYPE_ENUM').DAYS_OF_WEEK
-
-  isOddEvenProgramTypeSelected: Ember.computed 'programInstance.selectedProgramType', ->
-    @get('programInstance.selectedProgramType').value is @get('PROGRAM_TYPE_ENUM').ODD_EVEN
-
-  isIntervalProgramTypeSelected: Ember.computed 'programInstance.selectedProgramType', ->
-    @get('programInstance.selectedProgramType').value is @get('PROGRAM_TYPE_ENUM').INTERVAL
+    )
+  }
 
 `export default SmartlinkControllerProgramDetailController`

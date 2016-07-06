@@ -2,7 +2,6 @@
   {{#link-to 'smartlink-controller.settings.program-details' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <a href="javascript:void(0)" class="icon pull-right" {{action 'editProgram'}}>Save</a>
   <h1 class="title">{{#if model.description.length}}
           {{short-text model.description}}
           {{else}}
@@ -57,14 +56,19 @@
        <li class="table-view-cell">
         <a href="javascript:void(0)" class="push-right" {{action 'setStartTimeOpen' programStartTime.id}}>
           {{#if programStartTime.start_time.length}}
-            Start Time {{programStartTime.id}}: {{format-time programStartTime.start_time '12H'}}
+            Start Time {{programStartTime.number}}: {{format-time programStartTime.start_time '12H'}}
           {{else}}
-            Start Time {{programStartTime.id}}: Off
+            Start Time {{programStartTime.number}}: Off
           {{/if}}
         </a>
       </li>
     {{/each}}
   </ul>
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} Save Changes
+    </button>
+  </div>
 </div>
 
 <div id="set-program-type" {{bind-attr class=':modal isSetProgramTypeOpen:active'}}>
