@@ -74,7 +74,7 @@ SmartlinkControllerSettingsAutoAdjustController = Ember.Controller.extend(Smartl
       @set('model.latitude', @computeLatForPostalCode(val))
 
   actions:
-    save: ->
+    save: -> (
       @save(
         url: @get('saveUrl')
         successRoute: 'smartlink-controller.settings.programming'
@@ -85,10 +85,8 @@ SmartlinkControllerSettingsAutoAdjustController = Ember.Controller.extend(Smartl
             latitude: @get('model.latitude')
           }
         }
-      ).fail (errors) ->
-        errors.map (err) ->
-
-
+      )
+    )
 })
 
 `export default SmartlinkControllerSettingsAutoAdjustController`

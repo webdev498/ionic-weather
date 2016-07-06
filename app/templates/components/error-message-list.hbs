@@ -1,0 +1,12 @@
+{{#if errorMessages.length}}
+  <ul class="table-view weathermatic-errors">
+    <li class="table-view-cell">
+      <p><span class="badge badge-negative">{{errorMessages.length}}</span> error(s)</p>
+    </li>
+    {{#each errorMessages as |msg| }}
+      <li class="table-view-cell">
+        <p>{{msg}}</p>
+      </li>
+    {{/each}}
+  </ul>
+{{/if}}

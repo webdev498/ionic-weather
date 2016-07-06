@@ -13,7 +13,7 @@
     <li class="table-view-cell">
       <span>Postal Code</span>
       <span class="pull-right postalElement weathermatic-settings-input-medium">
-        {{input value=model.postalCode}}
+        {{input-with-errors model=model field='postalCode' errors=errors}}
       </span>
     </li>
     <li class="table-view-cell">
@@ -29,21 +29,30 @@
       {{fa-icon 'save'}} Save Changes
     </button>
   </div>
-    <ul class="table-view weathermatic-page-bottom">
-      <h4 class="table-view-cell table-view-divider">
-        Select for zone options:
-      </h4>
-  	{{#each model.zones as |zone|}}
-        <li class="table-view-cell">
-          {{#link-to 'smartlink-controller.settings.edit-auto-adjust' zone.id}}
-            {{#if zone.description}}
-              {{short-text zone.description size=20}}
-              <p>Zone {{zone.number}}</p>
-            {{else}}
-              Zone {{zone.number}}
-            {{/if}}
-          {{/link-to}}
-        </li>
-      {{/each}}
-    </ul>
+
+  {{error-message-list errorMessages=errorMessages}}
+
+  <ul class="table-view weathermatic-page-bottom">
+    <h4 class="table-view-cell table-view-divider">
+      Select for zone options:
+    </h4>
+	{{#each model.zones as |zone|}}
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.edit-auto-adjust' zone.id}}
+          {{#if zone.description}}
+            {{short-text zone.description size=20}}
+            <p>Zone {{zone.number}}</p>
+          {{else}}
+            Zone {{zone.number}}
+          {{/if}}
+        {{/link-to}}
+      </li>
+    {{/each}}
+  </ul>
 </div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

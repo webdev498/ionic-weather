@@ -2,21 +2,41 @@
 
 SmartlinkSaveMixin = Ember.Mixin.create(
 
+  errors: {}
+
+  defaultTimeoutThresholdMillis: 20000
+
   config: Ember.computed ->
     @container.lookupFactory('config:environment')
 
   baseUrl: Ember.computed 'config.apiUrl', ->
     @get('config.apiUrl')
 
-  defaultTimeoutThresholdMillis: 20000
-
-  openLoadingModal: ->
+  openLoadingModal: -> (
     if !@get('loadingModal')
       Ember.Logger.debug('Cannot open loading modal, loadingModal does not exist!')
       return
     @get('loadingModal').send('open')
+  )
 
-  save: (options={}) ->
+  closeLoadingModal: -> (
+    if !@get('loadingModal')
+      Ember.Logger.debug('Cannot close loading modal, loadingModal does not exist!')
+      return
+    @get('loadingModal').send('close')
+  )
+
+  errorMessages: Ember.computed 'errors', -> (
+    messages = []
+    Ember.$.each(@get('errors'), (field, errors) ->
+      name = Ember.String.capitalize(field.split('_').join(' '))
+      errors.forEach (msg) ->
+        messages.push "#{name} #{msg}"
+    )
+    return messages
+  )
+
+  save: (options={}) -> (
     self = this
     @openLoadingModal()
 
@@ -31,15 +51,16 @@ SmartlinkSaveMixin = Ember.Mixin.create(
 
     httpMethod = options.httpMethod || 'PATCH'
 
-    savePromise = new Ember.RSVP.Promise (resolve, reject) ->
+    savePromise = new Ember.RSVP.Promise (resolve, reject) -> (
       timeoutWatcher = Ember.run.later(this, ->
         reject new Error(options.errorMessage || defaultErrorMessage)
       , timeoutThresholdMillis)
 
-      buildErrors = (response) ->
+      buildErrors = (response) -> (
         Ember.get(response, 'meta.errors') || [{
           _default: defaultErrorMessage
         }]
+      )
 
       ajaxOptions = {
         type: httpMethod
@@ -51,23 +72,28 @@ SmartlinkSaveMixin = Ember.Mixin.create(
           if Ember.get(response, 'meta.success')
             resolve(response)
           else
-            reject new Error(buildErrors(response), response)
+            reject buildErrors(response)
         error: (xhr) ->
-          reject new Error(buildErrors(xhr.responseJSON))
+          reject buildErrors(xhr.responseJSON)
       }
 
       Ember.Logger.debug("Save - #{httpMethod}: #{options.url}, ajax options:",
         ajaxOptions)
 
       Ember.$.ajax(options.url, ajaxOptions)
+    )
 
     savePromise.then( ->
+      self.set('errors', {})
       self.transitionToRoute(options.successRoute, options.successModel)
+    ).catch( (errors) ->
+      self.closeLoadingModal()
+      self.set 'errors', errors
     ).finally ->
       Ember.run.cancel(timeoutWatcher) if timeoutWatcher
 
     return savePromise
-
+  )
 )
 
 `export default SmartlinkSaveMixin`
