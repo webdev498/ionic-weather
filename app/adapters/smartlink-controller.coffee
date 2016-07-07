@@ -12,6 +12,8 @@ SmartlinkControllerAdapter = ApplicationAdapter.extend CurrentUserMixin,
     switch relationship.key
       when 'instructions'
         @findInstructions(arguments...)
+      when 'zones'
+        @findZones(arguments...)
       else this._super(arguments...)
 
   findInstructions: (store, snapshot, url, relationship) ->
@@ -20,6 +22,12 @@ SmartlinkControllerAdapter = ApplicationAdapter.extend CurrentUserMixin,
       hide_admin_instructions: not @get('isLoggedInAsAdmin')
       hide_overnight_instructions: true
       datetime_format: '%b %d %l:%M %P (%Z)'
+    }
+    @findHasManyWithExtraParams(store, snapshot, url, relationship, extraParams)
+
+  findZones: (store, snapshot, url, relationship) ->
+    extraParams = {
+      embed_program_zones: true
     }
     @findHasManyWithExtraParams(store, snapshot, url, relationship, extraParams)
 

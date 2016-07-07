@@ -23,19 +23,7 @@ Zone = DS.Model.extend
   mvEnabled:           DS.attr 'boolean'
 
   smartlinkController: DS.belongsTo 'smartlinkController', async: true
-  # programRunTimes: DS.hasMany 'program-run-time', async: true
-
-  programARunTime: Ember.computed ->
-    0
-
-  programBRunTime: Ember.computed ->
-    0
-
-  programCRunTime: Ember.computed ->
-    0
-
-  programDRunTime: Ember.computed ->
-    0
+  programZones: DS.hasMany 'program-zone', async: false
 
   usesRainSensor: Ember.computed 'ignoreRain', ->
     !@get('ignoreRain')

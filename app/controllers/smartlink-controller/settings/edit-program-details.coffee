@@ -1,8 +1,6 @@
 `import Ember from 'ember'`
-# `import ProgramMixin from '../../mixins/program'`
-# `import Base from 'simple-auth/authenticators/base'`
-# `import AuthenticationMixin from '../../mixins/authentication'`
 `import leftPad from '../../../util/strings/left-pad'`
+`import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 
 formatTime = (type, value) ->
 	if type is '12H'
@@ -34,7 +32,7 @@ formatTime = (type, value) ->
 		min = leftPad(2, min)
 		hour + ':' + min
 
-SmartlinkControllerProgramDetailController = Ember.Controller.extend
+SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSaveMixin, {
   needs: ['smartlinkController']
 
   smartlinkController: Ember.computed.alias 'controllers.smartlinkController.model'
@@ -432,59 +430,40 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
     )
 
     save: -> (
-      self = this
-      @get('loadingModal').send('open')
-
-      progStartTimes = @get('programInstance.programStartTimes')
-
-      program_start_times = new Array()
-      progStartTimes.forEach( (st, index, array) ->
-        program_start_times.push {
-          number: Ember.get(st, 'number'),
-          start_time: Ember.get(st, 'start_time')
+      @save(
+        url: @get('saveUrl')
+        params: {
+          id: Number(@get('model.id')),
+          program: {
+            description: if @get('model.description') then @get('model.description') else 'Program ' + @get('model.identifier'),
+            program_type: @get('programInstance.selectedProgramType.value'),
+            days_of_week: @get('programInstance.selectedDaysOfWeek.value').join(),
+            oddeven:  @get('programInstance.selectedOddEvenProgram.value'),
+            interval_start:  @get('programInstance.selectedIntervalProgram.interval_start'),
+            days_interval:  @get('programInstance.selectedIntervalProgram.days_interval'),
+            program_start_times: @get('programInstance.programStartTimes').map( (st, index, array) ->
+              {
+                number: Ember.get(st, 'number'),
+                start_time: Ember.get(st, 'start_time')
+              }
+            )
+          }
         }
       )
-
-      params = {
-        id: Number(@get('model.id')),
-        program: {
-          description: if @get('model.description') then @get('model.description') else 'Program ' + @get('model.identifier'),
-          program_type: @get('programInstance.selectedProgramType.value'),
-          days_of_week: @get('programInstance.selectedDaysOfWeek.value').join(),
-          oddeven:  @get('programInstance.selectedOddEvenProgram.value'),
-          interval_start:  @get('programInstance.selectedIntervalProgram.interval_start'),
-          days_interval:  @get('programInstance.selectedIntervalProgram.days_interval'),
-          program_start_times: program_start_times
-        }
-      }
-
-      Ember.Logger.debug params
-      alert @get('saveUrl')
-
-      return
-
-      @submitProgram(params).then (response) ->
-        Ember.Logger.debug "Posted program #{self.get('model.id')} for controller: #{self.get('smartlinkController.id')}"
-        self.get('smartlinkController').reload().finally ->
-          self.send('loadingFinished')
-      .catch (error) ->
-        if error.type is 'Unprocessable Entity'
-          Ember.Logger.debug 'Program Edit failed with unprocessable Entity'
-          alert error.responseData.meta.message
-        else
-          Ember.Logger.error(error)
-          alert error
-        self.get('loadingModal').send('close')
+      #
+      # @submitProgram(params).then (response) ->
+      #   Ember.Logger.debug "Posted program #{self.get('model.id')} for controller: #{self.get('smartlinkController.id')}"
+      #   self.get('smartlinkController').reload().finally ->
+      #     self.send('loadingFinished')
+      # .catch (error) ->
+      #   if error.type is 'Unprocessable Entity'
+      #     Ember.Logger.debug 'Program Edit failed with unprocessable Entity'
+      #     alert error.responseData.meta.message
+      #   else
+      #     Ember.Logger.error(error)
+      #     alert error
+      #   self.get('loadingModal').send('close')
     )
-
-    loadingFinished: ->
-      Ember.run.later this, ->
-        @get('loadingModal').send('close')
-        @transitionToRoute('smartlink-controller.settings.programming')
-      , 750
-
-    loadingAbandoned: ->
-      @get('loadingModal').send('close')
 
     setProgramTypeOpen: ->
       @set('isSetProgramTypeOpen', true)
@@ -589,5 +568,6 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend
       @send('updateDaysOfWeek')
     )
   }
+})
 
 `export default SmartlinkControllerProgramDetailController`

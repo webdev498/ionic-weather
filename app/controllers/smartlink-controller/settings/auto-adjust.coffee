@@ -77,8 +77,6 @@ SmartlinkControllerSettingsAutoAdjustController = Ember.Controller.extend(Smartl
     save: -> (
       @save(
         url: @get('saveUrl')
-        successRoute: 'smartlink-controller.settings.programming'
-        successModel: @get('model')
         params: {
           control: {
             postal_code: @get('model.postalCode')

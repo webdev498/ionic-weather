@@ -1,6 +1,6 @@
 `import DS from 'ember-data'`
 
-ProgramSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin,
+ProgramSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
   attrs:
     programStartTimes:
       serialize: 'records'
@@ -13,6 +13,6 @@ ProgramSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin,
     data.smartlink_controller_id = data.controller_id
     delete data.controller_id
     this._super(arguments...)
-)
+})
 
 `export default ProgramSerializer`

@@ -4,7 +4,7 @@ SmartlinkControllerSettingsEditProgramRunTimeController = Ember.Controller.exten
   init: ->
     @initAvailableProgramTimes()
 
-  initAvailableProgramTimes: ->
+  initAvailableProgramTimes: -> (
     opts = [{
       label: 'Off', value: 0
     }]
@@ -21,6 +21,12 @@ SmartlinkControllerSettingsEditProgramRunTimeController = Ember.Controller.exten
     )
 
     @set 'availableProgramTimes', opts
+  )
+
+  setDefaults: -> (
+    a = @get('model.programZones').findBy('program.identifier', 'A')
+    Ember.Logger.debug a
+  )
 
   actions:
     save: ->

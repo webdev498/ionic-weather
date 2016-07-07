@@ -76,57 +76,21 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend CurrentU
 
   timeoutThresholdMillis: 20000
 
-  actions:
-    save: ->
-      @get('loadingModal').send('open')
-
-      self = this
-      url = @get('saveUrl')
-
-      timeoutWatcher = null
-      defaultErrorMessage = 'There was a problem communicating with our servers. Please try again later'
-
-      allParams = {
-        zone: {
-          realtime_flow_enabled: @get('model.realtimeFlowEnabled')
-          low_flow_limit:        @get('model.lowFlowLimit')
-          high_flow_limit:       @get('model.highFlowLimit')
-          valve_size:            @get('model.valveSize')
-          ppg:                   @get('model.ppg')
+  actions: {
+    save: -> (
+      @save(
+        url: @get('saveUrl')
+        params: {
+          zone: {
+            realtime_flow_enabled: @get('model.realtimeFlowEnabled')
+            low_flow_limit:        @get('model.lowFlowLimit')
+            high_flow_limit:       @get('model.highFlowLimit')
+            valve_size:            @get('model.valveSize')
+            ppg:                   @get('model.ppg')
+          }
         }
-        timestamp: new Date().getTime()
-      }
-
-      savePromise = new Ember.RSVP.Promise (resolve, reject) ->
-
-        timeoutWatcher = Ember.run.later(this, ->
-          reject new Error(defaultErrorMessage)
-        self.timeoutThresholdMillis)
-
-        ajaxOptions = {
-          type: 'PATCH'
-          data: allParams
-          success: (response) ->
-            if Ember.get(response, 'meta.success')
-              self.transitionToRoute('smartlink-controller.settings.flow',
-                self.get('model.smartlinkController'))
-            else
-              message = Ember.get(response, 'result.instruction.exception')
-              reject new Error(message)
-          error: ->
-            reject new Error(defaultErrorMessage)
-        }
-
-        Ember.$.ajax(url, ajaxOptions)
-
-      savePromise
-        .finally ->
-          Ember.run.cancel(timeoutWatcher) if timeoutWatcher
-
-    loadingFinished: ->
-      Ember.run.later this, ->
-        @transitionToRoute('smartlink-controller.index')
-      , 750
-
+      )
+    )
+  }
 
 `export default SmartlinkControllerSettingsEditFlowController`

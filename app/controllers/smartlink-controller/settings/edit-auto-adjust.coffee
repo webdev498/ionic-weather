@@ -1,9 +1,10 @@
 `import Ember from 'ember'`
 `import CurrentUserMixin from '../../../mixins/current-user'`
+`import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 
 VOLUME_MEASURE_LITERS = 1
 
-SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend(CurrentUserMixin, {
+SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend(CurrentUserMixin, SmartlinkSaveMixin, {
   init: ->
     @initAvailableSprinklerTypesImperial()
     @initAvailableSprinklerTypesMetric()
@@ -129,61 +130,22 @@ SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend(Cu
 
   timeoutThresholdMillis: 20000
 
-  actions:
-    save: ->
-      @get('loadingModal').send('open')
-
-      self = this
-      url = @get('saveUrl')
-
-      timeoutWatcher = null
-      defaultErrorMessage = 'There was a problem communicating with our servers. Please try again later'
-
-      allParams = {
-        zone: {
-          sprinkler_type: @get('model.sprinklerType')
-          plant_type: @get('model.plantType')
-          soil_type: @get('model.soilType')
-          soil_slope: @get('model.soilSlope')
-          adjustment: @get('model.adjustment')
+  actions: {
+    save: -> (
+      @save(
+        url: @get('saveUrl')
+        params: {
+          zone: {
+            sprinkler_type: @get('model.sprinklerType')
+            plant_type: @get('model.plantType')
+            soil_type: @get('model.soilType')
+            soil_slope: @get('model.soilSlope')
+            adjustment: @get('model.adjustment')
+          }
         }
-        timestamp: new Date().getTime()
-      }
-
-      savePromise = new Ember.RSVP.Promise (resolve, reject) ->
-
-        timeoutWatcher = Ember.run.later(this, ->
-          reject new Error(defaultErrorMessage)
-        self.timeoutThresholdMillis)
-
-        ajaxOptions = {
-          type: 'PATCH'
-          data: allParams
-          success: (response) ->
-            if Ember.get(response, 'meta.success')
-              self.transitionToRoute('smartlink-controller.settings.auto-adjust',
-                self.get('model.smartlinkController'))
-            else
-              message = Ember.get(response, 'result.instruction.exception')
-              reject new Error(message)
-          error: ->
-            reject new Error(defaultErrorMessage)
-        }
-
-        Ember.$.ajax(url, ajaxOptions)
-
-      savePromise
-        .finally ->
-          Ember.run.cancel(timeoutWatcher) if timeoutWatcher
-
-    loadingFinished: ->
-      Ember.run.later this, ->
-        @transitionToRoute('smartlink-controller.index')
-      , 750
-
-    loadingAbandoned: ->
-      @transitionToRoute('smartlink-controller.index')
-
+      )
+    )
+  }
 })
 
 `export default SmartlinkControllerSettingsEditAutoAdjustController`
