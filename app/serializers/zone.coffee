@@ -7,7 +7,6 @@ ZoneSerializer = DS.ActiveModelSerializer.extend DS.EmbeddedRecordsMixin,
       deserialize: 'id'
 
   normalizeLinks: (data) ->
-    # debugger
     data.smartlink_controller_id = data.controller_id
     delete data.controller_id
     this._super(arguments...)
