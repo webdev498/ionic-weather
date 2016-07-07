@@ -119,9 +119,6 @@ SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend(Cu
   isMetricEnabled: Ember.computed 'currentUser', ->
     @get('currentUser.volume_measure') == VOLUME_MEASURE_LITERS
 
-  config: Ember.computed ->
-    @container.lookupFactory('config:environment')
-
   saveUrl: Ember.computed 'model.smartlinkController.id', ->
     controllerId = @get('model.smartlinkController.id')
     zoneId = @get('model.id')

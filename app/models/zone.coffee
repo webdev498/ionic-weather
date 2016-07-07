@@ -25,6 +25,18 @@ Zone = DS.Model.extend
   smartlinkController: DS.belongsTo 'smartlinkController', async: true
   programZones: DS.hasMany 'program-zone', async: false
 
+  programZoneA: Ember.computed 'programZones', ->
+    @get('programZones').findBy('programIdentifier', 'A')
+
+  programZoneB: Ember.computed 'programZones', ->
+    @get('programZones').findBy('programIdentifier', 'B')
+
+  programZoneC: Ember.computed 'programZones', ->
+    @get('programZones').findBy('programIdentifier', 'C')
+
+  programZoneD: Ember.computed 'programZones', ->
+    @get('programZones').findBy('programIdentifier', 'D')
+
   usesRainSensor: Ember.computed 'ignoreRain', ->
     !@get('ignoreRain')
 
