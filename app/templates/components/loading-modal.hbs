@@ -7,7 +7,19 @@
 
 <div class="content">
   <center class="weathermatic-loading-message">
-    <h2>Communicating <br> with your device</h2>
+    {{#if isLoadingFinished}}
+      {{fa-icon 'check-circle-o fa-5x weathermatic-save-success'}}
+      <h4 class="weathermatic-loading-message-text">Save successful!</h4>
+      <div class="content-padded">
+        <button {{action 'close'}}
+          class="btn btn-positive btn-block weathermatic-loading-mesage-dismiss">
+          {{fa-icon 'times'}} Dismiss
+        </button>
+      </div>
+    {{else}}
+      <h2>Communicating <br> with your device</h2>
+    {{/if}}
+
 
     {{#if instruction}}
       <h4>Status:</h4>
@@ -38,8 +50,10 @@
         {{/if}}
       </div>
     {{else}}
-      <h4>Please stand by</h4>
-      {{loading-indicator}}
+      {{#unless isLoadingFinished}}
+        <h4>Please stand by</h4>
+        {{loading-indicator}}
+      {{/unless}}
     {{/if}}
   </center>
 </div>

@@ -128,7 +128,5 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend CurrentU
         @transitionToRoute('smartlink-controller.index')
       , 750
 
-    loadingAbandoned: ->
-      @transitionToRoute('smartlink-controller.index')
 
 `export default SmartlinkControllerSettingsEditFlowController`

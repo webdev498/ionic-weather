@@ -129,8 +129,6 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     save: ->
       @save(
         url: @get('saveUrl')
-        successRoute: 'smartlink-controller.settings.programming'
-        successModel: @get('model')
         params: {
           controller_omissions: {
             controller_omission_dates: @getOmissionDateProperties()

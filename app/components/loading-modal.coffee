@@ -3,6 +3,7 @@
 `import Instruction from '../models/instruction'`
 
 LoadingModalComponent = ModalDialogComponent.extend InboundActions,
+
   instructionStatusCssClass: Ember.computed 'instruction.statusId', ->
     switch
       when @get('instruction.isInProgress') then 'btn-positive'
@@ -62,5 +63,12 @@ LoadingModalComponent = ModalDialogComponent.extend InboundActions,
     abandon: ->
       @stopPolling()
       @sendAction('loadingAbandoned')
+
+    finished: ->
+      @stopPolling()
+      @set 'isLoadingFinished', true
+      Ember.run.later((=> 
+        @send('close')
+      ), 3000)
 
 `export default LoadingModalComponent`

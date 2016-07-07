@@ -85,7 +85,13 @@ SmartlinkSaveMixin = Ember.Mixin.create(
 
     savePromise.then( ->
       self.set('errors', {})
-      self.transitionToRoute(options.successRoute, options.successModel)
+      if options.successRoute?
+        self.transitionToRoute(options.successRoute, options.successModel)
+      else
+        if self.get('loadingModal')?
+          self.get('loadingModal').send('finished')
+        else
+          Ember.Logger.debug('Cannot send finished action to loading modal, loadingModal does not exist!')
     ).catch( (errors) ->
       self.closeLoadingModal()
       self.set 'errors', errors
@@ -94,6 +100,11 @@ SmartlinkSaveMixin = Ember.Mixin.create(
 
     return savePromise
   )
+
+  actions: {
+    loadingAbandoned: ->
+      @closeLoadingModal()
+  }
 )
 
 `export default SmartlinkSaveMixin`
