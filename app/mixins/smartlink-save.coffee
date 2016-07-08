@@ -1,5 +1,13 @@
 `import Ember from 'ember'`
 
+buildErrors = (response) -> (
+  Ember.get(response, 'meta.errors') || [{
+    _default: defaultErrorMessage
+  }]
+)
+
+defaultErrorMessage = 'There was a problem communicating with our servers. Please try again later'
+
 SmartlinkSaveMixin = Ember.Mixin.create(
 
   errors: {}
@@ -43,8 +51,6 @@ SmartlinkSaveMixin = Ember.Mixin.create(
     timeoutWatcher = null
     timeoutThresholdMillis = options.timeoutThresholdMillis || @defaultTimeoutThresholdMillis
 
-    defaultErrorMessage = 'There was a problem communicating with our servers. Please try again later'
-
     allParams = Ember.merge(options.params, {
       timestamp: new Date().getTime()
     })
@@ -55,12 +61,6 @@ SmartlinkSaveMixin = Ember.Mixin.create(
       timeoutWatcher = Ember.run.later(this, ->
         reject new Error(options.errorMessage || defaultErrorMessage)
       , timeoutThresholdMillis)
-
-      buildErrors = (response) -> (
-        Ember.get(response, 'meta.errors') || [{
-          _default: defaultErrorMessage
-        }]
-      )
 
       ajaxOptions = {
         type: httpMethod
@@ -99,6 +99,69 @@ SmartlinkSaveMixin = Ember.Mixin.create(
       Ember.run.cancel(timeoutWatcher) if timeoutWatcher
 
     return savePromise
+  )
+
+  saveAll: (options=[]) -> (
+    self = this
+    @openLoadingModal()
+
+    timeoutThresholdMillis = options.timeoutThresholdMillis || @defaultTimeoutThresholdMillis
+    httpMethod = options.httpMethod || 'PATCH'
+
+    allPromises = Ember.RSVP.all(options.map (opts) ->
+      timeoutWatcher = null
+
+      savePromise = new Ember.RSVP.Promise (resolve, reject) -> (
+        timeoutWatcher = Ember.run.later(this, ->
+          reject new Error(opts.errorMessage || options.errorMessage || defaultErrorMessage)
+        , timeoutThresholdMillis)
+
+        allParams = Ember.merge(opts.params, {
+          timestamp: new Date().getTime()
+        })
+
+        ajaxOptions = {
+          type: httpMethod
+          data: JSON.stringify(allParams)
+          dataType: 'json'
+          contentType: 'application/json'
+          success: (response) ->
+            Ember.Logger.debug("Save, server responsed with success: ", response)
+            if Ember.get(response, 'meta.success')
+              resolve(response)
+            else
+              reject buildErrors(response)
+          error: (xhr) ->
+            reject buildErrors(xhr.responseJSON)
+        }
+
+        Ember.Logger.debug("Save - #{httpMethod}: #{options.url}, ajax options:",
+          ajaxOptions)
+
+        Ember.$.ajax(opts.url, ajaxOptions)
+      )
+
+      savePromise.finally ->
+        Ember.run.cancel(timeoutWatcher) if timeoutWatcher
+
+      return savePromise
+    )
+
+    allPromises.then( (results) ->
+      self.set('errors', {})
+      if options.successRoute?
+        self.transitionToRoute(options.successRoute, options.successModel)
+      else
+        if self.get('loadingModal')?
+          self.get('loadingModal').send('finished')
+        else
+          Ember.Logger.debug('Cannot send finished action to loading modal, loadingModal does not exist!')
+    ).catch( (errors) ->
+      self.closeLoadingModal()
+      self.set 'errors', errors
+    )
+
+    return allPromises
   )
 
   actions: {

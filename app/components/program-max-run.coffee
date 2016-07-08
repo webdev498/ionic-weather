@@ -16,7 +16,7 @@ ProgramMaxRunComponent = Ember.Component.extend
     [{label: 'Off', value: 0 }].concat [1..120].map (n) ->
       { label: "#{n} min", value: n }
 
-  isMaxRunDisabled: Ember.computed 'model.maxRun', ->
+  isMaxRunDisabled: Ember.computed 'program.maxRun', ->
     @get('program.maxRun') == 0
 
 `export default ProgramMaxRunComponent`
