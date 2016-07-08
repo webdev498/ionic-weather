@@ -78,16 +78,17 @@ SmartlinkController = DS.Model.extend
   isRealtimeFlow: Ember.computed 'flowMode', ->
     @get('flowMode') == FLOW_MODE_REALTIME
 
-  programASeasonalAdjust: Ember.computed ->
-    100
+  programA: Ember.computed 'programs.@each.id', ->
+    @get('programs').findBy('identifier', 'A')
 
-  programBSeasonalAdjust: Ember.computed ->
-    100
+  programB: Ember.computed 'programs.@each.id', ->
+    @get('programs').findBy('identifier', 'B')
 
-  programCSeasonalAdjust: Ember.computed ->
-    100
+  programC: Ember.computed 'programs.@each.id', ->
+    @get('programs').findBy('identifier', 'C')
 
-  programDSeasonalAdjust: Ember.computed ->
-    100
+  programD: Ember.computed 'programs.@each.id', ->
+    @get('programs').findBy('identifier', 'D')
+
 
 `export default SmartlinkController`
