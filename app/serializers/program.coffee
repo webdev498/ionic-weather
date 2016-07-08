@@ -8,6 +8,9 @@ ProgramSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
     smartlinkController:
       serialize: false
       deserialize: 'id'
+    programSeasonalAdjustments:
+      serialize: false
+      deserialize: 'records'
 
   normalizeLinks: (data) ->
     data.smartlink_controller_id = data.controller_id

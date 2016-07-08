@@ -1,10 +1,6 @@
 `import Ember from 'ember'`
 `import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin'`
 
-getSeasonalAdjust = (ctrl, identifier, monthIndex) ->
-  debugger
-  ctrl.get('programs').findBy('identifier', identifier).get('programSeasonAdjustments').findBy('month', monthIndex)
-
 months = [
   'January'
   'February'
@@ -23,16 +19,19 @@ months = [
 SmartlinkControllerSettingsEditSeasonalAdjust = Ember.Route.extend(AuthenticatedRouteMixin, {
   model: (params) ->
     id = @paramsFor('smartlink-controller').controllerId
-    @store.find('smartlink-controller', id).then (ctrl) ->
-      Ember.Object.create({
-        index:               params.monthIndex
-        name:                months[params.monthIndex]
-        smartlinkController: ctrl
-        programASeasonalAdjust: getSeasonalAdjust(ctrl, 'A', params.monthIndex)
-        programBSeasonalAdjust: getSeasonalAdjust(ctrl, 'B', params.monthIndex)
-        programCSeasonalAdjust: getSeasonalAdjust(ctrl, 'C', params.monthIndex)
-        programDSeasonalAdjust: getSeasonalAdjust(ctrl, 'D', params.monthIndex)
-      })
+    @store.find('smartlink-controller', id).then( (ctrl) ->
+      ctrl.get('programs').then( (programs) ->
+        {
+          index:                  params.monthIndex
+          name:                   months[params.monthIndex]
+          smartlinkController:    ctrl
+          programASeasonalAdjust: programs.findBy('identifier', 'A').get('programSeasonalAdjustments').findBy('month', parseInt(params.monthIndex)+1)
+          programBSeasonalAdjust: programs.findBy('identifier', 'B').get('programSeasonalAdjustments').findBy('month', parseInt(params.monthIndex)+1)
+          programCSeasonalAdjust: programs.findBy('identifier', 'C').get('programSeasonalAdjustments').findBy('month', parseInt(params.monthIndex)+1)
+          programDSeasonalAdjust: programs.findBy('identifier', 'D').get('programSeasonalAdjustments').findBy('month', parseInt(params.monthIndex)+1)
+        }
+      )
+    )
 })
 
 `export default SmartlinkControllerSettingsEditSeasonalAdjust`

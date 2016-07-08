@@ -21,5 +21,6 @@ Program = DS.Model.extend
 
   smartlinkController:  DS.belongsTo 'smartlinkController', async: true
   programStartTimes: DS.hasMany 'program-start-time', async: false
+  programSeasonalAdjustments: DS.hasMany 'program-seasonal-adjustment', async: false
 
 `export default Program`

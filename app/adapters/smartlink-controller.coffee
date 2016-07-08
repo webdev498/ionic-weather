@@ -14,6 +14,8 @@ SmartlinkControllerAdapter = ApplicationAdapter.extend CurrentUserMixin,
         @findInstructions(arguments...)
       when 'zones'
         @findZones(arguments...)
+      when 'programs'
+        @findPrograms(arguments...)
       else this._super(arguments...)
 
   findInstructions: (store, snapshot, url, relationship) ->
@@ -31,10 +33,17 @@ SmartlinkControllerAdapter = ApplicationAdapter.extend CurrentUserMixin,
     }
     @findHasManyWithExtraParams(store, snapshot, url, relationship, extraParams)
 
+  findPrograms: (store, snapshot, url, relationship) ->
+    extraParams = {
+      embed_program_seasonal_adjustments: 'true'
+    }
+    @findHasManyWithExtraParams(store, snapshot, url, relationship, extraParams)
+
   customQueryParams:
     embed_site: 'false'
     embed_controller_omission_days: 'true'
     embed_controller_omission_dates: 'true'
     embed_controller_omission_times: 'true'
+    embed_program_seasonal_adjustments: 'true'
 
 `export default SmartlinkControllerAdapter`
