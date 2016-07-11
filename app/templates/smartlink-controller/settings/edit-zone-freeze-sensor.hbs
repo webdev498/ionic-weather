@@ -9,16 +9,7 @@
 <div class="content weathermatic-content" style="padding-bottom: 200px;">
   <ul class="table-view">
     {{#each model.zones as |zone|}}
-      <li class="table-view-cell">
-        <span>
-          <strong>Zone {{zone.number}}</strong>
-          <br>
-          <small>{{zone.description}}</small>
-        </span>
-        <div class="{{if zone.usesFreezeSensor 'active'}} toggle">
-          <div class="toggle-handle"></div>
-        </div>
-      </li>
+      {{edit-zone zone=zone field='usesFreezeSensor'}}
     {{/each}}
   </ul>
   <div class="content-padded">

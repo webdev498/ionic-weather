@@ -38,12 +38,12 @@ Zone = DS.Model.extend
     @get('programZones').findBy('programIdentifier', 'D')
 
   usesRainSensor: Ember.computed 'ignoreRain', ->
-    !@get('ignoreRain')
+    @get('ignoreRain') == false
 
   usesFreezeSensor: Ember.computed 'ignoreFreeze', ->
-    !@get('ignoreFreeze')
+    @get('ignoreFreeze') == false
 
   usesSensorLoop: Ember.computed 'ignoreSensor', ->
-    !@get('ignoreSensor')
+    @get('ignoreSensor') == false
 
 `export default Zone`

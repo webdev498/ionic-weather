@@ -9,7 +9,7 @@
 <div class="content weathermatic-content" style="padding-bottom: 200px;">
   <ul id="select-zones" class="table-view">
     {{#each model.zones as |zone|}}
-      {{edit-zone zone=zone}}
+      {{edit-zone zone=zone field='active'}}
     {{/each}}
   </ul>
   <div class="content-padded">
