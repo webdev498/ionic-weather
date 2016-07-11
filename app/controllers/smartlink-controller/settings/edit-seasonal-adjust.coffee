@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
+`import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 
-SmartlinkControllerSettingsEditSeasonalAdjust = Ember.Controller.extend
+SmartlinkControllerSettingsEditSeasonalAdjust = Ember.Controller.extend SmartlinkSaveMixin,
   init: ->
     @initAvailableSeasonalAdjustValues()
 
@@ -16,8 +17,24 @@ SmartlinkControllerSettingsEditSeasonalAdjust = Ember.Controller.extend
 
     @set 'availableSeasonalAdjustValues', opts
 
+  saveUrl: (controllerId, programId) ->
+    baseUrl = @get('config.apiUrl')
+    "#{baseUrl}/api/v2/controllers/#{controllerId}/programs/#{programId}/seasonal_adjustments/0"
+
   actions:
     save: ->
-      alert('TODO')
+      @saveAll(['A', 'B', 'C', 'D'].map( (identifier) =>
+        adj = @get("model.program#{identifier}SeasonalAdjust")
+        {
+          url: @saveUrl(
+            @get('model.smartlinkController.id'),
+            adj.get('program.id')
+          )
+          params: {
+            percentage: adj.get('percentage')
+            month: adj.get('month')
+          }
+        }
+      ))
 
 `export default SmartlinkControllerSettingsEditSeasonalAdjust`
