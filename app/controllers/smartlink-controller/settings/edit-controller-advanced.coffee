@@ -104,18 +104,20 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
 
   actions: {
     save: -> (
-      url: @get('saveUrl')
-      params: {
-        control: {
-          num_starts: @get('model.numStarts')
-          slw_delay: @get('model.slwDelay')
-          rain_delay: @get('model.rainDelay')
-          interzone_delay: @get('model.interzone_delay')
-          master_valve_zone_on_delay: @get('model.masterValveOnZoneDelay')
-          master_valve_zone_off_delay: @get('model.masterValveZoneOffDelay')
-          min_deficit: @get('model.minDeficit')
+      @save(
+        url: @get('saveUrl')
+        params: {
+          control: {
+            num_starts: @get('model.numStarts')
+            slw_delay: @get('model.slwDelay')
+            rain_delay: @get('model.rainDelay')
+            interzone_delay: @get('model.interzone_delay')
+            master_valve_zone_on_delay: @get('model.masterValveOnZoneDelay')
+            master_valve_zone_off_delay: @get('model.masterValveZoneOffDelay')
+            min_deficit: @get('model.minDeficit')
+          }
         }
-      }
+      )
     )
   }
 

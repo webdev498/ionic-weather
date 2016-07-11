@@ -44,7 +44,6 @@ SmartlinkController = DS.Model.extend
   omissionTimes:        DS.hasMany 'omission-time', async: false
   omissionDates:        DS.hasMany 'omission-date', async: false
 
-
   isRunning: Ember.computed 'runStatus', ->
     @get('runStatus') is RUN_STATUS_RUN
 
