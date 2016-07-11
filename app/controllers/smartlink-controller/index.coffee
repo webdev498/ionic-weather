@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
+`import SmartlinkSaveMixin from '../../mixins/smartlink-save'`
 
-SmartlinkControllerIndexController = Ember.Controller.extend
+SmartlinkControllerIndexController = Ember.Controller.extend(SmartlinkSaveMixin,
   application: Ember.inject.controller('application')
 
   queryParams: ['showCommLog']
@@ -16,6 +17,12 @@ SmartlinkControllerIndexController = Ember.Controller.extend
     return 'btn-positive' if @get('model.isRunning')
     return 'btn-negative' if @get('model.isRunStatusOff')
     return 'btn-primary'
+
+  transmitUrl: Ember.computed 'model.id', ->
+    "#{@get('config.apiUrl')}/api/v2/controllers/#{@get('model.id')}/transmit"
+
+  receiveUrl: Ember.computed 'model.id', ->
+    "#{@get('config.apiUrl')}/api/v2/controllers/#{@get('model.id')}/receive"
 
   actions:
     goBack: ->
@@ -45,5 +52,25 @@ SmartlinkControllerIndexController = Ember.Controller.extend
       @set 'isLoading', true
       @get('model').reload().finally ->
         self.set 'isLoading', false
+
+    transmit: ->
+      @save(
+        url: @get('transmitUrl')
+      ).catch( (errors) ->
+        alert errors.join('. ')
+      ).finally => (
+        @send 'openCommLog'
+      )
+
+    receive: ->
+      @save(
+        url: @get('receiveUrl')
+      ).catch( (errors) ->
+        alert errors.join('. ')
+      ).finally => (
+        @send 'openCommLog'
+      )
+
+)
 
 `export default SmartlinkControllerIndexController`

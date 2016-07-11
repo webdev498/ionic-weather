@@ -153,6 +153,22 @@
           </div>
         </a>
       </li>
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" {{action 'transmit'}}>
+          <div class="media-body">
+            <h2>{{fa-icon 'cloud-upload'}} Send</h2>
+            <p>Transmit your settings to your Smartlink device</p>
+          </div>
+        </a>
+      </li>
+      <li class="table-view-cell">
+        <a href="javascript:void(0)" {{action 'receive'}}>
+          <div class="media-body">
+            <h2>{{fa-icon 'cloud-download'}} Receive</h2>
+            <p>Pull the latest settings from your Smartlink device</p>
+          </div>
+        </a>
+      </li>
     </ul>
 
     <div class="content-padded">
@@ -168,3 +184,9 @@
   Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
 }}
 {{comm-log smartlinkController=model close='commLogClosed' actionReceiver=commLog}}
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

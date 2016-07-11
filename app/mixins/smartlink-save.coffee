@@ -48,6 +48,9 @@ SmartlinkSaveMixin = Ember.Mixin.create(
     self = this
     @openLoadingModal()
 
+    unless options.params?
+      options.params = {}
+
     timeoutWatcher = null
     timeoutThresholdMillis = options.timeoutThresholdMillis || @defaultTimeoutThresholdMillis
 
@@ -104,6 +107,9 @@ SmartlinkSaveMixin = Ember.Mixin.create(
   saveAll: (options=[]) -> (
     self = this
     @openLoadingModal()
+
+    unless options.params?
+      options.params = {}
 
     timeoutThresholdMillis = options.timeoutThresholdMillis || @defaultTimeoutThresholdMillis
     httpMethod = options.httpMethod || 'PATCH'
