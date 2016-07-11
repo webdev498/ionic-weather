@@ -9,28 +9,48 @@
 <div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell weathermatic-select-program-a">
-      <span>Program A</span>
+      <span class="pull-left">
+        <h3>Program A</h3>
+        {{#if model.programZoneA.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programZoneA.program.description}}</p>
+        {{/if}}
+      </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableProgramTimes value=model.programZoneA.formattedRunTime
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell weathermatic-select-program-b">
-      <span>Program B</span>
+      <span class="pull-left">
+        <h3>Program B</h3>
+        {{#if model.programZoneB.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programZoneB.program.description}}</p>
+        {{/if}}
+      </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableProgramTimes value=model.programBRunTime
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell weathermatic-select-program-c">
-      <span>Program C</span>
+      <span class="pull-left">
+        <h3>Program C</h3>
+        {{#if model.programZoneC.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programZoneC.program.description}}</p>
+        {{/if}}
+      </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableProgramTimes value=model.programCRunTime
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell weathermatic-select-program-d">
-      <span>Program D</span>
+      <span class="pull-left">
+        <h3>Program D</h3>
+        {{#if model.programZoneD.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programZoneD.program.description}}</p>
+        {{/if}}
+      </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableProgramTimes value=model.programDRunTime
           optionLabelPath='content.label' optionValuePath='content.value'}}

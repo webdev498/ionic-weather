@@ -14,7 +14,12 @@
   <br>
   <ul class="table-view">
     <li class="table-view-cell weathermatic-select-program-a">
-      <span>Program A</span>
+      <span class="pull-left">
+        <h3>Program A</h3>
+        {{#if model.programASeasonalAdjust.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programASeasonalAdjust.program.description}}</p>
+        {{/if}}
+      </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableSeasonalAdjustValues
           value=model.programASeasonalAdjust.percentage
@@ -23,7 +28,12 @@
       </span>
     </li>
     <li class="table-view-cell weathermatic-select-program-b">
-      <span>Program B</span>
+      <span class="pull-left">
+        <h3>Program B</h3>
+        {{#if model.programBSeasonalAdjust.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programBSeasonalAdjust.program.description}}</p>
+        {{/if}}
+      </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableSeasonalAdjustValues
           value=model.programBSeasonalAdjust.percentage
@@ -32,7 +42,12 @@
       </span>
     </li>
     <li class="table-view-cell weathermatic-select-program-c">
-      <span>Program C</span>
+      <span class="pull-left">
+        <h3>Program C</h3>
+        {{#if model.programCSeasonalAdjust.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programCSeasonalAdjust.program.description}}</p>
+        {{/if}}
+      </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableSeasonalAdjustValues
           value=model.programCSeasonalAdjust.percentage
@@ -41,7 +56,12 @@
       </span>
     </li>
     <li class="table-view-cell weathermatic-select-program-d">
-      <span>Program D</span>
+      <span class="pull-left">
+        <h3>Program D</h3>
+        {{#if model.programDSeasonalAdjust.program.description.length}}
+          <p class="weathermatic-program-description">{{short-text model.programDSeasonalAdjust.program.description}}</p>
+        {{/if}}
+      </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableSeasonalAdjustValues
           value=model.programDSeasonalAdjust.percentage
