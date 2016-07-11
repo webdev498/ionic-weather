@@ -10,10 +10,15 @@ SmartlinkControllerSettingsEditProgramRunTimeController = Ember.Controller.exten
       label: 'Off', value: '00:00'
     }]
 
-    # TODO: 0-:59 should be 1 sec intervals
+    [1..59].forEach (min) ->
+      min = "0#{min}" if min < 10
+      val = "00:#{min}"
+      opts.push({
+        label: val, value: val
+      })
+
     [1..9].forEach( (hr) ->
-      [1..11].forEach ( (min) ->
-        # XXX cleanup, use leftPad util here
+      [0..11].forEach ( (min) ->
         min = min * 5
         min = "0#{min}" if min < 10
         label = "#{hr}:#{min}"
