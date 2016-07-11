@@ -9,16 +9,7 @@
 <div class="content weathermatic-content" style="padding-bottom: 200px;">
   <ul id="select-zones" class="table-view">
     {{#each model.zones as |zone|}}
-      <li class="table-view-cell">
-        <span class="pull-left">
-          <strong>Zone {{zone.number}}</strong>
-          <br>
-          <small>{{zone.description}}</small>
-        </span>
-        <div data-id={{zone.id}} class="{{if zone.active 'active'}} toggle toggle-zone">
-          <div class="toggle-handle"></div>
-        </div>
-      </li>
+      {{edit-zone zone=zone}}
     {{/each}}
   </ul>
   <div class="content-padded">
