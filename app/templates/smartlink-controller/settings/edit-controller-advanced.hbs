@@ -11,27 +11,27 @@
     <li class="table-view-cell">
       <span>Number of Starts</span>
       <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableNumberOfStarts value=model.numberOfStarts}}
+        {{view 'select' content=availableNumberOfStarts value=model.numStarts}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>SLW Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableSlwDelayHours value=model.slwDelayHours
+        {{view 'select' content=availableSlwDelayHours value=model.slwDelay
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>Rain Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableRainDelayDays value=model.rainDelayDays
+        {{view 'select' content=availableRainDelayDays value=model.rainDelay
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>Zone-to-zone Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableZoneToZoneDelay value=model.zoneToZoneDelay
+        {{view 'select' content=availableZoneToZoneDelay value=model.interzoneDelay
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
@@ -52,7 +52,7 @@
     <li class="table-view-cell">
       <span>Minimum Deficit</span>
       <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableMinDeficit
+        {{view 'select' content=availableMinDeficit value=model.minDeficit
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>

@@ -26,7 +26,15 @@ SmartlinkController = DS.Model.extend
   canRunCommands:       DS.attr 'boolean'
   flowMode:             DS.attr 'number'
   latitude:             DS.attr 'number'
+  numStarts:            DS.attr 'number'
   postalCode:           DS.attr 'string'
+  slwDelay:             DS.attr 'number'
+  rainDelay:            DS.attr 'number'
+  interzoneDelay:       DS.attr 'number'
+  mvZoneOnDelay:        DS.attr 'number'
+  mvZoneOffDelay:       DS.attr 'number'
+  winterized:           DS.attr 'boolean'
+  minDeficit:           DS.attr 'number'
   site:                 DS.belongsTo 'site',        async: true
   faults:               DS.hasMany 'fault',         async: false
   programs:             DS.hasMany 'program',       async: true

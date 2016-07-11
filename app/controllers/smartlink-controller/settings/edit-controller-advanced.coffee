@@ -1,8 +1,9 @@
 `import Ember from 'ember'`
+`import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 
 formatDecimal = (n) -> parseFloat(Math.round(n * 100) / 100).toFixed(2)
 
-SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.extend({
+SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.extend(SmartlinkSaveMixin, {
   init: ->
     @initNumberOfStarts()
     @initAvailableSlwDelayHours()
@@ -97,9 +98,27 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
       { label: 'Dec', value: 11 }
     ]
 
-  actions:
-    save: ->
-      alert 'todo'
+  saveUrl: Ember.computed 'model.id', ->
+    baseUrl = @get('config.apiUrl')
+    "#{baseUrl}/api/v2/controllers/#{@get('model.id')}/update_advanced_settings"
+
+  actions: {
+    save: -> (
+      url: @get('saveUrl')
+      params: {
+        control: {
+          num_starts: @get('model.numStarts')
+          slw_delay: @get('model.slwDelay')
+          rain_delay: @get('model.rainDelay')
+          interzone_delay: @get('model.interzone_delay')
+          master_valve_zone_on_delay: @get('model.masterValveOnZoneDelay')
+          master_valve_zone_off_delay: @get('model.masterValveZoneOffDelay')
+          min_deficit: @get('model.minDeficit')
+        }
+      }
+    )
+  }
+
 })
 
 `export default SmartlinkControllerSettingsEditControllerAdvancedController`
