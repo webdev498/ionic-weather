@@ -7,48 +7,46 @@
 </header>
 
 <div class="content weathermatic-content">
-  <div class="content-padded">
-    <ul class="table-view weathermatic-page-bottom">
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.program-details'}}
-          <div class="media-body">
-            <h2>{{fa-icon 'play'}} Program Details</h2>
-            <p>Edit watering days and start times</p>
-          </div>
-        {{/link-to}}
-      </li>
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.program-run-times'}}
-          <div class="media-body">
-            <h2>{{fa-icon 'clock-o'}} Program Run Times</h2>
-            <p>Edit run times for programs</p>
-          </div>
-        {{/link-to}}
-      </li>
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.auto-adjust'}}
-          <div class="media-body">
-            <h2>{{fa-icon 'tree'}} Auto Adjust</h2>
-            <p>Edit auto adjust settings</p>
-          </div>
-        {{/link-to}}
-      </li>
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.edit-omit-times'}}
-          <div class="media-body">
-            <h2>{{fa-icon 'times-circle-o'}} Omit Days &amp; Times </h2>
-            <p>Add watering blackout periods</p>
-          </div>
-        {{/link-to}}
-      </li>
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.seasonal-adjust'}}
-          <div class="media-body">
-            <h2>{{fa-icon 'calendar'}} Seasonal Adjust</h2>
-            <p>Adjust programs for different seasons</p>
-          </div>
-        {{/link-to}}
-      </li>
-    </ul>
-  </div>
+  <ul class="table-view weathermatic-page-bottom">
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.program-details'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'play'}} Program Details</h2>
+          <p>Edit watering days and start times</p>
+        </div>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.program-run-times'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'clock-o'}} Program Run Times</h2>
+          <p>Edit run times for programs</p>
+        </div>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.auto-adjust'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'tree'}} Auto Adjust</h2>
+          <p>Edit auto adjust settings</p>
+        </div>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-omit-times'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'times-circle-o'}} Omit Days &amp; Times </h2>
+          <p>Add watering blackout periods</p>
+        </div>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.seasonal-adjust'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'calendar'}} Seasonal Adjust</h2>
+          <p>Adjust programs for different seasons</p>
+        </div>
+      {{/link-to}}
+    </li>
+  </ul>
 </div>

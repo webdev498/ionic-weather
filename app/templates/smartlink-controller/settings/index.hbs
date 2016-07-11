@@ -7,40 +7,38 @@
 </header>
 
 <div class="content weathermatic-content">
-  <div class="content-padded">
-    <ul class="table-view">
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.programming'}}
-          <div class="media-body">
-            <h2>{{fa-icon 'play'}} Programming</h2>
-            <p>Edit programming settings</p>
-          </div>
-        {{/link-to}}
-      </li>
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.flow'}}
-          <div class="media-body">
-            <h2>{{fa-icon 'filter'}} Flow Settings</h2>
-            <p>Edit flow settings</p>
-          </div>
-        {{/link-to}}
-      </li>
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.edit-controller-basic'}}
-          <div class="media-body">
-            <h2>{{fa-icon 'gear'}} Basic Settings</h2>
-            <p>Edit basic controller settings</p>
-          </div>
-        {{/link-to}}
-      </li>
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.edit-controller-advanced'}}
-          <div class="media-body">
-            <h2>{{fa-icon 'gears'}} Advanced Settings</h2>
-            <p>Edit advanced controller settings</p>
-          </div>
-        {{/link-to}}
-      </li>
-    </ul>
-  </div>
+  <ul class="table-view">
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.programming'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'play'}} Programming</h2>
+          <p>Edit programming settings</p>
+        </div>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.flow'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'filter'}} Flow Settings</h2>
+          <p>Edit flow settings</p>
+        </div>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-controller-basic'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'gear'}} Basic Settings</h2>
+          <p>Edit basic controller settings</p>
+        </div>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-controller-advanced'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'gears'}} Advanced Settings</h2>
+          <p>Edit advanced controller settings</p>
+        </div>
+      {{/link-to}}
+    </li>
+  </ul>
 </div>
