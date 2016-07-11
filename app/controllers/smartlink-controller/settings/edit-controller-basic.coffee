@@ -1,6 +1,8 @@
 `import Ember from 'ember'`
+`import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 
-SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.extend({
+SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.extend(SmartlinkSaveMixin, {
+
   init: ->
     @initAvailableHours()
     @initAvailableMinutes()
@@ -10,9 +12,31 @@ SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.exte
     @initAvailableWateringModes()
     @initAvailableRainFreeze()
 
-  actions:
-    save: ->
-      alert 'TODO'
+  saveUrl: Ember.computed 'model.id', ->
+    baseUrl = @get('config.apiUrl')
+    "#{baseUrl}/api/v2/controllers/#{@get('model.id')}/update_basic_settings"
+
+  actions: {
+    save: -> (
+      @save(
+        url: @get('saveUrl')
+        params: {
+          'date-month': @get('model.controllerDateMonth')
+          'date-day': @get('model.controllerDateDay')
+          'date-year': @get('model.controllerDateYear')
+          'date-hour': @get('model.controllerDateHour')
+          'date-minute': @get('model.controllerDateMinute')
+          'date-ampm': @get('model.controllerDateAmPm')
+          'tz': @get('model.controllerDateTimezone')
+          'controller': {
+            run_status: @get('controller')
+            mode: @get('model.wateringMode')
+            sensor_mode: @get('model.rainFreezeSensorMode')
+          }
+        }
+      )
+    )
+  }
 
   initAvailableHours: ->
     opts = [{ label: 'HH', value: null }]

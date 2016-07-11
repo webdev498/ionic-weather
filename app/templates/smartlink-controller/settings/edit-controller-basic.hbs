@@ -36,21 +36,21 @@
     <li class="table-view-cell">
       <span>Run Status</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=availableRunStatuses
+        {{view 'select' content=availableRunStatuses value=model.runStatus
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>Watering Mode</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=availableWateringModes
+        {{view 'select' content=availableWateringModes value=model.wateringMode
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>Rain/Freeze</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=availableRainFreeze
+        {{view 'select' content=availableRainFreeze value=model.rainFreezeSensorMode
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
