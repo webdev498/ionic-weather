@@ -33,6 +33,7 @@ SmartlinkControllerSettingsEditSeasonalAdjust = Ember.Controller.extend Smartlin
           params: {
             percentage: adj.get('percentage')
             month: adj.get('month')
+            wrap_result: true
           }
         }
       ))
