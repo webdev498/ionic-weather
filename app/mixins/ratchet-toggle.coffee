@@ -16,6 +16,12 @@ RatchetToggleMixin = Ember.Mixin.create(
       view.set(property, event.detail.isActive)
 
   setupRatchetToggles: ->
+    if window.__RATCHET_TOGGLES_INITIALIZED?
+      Ember.Logger.debug 'setupRatchetToggles called but ratchet toggles already initialized, skipping'
+      return
+
+    window.__RATCHET_TOGGLES_INITIALIZED = true
+
     `
     /* ========================================================================
      * Ratchet: toggles.js v2.0.2

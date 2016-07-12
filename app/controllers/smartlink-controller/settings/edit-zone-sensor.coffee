@@ -18,6 +18,7 @@ SmartlinkControllerSettingsEditZoneSensorController = Ember.Controller.extend(Sm
           zoneParams[key] = 'on'
 
       @save(
+        showLoadingModal: false
         url: @get('saveUrl')
         params: zoneParams
       )

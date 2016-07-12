@@ -18,6 +18,7 @@ SmartlinkControllerSettingsEditZoneActivationsController = Ember.Controller.exte
           zoneParams[key] = 'off'
 
       @save(
+        showLoadingModal: false
         url: @get('saveUrl')
         params: zoneParams
       )

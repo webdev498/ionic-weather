@@ -10,12 +10,18 @@ EditZoneComponent = Ember.Component.extend(RatchetToggle,
     "toggle-zone-#{@get('zone.id')}"
 
   isToggleActive: Ember.computed 'field', ->
-    @get("zone.#{@get('field')}")
+    !!@get("zone.#{@get('field')}")
 
   didInsertElement: ->
     this._super()
+    self = this
+    @set('timesRun', @get('timesRun') + 1)
     @setupRatchetToggles()
     @bindToggleProperty("##{@get('toggleId')}", "zone.#{@get('field')}")
+
+    toggle = Ember.$("##{@get('toggleId')}")
+    toggle.get(0).addEventListener 'toggle', (event) ->
+      self.sendAction 'save'
 )
 
 `export default EditZoneComponent`

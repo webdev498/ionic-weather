@@ -9,14 +9,9 @@
 <div class="content weathermatic-content" style="padding-bottom: 200px;">
   <ul class="table-view">
     {{#each model.zones as |zone|}}
-      {{edit-zone zone=zone field='mvEnabled'}}
+      {{edit-zone zone=zone field='mvEnabled' save='save'}}
     {{/each}}
   </ul>
-  <div class="content-padded">
-    <button class="btn btn-block btn-positive" {{action 'save'}}>
-      {{fa-icon 'save'}} Save Changes
-    </button>
-  </div>
 </div>
 
 {{!

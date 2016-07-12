@@ -46,7 +46,7 @@ SmartlinkSaveMixin = Ember.Mixin.create(
 
   save: (options={}) -> (
     self = this
-    @openLoadingModal()
+    @openLoadingModal() unless options.showLoadingModal == false
 
     unless options.params?
       options.params = {}

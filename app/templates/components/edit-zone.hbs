@@ -3,6 +3,6 @@
   <br>
   <small>{{zone.description}}</small>
 </span>
-<div id={{toggleId}} class="{{isToggleActive}} toggle toggle-zone">
+<div id={{toggleId}} {{bind-attr class="isToggleActive:active :toggle :toggle-zone"}}>
   <div class="toggle-handle"></div>
 </div>

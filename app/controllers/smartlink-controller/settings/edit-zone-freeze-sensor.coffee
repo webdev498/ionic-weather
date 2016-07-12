@@ -18,6 +18,7 @@ SmartlinkControllerSettingsEditZoneFreezeSensorController = Ember.Controller.ext
           zoneParams[key] = 'on'
 
       @save(
+        showLoadingModal: false
         url: @get('saveUrl')
         params: zoneParams
       )
