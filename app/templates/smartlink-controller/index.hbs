@@ -36,6 +36,11 @@
               {{fa-icon 'male' classNames="spaced-icon"}} Walk Site
             {{/link-to}}
           </li>
+          <li class="table-view-cell">
+            {{#link-to 'smartlink-controller.settings' class='push-right'}}
+              {{fa-icon 'gear'}} Settings
+            {{/link-to}}
+          </li>
         </ul>
       </div>
 
@@ -142,14 +147,6 @@
           <div class="media-body">
             <h2>{{fa-icon 'refresh'}} Re-sync</h2>
             <p>Refresh with the latest data from our servers</p>
-          </div>
-        </a>
-      </li>
-      <li class="table-view-cell">
-        <a href="javascript:void(0)" {{action 'editSettings'}}>
-          <div class="media-body">
-            <h2>{{fa-icon 'gear'}} Settings </h2>
-            <p>Edit settings</p>
           </div>
         </a>
       </li>
