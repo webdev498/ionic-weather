@@ -552,3 +552,7 @@ div.ember-view.liquid-child {
   border-color: $error-color !important;
   background-color: $error-color-background !important;
 }
+
+.invisible {
+  visibility: hidden;
+}

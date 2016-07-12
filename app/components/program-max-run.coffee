@@ -19,4 +19,10 @@ ProgramMaxRunComponent = Ember.Component.extend
   isMaxRunDisabled: Ember.computed 'program.maxRun', ->
     @get('program.maxRun') == 0
 
+  minSoakCssClass: Ember.computed 'isMaxRunDisabled', ->
+    if @get('isMaxRunDisabled')
+      'invisible'
+    else
+      ''
+
 `export default ProgramMaxRunComponent`
