@@ -16,6 +16,9 @@ months = [
   'December'
 ]
 
+getSeasonalAdjust = (programs, identifier, monthIndex) ->
+  programs.findBy('identifier', identifier).get('programSeasonalAdjustments').findBy('month', parseInt(monthIndex)+1)
+
 SmartlinkControllerSettingsEditSeasonalAdjust = Ember.Route.extend(AuthenticatedRouteMixin, {
   model: (params) ->
     id = @paramsFor('smartlink-controller').controllerId
@@ -25,10 +28,10 @@ SmartlinkControllerSettingsEditSeasonalAdjust = Ember.Route.extend(Authenticated
           index:                  params.monthIndex
           name:                   months[params.monthIndex]
           smartlinkController:    ctrl
-          programASeasonalAdjust: programs.findBy('identifier', 'A').get('programSeasonalAdjustments').findBy('month', parseInt(params.monthIndex)+1)
-          programBSeasonalAdjust: programs.findBy('identifier', 'B').get('programSeasonalAdjustments').findBy('month', parseInt(params.monthIndex)+1)
-          programCSeasonalAdjust: programs.findBy('identifier', 'C').get('programSeasonalAdjustments').findBy('month', parseInt(params.monthIndex)+1)
-          programDSeasonalAdjust: programs.findBy('identifier', 'D').get('programSeasonalAdjustments').findBy('month', parseInt(params.monthIndex)+1)
+          programASeasonalAdjust: getSeasonalAdjust(programs, 'A', params.monthIndex)
+          programBSeasonalAdjust: getSeasonalAdjust(programs, 'B', params.monthIndex)
+          programCSeasonalAdjust: getSeasonalAdjust(programs, 'C', params.monthIndex)
+          programDSeasonalAdjust: getSeasonalAdjust(programs, 'D', params.monthIndex)
         }
       )
     )

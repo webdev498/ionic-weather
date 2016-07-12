@@ -1,144 +1,25 @@
 <header class="bar bar-nav weathermatic-header">
-  {{#link-to 'smartlink-controller.settings.programming' model class='btn btn-link btn-nav pull-left'}}
+  {{#link-to 'smartlink-controller.settings.programming' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'gear'}} Seasonal Adjust</h1>
+  <h1 class="title">{{fa-icon 'gear'}} Program Seasonal Adjust</h1>
 </header>
 
 <div class="content weathermatic-content">
-  <ul class="table-view">
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 0}}
-        <span>January</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust.percentage}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 1}}
-        <span>February</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 2}}
-        <span>March</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 3}}
-        <span>April</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 4}}
-        <span>May</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 5}}
-        <span>June</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 6}}
-        <span>July</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 7}}
-        <span>August</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 8}}
-        <span>September</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 9}}
-        <span>October</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 10}}
-        <span>November</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' 11}}
-        <span>December</span>
-        <p style="clear: both">
-          <span class="badge">Program A: {{model.programASeasonalAdjust}}%</span>
-          <span class="badge">Program B: {{model.programBSeasonalAdjust}}%</span>
-          <span class="badge">Program C: {{model.programCSeasonalAdjust}}%</span>
-          <span class="badge">Program D: {{model.programDSeasonalAdjust}}%</span>
-        </p>
-      {{/link-to}}
-    </li>
+  <ul class="table-view weathermatic-page-bottom">
+    {{#each model.months as |month|}}
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' month.index}}
+          <h4>{{month.name}}</h4>
+          <div class="segmented-control">
+            <a class="control-item weathermatic-select-program-a">A: {{month.programASeasonalAdjust.percentage}}%</a>
+            <a class="control-item weathermatic-select-program-b">B: {{month.programBSeasonalAdjust.percentage}}%</a>
+            <a class="control-item weathermatic-select-program-c">C: {{month.programCSeasonalAdjust.percentage}}%</a>
+            <a class="control-item weathermatic-select-program-d">D: {{month.programDSeasonalAdjust.percentage}}%</a>
+          </div>
+        {{/link-to}}
+      </li>
+    {{/each}}
   </ul>
 </div>
