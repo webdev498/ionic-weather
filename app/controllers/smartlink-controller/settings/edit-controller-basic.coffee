@@ -16,20 +16,33 @@ SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.exte
     baseUrl = @get('config.apiUrl')
     "#{baseUrl}/api/v2/controllers/#{@get('model.id')}/update_basic_settings"
 
+  deviceTimeHours: Ember.computed 'model.currentDeviceTime', ->
+    moment(@get('model.deviceTime')).utc().format('hh')
+
+  deviceTimeMinutes: Ember.computed 'model.currentDeviceTime', ->
+    moment(@get('model.deviceTime')).utc().format('mm')
+
+  deviceTimeAmPm: Ember.computed 'model.currentDeviceTime', ->
+    moment(@get('model.deviceTime')).utc().format('a')
+
+  deviceTimeDate: Ember.computed 'model.currentDeviceTime', ->
+    moment(@get('model.deviceTime')).utc().format('YYYY-MM-DD')
+
   actions: {
     save: -> (
+      date = moment(@get('deviceTimeDate')).utc()
       @save(
         url: @get('saveUrl')
         params: {
-          'date-month': @get('model.controllerDateMonth')
-          'date-day': @get('model.controllerDateDay')
-          'date-year': @get('model.controllerDateYear')
-          'date-hour': @get('model.controllerDateHour')
-          'date-minute': @get('model.controllerDateMinute')
-          'date-ampm': @get('model.controllerDateAmPm')
-          'tz': @get('model.controllerDateTimezone')
-          'controller': {
-            run_status: @get('controller')
+          'date-month': date.format('M')
+          'date-day': date.format('D')
+          'date-year': date.format('Y')
+          'date-hour': @get('deviceTimeHours')
+          'date-minute': @get('deviceTimeMinutes')
+          'date-ampm': @get('deviceTimeAmPm')
+          'tz': @get('model.timezone')
+          'control': {
+            run_status: @get('model.runStatus')
             mode: @get('model.wateringMode')
             sensor_mode: @get('model.rainFreezeSensorMode')
           }
@@ -39,20 +52,20 @@ SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.exte
   }
 
   initAvailableHours: ->
-    opts = [{ label: 'HH', value: null }]
+    opts = [{ label: '', value: null }]
     [1..12].forEach( (n) ->
-      lbl = "#{n}"
-      lbl = "0#{n}" if n < 10
-      opts.push({ label: lbl, value: n })
+      n = "#{n}"
+      n = "0#{n}" if n < 10
+      opts.push({ label: n, value: n })
     )
     @set 'availableHours', opts
 
   initAvailableMinutes: ->
     opts = [{ label: 'MM', value: null }]
     [1..59].forEach( (n) ->
-      lbl = "#{n}"
-      lbl = "0#{n}" if n < 10
-      opts.push({ label: lbl, value: n })
+      n = "#{n}"
+      n = "0#{n}" if n < 10
+      opts.push({ label: n, value: n })
     )
     @set 'availableMinutes', opts
 
@@ -82,11 +95,11 @@ SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.exte
     ]
 
   initAvailableTimezones: ->
-    @set 'availableTimezones', [
-      "Eastern Time (US &amp; Canada)"
-      "Central Time (US &amp; Canada)"
-      "Mountain Time (US &amp; Canada)"
-      "Pacific Time (US &amp; Canada)"
+    timezones = [
+      "Eastern Time (US & Canada)"
+      "Central Time (US & Canada)"
+      "Mountain Time (US & Canada)"
+      "Pacific Time (US & Canada)"
       "American Samoa"
       "International Date Line West"
       "Midway Island"
@@ -233,6 +246,11 @@ SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.exte
       "Samoa"
       "Tokelau Is."
     ]
+    @set 'availableTimezones', timezones.map (tz) ->
+      {
+        label: tz.replace("&", "&amp;")
+        value: tz
+      }
 })
 
 `export default SmartlinkControllerSettingsEditControllerBasicController`

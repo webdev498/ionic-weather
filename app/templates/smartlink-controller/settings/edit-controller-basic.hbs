@@ -9,28 +9,32 @@
 <div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell">
-      <span>Controller Date</span>
+      <span>Date</span>
       <span class="pull-right weathermatic-settings-date">
-        {{input type='date' value=model.controllerDate}}
+        {{log deviceTimeDate}}
+        {{input type='date' value=deviceTimeDate}}
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Controller Time</span>
+      <span>Time</span>
       <span class="pull-right weathermatic-settings-input-time">
-        {{view 'select' content=availableHours value=model.controllerDateHours
+        {{view 'select' content=availableHours value=deviceTimeHours
           optionLabelPath='content.label' optionValuePath='content.value'}} :
 
-        {{view 'select' content=availableMinutes value=model.controllerDateMinutes
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        {{view 'select' content=availableMinutes value=deviceTimeMinutes
+          optionLabelPath='content.label' optionValuePath='content.value'}} :
 
-        {{view 'select' content=availableAmPm value=model.controllerDateAmPm
+        {{model.deviceTimeSeconds}}
+
+        {{view 'select' content=availableAmPm value=deviceTimeAmPm
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>Controller Time Zone</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=availableTimezones value=model.controllerTimezone}}
+        {{view 'select' content=availableTimezones value=model.timezone
+          optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">

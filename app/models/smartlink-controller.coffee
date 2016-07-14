@@ -35,7 +35,12 @@ SmartlinkController = DS.Model.extend
   mvZoneOffDelay:       DS.attr 'number'
   winterized:           DS.attr 'boolean'
   minDeficit:           DS.attr 'number'
+  deviceTime:           DS.attr 'string'
+  deviceTimeSampledAt:  DS.attr 'string'
+  timezone:             DS.attr 'string'
+
   site:                 DS.belongsTo 'site',        async: true
+
   faults:               DS.hasMany 'fault',         async: false
   programs:             DS.hasMany 'program',       async: true
   zones:                DS.hasMany 'zone',          async: true
@@ -43,6 +48,7 @@ SmartlinkController = DS.Model.extend
   omissionDays:         DS.hasMany 'omission-day',  async: false
   omissionTimes:        DS.hasMany 'omission-time', async: false
   omissionDates:        DS.hasMany 'omission-date', async: false
+
 
   isRunning: Ember.computed 'runStatus', ->
     @get('runStatus') is RUN_STATUS_RUN

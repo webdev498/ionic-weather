@@ -40,5 +40,6 @@ Router = Ember.Router.extend(location: config.locationType).map ->
     @route 'clear-faults'
     @route 'command-success'
   @route 'smartlink-controller/settings/edit-zone-activations'
+  @route 'smartlink-controller/settings/edit-controller-basic'
 
 `export default Router`
