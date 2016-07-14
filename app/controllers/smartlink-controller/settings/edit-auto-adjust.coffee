@@ -1,10 +1,8 @@
 `import Ember from 'ember'`
-`import CurrentUserMixin from '../../../mixins/current-user'`
+`import MetricFlowMixin from '../../../mixins/metric-flow'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 
-VOLUME_MEASURE_LITERS = 1
-
-SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend(CurrentUserMixin, SmartlinkSaveMixin, {
+SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend(MetricFlowMixin, SmartlinkSaveMixin, {
   init: ->
     @initAvailableSprinklerTypesImperial()
     @initAvailableSprinklerTypesMetric()
@@ -115,9 +113,6 @@ SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend(Cu
       }
     )
     @set 'moreLessValues', opts
-
-  isMetricEnabled: Ember.computed 'currentUser', ->
-    @get('currentUser.volume_measure') == VOLUME_MEASURE_LITERS
 
   saveUrl: Ember.computed 'model.smartlinkController.id', ->
     controllerId = @get('model.smartlinkController.id')

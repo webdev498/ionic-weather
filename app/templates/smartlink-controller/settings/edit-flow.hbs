@@ -39,8 +39,8 @@
             GPM
           {{/if}}
         </span>
-        <span class="pull-right weathermatic-settings-input-small">
-          {{view 'select' content=availableFlowValues value=model.lowFlowLimit
+        <span class="{{if isLowFlowLimitDisabled 'invisible'}} pull-right weathermatic-settings-input-small">
+          {{view 'select' content=availableLowFlowValues value=model.lowFlowLimit
             optionLabelPath='content.label' optionValuePath='content.value' disabled=isLowFlowLimitDisabled}}
         </span>
         <div style="clear: both;"></div>
@@ -59,8 +59,8 @@
             GPM
           {{/if}}
         </span>
-        <span class="pull-right weathermatic-settings-input-small">
-          {{view 'select' content=availableFlowValues value=model.highFlowLimit
+        <span class="{{if isHighFlowLimitDisabled 'invisible'}} pull-right weathermatic-settings-input-small">
+          {{view 'select' content=availableHighFlowValues value=model.highFlowLimit
             optionLabelPath='content.label' optionValuePath='content.value' disabled=isHighFlowLimitDisabled}}
         </span>
         <div style="clear: both;"></div>

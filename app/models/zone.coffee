@@ -46,4 +46,8 @@ Zone = DS.Model.extend
   usesSensorLoop: Ember.computed 'ignoreSensor', ->
     @get('ignoreSensor') == false
 
+Zone.reopenClass
+  HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER: 65535
+
+
 `export default Zone`

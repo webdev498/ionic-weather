@@ -9,39 +9,7 @@
 <div class="content weathermatic-content">
   <ul class="table-view weathermatic-page-bottom">
     {{#each model.zones as |zone|}}
-      <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.settings.edit-flow' zone.id}}
-          {{#if zone.description}}
-            Edit {{short-text zone.description size=20}}
-            <p>Zone {{zone.number}}</p>
-          {{else}}
-            Edit Zone {{zone.number}}
-          {{/if}}
-          <p style="clear: both;">
-            {{#if zone.realtimeFlowEnabled}}
-              <span class="badge badge-positive">Shutdown Enabled</span>
-            {{else}}
-              <span class="badge weathermatic-badge-warning">Shutdown Disabled</span>
-            {{/if}}
-
-            <span class="badge">Valve Size {{zone.valveSize}}</span>
-            <span class="badge">PPG {{zone.ppg}}</span>
-
-            {{#if zone.isLowFlowLimitOff}}
-              <span class="badge weathermatic-badge-warning">Low Flow Limit Off</span>
-            {{else}}
-              <span class="badge">Low Flow Limit {{zone.lowFlowLimit}}</span>
-            {{/if}}
-
-            {{#if zone.isHighFlowLimitOff}}
-              <span class="badge weathermatic-badge-warning">High Flow Limit Off</span>
-            {{else}}
-              <span class="badge">High Flow Limit {{zone.highFlowLimit}}</span>
-            {{/if}}
-          </p>
-
-        {{/link-to}}
-      </li>
+      {{flow-details zone=zone}}
     {{/each}}
   </ul>
 </div>

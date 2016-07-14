@@ -1,29 +1,14 @@
 `import Ember from 'ember'`
-`import CurrentUserMixin from '../../../mixins/current-user'`
+`import MetricFlowMixin from '../../../mixins/metric-flow'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
+`import Zone from '../../../models/zone'`
 
-VOLUME_MEASURE_LITERS = 1
-
-HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER = 65535
-
-SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend CurrentUserMixin, SmartlinkSaveMixin,
+SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFlowMixin, SmartlinkSaveMixin,
   setupDefaults: (model) ->
-    @initAvailableFlowValues()
     @initAvailableValveSizes()
     @initAvailablePPGOptions()
     @initIsLowFlowLimitEnabled(model)
     @initIsHighFlowLimitEnabled(model)
-
-  initAvailableFlowValues: ->
-    opts = [
-      { label: '', value: 0 }
-    ].concat([1..99].map( (n) ->
-      { label: n, value: n }
-    )).concat([10..70].map( (n) ->
-      m = n * 10
-      { label: m, value: m }
-    ))
-    @set 'availableFlowValues', opts
 
   initAvailableValveSizes: ->
     @set 'availableValveSizes', [
@@ -47,27 +32,32 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend CurrentU
     @set('isLowFlowLimitEnabled', enabled)
 
   initIsHighFlowLimitEnabled: (model) ->
-    enabled = model.get('highFlowLimit') != HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER
+    enabled = model.get('highFlowLimit') != Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER
     @set('isHighFlowLimitEnabled', enabled)
+
+  availableFlowValues: Ember.computed 'isMetricEnabled', ->
+    [1..99].map( (n) =>
+      { label: @flowInLocalUnits(n), value: n }
+    ).concat([10..70].map( (n) =>
+      m = n * 10
+      { label: @flowInLocalUnits(n), value: m }
+    ))
+
+  availableLowFlowValues: Ember.computed 'availableFlowValues', ->
+    [{
+      label: 'Off', value: 0
+    }].concat(@get('availableFlowValues'))
+
+  availableHighFlowValues: Ember.computed 'availableFlowValues', ->
+    [{
+      label: 'Off', value: Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER
+    }].concat(@get('availableFlowValues'))
 
   isLowFlowLimitDisabled: Ember.computed 'isLowFlowLimitEnabled', ->
     !@get('isLowFlowLimitEnabled')
 
   isHighFlowLimitDisabled: Ember.computed 'isHighFlowLimitEnabled', ->
     !@get('isHighFlowLimitEnabled')
-
-  isLowFlowLimitEnabledDidChange: Ember.observer 'isLowFlowLimitEnabled', ->
-    return unless @get('model')
-    if !@get('isLowFlowLimitEnabled')
-      @set('model.lowFlowLimit', 0)
-
-  isHighFlowLimitEnabledDidChange: Ember.observer 'isHighFlowLimitEnabled', ->
-    return unless @get('model')
-    if !@get('isHighFlowLimitDisabled')
-      @set('model.highFlowLimit', HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER)
-
-  isMetricEnabled: Ember.computed 'currentUser', ->
-    @get('currentUser.volume_measure') == VOLUME_MEASURE_LITERS
 
   saveUrl: Ember.computed 'model.smartlinkController.id', ->
     controllerId = @get('model.smartlinkController.id')
@@ -78,6 +68,14 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend CurrentU
 
   actions: {
     save: -> (
+      if @get('isHighFlowLimitDisabled')
+        Ember.Logger.debug 'save model.highFlowLimit before set', @get('model.highFlowLimit')
+        @set('model.highFlowLimit', Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER)
+        Ember.Logger.debug 'save model.highFlowLimit before set', @get('model.highFlowLimit')
+
+      if @get('isLowFlowLimitDisabled')
+        @set('model.lowFlowLimit', 0)
+
       @save(
         url: @get('saveUrl')
         params: {
@@ -87,8 +85,7 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend CurrentU
             high_flow_limit:       @get('model.highFlowLimit')
             valve_size:            @get('model.valveSize')
             ppg:                   @get('model.ppg')
-          }
-        }
+          } }
       )
     )
   }

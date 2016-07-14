@@ -57,6 +57,9 @@ LoadingModalComponent = ModalDialogComponent.extend InboundActions,
       @set('isActive', true)
 
     close: ->
+      if this.isDestroyed
+        Ember.Logger.debug 'Tried to close destroyed modal, will do nothing'
+        return
       @set('isActive', false)
       @set('instruction', null)
       @set('isLoadingFinished', false)
