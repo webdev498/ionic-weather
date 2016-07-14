@@ -3,6 +3,8 @@
 
 VOLUME_MEASURE_LITERS = 1
 
+formatDecimal = (n) -> parseFloat(Math.round(n * 100) / 100).toFixed(2)
+
 MetricFlowMixin = Ember.Mixin.create(CurrentUserMixin,
   isMetricEnabled: Ember.computed 'currentUser', ->
     @get('currentUser.volume_measure') == VOLUME_MEASURE_LITERS
@@ -15,9 +17,21 @@ MetricFlowMixin = Ember.Mixin.create(CurrentUserMixin,
 
   flowInLocalUnits: (flow) ->
     if @get('isMetricEnabled')
-      flow = Math.round(flow * 3.78541178 * 100) / 100
+      flow = flow * 3.78541178
+    flow = formatDecimal(flow)
     "#{flow} #{@get('flowUnits')}"
 
+  sizeUnits: Ember.computed 'isMetricEnabled', ->
+    if @get('isMetricEnabled')
+      'mm'
+    else
+      '"'
+
+  sizeInLocalUnits:(size) ->
+    if @get('isMetricEnabled')
+      size = size * 25.4
+    size = formatDecimal(size)
+    "#{size} #{@get('sizeUnits')}"
 
 )
 

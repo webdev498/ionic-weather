@@ -38,14 +38,14 @@
     <li class="table-view-cell">
       <span>Master Valve/Zone-on Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableMasterValveZoneOnDelay value=model.masterValveOnZoneDelay
+        {{view 'select' content=availableMasterValveZoneOnDelay value=model.mvZoneOnDelay
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
     <li class="table-view-cell">
       <span>Master Valve/Zone-off Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableMasterValveZoneOffDelay value=model.masterValveZoneOffDelay
+        {{view 'select' content=availableMasterValveZoneOffDelay value=model.mvZoneOffDelay
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
@@ -58,7 +58,7 @@
     </li>
     <li class="table-view-cell">
       <span>Automatically Set Time</span>
-      <div id="weathermatic-toggle-automatically-set-time" class="{{if model.isAutomaticallySetTime 'active'}} toggle">
+      <div id="weathermatic-toggle-automatically-set-time" class="{{if model.autoSetTime 'active'}} toggle">
         <div class="toggle-handle"></div>
       </div>
     </li>
@@ -85,13 +85,13 @@
       <li class="table-view-cell">
         <small>DST End</small>
         <span class="pull-right weathermatic-settings-input-small">
-          {{view 'select' content=availableDaysOfWeek value=model.dstEndDay
+          {{view 'select' content=availableDaysOfWeek value=model.dstStopDay
             optionLabelPath='content.label' optionValuePath='content.value'}}
 
-          {{view 'select' content=availableWeeksOfMonth value=model.dstEndWeek
+          {{view 'select' content=availableWeeksOfMonth value=model.dstStopWeek
             optionLabelPath='content.label' optionValuePath='content.value'}}
 
-          {{view 'select' content=availableMonths value=model.dstEndMonth
+          {{view 'select' content=availableMonths value=model.dstStopMonth
             optionLabelPath='content.label' optionValuePath='content.value'}}
         </span>
       </li>
@@ -102,6 +102,15 @@
         <div class="toggle-handle"></div>
       </div>
     </li>
+  </ul>
+
+  <div class="content-padded">
+    <button class="btn btn-block btn-positive" {{action 'save'}}>
+      {{fa-icon 'save'}} Save Changes
+    </button>
+  </div>
+
+  <ul class="table-view">
     <li class="table-view-cell table-view-divider">
       Other settings
     </li>
@@ -142,11 +151,7 @@
       {{/link-to}}
     </li>
   </ul>
-  <div class="content-padded" style="margin-bottom: 10em;">
-    <button class="btn btn-block btn-positive" {{action 'save'}}>
-      {{fa-icon 'save'}} Save Changes
-    </button>
-  </div>
+  <div class="weathermatic-page-bottom"></div>
 </div>
 
 {{!

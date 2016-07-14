@@ -1,9 +1,8 @@
 `import Ember from 'ember'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
+`import MetricFlowMixin from '../../../mixins/metric-flow'`
 
-formatDecimal = (n) -> parseFloat(Math.round(n * 100) / 100).toFixed(2)
-
-SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.extend(SmartlinkSaveMixin, {
+SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.extend(SmartlinkSaveMixin, MetricFlowMixin, {
   init: ->
     @initNumberOfStarts()
     @initAvailableSlwDelayHours()
@@ -22,7 +21,7 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
 
   initAvailableSlwDelayHours: ->
     @set 'availableSlwDelayHours', [0..99].map( (n) ->
-      { label: "#{n} hours", value: n }
+      { label: "#{n} hr", value: n }
     )
 
   initAvailableRainDelays: ->
@@ -33,7 +32,7 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
   initAvailableZoneToZoneDelay: ->
     opts = []
     [0..30].forEach( (n) ->
-      opts.push { label: "#{n} minutes", value: n }
+      opts.push { label: "#{n} min", value: n }
     )
     [31..45].forEach( (n) ->
       minutes = ((n - 30) * 10) + 30
@@ -47,7 +46,7 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
 
   initAvailableMasterValveZoneOnDelay: ->
     @set 'availableMasterValveZoneOnDelay', [1..60].map( (n) ->
-      { label: "#{n} min", value: n }
+      { label: "#{n} sec", value: n }
     )
 
   initAvailableMasterValveZoneOffDelay: ->
@@ -59,9 +58,9 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
     )
 
   initAvailableMinDeficit: ->
-    @set 'availableMinDeficit', [0..10].map (n) ->
+    @set 'availableMinDeficit', [0..10].map (n) =>
       val = n * 0.05
-      { label: "#{formatDecimal(val)}\"", value: val }
+      { label: @sizeInLocalUnits(val), value: n }
 
   initAvailableDaysOfWeek: ->
     @set 'availableDaysOfWeek', [
@@ -107,14 +106,22 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
       @save(
         url: @get('saveUrl')
         params: {
+          auto_set_time: if @get('model.autoSetTime') then 'on' else null
+          dst_enabled:   if @get('model.dstEnabled') then 'on' else null
           control: {
-            num_starts: @get('model.numStarts')
-            slw_delay: @get('model.slwDelay')
-            rain_delay: @get('model.rainDelay')
-            interzone_delay: @get('model.interzone_delay')
-            master_valve_zone_on_delay: @get('model.masterValveOnZoneDelay')
-            master_valve_zone_off_delay: @get('model.masterValveZoneOffDelay')
-            min_deficit: @get('model.minDeficit')
+            num_starts:        @get('model.numStarts')
+            slw_delay:         @get('model.slwDelay')
+            rain_delay:        @get('model.rainDelay')
+            interzone_delay:   @get('model.interzoneDelay')
+            mv_zone_on_delay:  @get('model.mvZoneOnDelay')
+            mv_zone_off_delay: @get('model.mvZoneOffDelay')
+            min_deficit:       @get('model.minDeficit')
+            dst_start_day:     @get('model.dstStartDay')
+            dst_start_week:    @get('model.dstStartWeek')
+            dst_start_month:   @get('model.dstStartMonth')
+            dst_stop_day:      @get('model.dstStopDay')
+            dst_stop_week:     @get('model.dstStopWeek')
+            dst_stop_month:    @get('model.dstStopMonth')
           }
         }
       )

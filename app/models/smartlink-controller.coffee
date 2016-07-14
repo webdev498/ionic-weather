@@ -38,6 +38,14 @@ SmartlinkController = DS.Model.extend
   deviceTime:           DS.attr 'string'
   deviceTimeSampledAt:  DS.attr 'string'
   timezone:             DS.attr 'string'
+  autoSetTime:          DS.attr 'boolean'
+  dstEnabled:           DS.attr 'boolean'
+  dstStartDay:          DS.attr 'number'
+  dstStartWeek:         DS.attr 'number'
+  dstStartMonth:        DS.attr 'number'
+  dstStopDay:           DS.attr 'number'
+  dstStopWeek:          DS.attr 'number'
+  dstStopMonth:         DS.attr 'number'
 
   site:                 DS.belongsTo 'site',        async: true
 
