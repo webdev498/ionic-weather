@@ -7,6 +7,8 @@
 </header>
 
 <div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model.smartlinkController transmit='transmit'}}
+
   <ul class="table-view">
     <li class="table-view-cell weathermatic-select-program-a">
       <span class="pull-left">
@@ -28,7 +30,7 @@
         {{/if}}
       </span>
       <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableProgramTimes value=model.programBRunTime
+        {{view 'select' content=availableProgramTimes value=model.programZoneB.formattedRunTime
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
@@ -40,7 +42,7 @@
         {{/if}}
       </span>
       <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableProgramTimes value=model.programCRunTime
+        {{view 'select' content=availableProgramTimes value=model.programZoneC.formattedRunTime
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
@@ -52,7 +54,7 @@
         {{/if}}
       </span>
       <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableProgramTimes value=model.programDRunTime
+        {{view 'select' content=availableProgramTimes value=model.model.programZoneD.formattedRunTime
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>

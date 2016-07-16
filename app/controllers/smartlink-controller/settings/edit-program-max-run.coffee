@@ -44,7 +44,8 @@ SmartlinkControllerSettingsEditProgramMaxRunController = Ember.Controller.extend
               }
             }
           }
-      ])
+      ]).then =>
+        @set('model.smartlinkController.hasUnsentChanges', true)
     )
   }
 })

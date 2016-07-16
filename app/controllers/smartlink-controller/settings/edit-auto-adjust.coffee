@@ -135,7 +135,8 @@ SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend(Me
             adjustment: @get('model.adjustment')
           }
         }
-      )
+      ).then =>
+        @set('model.smartlinkController.hasUnsentChanges', true)
     )
   }
 })

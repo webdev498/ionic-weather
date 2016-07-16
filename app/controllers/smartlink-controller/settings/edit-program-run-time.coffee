@@ -49,7 +49,9 @@ SmartlinkControllerSettingsEditProgramRunTimeController = Ember.Controller.exten
             )
           }
         }
-      )
+      ).then =>
+        @set('model.smartlinkController.hasUnsentChanges', true)
+
     )
   }
 })

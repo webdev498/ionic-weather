@@ -170,9 +170,22 @@ SmartlinkSaveMixin = Ember.Mixin.create(
     return allPromises
   )
 
+  transmitUrl: (smartlinkControllerId) ->
+    "#{@get('config.apiUrl')}/api/v2/controllers/#{smartlinkControllerId}/transmit"
+
   actions: {
     loadingAbandoned: ->
       @closeLoadingModal()
+
+    transmit: (smartlinkController) ->
+      Ember.Logger.debug 'TransmitMixin transmit action called, with smartlink controller:', smartlinkController
+      @save(
+        url: @transmitUrl(smartlinkController.get('id'))
+      ).catch( (errors) ->
+        alert errors.join('. ')
+      ).then( =>
+        smartlinkController.set('hasUnsentChanges', false)
+      )
   }
 )
 

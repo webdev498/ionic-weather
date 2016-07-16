@@ -7,6 +7,8 @@
 </header>
 
 <div class="content weathermatic-content" style="padding-bottom: 200px;">
+  {{need-send-message smartlinkController=model transmit='transmit'}}
+
   <ul class="table-view">
     {{#each model.zones as |zone|}}
       {{edit-zone zone=zone field='usesRainSensor' save='save'}}

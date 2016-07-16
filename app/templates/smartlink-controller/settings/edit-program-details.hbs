@@ -9,7 +9,10 @@
           {{/if}}</h1>
 </header>
 
-<div class="content weathermatic-content program-detail">
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model.smartlinkController transmit='transmit'}}
+
+  <div class="program-detail weathermatic-page-bottom">
   <ul class="table-view">
     {{#if isDayOfWeekProgramTypeSelected}}
       <li class="table-view-cell">
@@ -68,6 +71,7 @@
     <button class="btn btn-block btn-positive" {{action 'save'}}>
       {{fa-icon 'save'}} Save Changes
     </button>
+  </div>
   </div>
 </div>
 

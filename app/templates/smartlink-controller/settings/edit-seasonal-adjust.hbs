@@ -7,11 +7,12 @@
 </header>
 
 <div class="content weathermatic-content">
-  <br>
-  <p>
-    <strong class="pull-right" style="margin-right: 1em;">{{model.name}}</strong>
-  </p>
-  <br>
+  {{need-send-message smartlinkController=model.smartlinkController transmit='transmit'}}
+
+  <div class="content-padded">
+    <h2>{{model.name}}</h2>
+  </div>
+
   <ul class="table-view">
     <li class="table-view-cell weathermatic-select-program-a">
       <span class="pull-left">

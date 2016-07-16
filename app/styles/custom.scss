@@ -368,7 +368,7 @@ h2 {
 
 .weathermatic-badge-warning {
   color: #fff;
-  background-color: #f0ad4e;
+  background-color: $warning-color;
 }
 
 .walk-site-nav-container {
@@ -546,6 +546,20 @@ div.ember-view.liquid-child {
 .weathermatic-errors {
   background-color: $error-color-background;
   color: $error-color;
+
+  p {
+    color: #666;
+  }
+}
+
+.weathermatic-warning {
+  background-color: $warning-color;
+;
+  color: $error-color;
+
+  p {
+    color: #fff;
+  }
 }
 
 .weathermatic-input-error {
@@ -555,4 +569,21 @@ div.ember-view.liquid-child {
 
 .invisible {
   visibility: hidden;
+}
+
+.needs-send-message-container {
+  padding-top: 20px;
+}
+
+.needs-send-message {
+  .badge {
+    margin-top: 5px;
+  }
+  .info-text {
+    margin-left: 0.5em;
+    margin-top: 4px;
+  }
+  button {
+    margin-right: -35px;
+  }
 }

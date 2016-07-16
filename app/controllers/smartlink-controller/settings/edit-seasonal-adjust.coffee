@@ -36,6 +36,8 @@ SmartlinkControllerSettingsEditSeasonalAdjust = Ember.Controller.extend Smartlin
             wrap_result: true
           }
         }
-      ))
+      )).then =>
+        @set('model.smartlinkController.hasUnsentChanges', true)
+
 
 `export default SmartlinkControllerSettingsEditSeasonalAdjust`

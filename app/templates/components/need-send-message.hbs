@@ -1,0 +1,15 @@
+{{#if smartlinkController.hasUnsentChanges}}
+  <ul class="needs-send-message table-view weathermatic-errors">
+    <li class="table-view-cell">
+      <a href="javascript:void(0)" {{action 'transmit'}}>
+        <p class="pull-left">
+          <span class="pull-left badge badge-negative">{{fa-icon 'warning'}}</span>
+          <div class="pull-left info-text">Changes not applied yet</div>
+        </p>
+        <p class="pull-right">
+          <button class="btn">{{fa-icon 'cloud-upload'}} Send Now</button>
+        </p>
+      </a>
+    </li>
+  </ul>
+{{/if}}

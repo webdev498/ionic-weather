@@ -7,6 +7,8 @@
 </header>
 
 <div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model transmit='transmit'}}
+
   <ul class="table-view weathermatic-page-bottom">
     {{#each model.zones as |zone|}}
       {{flow-details zone=zone}}

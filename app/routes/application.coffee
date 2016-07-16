@@ -25,4 +25,5 @@ ApplicationRoute = Ember.Route.extend ApplicationRouteMixin,
         Ember.Logger.error('Unhandled routing error, redirecting to index', error, transition)
         @transitionTo('index')
 
+
 `export default ApplicationRoute`

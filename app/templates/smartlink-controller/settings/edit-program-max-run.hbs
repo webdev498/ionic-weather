@@ -7,7 +7,10 @@
 </header>
 
 <div class="content weathermatic-content">
-  <br>
+  {{need-send-message smartlinkController=model.smartlinkController transmit='transmit'}}
+
+  <div style="margin-top: 20px;"></div>
+
   {{program-max-run program=model.programA}}
   {{program-max-run program=model.programB}}
   {{program-max-run program=model.programC}}

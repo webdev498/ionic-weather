@@ -55,6 +55,8 @@ SmartlinkControllerIndexController = Ember.Controller.extend(SmartlinkSaveMixin,
         url: @get('transmitUrl')
       ).catch( (errors) ->
         alert errors.join('. ')
+      ).then => (
+        @set 'model.hasUnsentChanges', false
       ).finally => (
         @send 'openCommLog'
       )

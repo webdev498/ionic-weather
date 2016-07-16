@@ -69,9 +69,7 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
   actions: {
     save: -> (
       if @get('isHighFlowLimitDisabled')
-        Ember.Logger.debug 'save model.highFlowLimit before set', @get('model.highFlowLimit')
         @set('model.highFlowLimit', Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER)
-        Ember.Logger.debug 'save model.highFlowLimit before set', @get('model.highFlowLimit')
 
       if @get('isLowFlowLimitDisabled')
         @set('model.lowFlowLimit', 0)
@@ -86,7 +84,8 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
             valve_size:            @get('model.valveSize')
             ppg:                   @get('model.ppg')
           } }
-      )
+      ).then =>
+        @set('model.hasUnsentChanges', true)
     )
   }
 

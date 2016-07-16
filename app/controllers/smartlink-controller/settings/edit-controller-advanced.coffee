@@ -124,7 +124,8 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
             dst_stop_month:    @get('model.dstStopMonth')
           }
         }
-      )
+      ).then =>
+        @set('model.hasUnsentChanges', true)
     )
   }
 

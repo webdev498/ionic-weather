@@ -8,6 +8,7 @@
 </header>
 
 <div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model transmit='transmit'}}
 
   <ul class="table-view">
     <li class="table-view-cell">
@@ -36,7 +37,7 @@
     <h4 class="table-view-cell table-view-divider">
       Select for zone options:
     </h4>
-	{{#each model.zones as |zone|}}
+    {{#each model.zones as |zone|}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.settings.edit-auto-adjust' zone.id}}
           {{#if zone.description}}

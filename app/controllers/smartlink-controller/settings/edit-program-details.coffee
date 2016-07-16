@@ -449,20 +449,9 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
             )
           }
         }
+      ).then( =>
+        @set('model.smartlinkController.hasUnsentChanges', true)
       )
-      #
-      # @submitProgram(params).then (response) ->
-      #   Ember.Logger.debug "Posted program #{self.get('model.id')} for controller: #{self.get('smartlinkController.id')}"
-      #   self.get('smartlinkController').reload().finally ->
-      #     self.send('loadingFinished')
-      # .catch (error) ->
-      #   if error.type is 'Unprocessable Entity'
-      #     Ember.Logger.debug 'Program Edit failed with unprocessable Entity'
-      #     alert error.responseData.meta.message
-      #   else
-      #     Ember.Logger.error(error)
-      #     alert error
-      #   self.get('loadingModal').send('close')
     )
 
     setProgramTypeOpen: ->

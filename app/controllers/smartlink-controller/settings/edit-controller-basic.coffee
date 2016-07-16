@@ -1,7 +1,8 @@
 `import Ember from 'ember'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
+`import TransmitMixin from '../../../mixins/transmit'`
 
-SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.extend(SmartlinkSaveMixin, {
+SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.extend(SmartlinkSaveMixin, TransmitMixin, {
 
   init: ->
     @initAvailableHours()
@@ -47,9 +48,14 @@ SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.exte
             sensor_mode: @get('model.rainFreezeSensorMode')
           }
         }
-      )
+      ).then =>
+        @set('model.hasUnsentChanges', true)
     )
   }
+
+  transmitUrl: (smartlinkControllerId) ->
+    "#{@get('config.apiUrl')}/api/v2/controllers/#{smartlinkControllerId}/transmit"
+
 
   initAvailableHours: ->
     opts = [{ label: '', value: null }]
@@ -80,6 +86,7 @@ SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.exte
     @set 'availableRunStatuses', [
       { label: 'Run', value: 1 }
       { label: 'Remote Off', value: 2 }
+      { label: 'Rain Delay', value: 3 }
     ]
 
   initAvailableWateringModes: ->

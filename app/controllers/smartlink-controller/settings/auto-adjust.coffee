@@ -1,7 +1,8 @@
 `import Ember from 'ember'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
+`import TransmitMixin from '../../../mixins/transmit'`
 
-SmartlinkControllerSettingsAutoAdjustController = Ember.Controller.extend(SmartlinkSaveMixin, {
+SmartlinkControllerSettingsAutoAdjustController = Ember.Controller.extend(SmartlinkSaveMixin, TransmitMixin, {
   init: ->
     @initAvailableLatitudes()
 
@@ -83,7 +84,8 @@ SmartlinkControllerSettingsAutoAdjustController = Ember.Controller.extend(Smartl
             latitude: @get('model.latitude')
           }
         }
-      )
+      ).then =>
+        @set('model.hasUnsentChanges', true)
     )
 })
 

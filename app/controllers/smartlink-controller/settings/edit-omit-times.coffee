@@ -136,7 +136,9 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
             controller_omission_times: @getOmissionTimeProperties()
           }
         }
-      )
+      ).then =>
+        @set('model.hasUnsentChanges', true)
+
 })
 
 `export default SmartlinkControllerSettingsEditOmitTimesController`

@@ -46,6 +46,7 @@ SmartlinkController = DS.Model.extend
   dstStopDay:           DS.attr 'number'
   dstStopWeek:          DS.attr 'number'
   dstStopMonth:         DS.attr 'number'
+  hasUnsentChanges:     DS.attr 'boolean'
 
   site:                 DS.belongsTo 'site',        async: true
 

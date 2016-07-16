@@ -7,8 +7,12 @@
   <h1 class="title">{{fa-icon 'signal'}} {{short-text model.name size=15}}</h1>
 </header>
 
-
 <div id="smartlink-controller-container" class="content weathermatic-content weathermatic-controller-page">
+  <!-- accomodate around pull-to-refresh -->
+  <div style="margin-top: -20px;"></div>
+
+  {{need-send-message smartlinkController=model transmit='transmit'}}
+
   <div class="content-padded">
     {{#if model.canRunCommands}}
       <div class="card">

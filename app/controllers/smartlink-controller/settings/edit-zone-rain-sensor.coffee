@@ -21,7 +21,10 @@ SmartlinkControllerSettingsEditZoneRainSensorController = Ember.Controller.exten
         showLoadingModal: false
         url: @get('saveUrl')
         params: zoneParams
+      ).then( =>
+        @set('model.hasUnsentChanges', true)
       )
+
 })
 
 `export default SmartlinkControllerSettingsEditZoneRainSensorController`

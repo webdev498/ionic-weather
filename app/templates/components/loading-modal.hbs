@@ -9,7 +9,7 @@
   <center class="weathermatic-loading-message">
     {{#if isLoadingFinished}}
       {{fa-icon 'check-circle-o fa-5x weathermatic-save-success'}}
-      <h4 class="weathermatic-loading-message-text">Save successful!</h4>
+      <h4 class="weathermatic-loading-message-text">Success!</h4>
       <div class="content-padded">
         <button {{action 'close'}}
           class="btn btn-positive btn-block weathermatic-loading-mesage-dismiss">
@@ -17,7 +17,9 @@
         </button>
       </div>
     {{else}}
-      <h2>Communicating <br> with your device</h2>
+      <div class="content-padded">
+        <h2>Communicating with Smartlink</h2>
+      </div>
     {{/if}}
 
 

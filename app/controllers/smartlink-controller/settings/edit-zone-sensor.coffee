@@ -21,7 +21,10 @@ SmartlinkControllerSettingsEditZoneSensorController = Ember.Controller.extend(Sm
         showLoadingModal: false
         url: @get('saveUrl')
         params: zoneParams
+      ).then( =>
+        @set('model.hasUnsentChanges', true)
       )
+
 })
 
 `export default SmartlinkControllerSettingsEditZoneSensorController`
