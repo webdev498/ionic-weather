@@ -30,7 +30,7 @@
 
     <li class="table-view-cell">
       <span>Plant Type</span>
-      <span class="pull-right weathermatic-settings-input-medium">
+      <span class="pull-right weathermatic-settings-input-large">
         {{view 'select' content=availablePlantTypes value=model.plantType
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
@@ -38,7 +38,7 @@
 
     <li class="table-view-cell">
       <span>Soil Type</span>
-      <span class="pull-right weathermatic-settings-input-small">
+      <span class="pull-right weathermatic-settings-input-large">
         {{view 'select' content=availableSoilTypes value=model.soilType
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
@@ -46,7 +46,7 @@
 
     <li class="table-view-cell">
       <span>Slope</span>
-      <span class="pull-right weathermatic-settings-input-small">
+      <span class="pull-right weathermatic-settings-input-large">
         {{view 'select' content=slopeValues value=model.soilSlope
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
@@ -54,7 +54,7 @@
 
     <li class="table-view-cell">
       <span>More / Less</span>
-      <span class="pull-right weathermatic-settings-input-small">
+      <span class="pull-right weathermatic-settings-input-large">
         {{view 'select' content=moreLessValues value=model.adjustment
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
