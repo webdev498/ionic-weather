@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
 
+#########################################
+# Optional environment variables
+# NO_VER        set to skip incrementing the build version number
+# EMBER_ENV     set to 'development', 'staging', etc, defaults to 'production'
+# SKIP_PLUGINS  set to skip installing cordova plugins if you've already
+#########################################
+
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 CORDOVA_DIR=$DIR/../cordova
 
