@@ -10,9 +10,12 @@ RUN_STATUS_RAIN_DELAY = 3
 WATERING_MODE_STANDARD = 0
 WATERING_MODE_AUTO   = 1
 
+WEATHER_STATUS_NONE   = 0
 WEATHER_STATUS_NORMAL = 1
 WEATHER_STATUS_RAIN   = 2
 WEATHER_STATUS_FREEZE = 3
+WEATHER_STATUS_DELAY  = 4
+WEATHER_STATUS_FAULT  = 5
 
 FLOW_MODE_VIRTUAL = 0
 FLOW_MODE_REALTIME = 1
@@ -73,16 +76,19 @@ SmartlinkController = DS.Model.extend
 
   weather: Ember.computed 'weatherStatus', ->
     switch @get('weatherStatus')
-      when WEATHER_STATUS_NORMAL  then 'Normal'
-      when WEATHER_STATUS_RAIN    then 'Rain'
-      when WEATHER_STATUS_FREEZE  then 'Freeze'
+      when WEATHER_STATUS_NONE   then 'None'
+      when WEATHER_STATUS_NORMAL then 'Normal'
+      when WEATHER_STATUS_RAIN   then 'Rain'
+      when WEATHER_STATUS_FREEZE then 'Freeze'
+      when WEATHER_STATUS_DELAY  then 'Delay'
+      when WEATHER_STATUS_FAULT  then 'Fault'
 
   isWeatherNormal: Ember.computed 'weatherStatus', ->
     @get('weatherStatus') is WEATHER_STATUS_NORMAL
 
   isWeatherBad: Ember.computed 'weatherStatus', ->
     status = @get('weatherStatus')
-    (status is WEATHER_STATUS_RAIN) or (status is WEATHER_STATUS_FREEZE)
+    (status is WEATHER_STATUS_RAIN) or (status is WEATHER_STATUS_FREEZE) or (status is WEATHER_STATUS_FAULT)
 
   isRainFreezeSensorEnabled: Ember.computed 'rainFreezeSensorMode', ->
     @get('rainFreezeSensorMode') is RAIN_FREEZE_SENSOR_MODE_ACTIVE
