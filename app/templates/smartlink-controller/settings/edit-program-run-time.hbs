@@ -3,7 +3,7 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'gear'}} Program Run Time</h1>
+  <h1 class="title">{{fa-icon 'gear'}} Zone {{model.number}} Run Times</h1>
 </header>
 
 <div class="content weathermatic-content">
@@ -17,10 +17,16 @@
           <p class="weathermatic-program-description">{{short-text model.programZoneA.program.description}}</p>
         {{/if}}
       </span>
-      <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableProgramTimes value=model.programZoneA.formattedRunTime
-          optionLabelPath='content.label' optionValuePath='content.value'}}
-      </span>
+      {{#if model.programZoneA.isUsed}}
+        <span class="pull-right weathermatic-zone-used">
+          <button class="btn">{{fa-icon 'ban'}} Used</button>
+        </span>
+      {{else}}
+        <span class="pull-right weathermatic-settings-input-small">
+          {{view 'select' content=availableProgramTimes value=model.programZoneA.formattedRunTime
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+        </span>
+      {{/if}}
     </li>
     <li class="table-view-cell weathermatic-select-program-b">
       <span class="pull-left">
@@ -29,10 +35,16 @@
           <p class="weathermatic-program-description">{{short-text model.programZoneB.program.description}}</p>
         {{/if}}
       </span>
-      <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableProgramTimes value=model.programZoneB.formattedRunTime
-          optionLabelPath='content.label' optionValuePath='content.value'}}
-      </span>
+      {{#if model.programZoneB.isUsed}}
+        <span class="pull-right weathermatic-zone-used">
+          <button class="btn">{{fa-icon 'ban'}} Used</button>
+        </span>
+      {{else}}
+        <span class="pull-right weathermatic-settings-input-small">
+          {{view 'select' content=availableProgramTimes value=model.programZoneB.formattedRunTime
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+        </span>
+      {{/if}}
     </li>
     <li class="table-view-cell weathermatic-select-program-c">
       <span class="pull-left">
@@ -41,10 +53,16 @@
           <p class="weathermatic-program-description">{{short-text model.programZoneC.program.description}}</p>
         {{/if}}
       </span>
-      <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableProgramTimes value=model.programZoneC.formattedRunTime
-          optionLabelPath='content.label' optionValuePath='content.value'}}
-      </span>
+      {{#if model.programZoneC.isUsed}}
+        <span class="pull-right weathermatic-zone-used">
+          <button class="btn">{{fa-icon 'ban'}} Used</button>
+        </span>
+      {{else}}
+        <span class="pull-right weathermatic-settings-input-small">
+          {{view 'select' content=availableProgramTimes value=model.programZoneC.formattedRunTime
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+        </span>
+      {{/if}}
     </li>
     <li class="table-view-cell weathermatic-select-program-d">
       <span class="pull-left">
@@ -53,10 +71,16 @@
           <p class="weathermatic-program-description">{{short-text model.programZoneD.program.description}}</p>
         {{/if}}
       </span>
-      <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableProgramTimes value=model.model.programZoneD.formattedRunTime
-          optionLabelPath='content.label' optionValuePath='content.value'}}
-      </span>
+      {{#if model.programZoneD.isUsed}}
+        <span class="pull-right weathermatic-zone-used">
+          <button class="btn">{{fa-icon 'ban'}} Used</button>
+        </span>
+      {{else}}
+        <span class="pull-right weathermatic-settings-input-small">
+          {{view 'select' content=availableProgramTimes value=model.programZoneD.formattedRunTime
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+        </span>
+      {{/if}}
     </li>
   </ul>
   <div class="content-padded">

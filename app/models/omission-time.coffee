@@ -8,7 +8,8 @@ buildTimeString = (timeString, hoursMinutes, amPm) ->
   time = moment(timeString).utc()
   parts = hoursMinutes.split(':')
   time.hour(parts[0]).minute(parts[1])
-  time.hour(time.hour() + 12) if amPm == 'pm'
+  time.hour(time.hour() + 12) if amPm == 'pm' && parts[0] != '12'
+  time.hour(time.hour() - 12) if amPm == 'am' && parts[0] == '12'
   return null unless time.isValid()
   time.toISOString()
 

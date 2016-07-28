@@ -45,12 +45,12 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
     @set 'availableZoneToZoneDelay', opts
 
   initAvailableMasterValveZoneOnDelay: ->
-    @set 'availableMasterValveZoneOnDelay', [1..60].map( (n) ->
+    @set 'availableMasterValveZoneOnDelay', [0..60].map( (n) ->
       { label: "#{n} sec", value: n }
     )
 
   initAvailableMasterValveZoneOffDelay: ->
-    @set 'availableMasterValveZoneOffDelay', [1..180].map( (n) ->
+    @set 'availableMasterValveZoneOffDelay', [0..180].map( (n) ->
       hr = Math.floor(n / 60)
       min = n % 60
       min = "0#{min}" if min < 10

@@ -4,6 +4,13 @@ This is a [Cordova](https://cordova.apache.org/) app that uses [Ember.js](http:/
 
 We use [ember-cli-cordova](https://github.com/poetic/ember-cli-cordova) to help with the ember/cordova integration.
 
+## Dependencies
+
+### Cordova
+
+    npm install -g cordova
+
+
 ## Running locally
 
 To initialize the cordova project, run:
