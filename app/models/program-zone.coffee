@@ -1,4 +1,5 @@
 `import DS from 'ember-data'`
+`import promisedProperty from '../util/promised-property'`
 
 ProgramZone = DS.Model.extend {
     formattedRunTime: DS.attr 'string'
@@ -15,18 +16,23 @@ ProgramZone = DS.Model.extend {
       t = @get('formattedRunTime').split(':')
       parseInt(t[0]) == 0 && parseInt(t[1]) == 0
 
-    isUsed: ( ->
-      # If program D is used, A-C cannot be.  Inversely, if one of A-C is used, D is not allowed
+    isUsed: promisedProperty(false, ->
+      @get('zone.smartlinkController').then( (ctrl) =>
+        return false unless ctrl.get('hasDripZoneConstraint')
 
-      if @get('programIdentifier') == 'D'
-        used = false
-        @get('zone.programZones').forEach (pz) ->
-          used = true if pz.get('programIdentifier') != 'D' && !pz.get('isOff')
-        return used
-      else
-        programZoneD = @get('zone.programZones').findBy(
-          'programIdentifier', 'D')
-        !programZoneD.get('isOff')
+        # If program D is used, A-C cannot be.
+        # Inversely, if one of A-C is used, D is not allowed
+
+        if @get('programIdentifier') == 'D'
+          used = false
+          @get('zone.programZones').forEach (pz) ->
+            used = true if pz.get('programIdentifier') != 'D' && !pz.get('isOff')
+          return used
+        else
+          programZoneD = @get('zone.programZones').findBy(
+            'programIdentifier', 'D')
+          !programZoneD.get('isOff')
+      )
     ).property('zone.programZones.@each.{formattedRunTime,programIdentifier}')
 }
 
