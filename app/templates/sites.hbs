@@ -27,14 +27,14 @@
         <a href="javascript:void(0)" class="navigate-right" {{action 'goToSite' site}}>
           <div class="media-body">
             <strong>{{site.name}}</strong>
-            {{#if site.faultsCount}}
-              <span class="badge badge-negative pull-right">{{site.faultsCount}} faults</span>
-            {{/if}}
             <p>
               <small class="badge">{{site.cityState}}</small>
               <small class="badge controller-count-badge">{{site.controllersCount}} controllers</small>
               {{#if site.milesAway}}
                 <small class="badge location-badge">{{fa-icon 'location-arrow'}} {{format-number site.milesAway round=true}} mi</small>
+              {{/if}}
+              {{#if site.faultsCount}}
+                <small class="badge badge-negative">{{site.faultsCount}} faults</small>
               {{/if}}
             </p>
           </div>
