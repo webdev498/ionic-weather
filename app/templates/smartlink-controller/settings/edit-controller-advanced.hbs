@@ -104,6 +104,16 @@
         <div class="toggle-handle"></div>
       </div>
     </li>
+
+    <li class="table-view-cell">
+      <span>Aircard Comm Error Interval</span>
+      <span class="pull-right weathermatic-settings-input-small">
+        {{view 'select' content=availableCommErrorIntervals
+          value=model.commErrorInterval
+          optionLabelPath='content.label' optionValuePath='content.value'}}
+      </span>
+    </li>
+
   </ul>
 
   <div class="content-padded">

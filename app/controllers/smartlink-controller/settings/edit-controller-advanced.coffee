@@ -15,6 +15,7 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
     @initAvailableDaysOfWeek()
     @initAvailableWeeksOfMonth()
     @initAvailableMonths()
+    @initAvailableCommErrorIntervals()
 
   initNumberOfStarts: ->
     @set 'availableNumberOfStarts', [1..8]
@@ -96,6 +97,12 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
       { label: 'Nov', value: 10 }
       { label: 'Dec', value: 11 }
     ]
+  initAvailableCommErrorIntervals: ->
+    @set 'availableCommErrorIntervals', [
+      { label: '24 hr', value: 24 }
+      { label: '48 hr', value: 48 }
+      { label: '72 hr', value: 72 }
+    ]
 
   saveUrl: Ember.computed 'model.id', ->
     baseUrl = @get('config.apiUrl')
@@ -109,19 +116,20 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
           auto_set_time: if @get('model.autoSetTime') then 'on' else null
           dst_enabled:   if @get('model.dstEnabled') then 'on' else null
           control: {
-            num_starts:        @get('model.numStarts')
-            slw_delay:         @get('model.slwDelay')
-            rain_delay:        @get('model.rainDelay')
-            interzone_delay:   @get('model.interzoneDelay')
-            mv_zone_on_delay:  @get('model.mvZoneOnDelay')
-            mv_zone_off_delay: @get('model.mvZoneOffDelay')
-            min_deficit:       @get('model.minDeficit')
-            dst_start_day:     @get('model.dstStartDay')
-            dst_start_week:    @get('model.dstStartWeek')
-            dst_start_month:   @get('model.dstStartMonth')
-            dst_stop_day:      @get('model.dstStopDay')
-            dst_stop_week:     @get('model.dstStopWeek')
-            dst_stop_month:    @get('model.dstStopMonth')
+            num_starts:           @get('model.numStarts')
+            slw_delay:            @get('model.slwDelay')
+            rain_delay:           @get('model.rainDelay')
+            interzone_delay:      @get('model.interzoneDelay')
+            mv_zone_on_delay:     @get('model.mvZoneOnDelay')
+            mv_zone_off_delay:    @get('model.mvZoneOffDelay')
+            min_deficit:          @get('model.minDeficit')
+            dst_start_day:        @get('model.dstStartDay')
+            dst_start_week:       @get('model.dstStartWeek')
+            dst_start_month:      @get('model.dstStartMonth')
+            dst_stop_day:         @get('model.dstStopDay')
+            dst_stop_week:        @get('model.dstStopWeek')
+            dst_stop_month:       @get('model.dstStopMonth')
+            comm_error_interval:  @get('model.commErrorInterval')
           }
         }
       ).then =>

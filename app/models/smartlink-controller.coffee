@@ -51,6 +51,7 @@ SmartlinkController = DS.Model.extend
   dstStopMonth:             DS.attr 'number'
   hasUnsentChanges:         DS.attr 'boolean'
   hasDripZoneConstraint:    DS.attr 'boolean'
+  commErrorInterval:        DS.attr 'number'
 
   site:                 DS.belongsTo 'site',        async: true
 
