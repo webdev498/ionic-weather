@@ -19,7 +19,7 @@ Transitions = ->
 
   @transition(
     @fromRoute ['sites', 'site']
-    @toRoute 'smartlink-controller'
+    @toRoute ['smartlink-controller', 'smartlink-controller.index']
     @use 'toLeft'
     @reverse 'toRight'
   )
