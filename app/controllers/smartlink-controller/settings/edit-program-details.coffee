@@ -430,6 +430,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
     )
 
     save: -> (
+      self = this
       @save(
         url: @get('saveUrl')
         params: {
@@ -442,8 +443,12 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
             interval_start:  @get('programInstance.selectedIntervalProgram.interval_start'),
             days_interval:  @get('programInstance.selectedIntervalProgram.days_interval'),
             program_start_times: @get('programInstance.programStartTimes').map( (st, index, array) ->
+              # I'm working around this weird code without changing it since it's brittle...sorry for
+              # this being weird looking... I want to take the id of their object that represents
+              # a ProgramStartTime (st) and get a real ember model so I can get the 'number' attribute.
+              startTimeModel = self.get('model.programStartTimes').findBy('id', Ember.get(st, 'id'))
               {
-                number: Ember.get(st, 'number'),
+                number: startTimeModel.get('number')
                 start_time: Ember.get(st, 'start_time')
               }
             )
