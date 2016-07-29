@@ -59,9 +59,11 @@
        <li class="table-view-cell">
         <a href="javascript:void(0)" class="push-right" {{action 'setStartTimeOpen' programStartTime.id}}>
           {{#if programStartTime.start_time.length}}
-            Start Time {{programStartTime.number}}: {{format-time programStartTime.start_time '12H'}}
+            <small>Start Time {{programStartTime.number}}:</small>
+            <strong>{{format-time programStartTime.start_time}}</strong>
           {{else}}
-            Start Time {{programStartTime.number}}: Off
+            <small>Start Time {{programStartTime.number}}: </small>
+            <strong>Off</strong>
           {{/if}}
         </a>
       </li>
