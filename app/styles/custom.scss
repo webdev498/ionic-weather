@@ -109,6 +109,10 @@ h2 {
   }
 }
 
+.weathermatic-select-program-row {
+  cursor: pointer;
+}
+
 .weathermatic-select-program-a {
   background-color: $program-a-color;
   border-color: $program-a-color;

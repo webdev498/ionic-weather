@@ -14,7 +14,7 @@
   </div>
 
   <ul class="table-view">
-    <li class="table-view-cell weathermatic-select-program-a">
+    <li class="table-view-cell weathermatic-select-program-row weathermatic-select-program-a">
       <span class="pull-left">
         <h3>Program A</h3>
         {{#if model.programASeasonalAdjust.program.description.length}}
@@ -23,12 +23,13 @@
       </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableSeasonalAdjustValues
+          class='seasonal-adj-select'
           value=model.programASeasonalAdjust.percentage
           optionLabelPath='content.label'
           optionValuePath='content.value'}}
       </span>
     </li>
-    <li class="table-view-cell weathermatic-select-program-b">
+    <li class="table-view-cell weathermatic-select-program-row weathermatic-select-program-b">
       <span class="pull-left">
         <h3>Program B</h3>
         {{#if model.programBSeasonalAdjust.program.description.length}}
@@ -37,12 +38,13 @@
       </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableSeasonalAdjustValues
+          class='seasonal-adj-select'
           value=model.programBSeasonalAdjust.percentage
           optionLabelPath='content.label'
           optionValuePath='content.value'}}
       </span>
     </li>
-    <li class="table-view-cell weathermatic-select-program-c">
+    <li class="table-view-cell weathermatic-select-program-row weathermatic-select-program-c">
       <span class="pull-left">
         <h3>Program C</h3>
         {{#if model.programCSeasonalAdjust.program.description.length}}
@@ -51,12 +53,13 @@
       </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableSeasonalAdjustValues
+          class='seasonal-adj-select'
           value=model.programCSeasonalAdjust.percentage
           optionLabelPath='content.label'
           optionValuePath='content.value'}}
       </span>
     </li>
-    <li class="table-view-cell weathermatic-select-program-d">
+    <li class="table-view-cell weathermatic-select-program-row weathermatic-select-program-d">
       <span class="pull-left">
         <h3>Program D</h3>
         {{#if model.programDSeasonalAdjust.program.description.length}}
@@ -65,6 +68,7 @@
       </span>
       <span class="pull-right weathermatic-settings-input-small">
         {{view 'select' content=availableSeasonalAdjustValues
+          class='seasonal-adj-select'
           value=model.programDSeasonalAdjust.percentage
           optionLabelPath='content.label'
           optionValuePath='content.value'}}
