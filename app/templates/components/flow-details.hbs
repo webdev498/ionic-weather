@@ -6,26 +6,33 @@
     Edit Zone {{zone.number}}
   {{/if}}
   <p style="clear: both;">
-    {{#if zone.realtimeFlowEnabled}}
-      <span class="badge badge-positive">Shutdown Enabled</span>
-    {{else}}
-      <span class="badge weathermatic-badge-warning">Shutdown Disabled</span>
+    {{#if zone.smartlinkController.isRealtimeFlow}}
+
+      {{#if zone.realtimeFlowEnabled}}
+        <span class="badge badge-positive">Shutdown Enabled</span>
+      {{else}}
+        <span class="badge weathermatic-badge-warning">Shutdown Disabled</span>
+      {{/if}}
+
+      <span class="badge">PPG {{zone.ppg}}</span>
+
+      {{#if isLowFlowLimitOff}}
+        <span class="badge weathermatic-badge-warning">Low Flow Limit Off</span>
+      {{else}}
+        <span class="badge">Low Flow Limit {{lowFlowLimit}}</span>
+      {{/if}}
+
+      {{#if isHighFlowLimitOff}}
+        <span class="badge weathermatic-badge-warning">High Flow Limit Off</span>
+      {{else}}
+        <span class="badge">High Flow Limit {{highFlowLimit}}</span>
+      {{/if}}
+
     {{/if}}
 
     <span class="badge">Valve Size {{zone.valveSize}}</span>
-    <span class="badge">PPG {{zone.ppg}}</span>
+    <span class="badge">{{gpmInLocalUnits}}</span>
 
-    {{#if isLowFlowLimitOff}}
-      <span class="badge weathermatic-badge-warning">Low Flow Limit Off</span>
-    {{else}}
-      <span class="badge">Low Flow Limit {{lowFlowLimit}}</span>
-    {{/if}}
-
-    {{#if isHighFlowLimitOff}}
-      <span class="badge weathermatic-badge-warning">High Flow Limit Off</span>
-    {{else}}
-      <span class="badge">High Flow Limit {{highFlowLimit}}</span>
-    {{/if}}
   </p>
 
 {{/link-to}}

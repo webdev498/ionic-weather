@@ -6,5 +6,6 @@ SmartlinkControllerSettingsEditFlowView = RatchetToggleView.extend
     @bindToggleProperty('#weathermatic-toggle-realtime-flow-enabled', 'controller.model.realtimeFlowEnabled')
     @bindToggleProperty('#weathermatic-toggle-low-flow',              'controller.isLowFlowLimitEnabled')
     @bindToggleProperty('#weathermatic-toggle-high-flow',             'controller.isHighFlowLimitEnabled')
+    @set('controller.__pageLoaded', true)
 
 `export default SmartlinkControllerSettingsEditFlowView`

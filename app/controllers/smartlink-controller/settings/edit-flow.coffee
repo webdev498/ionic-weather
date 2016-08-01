@@ -12,15 +12,13 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
 
   initAvailableValveSizes: ->
     @set 'availableValveSizes', [
-      { label: '0.75"', value: 0.75 }
-      { label: '1.00"', value: 1.00 }
-      { label: '1.25"', value: 1.25 }
-      { label: '1.50"', value: 1.50 }
-      { label: '1.75"', value: 1.75 }
-      { label: '2.00"', value: 2.00 }
-      { label: '3.00"', value: 3.00 }
-      { label: '4.00"', value: 4.00 }
-    ]
+      0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0, 4.0
+    ].map( (size) =>
+      {
+        label: @sizeInLocalUnits(size)
+        value: size
+      }
+    )
 
   initAvailablePPGOptions: ->
     @set 'availablePPGOptions', [
@@ -66,6 +64,25 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
 
   timeoutThresholdMillis: 20000
 
+  valveSizeDidChange: Ember.observer 'model.valveSize', ->
+    return if @get('model.smartlinkController.isRealtimeFlow')
+    # __pageLoaded works around the fact that change occurs while loading, I guess to
+    # set the initial values. We only want to run this observer if the user actually
+    # changes the controllers. The view sets __pageLoaded in a didInsertElement.
+    return unless @get('__pageLoaded')
+    valveSize = @get('model.valveSize')
+    gpm = {
+      0:    0
+      0.75: 10
+      1.0:  16
+      1.25: 26
+      1.5:  35
+      2.0:  35
+      2.5:  80
+      3.0:  120
+    }[valveSize]
+    @set('model.gpm', gpm) if gpm?
+
   actions: {
     save: -> (
       if @get('isHighFlowLimitDisabled')
@@ -83,9 +100,10 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
             high_flow_limit:       @get('model.highFlowLimit')
             valve_size:            @get('model.valveSize')
             ppg:                   @get('model.ppg')
+            gpm:                   @get('model.gpm')
           } }
       ).then =>
-        @set('model.hasUnsentChanges', true)
+        @set('model.smartlinkController.hasUnsentChanges', true)
     )
   }
 

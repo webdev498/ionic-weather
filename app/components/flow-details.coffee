@@ -18,6 +18,9 @@ FlowDetailsComponent = Ember.Component.extend(MetricFlowMixin,
   isHighFlowLimitOff: Ember.computed 'zone.highFlowLimit', ->
     @get('zone.highFlowLimit') == Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER
 
+  gpmInLocalUnits: Ember.computed 'isMetricEnabled', ->
+    @flowInLocalUnits(@get('zone.gpm'))
+
 )
 
 `export default FlowDetailsComponent`
