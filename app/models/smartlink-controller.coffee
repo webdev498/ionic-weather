@@ -36,6 +36,8 @@ SmartlinkController = DS.Model.extend
   interzoneDelay:           DS.attr 'number'
   mvZoneOnDelay:            DS.attr 'number'
   mvZoneOffDelay:           DS.attr 'number'
+  mv2ZoneOnDelay:           DS.attr 'number'
+  mv2ZoneOffDelay:          DS.attr 'number'
   winterized:               DS.attr 'boolean'
   minDeficit:               DS.attr 'number'
   deviceTime:               DS.attr 'string'

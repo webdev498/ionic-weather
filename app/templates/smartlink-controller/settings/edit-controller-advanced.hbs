@@ -51,6 +51,24 @@
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
     </li>
+
+    {{#if model.hasSecondMasterValve}}
+      <li class="table-view-cell">
+        <span>Master Valve 2 / Zone-on Delay</span>
+        <span class="pull-right weathermatic-settings-input-medium">
+          {{view 'select' content=availableMasterValveZoneOnDelay value=model.mv2ZoneOnDelay
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+        </span>
+      </li>
+      <li class="table-view-cell">
+        <span>Master Valve 2 / Zone-off Delay</span>
+        <span class="pull-right weathermatic-settings-input-medium">
+          {{view 'select' content=availableMasterValveZoneOffDelay value=model.mv2ZoneOffDelay
+            optionLabelPath='content.label' optionValuePath='content.value'}}
+        </span>
+      </li>
+    {{/if}}
+
     <li class="table-view-cell">
       <span>Minimum Deficit</span>
       <span class="pull-right weathermatic-settings-input-small">

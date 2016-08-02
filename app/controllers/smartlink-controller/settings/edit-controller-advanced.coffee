@@ -122,6 +122,8 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
             interzone_delay:      @get('model.interzoneDelay')
             mv_zone_on_delay:     @get('model.mvZoneOnDelay')
             mv_zone_off_delay:    @get('model.mvZoneOffDelay')
+            mv2_zone_on_delay:    @get('model.mv2ZoneOnDelay')
+            mv2_zone_off_delay:   @get('model.mv2ZoneOffDelay')
             min_deficit:          @get('model.minDeficit')
             dst_start_day:        @get('model.dstStartDay')
             dst_start_week:       @get('model.dstStartWeek')
