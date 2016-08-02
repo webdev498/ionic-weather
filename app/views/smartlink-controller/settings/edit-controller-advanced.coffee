@@ -5,6 +5,7 @@ SmartlinkControllerSettingsEditControllerAdvancedView = RatchetToggleView.extend
     this._super()
     @bindToggleProperty('#weathermatic-toggle-automatically-set-time', 'controller.model.autoSetTime')
     @bindToggleProperty('#weathermatic-toggle-dst-enabled', 'controller.model.dstEnabled')
+    @bindToggleProperty('#weathermatic-toggle-winterized', 'controller.model.winterized')
 })
 
 `export default SmartlinkControllerSettingsEditControllerAdvancedView`

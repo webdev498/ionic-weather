@@ -130,6 +130,7 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
             dst_stop_week:        @get('model.dstStopWeek')
             dst_stop_month:       @get('model.dstStopMonth')
             comm_error_interval:  @get('model.commErrorInterval')
+            winterized:           @get('model.winterized')
           }
         }
       ).then =>
