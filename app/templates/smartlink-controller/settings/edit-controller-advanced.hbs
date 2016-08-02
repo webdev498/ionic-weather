@@ -67,6 +67,12 @@
             optionLabelPath='content.label' optionValuePath='content.value'}}
         </span>
       </li>
+      <li class="table-view-cell">
+        <span>Max Concurrent Programs</span>
+        <span class="pull-right weathermatic-settings-input-small">
+          {{view 'select' content=availableMaxConcurrentProgramgs value=model.maxConcurrentPrograms}}
+        </span>
+      </li>
     {{/if}}
 
     <li class="table-view-cell">

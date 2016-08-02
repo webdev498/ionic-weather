@@ -55,6 +55,7 @@ SmartlinkController = DS.Model.extend
   hasDripZoneConstraint:    DS.attr 'boolean'
   commErrorInterval:        DS.attr 'number'
   hasSecondMasterValve:     DS.attr 'boolean'
+  maxConcurrentPrograms:    DS.attr 'number'
 
   site:                 DS.belongsTo 'site',        async: true
 
