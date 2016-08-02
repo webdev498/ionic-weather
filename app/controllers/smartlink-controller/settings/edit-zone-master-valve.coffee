@@ -1,6 +1,21 @@
 `import Ember from 'ember'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 
+setMv1Params = (zone, params) ->
+  key = "zone-#{zone.get('id')}-mv-enable"
+  if zone.get('mvEnabled')
+    params[key] = 'on'
+  else
+    params[key] = 'off'
+
+setMv2Params = (zone, params) ->
+  return unless zone.get('smartlinkController.hasSecondMasterValve')
+  key = "zone-#{zone.get('id')}-mv2-enable"
+  if zone.get('mv2Enabled')
+    params[key] = 'on'
+  else
+    params[key] = 'off'
+
 SmartlinkControllerSettingsEditZoneMasterValveController = Ember.Controller.extend(SmartlinkSaveMixin, {
 
   saveUrl: Ember.computed 'model.id', ->
@@ -11,11 +26,8 @@ SmartlinkControllerSettingsEditZoneMasterValveController = Ember.Controller.exte
     save: ->
       zoneParams = {}
       @get('model.zones').forEach (zone) ->
-        key = "zone-#{zone.get('id')}-mv-enable"
-        if zone.get('mvEnabled')
-          zoneParams[key] = 'on'
-        else
-          zoneParams[key] = 'off'
+        setMv1Params(zone, zoneParams)
+        setMv2Params(zone, zoneParams)
 
       @save(
         showLoadingModal: false

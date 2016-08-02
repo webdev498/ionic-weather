@@ -21,6 +21,7 @@ Zone = DS.Model.extend
   ignoreFreeze:        DS.attr 'boolean'
   ignoreSensor:        DS.attr 'boolean'
   mvEnabled:           DS.attr 'boolean'
+  mv2Enabled:          DS.attr 'boolean'
 
   smartlinkController: DS.belongsTo 'smartlinkController', async: true
   programZones: DS.hasMany 'program-zone', async: false

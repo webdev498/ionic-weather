@@ -15,7 +15,6 @@ EditZoneComponent = Ember.Component.extend(RatchetToggle,
   didInsertElement: ->
     this._super()
     self = this
-    @set('timesRun', @get('timesRun') + 1)
     @setupRatchetToggles()
     @bindToggleProperty("##{@get('toggleId')}", "zone.#{@get('field')}")
 

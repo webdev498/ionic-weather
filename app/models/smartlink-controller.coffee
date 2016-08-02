@@ -52,6 +52,7 @@ SmartlinkController = DS.Model.extend
   hasUnsentChanges:         DS.attr 'boolean'
   hasDripZoneConstraint:    DS.attr 'boolean'
   commErrorInterval:        DS.attr 'number'
+  hasSecondMasterValve:     DS.attr 'boolean'
 
   site:                 DS.belongsTo 'site',        async: true
 

@@ -64,7 +64,6 @@ SmartlinkSaveMixin = Ember.Mixin.create(
       timeoutWatcher = Ember.run.later(this, ->
         reject new Error(options.errorMessage || defaultErrorMessage)
       , timeoutThresholdMillis)
-
       ajaxOptions = {
         type: httpMethod
         data: JSON.stringify(allParams)

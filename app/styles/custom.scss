@@ -600,3 +600,27 @@ div.ember-view.liquid-child {
     margin-right: -35px;
   }
 }
+
+.toggle-row {
+  margin-right: -50px;
+  margin-top: 8px;
+  width: 165px;
+  float: right;
+
+  .toggle {
+    margin-left: 8px;
+  }
+}
+
+.zone-mv-label {
+  font-weight: bold;
+
+  .zone-mv-label-numbers {
+    float: right;
+    margin-right: -25px;
+  }
+
+  .zone-mv-label-1 {
+    margin-right: 60px;
+  }
+}

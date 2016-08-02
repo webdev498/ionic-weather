@@ -10,8 +10,22 @@
   {{need-send-message smartlinkController=model transmit='transmit'}}
 
   <ul class="table-view">
+    {{#if model.hasSecondMasterValve}}
+      <li class="table-view-cell table-view-divider zone-mv-label">
+        <span>Master valve</span>
+        <div class="zone-mv-label-numbers">
+          <span class="zone-mv-label-1">#1</span>
+          <span class="zone-mv-label-2">#2</span>
+        </div>
+      </li>
+    {{/if}}
+
     {{#each model.zones as |zone|}}
-      {{edit-zone zone=zone field='mvEnabled' save='save'}}
+      {{#if model.hasSecondMasterValve}}
+        {{edit-zone-master-valve zone=zone save='save'}}
+      {{else}}
+        {{edit-zone zone=zone field='mvEnabled' save='save'}}
+      {{/if}}
     {{/each}}
   </ul>
 </div>
