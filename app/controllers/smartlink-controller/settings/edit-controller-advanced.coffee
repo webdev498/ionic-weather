@@ -115,8 +115,13 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
 
   actions: {
     save: -> (
+      if @get('model').needsTransmit()
+        saveMessage = null
+      else
+        saveMessage = 'Successfully saved settings'
       @save(
         url: @get('saveUrl')
+        saveMessage: saveMessage
         params: {
           auto_set_time: if @get('model.autoSetTime') then 'on' else null
           dst_enabled:   if @get('model.dstEnabled') then 'on' else null
@@ -142,7 +147,8 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
           }
         }
       ).then =>
-        @set('model.hasUnsentChanges', true)
+        @set('model.hasUnsentChanges', true) if @get('model').needsTransmit()
+        @get('model').clearChangedAttributes()
     )
   }
 

@@ -14,17 +14,19 @@ SmartlinkSaveMixin = Ember.Mixin.create(
 
   defaultTimeoutThresholdMillis: 20000
 
+  defaultSaveMessage: 'Your changes have been saved to SmartLink Network, but will still need to be transmitted to your controller to take effect.'
+
   config: Ember.computed ->
     @container.lookupFactory('config:environment')
 
   baseUrl: Ember.computed 'config.apiUrl', ->
     @get('config.apiUrl')
 
-  openLoadingModal: -> (
+  openLoadingModal: (message) -> (
     if !@get('loadingModal')
       Ember.Logger.debug('Cannot open loading modal, loadingModal does not exist!')
       return
-    @get('loadingModal').send('open')
+    @get('loadingModal').send('open', message)
   )
 
   closeLoadingModal: -> (
@@ -46,7 +48,13 @@ SmartlinkSaveMixin = Ember.Mixin.create(
 
   save: (options={}) -> (
     self = this
-    @openLoadingModal() unless options.showLoadingModal == false
+
+    if options.saveMessage == false
+      saveMessage = ''
+    else
+      saveMessage = options.saveMessage ||  @defaultSaveMessage
+
+    @openLoadingModal(saveMessage) unless options.showLoadingModal == false
 
     unless options.params?
       options.params = {}
@@ -105,6 +113,12 @@ SmartlinkSaveMixin = Ember.Mixin.create(
 
   saveAll: (options=[]) -> (
     self = this
+
+    if options.saveMessage == false
+      saveMessage = ''
+    else
+      saveMessage = options.saveMessage || @defaultSaveMessage
+
     @openLoadingModal()
 
     unless options.params?
@@ -177,9 +191,10 @@ SmartlinkSaveMixin = Ember.Mixin.create(
       @closeLoadingModal()
 
     transmit: (smartlinkController) ->
-      Ember.Logger.debug 'TransmitMixin transmit action called, with smartlink controller:', smartlinkController
+      Ember.Logger.debug 'SmartlinkSaveMixin transmit action called, with smartlink controller:', smartlinkController
       @save(
         url: @transmitUrl(smartlinkController.get('id'))
+        saveMessage: 'Successfully saved your settings to the Smartlink controller'
       ).catch( (errors) ->
         alert errors.join('. ')
       ).then( =>

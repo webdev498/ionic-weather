@@ -124,5 +124,22 @@ SmartlinkController = DS.Model.extend
   programD: Ember.computed 'programs.@each.id', ->
     @get('programs').findBy('identifier', 'D')
 
+  skipTransmitAttrs: ['commErrorInterval', 'winterized', 'autoSetTime', 'hasUnsentChanges']
+
+  needsTransmit: ->
+    needsTransmit = false
+    Object.keys(@changedAttributes()).forEach (attr) =>
+      if !@skipTransmitAttrs.includes(attr)
+        needsTransmit = true
+    return needsTransmit
+
+  clearChangedAttributes: ->
+    # LOL! suck it ember data!
+    # Since we don't use [ember-data model].save, but instead
+    # use our own SmartlinkSave mixin to do ajax calls out of band
+    # from ember-data (because our APIs are kinda weird), sometimes
+    # we need to tell ember-data that yes, we have actually saved the
+    # model, even though .save() was never actually called.
+    @set '_attributes', {}
 
 `export default SmartlinkController`

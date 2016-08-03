@@ -53,8 +53,9 @@ LoadingModalComponent = ModalDialogComponent.extend InboundActions,
       @set('instruction', instruction)
       @send('open')
 
-    open: ->
+    open: (message) ->
       @set('isActive', true)
+      @set('saveMessage', message)
 
     close: ->
       if this.isDestroyed
@@ -68,7 +69,7 @@ LoadingModalComponent = ModalDialogComponent.extend InboundActions,
       @stopPolling()
       @sendAction('loadingAbandoned')
 
-    finished: ->
+    finished: (message) ->
       @stopPolling()
       @set 'isLoadingFinished', true
       Ember.run.later((=>
