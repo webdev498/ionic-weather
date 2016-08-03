@@ -1,8 +1,7 @@
 `import Ember from 'ember'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
-`import TransmitMixin from '../../../mixins/transmit'`
 
-SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.extend(SmartlinkSaveMixin, TransmitMixin, {
+SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.extend(SmartlinkSaveMixin, {
 
   init: ->
     @initAvailableHours()
