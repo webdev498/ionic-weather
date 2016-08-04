@@ -1,11 +1,18 @@
 #!/bin/bash
 set -e
 
+############################################
+#  Optional environment variables
+# NO_VER        set to skip incrementing the build version number
+# EMBER_ENV     set to 'development', 'staging', etc, defaults to 'production'?
+############################################
+
+
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 CORDOVA_DIR=$DIR/../cordova
 APP_VERSION=$(($(cat $CORDOVA_DIR/android-last-build-version) + 1))
 ANDROID_PROJECT_DIR=$CORDOVA_DIR/platforms/android
-ANDROID_BUILD_TOOLS_VERSION=22.0.1
+ANDROID_BUILD_TOOLS_VERSION=24.0.1
 KEYSTORE=$DIR/../smartlink.keystore
 KEYSTORE_PASSWORD="Savewatern0w1"
 KEY_ALIAS="smartlinkmobile"
@@ -35,9 +42,9 @@ if [ ! -f $KEYSTORE ]; then
 fi
 
 function msg {
-  echo "============================================"
-  echo "$1"
-  echo "============================================"
+  echo -e "============================================"
+  echo -e "$1"
+  echo -e "============================================"
 }
 
 msg "Removing old android project"
@@ -109,3 +116,6 @@ msg "Signing apk file"
 
  msg "Aligning signed apk file"
  $ZIPALIGN_BINARY -v 4 $UNSIGNED_APK_FILE $FINAL_APK_FILE
+
+
+msg "APK file:\n\n $FINAL_APK_FILE"
