@@ -4,12 +4,12 @@ set -e
 if [  "$SKIP_PLUGINS" ]; then
   echo "SKIP_PLUGINS was set, will not install new cordova plugins (relying on cached ones)"
 else
-  ember cordova plugin add org.apache.cordova.geolocation
-  ember cordova plugin add org.apache.cordova.statusbar
-  ember cordova plugin add org.apache.cordova.console
-  ember cordova plugin add org.apache.cordova.device
+  ember cordova plugin add cordova-plugin-geolocation
+  ember cordova plugin add cordova-plugin-statusbar
+  ember cordova plugin add cordova-plugin-console
+  ember cordova plugin add cordova-plugin-device
   ember cordova plugin add cordova-plugin-whitelist
-  ember cordova plugin add org.apache.cordova.inappbrowser
+  ember cordova plugin add cordova-plugin-inappbrowser
   ember cordova plugin add https://github.com/whiteoctober/cordova-plugin-app-version.git
-fi;
+fi ;
 
