@@ -10,7 +10,7 @@
   {{need-send-message smartlinkController=model transmit='transmit'}}
 
   <ul class="table-view weathermatic-page-bottom">
-    {{#each model.zones as |zone|}}
+    {{#each model.activeZones as |zone|}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.settings.edit-program-run-time' zone.id}}
           {{#if zone.description}}

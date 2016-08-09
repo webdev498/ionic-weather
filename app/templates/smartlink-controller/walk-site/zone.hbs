@@ -195,7 +195,7 @@
 
   <div class="content weathermatic-content">
     <ul class="table-view weathermatic-page-bottom">
-      {{#each zone in model.smartlinkController.zones}}
+      {{#each zone in model.smartlinkController.activeZones}}
         <li class="table-view-cell high-contrast">
           <a href="javascript:void(0)" class="push-right" {{action 'jumpToZone' zone}}>
             {{#if zone.description}}

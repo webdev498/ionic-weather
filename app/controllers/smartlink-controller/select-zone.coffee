@@ -1,6 +1,6 @@
 `import Ember from 'ember'`
 
-SmartlinkControllerSelectZoneController = Ember.ArrayController.extend
+SmartlinkControllerSelectZoneController = Ember.Controller.extend
   needs: ['smartlinkController']
   smartlinkController: Ember.computed.alias 'controllers.smartlinkController.model'
 

@@ -1,6 +1,6 @@
 `import Ember from 'ember'`
 
-SmartlinkControllerSelectValvesController = Ember.ArrayController.extend
+SmartlinkControllerSelectValvesController = Ember.Controller.extend
   needs: ['smartlinkController']
   smartlinkController: Ember.computed.alias 'controllers.smartlinkController.model'
 

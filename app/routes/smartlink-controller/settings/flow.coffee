@@ -7,7 +7,7 @@ SmartlinkControllerSettingsFlowRoute = Ember.Route.extend(AuthenticatedRouteMixi
     smartlinkController.get('zones').then (zones) ->
       {
         smartlinkController
-        zones
+        zones: zones.filterBy('active', true)
       }
 })
 

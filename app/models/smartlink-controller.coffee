@@ -124,6 +124,9 @@ SmartlinkController = DS.Model.extend
   programD: Ember.computed 'programs.@each.id', ->
     @get('programs').findBy('identifier', 'D')
 
+  activeZones: Ember.computed 'zones.@each.active', ->
+    @get('zones').filterBy('active', true)
+
   skipTransmitAttrs: ['commErrorInterval', 'winterized', 'autoSetTime', 'hasUnsentChanges']
 
   needsTransmit: ->

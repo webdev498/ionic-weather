@@ -1,8 +1,10 @@
 `import Ember from 'ember'`
 `import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin'`
 
-SmartlinkControllerSelectZoneRoute = Ember.Route.extend AuthenticatedRouteMixin,
+SmartlinkControllerSelectZoneRoute = Ember.Route.extend(AuthenticatedRouteMixin, {
   model: (params) ->
-    @modelFor('smartlinkController').get('zones')
+    @modelFor('smartlinkController').get('zones').then (zones) ->
+      zones.filterBy('active', true)
+})
 
 `export default SmartlinkControllerSelectZoneRoute`

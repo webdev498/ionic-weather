@@ -12,16 +12,8 @@
     <li class="table-view-cell table-view-divider weathermatic-select-program-call-to-action">
       {{fa-icon 'play'}} Select a Program
     </li>
-    {{#each program in controller}}
-      <li {{bind-attr class=':table-view-cell :weathermatic-select-program program.cssClass'}}>
-        {{#link-to 'smartlink-controller.run-program' program.model.id class='push-right'}}
-          <h3>Run Program {{upper-case program.model.identifier}}</h3>
-          {{#if program.model.description.length}}
-            <p class="weathermatic-program-description">{{short-text program.model.description}}</p>
-          {{/if}}
-        {{/link-to}}
-        <br>
-      </li>
+    {{#each program in model}}
+      {{select-program-item program=program}}
     {{else}}
       <li class="table-view-cell weathermatic-error-list-item">
         <center>

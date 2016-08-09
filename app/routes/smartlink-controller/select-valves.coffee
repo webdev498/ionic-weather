@@ -3,6 +3,7 @@
 
 SmartlinkControllerSelectValvesRoute = Ember.Route.extend AuthenticatedRouteMixin,
   model: (params) ->
-    @modelFor('smartlinkController').get('zones')
+    @modelFor('smartlinkController').get('zones').then (zones) ->
+      zones.filterBy('active', true)
 
 `export default SmartlinkControllerSelectValvesRoute`

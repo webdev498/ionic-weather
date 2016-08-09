@@ -3,7 +3,8 @@
 
 SmartlinkControllerWalkSiteIndexRoute = Ember.Route.extend AuthenticatedRouteMixin,
   model: ->
-    @modelFor('smartlink-controller').get('zones')
+    @modelFor('smartlink-controller').get('zones').then (zones) ->
+      zones.filterBy('active', true)
 
   redirect: (model, transition) ->
     zone = model.get('firstObject')
