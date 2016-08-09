@@ -39,7 +39,8 @@
     "ember-data": "1.0.0-beta.16.1",
     "ember-export-application-global": "^1.0.2",
     "ember-moment": "1.1.1",
-    "liquid-fire": "^0.19.3"
+    "liquid-fire": "^0.19.3",
+    "npm": "2.14.3"
   },
   "dependencies": {
     "ember-component-inbound-actions": "0.0.3",
