@@ -17,10 +17,8 @@ MetricFlowMixin = Ember.Mixin.create(CurrentUserMixin,
       'GPM'
 
   flowInLocalUnits: (flow) ->
-    if @get('isMetricEnabled')
-      flow = flow * LPM_PER_GPM
-    flow = formatDecimal(flow)
-    "#{@flowValueInLocalUnits(flow)} #{@get('flowUnits')}"
+    val = formatDecimal(@flowValueInLocalUnits(flow))
+    "#{val} #{@get('flowUnits')}"
 
   flowValueInLocalUnits:  (flow) ->
     if @get('isMetricEnabled')
