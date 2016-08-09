@@ -53,25 +53,25 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
       omissionDay.get('day')
 
   isSundaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(0)
+    @get('omissionDayNumbers').indexOf(0) >= 0
 
   isMondaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(1)
+    @get('omissionDayNumbers').indexOf(1) >= 0
 
   isTuesdaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(2)
+    @get('omissionDayNumbers').indexOf(2) >= 0
 
   isWednesdaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(3)
+    @get('omissionDayNumbers').indexOf(3) >= 0
 
   isThursdaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(4)
+    @get('omissionDayNumbers').indexOf(4) >= 0
 
   isFridaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(5)
+    @get('omissionDayNumbers').indexOf(5) >= 0
 
   isSaturdaySelected: Ember.computed 'omissionDayNumbers', ->
-    @get('omissionDayNumbers').includes(6)
+    @get('omissionDayNumbers').indexOf(6) >= 0
 
   omissionTime: Ember.computed 'model.omissionTimes.length', ->
     @get('model.omissionTimes.firstObject') || @get('model.omissionTimes').createRecord()

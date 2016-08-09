@@ -129,7 +129,7 @@ SmartlinkController = DS.Model.extend
   needsTransmit: ->
     needsTransmit = false
     Object.keys(@changedAttributes()).forEach (attr) =>
-      if !@skipTransmitAttrs.includes(attr)
+      if @skipTransmitAttrs.indexOf(attr) < 0
         needsTransmit = true
     return needsTransmit
 
