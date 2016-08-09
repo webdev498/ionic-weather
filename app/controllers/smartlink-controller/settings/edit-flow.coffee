@@ -64,6 +64,16 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
 
   timeoutThresholdMillis: 20000
 
+  gpmInLocalUnits: Ember.computed 'model.gpm', 'isMetricEnabled', ->
+    @flowValueInLocalUnits(@get('model.gpm'))
+
+  gpmGallons: Ember.computed 'gpmInLocalUnits', 'isMetricEnabled', ->
+    value = @get('gpmInLocalUnits')
+    if @get('isMetricEnabled')
+      @lpmToGpm(value)
+    else
+      value
+
   valveSizeDidChange: Ember.observer 'model.valveSize', ->
     return if @get('model.smartlinkController.isRealtimeFlow')
     # __pageLoaded works around the fact that change occurs while loading, I guess to
@@ -100,7 +110,7 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
             high_flow_limit:       @get('model.highFlowLimit')
             valve_size:            @get('model.valveSize')
             ppg:                   @get('model.ppg')
-            gpm:                   @get('model.gpm')
+            gpm:                   @get('gpmGallons')
           } }
       ).then =>
         @set('model.smartlinkController.hasUnsentChanges', true)

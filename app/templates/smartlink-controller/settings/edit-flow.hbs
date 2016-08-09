@@ -12,9 +12,9 @@
   <ul class="table-view">
     {{#if model.smartlinkController.isVirtualFlow}}
       <li class="table-view-cell">
-        <span>Flow Rate GPM</span>
+        <span>Flow Rate {{flowUnits}}</span>
         <span class="pull-right weathermatic-settings-input-medium">
-          {{input type='number' value=model.gpm}}
+          {{input type='number' value=gpmInLocalUnits}}
         </span>
         <div style="clear: both;"></div>
       </li>
@@ -33,6 +33,7 @@
           <div class="toggle-handle"></div>
         </div>
       </li>
+
       <li class="table-view-cell">
         <span class="{{if isLowFlowLimitDisabled 'weathermatic-disabled'}}">
           Low Flow {{flowUnits}}

@@ -2,6 +2,7 @@
 `import CurrentUserMixin from './current-user'`
 
 VOLUME_MEASURE_LITERS = 1
+LPM_PER_GPM = 3.78541178
 
 formatDecimal = (n) -> parseFloat(Math.round(n * 100) / 100).toFixed(2)
 
@@ -17,9 +18,18 @@ MetricFlowMixin = Ember.Mixin.create(CurrentUserMixin,
 
   flowInLocalUnits: (flow) ->
     if @get('isMetricEnabled')
-      flow = flow * 3.78541178
+      flow = flow * LPM_PER_GPM
     flow = formatDecimal(flow)
-    "#{flow} #{@get('flowUnits')}"
+    "#{@flowValueInLocalUnits(flow)} #{@get('flowUnits')}"
+
+  flowValueInLocalUnits:  (flow) ->
+    if @get('isMetricEnabled')
+      flow = flow * LPM_PER_GPM
+    flow = formatDecimal(flow)
+    return flow
+
+  lpmToGpm: (flow) ->
+    flow / LPM_PER_GPM
 
   sizeUnits: Ember.computed 'isMetricEnabled', ->
     if @get('isMetricEnabled')
