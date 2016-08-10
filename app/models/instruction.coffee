@@ -13,6 +13,7 @@ Instruction = DS.Model.extend
   startedAt:        DS.attr 'string'
   endedAt:          DS.attr 'string'
   delayRunTime:     DS.attr 'string'
+  messsage:         DS.attr 'message'
 
   controller: DS.belongsTo 'smartlink-controller', async: true
 

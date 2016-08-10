@@ -16,7 +16,6 @@ LoadingModalComponent = ModalDialogComponent.extend InboundActions,
     else
       @get('instruction.status')
 
-
   instructionDidChange: Ember.observer 'instruction.statusId', ->
     return unless @get('instruction')
     switch
@@ -64,6 +63,7 @@ LoadingModalComponent = ModalDialogComponent.extend InboundActions,
       @set('isActive', false)
       @set('instruction', null)
       @set('isLoadingFinished', false)
+      Ember.run.cancel(@get('autoCloseLater')) if @get('autoCloseLater')?
 
     abandon: ->
       @stopPolling()
@@ -72,8 +72,9 @@ LoadingModalComponent = ModalDialogComponent.extend InboundActions,
     finished: (message) ->
       @stopPolling()
       @set 'isLoadingFinished', true
-      Ember.run.later((=>
+      autoClose = Ember.run.later((=>
         @send('close')
       ), 3000)
+      @set 'autoCloseLater', autoClose
 
 `export default LoadingModalComponent`

@@ -1,4 +1,5 @@
 `import Ember from 'ember'`
+`import Instruction from '../models/instruction'`
 
 buildErrors = (response) -> (
   Ember.get(response, 'meta.errors') || [{
@@ -13,6 +14,8 @@ SmartlinkSaveMixin = Ember.Mixin.create(
   errors: {}
 
   defaultTimeoutThresholdMillis: 20000
+
+  defaultInstructionPollingInterval: 1000
 
   defaultSaveMessage: 'Your changes have been saved to SmartLink Network, but will still need to be transmitted to your controller to take effect.'
 
@@ -60,6 +63,8 @@ SmartlinkSaveMixin = Ember.Mixin.create(
       options.params = {}
 
     timeoutWatcher = null
+    instructionStatusPoller = null
+
     timeoutThresholdMillis = options.timeoutThresholdMillis || @defaultTimeoutThresholdMillis
 
     allParams = Ember.merge(options.params, {
@@ -93,20 +98,34 @@ SmartlinkSaveMixin = Ember.Mixin.create(
       Ember.$.ajax(options.url, ajaxOptions)
     )
 
-    savePromise.then( ->
+    savePromise.then( (response) ->
       self.set('errors', {})
+
+      loadingModal = self.get('loadingModal')
+
+      if options.pollInstructionStatus
+        pollingIntervalMillis = options.pollingIntervalMillis || self.defaultInstructionPollingInterval
+
+        self.get('store').pushPayload('instruction', response.result)
+        return self.get('store').find('instruction', response.result.instruction.id).then (instruction) ->
+          self.pollInstructionStatus(pollingIntervalMillis, instruction)
+
+
       if options.successRoute?
         self.transitionToRoute(options.successRoute, options.successModel)
+        return
+
+      if loadingModal?
+        loadingModal.send('finished')
       else
-        if self.get('loadingModal')?
-          self.get('loadingModal').send('finished')
-        else
-          Ember.Logger.debug('Cannot send finished action to loading modal, loadingModal does not exist!')
+        Ember.Logger.debug('Cannot send finished action to loading modal, loadingModal does not exist!')
+
     ).catch( (errors) ->
       self.closeLoadingModal()
-      self.set 'errors', errors
+      self.set 'errors', errors unless options.pollInstructionStatus
     ).finally ->
       Ember.run.cancel(timeoutWatcher) if timeoutWatcher
+      Ember.run.cancel(instructionStatusPoller) if instructionStatusPoller
 
     return savePromise
   )
@@ -183,6 +202,26 @@ SmartlinkSaveMixin = Ember.Mixin.create(
     return allPromises
   )
 
+  pollInstructionStatus: (delayMillis, instruction) ->
+    delayMillis = delayMillis || @defaultInstructionPollingInterval
+    statusId = Ember.get(instruction, 'statusId')
+    loadingModal = @get('loadingModal')
+    self = this
+
+    Ember.Logger.debug 'Polling instruction status: ', statusId
+
+    switch statusId
+      when Instruction.STATUS_ERROR
+        Ember.Logger.error "Instruction failed", instruction
+        alert Ember.get(instruction, 'message')
+      when Instruction.STATUS_FINISHED
+        Ember.Logger.debug 'Instruction finished successfully', instruction
+        loadingModal.send('finished') if loadingModal?
+        return
+      else
+        instruction.reload().then (instruction) ->
+          Ember.run.later(self, self.pollInstructionStatus, delayMillis, instruction, delayMillis)
+
   transmitUrl: (smartlinkControllerId) ->
     "#{@get('config.apiUrl')}/api/v2/controllers/#{smartlinkControllerId}/transmit"
 
@@ -190,15 +229,19 @@ SmartlinkSaveMixin = Ember.Mixin.create(
     loadingAbandoned: ->
       @closeLoadingModal()
 
+    loadingFinished: ->
+      @closeLoadingModal()
+
     transmit: (smartlinkController) ->
       Ember.Logger.debug 'SmartlinkSaveMixin transmit action called, with smartlink controller:', smartlinkController
       @save(
         url: @transmitUrl(smartlinkController.get('id'))
+        pollInstructionStatus: true
         saveMessage: 'Successfully saved your settings to the Smartlink controller'
-      ).catch( (errors) ->
-        alert errors.join('. ')
       ).then( =>
         smartlinkController.set('hasUnsentChanges', false)
+      ).catch( (errors) ->
+        alert errors.join('. ')
       )
   }
 )
