@@ -22,6 +22,8 @@ Zone = DS.Model.extend
   ignoreSensor:        DS.attr 'boolean'
   mvEnabled:           DS.attr 'boolean'
   mv2Enabled:          DS.attr 'boolean'
+  runningAverageFlow:  DS.attr 'number'
+  currentAverageFlow:  DS.attr 'number'
 
   smartlinkController: DS.belongsTo 'smartlinkController', async: true
   programZones: DS.hasMany 'program-zone', async: false

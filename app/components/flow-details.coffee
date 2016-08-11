@@ -21,6 +21,9 @@ FlowDetailsComponent = Ember.Component.extend(MetricFlowMixin,
   gpmInLocalUnits: Ember.computed 'isMetricEnabled', ->
     @flowInLocalUnits(@get('zone.gpm'))
 
+  valveSizeInLocalUnits: Ember.computed 'zone.valveSize', 'isMetricEnabled', ->
+    @sizeInLocalUnits(@get('zone.valveSize'))
+
 )
 
 `export default FlowDetailsComponent`

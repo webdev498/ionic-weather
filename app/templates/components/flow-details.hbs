@@ -26,11 +26,14 @@
       {{else}}
         <span class="badge">High Flow Limit {{highFlowLimit}}</span>
       {{/if}}
+
+      <span class="badge">Running Avg {{format-decimal zone.runningAverageFlow decimalPlaces=1}} {{flowUnits}}</span>
+      <span class="badge">Current Avg {{format-decimal zone.currentAverageFlow decimalPlaces=1}} {{flowUnits}}</span>
     {{else}}
       <span class="badge">{{gpmInLocalUnits}}</span>
     {{/if}}
 
-    <span class="badge">Valve Size {{format-decimal zone.valveSize}}</span>
+    <span class="badge">Valve Size {{valveSizeInLocalUnits}}</span>
   </p>
 
 {{/link-to}}
