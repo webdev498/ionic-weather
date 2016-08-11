@@ -223,6 +223,15 @@ h2 {
   }
 }
 
+.weathermatic-settings-input-medium-2 {
+  margin-right: -2.7em;
+  select,input {
+    margin: 0;
+    width: 110px;
+    color: #000 !important;
+  }
+}
+
 .weathermatic-settings-input-large {
   margin-right: -2.7em;
   select,input {

@@ -38,7 +38,7 @@
         <span class="{{if isLowFlowLimitDisabled 'weathermatic-disabled'}}">
           Low Flow {{flowUnits}}
         </span>
-        <span class="{{if isLowFlowLimitDisabled 'invisible'}} pull-right weathermatic-settings-input-medium">
+        <span class="{{if isLowFlowLimitDisabled 'invisible'}} pull-right weathermatic-settings-input-medium-2">
           {{view 'select' content=availableLowFlowValues value=model.lowFlowLimit
             optionLabelPath='content.label' optionValuePath='content.value' disabled=isLowFlowLimitDisabled}}
         </span>
@@ -58,7 +58,7 @@
             GPM
           {{/if}}
         </span>
-        <span class="{{if isHighFlowLimitDisabled 'invisible'}} pull-right weathermatic-settings-input-medium">
+        <span class="{{if isHighFlowLimitDisabled 'invisible'}} pull-right weathermatic-settings-input-medium-2">
           {{view 'select' content=availableHighFlowValues value=model.highFlowLimit
             optionLabelPath='content.label' optionValuePath='content.value' disabled=isHighFlowLimitDisabled}}
         </span>
@@ -67,7 +67,7 @@
     {{/if}}
     <li class="table-view-cell">
       <span class="pull-left">Valve Size</span>
-      <span class="pull-right weathermatic-settings-input-medium">
+      <span class="pull-right weathermatic-settings-input-medium-2">
         {{view 'select' content=availableValveSizes value=model.valveSize
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>

@@ -14,7 +14,6 @@
         <span class="badge weathermatic-badge-warning">Shutdown Disabled</span>
       {{/if}}
 
-      <span class="badge">PPG {{zone.ppg}}</span>
 
       {{#if isLowFlowLimitOff}}
         <span class="badge weathermatic-badge-warning">Low Flow Limit Off</span>
@@ -27,12 +26,12 @@
       {{else}}
         <span class="badge">High Flow Limit {{highFlowLimit}}</span>
       {{/if}}
-
+    {{else}}
+      <span class="badge">PPG {{zone.ppg}}</span>
+      <span class="badge">{{gpmInLocalUnits}}</span>
     {{/if}}
 
-    <span class="badge">Valve Size {{zone.valveSize}}</span>
-    <span class="badge">{{gpmInLocalUnits}}</span>
-
+    <span class="badge">Valve Size {{format-decimal zone.valveSize}}</span>
   </p>
 
 {{/link-to}}

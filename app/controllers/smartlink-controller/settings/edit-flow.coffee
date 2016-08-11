@@ -38,7 +38,7 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
       { label: @flowInLocalUnits(n), value: n }
     ).concat([10..70].map( (n) =>
       m = n * 10
-      { label: @flowInLocalUnits(n), value: m }
+      { label: @flowInLocalUnits(m), value: m }
     ))
 
   availableLowFlowValues: Ember.computed 'availableFlowValues', ->
