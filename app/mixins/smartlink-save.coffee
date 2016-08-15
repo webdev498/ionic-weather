@@ -138,7 +138,7 @@ SmartlinkSaveMixin = Ember.Mixin.create(
     else
       saveMessage = options.saveMessage || @defaultSaveMessage
 
-    @openLoadingModal()
+    @openLoadingModal(saveMessage)
 
     unless options.params?
       options.params = {}
