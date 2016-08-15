@@ -21,8 +21,7 @@ SmartlinkControllerSettingsEditZoneActivationsController = Ember.Controller.exte
         showLoadingModal: false
         url: @get('saveUrl')
         params: zoneParams
-      ).then =>
-        @set('model.hasUnsentChanges', true)
+      )
 
 })
 
