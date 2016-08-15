@@ -44,11 +44,7 @@ SmartlinkControllerIndexController = Ember.Controller.extend(SmartlinkSaveMixin,
       @send('closeOptionsMenu')
 
     refreshData: ->
-      self = this
-      @send 'closeOptionsMenu'
-      @set 'isLoading', true
-      @get('model').reload().finally ->
-        self.set 'isLoading', false
+      window.location.reload()
 
     transmit: ->
       @save(
