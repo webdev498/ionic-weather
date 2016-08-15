@@ -523,6 +523,9 @@ div.ember-view.liquid-child {
 .weathermatic-content {
   overflow-y:scroll !important;
   height:800px;
+  @media(min-height: 800px) {
+    height: 1100px;
+  }
   position:relative;
 }
 
