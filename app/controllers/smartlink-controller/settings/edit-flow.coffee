@@ -101,13 +101,15 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
       if @get('isLowFlowLimitDisabled')
         @set('model.lowFlowLimit', 0)
 
+      ppg = @get('model.ppg') || 1
+
       @save(
         url: @get('saveUrl')
         params: {
           zone: {
             realtime_flow_enabled: @get('model.realtimeFlowEnabled')
-            low_flow_limit:        @get('model.lowFlowLimit')
-            high_flow_limit:       @get('model.highFlowLimit')
+            low_flow_limit:        Math.ceil(@get('model.lowFlowLimit') * ppg)
+            high_flow_limit:       Math.ceil(@get('model.highFlowLimit') * ppg)
             valve_size:            @get('model.valveSize')
             ppg:                   @get('model.ppg')
             gpm:                   @get('gpmGallons')
