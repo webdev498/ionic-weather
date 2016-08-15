@@ -18,12 +18,6 @@ SmartlinkControllerIndexController = Ember.Controller.extend(SmartlinkSaveMixin,
     return 'btn-negative' if @get('model.isRunStatusOff')
     return 'btn-primary'
 
-  transmitUrl: Ember.computed 'model.id', ->
-    "#{@get('config.apiUrl')}/api/v2/controllers/#{@get('model.id')}/transmit"
-
-  receiveUrl: Ember.computed 'model.id', ->
-    "#{@get('config.apiUrl')}/api/v2/controllers/#{@get('model.id')}/receive"
-
   actions:
     goBack: ->
       if @get('model.site.smartlinkControllers.length') is 1
@@ -45,26 +39,6 @@ SmartlinkControllerIndexController = Ember.Controller.extend(SmartlinkSaveMixin,
 
     refreshData: ->
       window.location.reload()
-
-    transmit: ->
-      @save(
-        url: @get('transmitUrl')
-      ).catch( (errors) ->
-        alert errors.join('. ')
-      ).then => (
-        @set 'model.hasUnsentChanges', false
-      ).finally => (
-        @send 'openCommLog'
-      )
-
-    receive: ->
-      @save(
-        url: @get('receiveUrl')
-      ).catch( (errors) ->
-        alert errors.join('. ')
-      ).finally => (
-        @send 'openCommLog'
-      )
 
 )
 

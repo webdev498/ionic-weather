@@ -213,9 +213,11 @@ SmartlinkSaveMixin = Ember.Mixin.create(
     switch statusId
       when Instruction.STATUS_ERROR
         Ember.Logger.error "Instruction failed", instruction
-        alert Ember.get(instruction, 'message')
+        alert "There was a problem communicating with your device. Please try again later."
+        @closeLoadingModal()
       when Instruction.STATUS_FINISHED
         Ember.Logger.debug 'Instruction finished successfully', instruction
+        instruction.set('controller.hasUnsentChanges', false)
         loadingModal.send('finished') if loadingModal?
         return
       else
@@ -224,6 +226,9 @@ SmartlinkSaveMixin = Ember.Mixin.create(
 
   transmitUrl: (smartlinkControllerId) ->
     "#{@get('config.apiUrl')}/api/v2/controllers/#{smartlinkControllerId}/transmit"
+
+  receiveUrl: (smartlinkControllerId) ->
+    "#{@get('config.apiUrl')}/api/v2/controllers/#{smartlinkControllerId}/receive"
 
   actions: {
     loadingAbandoned: ->
@@ -238,6 +243,16 @@ SmartlinkSaveMixin = Ember.Mixin.create(
         url: @transmitUrl(smartlinkController.get('id'))
         pollInstructionStatus: true
         saveMessage: 'Successfully saved your settings to the Smartlink controller'
+      ).catch( (errors) ->
+        alert errors.join('. ')
+      )
+
+    receive: (smartlinkController) ->
+      Ember.Logger.debug 'SmartlinkSaveMixin receive action called, with smartlink controller', smartlinkController
+      @save(
+        url: @receiveUrl(smartlinkController.get('id'))
+        pollInstructionStatus: true
+        saveMessage: 'Successfully received settings from your Smartlink controller'
       ).then( =>
         smartlinkController.set('hasUnsentChanges', false)
       ).catch( (errors) ->
