@@ -96,7 +96,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
       },
       {
         label: 'Run on Even Days'
-        value: 2
+        value: 0
       }
     ]
 
@@ -220,7 +220,9 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
       @set('programInstance.selectedProgramType', (progTypes.filter (p) -> p.value == type)[0])
 
     oddEven = @get('OddEven')
-    @set('programInstance.selectedOddEvenProgram',(oddEven.filter (od) -> od.value == 1)[0])
+
+    # set to odd by default
+    @set('programInstance.selectedOddEvenProgram', (oddEven.find (od) -> od.value == 1))
 
     intervalProgram = {
       interval_start: 0,
@@ -233,7 +235,11 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
 
     switch @get('programInstance.selectedProgramType').value
       when @get('PROGRAM_TYPE_ENUM').ODD_EVEN
-        @set('programInstance.selectedOddEvenProgram',(oddEven.filter (od) -> od.value == self.get('model.oddeven'))[0])
+        @set('programInstance.selectedOddEvenProgram', (oddEven.find (od) ->
+          # 0 is odd , 1 is even
+          # if model.oddeven is an even number, means use EVEN, odd number means use ODD
+          od.value == (self.get('model.oddeven') % 2)
+         ))
 
       when @get('PROGRAM_TYPE_ENUM').INTERVAL
         intervalProgram = {
@@ -267,6 +273,19 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
 
   saveUrl: Ember.computed 'config.apiUrl', 'model.id', ->
     "#{@get('config.apiUrl')}/api/v2/programs/#{@get('model.id')}"
+
+  daysOfWeek: ->
+    type = @get('programInstance.selectedProgramType.value')
+    if type == @get('PROGRAM_TYPE_ENUM.INTERVAL')
+      daysInterval = parseInt(@get('programInstance.selectedIntervalProgram.days_interval'))
+      val = parseInt(@get('programInstance.selectedIntervalProgram.interval_start'))
+      dows = []
+      while val <= 6
+        dows.push(val)
+        val = val + daysInterval
+      return dows.join(',')
+    else
+      @get('programInstance.selectedDaysOfWeek.value').join(',')
 
   actions: {
     initProgram: -> (
@@ -354,7 +373,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
           program: {
             description: if @get('model.description') then @get('model.description') else 'Program ' + @get('model.identifier'),
             program_type: @get('programInstance.selectedProgramType.value'),
-            days_of_week: @get('programInstance.selectedDaysOfWeek.value').join(),
+            days_of_week: @daysOfWeek(),
             oddeven:  @get('programInstance.selectedOddEvenProgram.value'),
             interval_start:  @get('programInstance.selectedIntervalProgram.interval_start'),
             days_interval:  @get('programInstance.selectedIntervalProgram.days_interval'),

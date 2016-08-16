@@ -50,7 +50,7 @@
         </a>
       </li>
       <li class="table-view-cell">
-        <a href="javascript:void(0)" class="push-right" data-value="{{programInstance.selectedIntervalProgram.days_interval}}">
+        <a href="javascript:void(0)" class="push-right" {{action 'setIntervalOpen'}} data-value="{{programInstance.selectedIntervalProgram.days_interval}}">
           {{programInstance.selectedIntervalProgram.days_interval_label}}
         </a>
       </li>
