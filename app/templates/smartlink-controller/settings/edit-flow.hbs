@@ -27,40 +27,24 @@
           <div class="toggle-handle"></div>
         </div>
       </li>
-      <li class="table-view-cell">
-        <span class="pull-left">Low Flow Limit</span>
-        <div id="weathermatic-toggle-low-flow" class="{{if isLowFlowLimitEnabled 'active'}} toggle">
-          <div class="toggle-handle"></div>
-        </div>
-      </li>
 
       <li class="table-view-cell">
-        <span class="{{if isLowFlowLimitDisabled 'weathermatic-disabled'}}">
-          Low Flow {{flowUnits}}
+        <span>
+         Low Flow Limit
         </span>
-        <span class="{{if isLowFlowLimitDisabled 'invisible'}} pull-right weathermatic-settings-input-medium-2">
+        <span class="pull-right weathermatic-settings-input-medium-2">
           {{view 'select' content=availableLowFlowValues value=model.lowFlowLimit
-            optionLabelPath='content.label' optionValuePath='content.value' disabled=isLowFlowLimitDisabled}}
+            optionLabelPath='content.label' optionValuePath='content.value'}}
         </span>
         <div style="clear: both;"></div>
       </li>
       <li class="table-view-cell">
-        <span class="pull-left">High Flow Limit</span>
-        <div id="weathermatic-toggle-high-flow" class="{{if isHighFlowLimitEnabled 'active'}} toggle">
-          <div class="toggle-handle"></div>
-        </div>
-      </li>
-      <li class="table-view-cell">
-        <span class="{{if isHighFlowLimitDisabled 'weathermatic-disabled'}}">
-          High Flow {{#if isMetricEnabled}}
-            LPM
-          {{else}}
-            GPM
-          {{/if}}
+        <span>
+          High Flow Limit
         </span>
-        <span class="{{if isHighFlowLimitDisabled 'invisible'}} pull-right weathermatic-settings-input-medium-2">
+        <span class="pull-right weathermatic-settings-input-medium-2">
           {{view 'select' content=availableHighFlowValues value=model.highFlowLimit
-            optionLabelPath='content.label' optionValuePath='content.value' disabled=isHighFlowLimitDisabled}}
+            optionLabelPath='content.label' optionValuePath='content.value'}}
         </span>
         <div style="clear: both;"></div>
       </li>

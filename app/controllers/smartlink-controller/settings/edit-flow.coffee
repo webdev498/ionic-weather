@@ -7,8 +7,6 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
   setupDefaults: (model) ->
     @initAvailableValveSizes()
     @initAvailablePPGOptions()
-    @initIsLowFlowLimitEnabled(model)
-    @initIsHighFlowLimitEnabled(model)
 
   initAvailableValveSizes: ->
     @set 'availableValveSizes', [
@@ -24,14 +22,6 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
     @set 'availablePPGOptions', [
       { label: '0.0', 0.0 }
     ]
-
-  initIsLowFlowLimitEnabled: (model) ->
-    enabled = model.get('lowFlowLimit') != 0
-    @set('isLowFlowLimitEnabled', enabled)
-
-  initIsHighFlowLimitEnabled: (model) ->
-    enabled = model.get('highFlowLimit') != Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER
-    @set('isHighFlowLimitEnabled', enabled)
 
   availableFlowValues: Ember.computed 'isMetricEnabled', ->
     [1..99].map( (n) =>
@@ -50,12 +40,6 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
     [{
       label: 'Off', value: Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER
     }].concat(@get('availableFlowValues'))
-
-  isLowFlowLimitDisabled: Ember.computed 'isLowFlowLimitEnabled', ->
-    !@get('isLowFlowLimitEnabled')
-
-  isHighFlowLimitDisabled: Ember.computed 'isHighFlowLimitEnabled', ->
-    !@get('isHighFlowLimitEnabled')
 
   saveUrl: Ember.computed 'model.smartlinkController.id', ->
     controllerId = @get('model.smartlinkController.id')
@@ -93,23 +77,22 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
     }[valveSize]
     @set('model.gpm', gpm) if gpm?
 
+  flowLimitPulses: (flowLimitGPM) ->
+    if (flowLimitGPM == 0) || (flowLimitGPM == Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER)
+      return flowLimitGPM
+
+    ppg = @get('model.ppg') || 1
+    Math.ceil(flowLimitGPM * ppg)
+
   actions: {
     save: -> (
-      if @get('isHighFlowLimitDisabled')
-        @set('model.highFlowLimit', Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER)
-
-      if @get('isLowFlowLimitDisabled')
-        @set('model.lowFlowLimit', 0)
-
-      ppg = @get('model.ppg') || 1
-
       @save(
         url: @get('saveUrl')
         params: {
           zone: {
             realtime_flow_enabled: @get('model.realtimeFlowEnabled')
-            low_flow_limit:        Math.ceil(@get('model.lowFlowLimit') * ppg)
-            high_flow_limit:       Math.ceil(@get('model.highFlowLimit') * ppg)
+            low_flow_limit:        @flowLimitPulses(@get('model.lowFlowLimit'))
+            high_flow_limit:       @flowLimitPulses(@get('model.highFlowLimit'))
             valve_size:            @get('model.valveSize')
             ppg:                   @get('model.ppg')
             gpm:                   @get('gpmGallons')
