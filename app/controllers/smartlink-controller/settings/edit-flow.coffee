@@ -5,18 +5,24 @@
 
 SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFlowMixin, SmartlinkSaveMixin,
   setupDefaults: (model) ->
-    @initAvailableValveSizes()
+    @initAvailableValveSizes(model)
     @initAvailablePPGOptions()
 
-  initAvailableValveSizes: ->
-    @set 'availableValveSizes', [
-      0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0, 4.0
+  initAvailableValveSizes: (model) ->
+    sizes = [
+      0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0
     ].map( (size) =>
       {
         label: @sizeInLocalUnits(size)
         value: size
       }
     )
+    if model.get('smartlinkController.isVirtualFlow')
+      sizes = [{
+        label: 'Not Set'
+        value: 0.0
+      }].concat(sizes)
+    @set 'availableValveSizes', sizes
 
   initAvailablePPGOptions: ->
     @set 'availablePPGOptions', [
