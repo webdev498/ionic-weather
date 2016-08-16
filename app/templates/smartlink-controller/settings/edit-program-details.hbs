@@ -56,6 +56,7 @@
       </li>
     {{/if}}
     {{#each programInstance.programStartTimes as |programStartTime|}}
+      {{log programStartTime}}
        <li class="table-view-cell">
         <a href="javascript:void(0)" class="push-right" {{action 'setStartTimeOpen' programStartTime.id}}>
           {{#if programStartTime.start_time.length}}

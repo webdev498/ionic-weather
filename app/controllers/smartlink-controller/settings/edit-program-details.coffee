@@ -1,36 +1,37 @@
 `import Ember from 'ember'`
 `import leftPad from '../../../util/strings/left-pad'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
+`import formatTime from '../../../util/time-formatter'`
 
-formatTime = (type, value) ->
-	if type is '12H'
-		timeArr = value.split ':'
-		hour = Number(timeArr[0])
-		min = Number(timeArr[1])
+# formatTime = (type, value) ->
+# 	if type is '12H'
+# 		timeArr = value.split ':'
+# 		hour = Number(timeArr[0])
+# 		min = Number(timeArr[1])
 
-		prepand = if hour >= 12 then ' PM ' else ' AM '
-		hour = if hour > 12 then hour - 12 else hour
-		hour = if hour == 0 then 12 else hour
+# 		prepand = if hour >= 12 then ' PM ' else ' AM '
+# 		hour = if hour > 12 then hour - 12 else hour
+# 		hour = if hour == 0 then 12 else hour
 
-		hour = leftPad(2, hour)
-		min = leftPad(2, min)
-		hour + ':' + min + prepand
-	else
-		timeArr = value.split ' '
-		hourMinArr = timeArr[0].split ':'
-		hour = Number(hourMinArr[0])
-		min = Number(hourMinArr[1])
+# 		hour = leftPad(2, hour)
+# 		min = leftPad(2, min)
+# 		hour + ':' + min + prepand
+# 	else
+# 		timeArr = value.split ' '
+# 		hourMinArr = timeArr[0].split ':'
+# 		hour = Number(hourMinArr[0])
+# 		min = Number(hourMinArr[1])
 
-		if timeArr[1] is 'pm'
-			if hour < 12
-				hour = hour + 12
-		else
-			if hour is 12
-				hour = 0
+# 		if timeArr[1] is 'pm'
+# 			if hour < 12
+# 				hour = hour + 12
+# 		else
+# 			if hour is 12
+# 				hour = 0
 
-		hour = leftPad(2, hour)
-		min = leftPad(2, min)
-		hour + ':' + min
+# 		hour = leftPad(2, hour)
+# 		min = leftPad(2, min)
+# 		hour + ':' + min
 
 SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSaveMixin, {
   needs: ['smartlinkController']
@@ -508,15 +509,16 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
       @send('initProgram')
       @send('closeSetInterval')
 
-    setStartTimeOpen: (index) -> (
+    setStartTimeOpen: (id) -> (
       progStartTimes = @get('programInstance.programStartTimes')
-      progStartTime = (progStartTimes.filter (st) -> st.id == index)[0]
+      progStartTime = (progStartTimes.filter (st) -> st.id == id)[0]
 
       @set('programInstance.currentSelectedTimeSlot.id', 0)
-      @set('programInstance.currentSelectedStartTime.id', index)
+      @set('programInstance.currentSelectedStartTime.id', id)
 
       if Ember.get(progStartTime, 'start_time')
-        time = formatTime('12H', Ember.get(progStartTime, 'start_time') || '')
+        t = Ember.get(progStartTime, 'start_time') || ''
+        time = formatTime(t, format: 'hh:mm a')
         timeArr = time.split ' '
         availableTimeSlots = @get('availableTimeSlots')
         availableAmPm = @get('availableAmPm')
@@ -532,26 +534,33 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
       @set('isSetStartTimeOpen', false)
 
     setStartTime: -> (
-      startTimeIndex = @get('programInstance.currentSelectedStartTime.id');
+      startTimeId = @get('programInstance.currentSelectedStartTime.id');
       selectTimeSlotId = @get('programInstance.currentSelectedTimeSlot.id')
       availableTimeSlots = @get('availableTimeSlots')
       selectedTimeSlot = (availableTimeSlots.filter (ts) -> ts.id == selectTimeSlotId)[0]
       selectedAmPm = @get('programInstance.currentSelectedAmPm')
 
-      progStartTimes = @get('programInstance.programStartTimes')
+      # progStartTimes = @get('programInstance.programStartTimes')
 
-      startTime = null
-      if selectedTimeSlot.value != 'Off'
-        startTime = selectedTimeSlot.value + ' ' + selectedAmPm
-        startTime = formatTime('24H', startTime)
+      # startTime = null
+      # if selectedTimeSlot.value != 'Off'
+      #   startTime = selectedTimeSlot.value + ' ' + selectedAmPm
+      #   startTime = formatTime(startTime, format: 'hh:mm a')
 
-      neProgStartTimes = []
-      progStartTimes.forEach (st, index, array) ->
-        neProgStartTimes.pushObject({ id: st.id, start_time: st.start_time})
-        if st.id == startTimeIndex
-          neProgStartTimes[index].start_time = startTime
+      # neProgStartTimes = []
+      # progStartTimes.forEach (st, index, array) ->
+      #   neProgStartTimes.pushObject({ id: st.id, start_time: st.start_time})
+      #   if st.id == startTimeId
+      #     neProgStartTimes[index].start_time = startTime
 
-      @set('programInstance.programStartTimes', neProgStartTimes)
+      # @set('programInstance.programStartTimes', neProgStartTimes)
+      # 😂
+      troyStartTime = @get('programInstance.programStartTimes').find (pst) ->
+        Ember.get(pst, 'id') == startTimeId
+
+      time12hr = "#{selectedTimeSlot.value} #{selectedAmPm}"
+      time24hr = moment(time12hr, ["hh:mm a"]).format("HH:mm")
+      troyStartTime.set 'start_time',time24hr
 
       @send('closeSetStartTime')
     )
