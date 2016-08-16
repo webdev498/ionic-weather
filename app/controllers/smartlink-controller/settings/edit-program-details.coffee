@@ -473,9 +473,12 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
       troyStartTime = @get('programInstance.programStartTimes').find (pst) ->
         Ember.get(pst, 'id') == startTimeId
 
-      time12hr = "#{selectedTimeSlot.value} #{selectedAmPm}"
-      time24hr = moment(time12hr, ["hh:mm a"]).format("HH:mm")
-      troyStartTime.set 'start_time',time24hr
+      if selectedTimeSlot.value == 'Off'
+        troyStartTime.set 'start_time', null
+      else
+        time12hr = "#{selectedTimeSlot.value} #{selectedAmPm}"
+        time24hr = moment(time12hr, ["hh:mm a"]).format("HH:mm")
+        troyStartTime.set 'start_time', time24hr
 
       @send('closeSetStartTime')
     )
