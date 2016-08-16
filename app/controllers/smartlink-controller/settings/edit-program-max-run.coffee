@@ -5,6 +5,13 @@ SmartlinkControllerSettingsEditProgramMaxRunController = Ember.Controller.extend
   saveUrl: (program) ->
     "#{@get('baseUrl')}/api/v2/programs/#{program.get('id')}"
 
+  getMinSoakValue: (programIdent) ->
+    maxRun = @get("model.program#{programIdent}.maxRun")
+    if maxRun == 0
+      return 0
+    else
+      return @get("model.program#{programIdent}.minSoak")
+
   actions: {
     save: -> (
       @saveAll([
@@ -13,7 +20,7 @@ SmartlinkControllerSettingsEditProgramMaxRunController = Ember.Controller.extend
             params: {
               program: {
                 max_run: @get('model.programA.maxRun')
-                min_soak: @get('model.programA.minSoak')
+                min_soak: @getMinSoakValue('A')
               }
             }
           },
@@ -22,7 +29,7 @@ SmartlinkControllerSettingsEditProgramMaxRunController = Ember.Controller.extend
             params: {
               program: {
                 max_run: @get('model.programB.maxRun')
-                min_soak: @get('model.programB.minSoak')
+                min_soak: @getMinSoakValue('B')
               }
             }
           },
@@ -31,7 +38,7 @@ SmartlinkControllerSettingsEditProgramMaxRunController = Ember.Controller.extend
             params: {
               program: {
                 max_run: @get('model.programC.maxRun')
-                min_soak: @get('model.programC.minSoak')
+                min_soak: @getMinSoakValue('C')
               }
             }
           },
@@ -40,7 +47,7 @@ SmartlinkControllerSettingsEditProgramMaxRunController = Ember.Controller.extend
             params: {
               program: {
                 max_run: @get('model.programD.maxRun')
-                min_soak: @get('model.programD.minSoak')
+                min_soak: @getMinSoakValue('D')
               }
             }
           }
