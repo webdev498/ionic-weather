@@ -3,41 +3,7 @@
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 `import formatTime from '../../../util/time-formatter'`
 
-# formatTime = (type, value) ->
-# 	if type is '12H'
-# 		timeArr = value.split ':'
-# 		hour = Number(timeArr[0])
-# 		min = Number(timeArr[1])
-
-# 		prepand = if hour >= 12 then ' PM ' else ' AM '
-# 		hour = if hour > 12 then hour - 12 else hour
-# 		hour = if hour == 0 then 12 else hour
-
-# 		hour = leftPad(2, hour)
-# 		min = leftPad(2, min)
-# 		hour + ':' + min + prepand
-# 	else
-# 		timeArr = value.split ' '
-# 		hourMinArr = timeArr[0].split ':'
-# 		hour = Number(hourMinArr[0])
-# 		min = Number(hourMinArr[1])
-
-# 		if timeArr[1] is 'pm'
-# 			if hour < 12
-# 				hour = hour + 12
-# 		else
-# 			if hour is 12
-# 				hour = 0
-
-# 		hour = leftPad(2, hour)
-# 		min = leftPad(2, min)
-# 		hour + ':' + min
-
 SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSaveMixin, {
-  needs: ['smartlinkController']
-
-  smartlinkController: Ember.computed.alias 'controllers.smartlinkController.model'
-
   init: () -> (
     PROGRAM_TYPE_ENUM = {
       DAYS_OF_WEEK: 1,
@@ -299,59 +265,8 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
 
   config: Ember.computed -> @container.lookupFactory('config:environment')
 
-  saveUrl: Ember.computed 'config.apiUrl', 'smartlinkController.id', ->
+  saveUrl: Ember.computed 'config.apiUrl', 'model.id', ->
     "#{@get('config.apiUrl')}/api/v2/programs/#{@get('model.id')}"
-
-  submitProgram: (programParams) ->
-    self = this
-
-    allParams = {
-      timestamp: new Date().getTime(),
-      program: {}
-    }
-
-    Ember.merge(allParams.program, programParams.program)
-
-    url = @get('url') + programParams.id
-    timeoutWatcher = null
-
-    defaultErrorMessage = 'There was a problem communicating with your device. \
-      Please try again later'
-
-    programPromise = new Ember.RSVP.Promise (resolve, reject) ->
-
-      timeoutWatcher = Ember.run.later(this, ->
-        reject new Error(defaultErrorMessage)
-      self.timeoutThresholdMillis)
-
-      ajaxOptions = {
-        type: 'PUT'
-        data: allParams
-        success: (response) ->
-          if Ember.get(response, 'meta.success')
-            resolve({
-              program: response
-            })
-          else
-            message = Ember.get(response, 'result.exception')
-            reject new Error(message)
-        error: (xhr, status, error) ->
-          if (xhr.status is 422)
-            reject({
-              type: 'Unprocessable Entity'
-              responseData: xhr.responseJSON
-            })
-          else
-            reject(new Error("Unexpected response from server: #{xhr.status}, #{error}"))
-      }
-
-      Ember.$.ajax(url, ajaxOptions)
-
-    programPromise
-      .finally ->
-        Ember.run.cancel(timeoutWatcher) if timeoutWatcher
-
-    return programPromise
 
   actions: {
     initProgram: -> (
@@ -435,7 +350,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
       @save(
         url: @get('saveUrl')
         params: {
-          id: Number(@get('model.id')),
+          id: @get('model.id'),
           program: {
             description: if @get('model.description') then @get('model.description') else 'Program ' + @get('model.identifier'),
             program_type: @get('programInstance.selectedProgramType.value'),
