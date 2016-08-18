@@ -8,16 +8,17 @@
 <div class="content weathermatic-content">
   <ul class="table-view weathermatic-page-bottom">
     <li class="table-view-cell table-view-divider">
-      {{fa-icon 'crosshairs'}} Select a Zone
+      {{fa-icon 'crosshairs'}} Select a Zone to Locate
     </li>
     {{#each zone in model}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.locate-valves' zone.id class='push-right'}}
           {{#if zone.description}}
-            Locate Zone: {{short-text zone.description size=20}}
+            {{zone.description}}
             <p>Zone {{zone.number}}</p>
           {{else}}
             Locate Zone {{zone.number}}
+            <p>&nbsp;</p>
           {{/if}}
         {{/link-to}}
       </li>
