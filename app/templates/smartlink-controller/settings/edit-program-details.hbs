@@ -18,7 +18,11 @@
       <li class="table-view-cell">
         <div class="btn-group">
         {{#each day in programInstance.DaysOfWeek}}
-          <button type="button" class="btn {{if day.checked 'btn-success btn-active' 'btn-danger'}}" {{action "toggleDay" day}}>{{day.label}}</button>
+          {{#if day.isOmitted}}
+            <button type="button" class="btn btn-warning">X</button>
+          {{else}}
+            <button type="button" class="btn {{if day.checked 'btn-success btn-active' 'btn-danger'}}" {{action "toggleDay" day}}>{{day.label}}</button>
+          {{/if}}
         {{/each}}
         </div>
       </li>
@@ -26,7 +30,11 @@
       <li class="table-view-cell">
         <div class="btn-group">
         {{#each day in programInstance.DaysOfWeek}}
-          <button type="button" class="btn {{if day.checked 'btn-success btn-active' 'btn-danger'}}">{{day.label}}</button>
+          {{#if day.isOmitted}}
+            <button type="button" class="btn btn-warning">X</button>
+          {{else}}
+            <button type="button" class="btn {{if day.checked 'btn-success btn-active' 'btn-danger'}}">{{day.label}}</button>
+          {{/if}}
         {{/each}}
         </div>
       </li>

@@ -4,6 +4,14 @@
 `import formatTime from '../../../util/time-formatter'`
 
 SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSaveMixin, {
+  isDayOmitted: (dayNum) ->
+    omitted = false
+    @get('model.smartlinkController.omissionDays').forEach((omissionDay) ->
+      if omissionDay.get('day') == dayNum
+        omitted = true
+    )
+    return omitted
+
   init: () -> (
     PROGRAM_TYPE_ENUM = {
       DAYS_OF_WEEK: 1,
@@ -325,7 +333,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
           currentDaysOfWeek = currentDaysOfWeekStr.split ","
 
           daysOfWeek.forEach (day, index, array) ->
-            programDaysOfWeek.pushObject({ label: day.label, value: day.value, checked: day.checked})
+            programDaysOfWeek.pushObject({ label: day.label, value: day.value, checked: day.checked, isOmitted: self.isDayOmitted(day.value) })
             currentDaysOfWeek.forEach (value) ->
               if (''+ day.value) is value
                   programDaysOfWeek[index].checked = true
@@ -335,7 +343,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
 
         when self.get('PROGRAM_TYPE_ENUM').ODD_EVEN
           daysOfWeek.forEach (day, index, array) ->
-            programDaysOfWeek.pushObject({ label: day.label, value: day.value, checked: false})
+            programDaysOfWeek.pushObject({ label: day.label, value: day.value, checked: false, isOmitted: self.isDayOmitted(day.value) })
 
             if (self.get('programInstance.selectedOddEvenProgram').value is 1)
               if (day.isOdd && !day.isException)
@@ -351,7 +359,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
           intervalDayIndex = interval_start
 
           daysOfWeek.forEach (day, index, array) ->
-            programDaysOfWeek.pushObject({ label: day.label, value: day.value, checked: false})
+            programDaysOfWeek.pushObject({ label: day.label, value: day.value, checked: false, isOmitted: self.isDayOmitted(day.value) })
             dayIndex = day.value
 
             if (intervalDayIndex is dayIndex)
