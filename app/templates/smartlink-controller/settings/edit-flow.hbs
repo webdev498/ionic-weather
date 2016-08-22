@@ -34,7 +34,7 @@
         </span>
         <span class="pull-right weathermatic-settings-input-medium-2">
           {{view 'select' content=availableLowFlowValues value=model.lowFlowLimit
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+            optionLabelPath='content.label' optionValuePath='content.value' disabled=model.realtimeFlowDisabled}}
         </span>
         <div style="clear: both;"></div>
       </li>
@@ -44,7 +44,7 @@
         </span>
         <span class="pull-right weathermatic-settings-input-medium-2">
           {{view 'select' content=availableHighFlowValues value=model.highFlowLimit
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+            optionLabelPath='content.label' optionValuePath='content.value' disabled=model.realtimeFlowDisabled}}
         </span>
         <div style="clear: both;"></div>
       </li>

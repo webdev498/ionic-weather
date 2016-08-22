@@ -49,6 +49,9 @@ Zone = DS.Model.extend
   usesSensorLoop: Ember.computed 'ignoreSensor', ->
     @get('ignoreSensor') == false
 
+  realtimeFlowDisabled: Ember.computed 'realtimeFlowEnabled', ->
+    !@get('realtimeFlowEnabled')
+
 Zone.reopenClass
   HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER: 65535
 
