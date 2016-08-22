@@ -12,7 +12,7 @@
   <ul class="table-view">
     <li class="table-view-cell">
       <span>Number of Starts</span>
-      <span class="pull-right weathermatic-settings-input-small">
+      <span class="pull-right weathermatic-settings-input-medium">
         {{view 'select' content=availableNumberOfStarts value=model.numStarts}}
       </span>
     </li>
@@ -69,7 +69,7 @@
       </li>
       <li class="table-view-cell">
         <span>Max Concurrent Programs</span>
-        <span class="pull-right weathermatic-settings-input-small">
+        <span class="pull-right weathermatic-settings-input-medium">
           {{view 'select' content=availableMaxConcurrentProgramgs value=model.maxConcurrentPrograms}}
         </span>
       </li>
@@ -77,7 +77,7 @@
 
     <li class="table-view-cell">
       <span>Minimum Deficit</span>
-      <span class="pull-right weathermatic-settings-input-small">
+      <span class="pull-right weathermatic-settings-input-medium">
         {{view 'select' content=availableMinDeficit value=model.minDeficit
           optionLabelPath='content.label' optionValuePath='content.value'}}
       </span>
@@ -131,7 +131,7 @@
 
     <li class="table-view-cell">
       <span>Aircard Comm Error Interval</span>
-      <span class="pull-right weathermatic-settings-input-small">
+      <span class="pull-right weathermatic-settings-input-medium">
         {{view 'select' content=availableCommErrorIntervals
           value=model.commErrorInterval
           optionLabelPath='content.label' optionValuePath='content.value'}}
