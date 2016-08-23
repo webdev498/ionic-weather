@@ -1,6 +1,9 @@
 `import Ember from 'ember'`
 
 LoginController = Ember.Controller.extend
+
+  session: Ember.inject.service()
+
   setDefaults: ->
     @setProperties(
       isLoading: false

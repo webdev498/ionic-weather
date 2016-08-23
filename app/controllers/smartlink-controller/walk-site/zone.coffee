@@ -1,9 +1,11 @@
 `import Ember from 'ember'`
 `import ManualRunMixin from '../../../mixins/manual-run'`
-`import Base from 'simple-auth/authenticators/base'`
+`import Base from 'ember-simple-auth/authenticators/base'`
 `import AuthenticationMixin from '../../../mixins/authentication'`
 
 SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMixin,
+  session: Ember.inject.service()
+
   init: ->
     self = this
 

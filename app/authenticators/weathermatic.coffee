@@ -1,21 +1,30 @@
-`import Base from 'simple-auth/authenticators/base'`
+`import Ember from 'ember'`
+`import Base from 'ember-simple-auth/authenticators/base'`
 `import AuthenticationMixin from '../mixins/authentication'`
 
 WeathermaticAuthenticator = Base.extend AuthenticationMixin,
-  config: Ember.computed -> @container.lookupFactory('config:environment')
+  config: Ember.computed ->
+    @container.lookupFactory('config:environment')
 
   restore: (data) ->
+    Ember.Logger.debug 'WeathermaticAuthenticator#restore called'
+
     creds = Ember.Object.create(data).getProperties('email', 'password')
     @checkCredentials(creds)
 
   authenticate: (options) ->
+    Ember.Logger.debug 'WeathermaticAuthenticator#authenticated called with options:', options
     @checkCredentials(options)
 
   invalidate: (data) ->
+    Ember.Logger.debug 'WeathermaticAuthenticator#invalidate called'
+
     Ember.RSVP.resolve ->
       Ember.Logger.debug('Weathermatic session invalidated')
 
   checkCredentials: (credentials) ->
+    Ember.Logger.debug 'WeathermaticAuthenticator#checkCredentials called'
+
     self = this
     queryParams = {
       timestamp: new Date().getTime()

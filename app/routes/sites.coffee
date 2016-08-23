@@ -1,7 +1,7 @@
 `import Ember from 'ember'`
-`import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin'`
+`import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin'`
 
-SitesRoute = Ember.Route.extend AuthenticatedRouteMixin,
+SitesRoute = Ember.Route.extend(AuthenticatedRouteMixin,
   settings: Ember.inject.service('application-settings')
 
   sites: Ember.inject.service('sites')
@@ -24,5 +24,6 @@ SitesRoute = Ember.Route.extend AuthenticatedRouteMixin,
     Ember.Logger.debug "geolocationUnavailable value: #{@get('geolocationUnavailable')}"
     controller.set('geolocationUnavailable', @get('geolocationUnavailable'))
     this._super(arguments...)
+)
 
 `export default SitesRoute`

@@ -5,6 +5,8 @@
 LOGGING = null
 
 Logging = Ember.Object.extend CurrentUserMixin,
+  session: Ember.inject.service()
+
   defaultLogLevel: 'INFO',
 
   logPushIntervalSeconds: 10

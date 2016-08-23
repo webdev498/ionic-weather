@@ -33,7 +33,7 @@ SitesService = Ember.Service.extend
     self = this
 
     doLookup = ->
-      self.get('store').find('site', params)
+      self.get('store').query('site', params)
 
     promise = new Ember.RSVP.Promise (resolve, reject) ->
       switch self.get('settings').getSetting('sites-sort-method')

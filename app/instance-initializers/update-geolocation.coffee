@@ -1,5 +1,5 @@
-initialize = (container, _app) ->
-  locations = container.lookup('service:locations')
+initialize = (appInstance) ->
+  locations = appInstance.lookup('service:locations')
 
   updateGeolocation = ->
     locations.lookupCurrentLocation().then (coords) ->

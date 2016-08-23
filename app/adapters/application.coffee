@@ -1,12 +1,15 @@
 `import DS from 'ember-data'`
 `import config from '../config/environment'`
+`import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin'`
 
 SLNAK = '7d56617d4d6febd91be7f87c03c1ee37'
 SLNAS = '52834b76a803eb35706701fa71c7ac79'
 
-ApplicationAdapter = DS.RESTAdapter.extend
+ApplicationAdapter = DS.RESTAdapter.extend DataAdapterMixin,
   host: config.apiUrl
   namespace: 'api/v2'
+
+  authorizer: 'authorizer:weathermatic'
 
   ajaxSuccess: (xhr, json) ->
     #

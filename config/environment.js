@@ -96,10 +96,7 @@ module.exports = function(environment) {
     ENV.production = true;
   }
 
-  ENV['simple-auth'] = {
-    authorizer: 'authorizer:weathermatic',
-    crossOriginWhitelist: [ENV.apiUrl]
-  };
+  // ENV['ember-simple-auth'] = {};
 
   return ENV;
 };
