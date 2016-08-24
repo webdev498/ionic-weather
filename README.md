@@ -23,7 +23,7 @@ To initialize the cordova project, run:
 To run a local web server so you can view the pages in a browser, run:
 
     EMBER_CLI_CORDOVA=0 ember serve --environment=development
-    
+
 And visit `http://localhost:4200` in your browser
 
 
@@ -44,4 +44,12 @@ Run:
 
 That will produce `smartlink.apk` in the root project directory which you can upload to the google play store.
 
+### Known Issues
 
+We are affected by this bug in ember-cli-coffeescript: https://github.com/kimroen/ember-cli-coffeescript/pull/115
+  We should update ember-cli-coffeescript once that patch is released (or switch to ES6 and remove it). Workaround: remove ember-cli-coffee-script from package.json temporarily, run the command that was breaking (e.g. ember generate ...), then put the package.json entry pack.
+
+
+### i18n
+
+TODO: document....

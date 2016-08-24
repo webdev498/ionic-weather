@@ -18,7 +18,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'sln-mobile-ember',
     environment: environment,
-    rootURL: '/',
+    baseURL: '/',
     defaultLocationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -65,7 +65,7 @@ module.exports = function(environment) {
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.rootURL = '/';
+    ENV.baseURL = '/';
     ENV.locationType = 'auto';
 
     // keep test console output quieter

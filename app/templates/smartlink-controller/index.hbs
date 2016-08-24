@@ -7,7 +7,8 @@
   <h1 class="title">{{fa-icon 'signal'}} {{short-text model.name size=15}}</h1>
 </header>
 
-<div id="smartlink-controller-container" class="content weathermatic-content weathermatic-controller-page">
+{{#pull-to-refresh refreshData='refreshData'}}
+<div class="content weathermatic-content weathermatic-controller-page">
   <!-- accomodate around pull-to-refresh -->
   <div style="margin-top: -20px;"></div>
 
@@ -74,7 +75,7 @@
     </li>
     <li class="table-view-cell">
       System Status
-      <button {{bind-attr class=':btn runStatusCssClass'}}>{{model.runStatusForHumans}}</button>
+      <button class="btn {{runStatusCssClass}}">{{model.runStatusForHumans}}</button>
     </li>
     <li class="table-view-cell">
       Watering Mode
@@ -98,7 +99,7 @@
     <li class="table-view-cell">
       Weather
       {{#if model.weather.length}}
-        <button {{bind-attr class='model.isWeatherBad:btn-negative:btn-positive :btn'}}>
+        <button class="btn {{if model.isWeatherBad 'btn-negative' 'btn-positive'}}">
           {{model.weather}}
         </button>
       {{else}}
@@ -117,7 +118,7 @@
 
   {{#if model.faults.length}}
     <div class="content-padded weathermatic-controller-details-faults">
-      {{#each fault in model.faults}}
+      {{#each model.faults as |fault|}}
         <button class="btn btn-negative fault-row">{{fault.description}}</button>
       {{/each}}
 
@@ -131,8 +132,9 @@
 
   <div class="weathermatic-page-bottom"></div>
 </div>
+{{/pull-to-refresh}}
 
-<div id="options-menu" {{bind-attr class=':modal isOptionsMenuOpen:active'}}>
+<div id="options-menu" class="modal {{if isOptionsMenuOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeOptionsMenu'}}></a>
     <h1 class="title">{{fa-icon 'gear'}} Advanced Options</h1>
