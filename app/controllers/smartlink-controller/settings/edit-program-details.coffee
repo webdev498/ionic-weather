@@ -277,8 +277,6 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
   isIntervalProgramTypeSelected: Ember.computed 'programInstance.selectedProgramType', ->
     @get('programInstance.selectedProgramType').value is @get('PROGRAM_TYPE_ENUM').INTERVAL
 
-  config: Ember.computed -> @container.lookupFactory('config:environment')
-
   saveUrl: Ember.computed 'config.apiUrl', 'model.id', ->
     "#{@get('config.apiUrl')}/api/v2/programs/#{@get('model.id')}"
 

@@ -2,7 +2,6 @@
 
 CurrentUserMixin = Ember.Mixin.create
   session: Ember.inject.service()
-  # session: Ember.computed -> @container.lookup('simple-auth-session:main')
 
   currentUser: Ember.computed 'session', ->
     @get('session.secure.userInfo.result.user')

@@ -3,10 +3,10 @@
 
 Router = Ember.Router.extend(location: config.locationType).map ->
   @route 'login'
-  @resource 'sites'
-  @resource 'site', path: 'sites/:siteId', ->
+  @route 'sites', resetNamespace: true
+  @route 'site', resetNamespace: true, path: 'sites/:siteId', ->
     @route 'index', path: 'controllers'
-  @resource 'smartlink-controller', path: 'controllers/:controllerId', ->
+  @route 'smartlink-controller', resetNamespace: true, path: 'controllers/:controllerId', ->
     @route 'select-program'
     @route 'run-program', path: 'run-program/:programId'
     @route 'select-zone'

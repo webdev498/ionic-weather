@@ -1,10 +1,9 @@
 `import Ember from 'ember'`
 `import Base from 'ember-simple-auth/authenticators/base'`
 `import AuthenticationMixin from '../mixins/authentication'`
+`import config from '../config/environment'`
 
 WeathermaticAuthenticator = Base.extend AuthenticationMixin,
-  config: Ember.computed ->
-    @container.lookupFactory('config:environment')
 
   restore: (data) ->
     Ember.Logger.debug 'WeathermaticAuthenticator#restore called'
@@ -29,7 +28,7 @@ WeathermaticAuthenticator = Base.extend AuthenticationMixin,
     queryParams = {
       timestamp: new Date().getTime()
     }
-    url = "#{@get('config.apiUrl')}/api/v2/users/me.json"
+    url = "#{config.apiUrl}/api/v2/users/me.json"
     new Ember.RSVP.Promise (resolve, reject) ->
       Ember.$.ajax(url,
         type: 'GET',

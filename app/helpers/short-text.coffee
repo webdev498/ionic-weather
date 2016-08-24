@@ -7,7 +7,7 @@ shortener = Ember.Object.extend(StringsMixin).create()
 shortText = (params, hash) ->
   shortener.shorten(params[0], hash.size)
 
-ShortTextHelper = Ember.HTMLBars.makeBoundHelper shortText
+ShortTextHelper = Ember.Helper.helper(shortText)
 
 `export { shortText }`
 

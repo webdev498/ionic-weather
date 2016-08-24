@@ -1,6 +1,7 @@
 `import DS from 'ember-data'`
+`import { ActiveModelSerializer } from 'active-model-adapter'`
 
-ProgramSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
+ProgramSerializer = ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
   attrs:
     programStartTimes:
       serialize: 'records'

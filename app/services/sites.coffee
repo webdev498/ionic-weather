@@ -1,8 +1,7 @@
 `import Ember from 'ember'`
+`import config from '../config/environment'`
 
 SitesService = Ember.Service.extend
-  config: Ember.computed -> @container.lookupFactory('config:environment')
-
   locations: Ember.inject.service('locations')
 
   settings: Ember.inject.service('applicationSettings')
@@ -21,7 +20,7 @@ SitesService = Ember.Service.extend
 
   lookupSites: (options = {}) ->
     page = options.page or 1
-    perPage = options.perPage or @get('config.sitesPageSize')
+    perPage = options.perPage or config.sitesPageSize
 
     params = {
       page: page

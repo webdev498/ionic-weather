@@ -1,5 +1,6 @@
 `import Ember from 'ember'`
 `import Instruction from '../models/instruction'`
+`import config from '../config/environment'`
 
 buildErrors = (response) -> (
   Ember.get(response, 'meta.errors') || [{
@@ -19,11 +20,7 @@ SmartlinkSaveMixin = Ember.Mixin.create(
 
   defaultSaveMessage: 'Your changes have been saved to SmartLink Network, but will still need to be transmitted to your controller to take effect.'
 
-  config: Ember.computed ->
-    @container.lookupFactory('config:environment')
-
-  baseUrl: Ember.computed 'config.apiUrl', ->
-    @get('config.apiUrl')
+  baseUrl: Ember.computed -> config.apiUrl
 
   openLoadingModal: (message) -> (
     if !@get('loadingModal')

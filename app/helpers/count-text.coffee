@@ -11,7 +11,7 @@ countText = (params, options) ->
     "no #{pluralize(text)}"
 
 
-CountTextHelper = Ember.HTMLBars.makeBoundHelper countText
+CountTextHelper = Ember.Helper.helper(countText)
 
 `export { countText }`
 

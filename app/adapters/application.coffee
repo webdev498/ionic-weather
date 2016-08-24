@@ -1,3 +1,4 @@
+`import Ember from 'ember'`
 `import DS from 'ember-data'`
 `import config from '../config/environment'`
 `import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin'`
@@ -11,7 +12,7 @@ ApplicationAdapter = DS.RESTAdapter.extend DataAdapterMixin,
 
   authorizer: 'authorizer:weathermatic'
 
-  ajaxSuccess: (xhr, json) ->
+  handleResponse: (status, _headers, json) ->
     #
     # Weathermatic API responses are wrapped in an object called `result`, e.g.
     #
@@ -28,6 +29,8 @@ ApplicationAdapter = DS.RESTAdapter.extend DataAdapterMixin,
     #   "meta": { ... }
     # }
     #
+    if status != 200
+      Ember.Logger.error "ApplicationAdapter.handleResponse() got non-success status code: ", status
     json.result.meta = json.meta
     delete json.meta
     json.result

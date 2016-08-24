@@ -14,6 +14,8 @@ SitesController = Ember.Controller.extend
 
   isSortOptionsOpen: false
 
+  isSearchEnabled: false
+
   searchIcon: Ember.computed 'isSearchEnabled', ->
     if @get('isSearchEnabled')
       'icon-close'
@@ -26,8 +28,8 @@ SitesController = Ember.Controller.extend
   isSortByAlpha: Ember.computed 'sortMethod', ->
     @get('sortMethod') is 'alpha'
 
-  moreSitesAvailable: Ember.computed 'model.length', ->
-    totalSitesCount = @store.metadataFor('site').found
+  moreSitesAvailable: Ember.computed 'sitesMetadata', 'model.length', ->
+    totalSitesCount = @get('sitesMetadata').found
     totalSitesCount > @get('model.length')
 
   shouldShowLoading: Ember.computed 'moreSitesAvailable', 'isLoading', 'isSearchApplied', ->

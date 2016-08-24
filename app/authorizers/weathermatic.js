@@ -6,10 +6,10 @@ const WeathermaticAuthorizer = Base.extend(AuthenticationMixin, {
   // session: Ember.inject.service(),
 
   authorize(sessionData, addHeader) {
-    Ember.Logger.debug('WeathermaticAuthorizer#authorize called')
+    Ember.Logger.debug('WeathermaticAuthorizer#authorize called');
 
     const { email, password } = sessionData;
-    addHeader('Authorization', this.buildHttpBasicHeader(email, password))
+    addHeader('Authorization', this.buildHttpBasicHeader(email, password));
   }
 
   // authorize: (xhr, options) ->
@@ -21,6 +21,6 @@ const WeathermaticAuthorizer = Base.extend(AuthenticationMixin, {
   //   @setupHttpBasicHeaders(xhr, email, password)
   //   @setupHmacHeaders(xhr, options)
 
-})
+});
 
 export default WeathermaticAuthorizer;

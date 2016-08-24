@@ -11,7 +11,7 @@ formatNumber = (params, options) ->
   number = Math.round(number) if options.round
   addCommas(number)
 
-FormatNumberHelper = Ember.HTMLBars.makeBoundHelper formatNumber
+FormatNumberHelper = Ember.Helper.helper(formatNumber)
 
 `export { formatNumber }`
 

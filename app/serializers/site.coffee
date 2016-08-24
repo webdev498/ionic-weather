@@ -1,6 +1,6 @@
 `import ApplicationSerializer from './application'`
 
-SiteSerializer = ApplicationSerializer.extend
+SiteSerializer = ApplicationSerializer.extend({
   normalizeLinks: (data) ->
     data.links.smartlinkControllers = data.links.controllers
     delete data.links.controllers
@@ -10,5 +10,6 @@ SiteSerializer = ApplicationSerializer.extend
     switch rawKey
       when 'smartlinkControllers' then 'controller_ids'
       else this._super(arguments...)
+})
 
 `export default SiteSerializer`

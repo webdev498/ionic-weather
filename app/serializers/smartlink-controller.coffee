@@ -1,6 +1,7 @@
 `import DS from 'ember-data'`
+`import { ActiveModelSerializer } from 'active-model-adapter'`
 
-SmartlinkControllerSerializer = DS.ActiveModelSerializer.extend DS.EmbeddedRecordsMixin,
+SmartlinkControllerSerializer = ActiveModelSerializer.extend DS.EmbeddedRecordsMixin,
   attrs:
     site:
       serialize: 'id'

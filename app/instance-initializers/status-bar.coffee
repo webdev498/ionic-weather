@@ -1,4 +1,4 @@
-initialize = (_container, _app) ->
+initialize = (_app) ->
   return if typeof(window.cordova) is 'undefined'
 
   configureStatusBar = ->

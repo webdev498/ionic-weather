@@ -1,5 +1,6 @@
 `import Ember from 'ember'`
 `import Instruction from '../models/instruction'`
+`import config from '../config/environment'`
 
 ManualRunMixin = Ember.Mixin.create
   needs: ['smartlinkController']
@@ -8,11 +9,9 @@ ManualRunMixin = Ember.Mixin.create
 
   smartlinkController: Ember.computed.alias('controllers.smartlinkController.model')
 
-  config: Ember.computed -> @container.lookupFactory('config:environment')
-
   timeoutThresholdMillis: 20000
 
-  url: Ember.computed 'config.apiUrl', 'smartlinkController.id', ->
+  url: Ember.computed 'smartlinkController.id', ->
     "#{@get('config.apiUrl')}/api/v2/controllers/#{@get('smartlinkController.id')}/manual_run"
 
   submitManualRun: (manualRunParams) ->

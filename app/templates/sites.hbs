@@ -1,14 +1,14 @@
 <header class="bar bar-nav weathermatic-header">
-  <a href="javascript:void(0)" {{bind-attr class=':icon searchIcon :pull-left'}} {{action 'toggleSearch'}}></a>
+  <a href="javascript:void(0)" class="icon pull-left {{searchIcon}}" {{action 'toggleSearch'}}></a>
   {{logo-header}}
   <a href="javascript:void(0)" class="icon icon-gear pull-right" {{action 'openOptionsMenu'}}></a>
 </header>
 
 <div id="sites-list-container" class="content weathermatic-content">
   <ul class="table-view">
-    <li {{bind-attr class=':content-padded :weathermatic-sites-search isSearchEnabled:shown:hidden'}}>
+    <li class="content-padded weathermatic-sites-search {{if isSearchEnabled 'shown' 'hidden'}}">
       {{input type='search' placeholder='Search Sites' value=search}}
-      <button {{bind-attr disabled=isSearchEmpty}} {{action 'performSearch'}}
+      <button disabled={{isSearchEmpty}} {{action 'performSearch'}}
         class="btn btn-inverse btn-primary btn-block">{{fa-icon 'search'}} Search</button>
     </li>
     <li class="table-view-cell table-view-divider">
@@ -22,7 +22,7 @@
         {{/if}}
       </button>
     </li>
-    {{#each site in model}}
+    {{#each model as |site|}}
       <li class="table-view-cell media">
         <a href="javascript:void(0)" class="navigate-right" {{action 'goToSite' site}}>
           <div class="media-body">
@@ -62,7 +62,7 @@
   <div class="weathermatic-page-bottom"></div>
 </div>
 
-<div id="options-menu" {{bind-attr class=':modal isOptionsMenuOpen:active'}}>
+<div id="options-menu" class="modal {{if isOptionsMenuOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeOptionsMenu'}}></a>
     <h1 class="title">{{fa-icon 'gear' classNames='spaced-icon'}} Options</h1>
@@ -126,7 +126,7 @@
   </div>
 </div>
 
-<div id="sites-sort-options" {{bind-attr class=':modal isSortOptionsOpen:active'}}>
+<div id="sites-sort-options" class="modal {{if isSortOptionsOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSortOptions'}}></a>
     <h1 class="title">{{fa-icon 'sort' classNames='spaced-icon'}} Sort Options</h1>

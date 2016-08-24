@@ -4,7 +4,7 @@
 formatTime = (params, options) ->
   formatTimeFn(params[0], format: params[1])
 
-FormatTimeHelper = Ember.HTMLBars.makeBoundHelper formatTime
+FormatTimeHelper = Ember.Helper.helper(formatTime)
 
 `export { formatTime }`
 

@@ -68,13 +68,12 @@ Logging = Ember.Object.extend CurrentUserMixin,
 
     @startLogPusher() if config.remoteLogging
 
-initialize = (container, _app) ->
+initialize = (_app) ->
   return unless console?
 
   return if (typeof(window.cordova) is 'undefined')
 
   LOGGING = Logging.create({
-    container: container,
     config: config
   })
   LOGGING.setupCordovaLogging()
