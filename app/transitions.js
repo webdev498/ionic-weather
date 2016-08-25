@@ -39,6 +39,13 @@ const Transitions = function() {
     this.reverse('toRight'),
   );
 
+  // this.transition(
+  //   this.fromRoute('smartlink-controller.walk-site.zone'),
+  //   this.toRoute('smartlink-controller.walk-site.zone'),
+  //   this.use('toLeft'),
+  //   this.debug(),
+  // );
+
   this.transition(
     this.fromRoute('smartlink-controller.select-program'),
     this.toRoute('smartlink-controller.run-program'),

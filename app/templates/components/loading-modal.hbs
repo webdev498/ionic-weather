@@ -28,7 +28,7 @@
       <h4>Status:</h4>
       <br>
       <div class="content-padded">
-        <button {{bind-attr class=':btn :btn-block instructionStatusCssClass'}}>
+        <button class="btn btn-block {{instructionStatusCssClass}}">
           {{#if instruction.isInProgress}}
             {{fa-icon 'gear fa-spin'}}
           {{/if}}

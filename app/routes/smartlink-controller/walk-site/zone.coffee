@@ -3,7 +3,14 @@
 
 SmartlinkControllerWalkSiteZoneRoute = Ember.Route.extend AuthenticatedRouteMixin,
   model: (params) ->
-    @modelFor('smartlink-controller').get('zones').findBy('id', params.zoneId)
+    ctrl = @modelFor('smartlink-controller')
+    Ember.Logger.debug("=============")
+    Ember.Logger.debug(ctrl)
+    ctrl.get('zones').then (zones) ->
+      zones.toArray().find( (zone) ->
+        zone.get('id') == params.zoneId
+    )
+
 
   serialize: (model, params) ->
     { zoneId: model.get('id') }

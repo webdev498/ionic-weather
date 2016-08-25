@@ -46,6 +46,7 @@
     "ember-load-initializers": "0.5.1",
     "ember-moment": "7.0.0-beta.3",
     "ember-simple-auth": "1.1.0",
+    "ember-truth-helpers": "1.2.0",
     "liquid-fire": "0.24.1",
     "loader.js": "4.0.11",
     "npm": "2.14.3"

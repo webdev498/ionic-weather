@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import Instruction from '../models/instruction';
 import config from '../config/environment';
+import AjaxMixin from './ajax';
 
 const buildErrors = function(response) {
   return Ember.get(response, 'meta.errors') || [
@@ -12,9 +13,7 @@ const buildErrors = function(response) {
 
 const defaultErrorMessage = 'There was a problem communicating with our servers. Please try again later';
 
-const SmartlinkSaveMixin = Ember.Mixin.create({
-  session: Ember.inject.service(),
-
+const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
   errors: {},
 
   defaultTimeoutThresholdMillis: 20000,
@@ -229,14 +228,6 @@ const SmartlinkSaveMixin = Ember.Mixin.create({
           return Ember.run.later(self, self.pollInstructionStatus, delayMillis, instruction, delayMillis);
         });
     }
-  },
-
-  ajax(url, options) {
-    this.get('session').authorize('authorizer:weathermatic', (headerName, headerValue) => {
-      const authHeaders = {};
-      authHeaders[headerName] = headerValue;
-      Ember.$.ajax(url, Ember.merge(options, { headers: authHeaders }));
-    });
   },
 
   transmitUrl: function(smartlinkControllerId) {

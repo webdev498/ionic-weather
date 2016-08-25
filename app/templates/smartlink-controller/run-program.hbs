@@ -29,7 +29,7 @@
   <div class="content-padded">
     <p>We're about to run</p>
   </div>
-  <span {{bind-attr class=':btn :btn-block :weathermatic-btn-run-program cssClass'}}>
+  <span class="btn btn-block weathermatic-btn-run-program {{cssClass}}">
     <h3>{{fa-icon 'play'}} Program {{upper-case model.identifier}}</h3>
     {{#if model.description.length}}
       <p class="weathermatic-run-program-description">

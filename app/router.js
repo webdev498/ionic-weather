@@ -21,9 +21,7 @@ const Router = Ember.Router.extend({ location: config.locationType }).map(functi
     this.route('locate-valves', { path: 'locate-valves/:zoneId' });
 
     this.route('walk-site', function() {
-      this.route('zone', {
-        path: 'zone/:zoneId'
-      });
+      this.route('zone', { path: 'zone/:zoneId' });
 
     });
     this.route('settings', { path: 'settings' }, function() {

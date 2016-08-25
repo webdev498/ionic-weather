@@ -10,7 +10,7 @@
     <li class="table-view-cell table-view-divider">
       {{fa-icon 'crosshairs'}} Select a Zone to Locate
     </li>
-    {{#each zone in model}}
+    {{#each model as |zone|}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.locate-valves' zone.id class='push-right'}}
           {{#if zone.description}}

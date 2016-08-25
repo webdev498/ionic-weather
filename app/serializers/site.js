@@ -2,8 +2,10 @@ import ApplicationSerializer from './application';
 
 const SiteSerializer = ApplicationSerializer.extend({
   normalizeLinks(data) {
-    data.links.smartlinkControllers = data.links.controllers;
-    delete data.links.controllers;
+    if (data.links) {
+      data.links.smartlinkControllers = data.links.controllers;
+      delete data.links.controllers;
+    }
     return this._super(...arguments);
   },
 

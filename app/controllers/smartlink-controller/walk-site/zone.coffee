@@ -2,8 +2,11 @@
 `import ManualRunMixin from '../../../mixins/manual-run'`
 `import Base from 'ember-simple-auth/authenticators/base'`
 `import AuthenticationMixin from '../../../mixins/authentication'`
+`import AjaxMixin from '../../../mixins/ajax'`
+`import config from '../../../config/environment'`
 
-SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMixin,
+SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMixin, AjaxMixin,
+
   session: Ember.inject.service()
 
   init: ->
@@ -161,7 +164,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
       file = Ember.$('#image-upload-input').get(0).files[0]
 
-      api_url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}/photo"
+      api_url = "#{config.apiUrl}/api/v2/controllers/#{controllerId}/zones/#{zoneId}/photo"
 
       formData = new FormData(document.querySelector("form"))
 
@@ -178,13 +181,14 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
             return
           xhr.open 'POST', api_url
           xhr.onreadystatechange = handler
-          email = self.get('session.content.secure.email')
-          password = self.get('session.content.secure.password')
+          email = self.get('session.data.secure.email')
+          password = self.get('session.data.secure.password')
           auth = btoa("#{email}:#{password}")
           xhr.setRequestHeader("Authorization", "Basic #{auth}")
           xhr.send(form_data)
           return
       )
+      return unless !!Ember.$('#image-upload-input').val()
 
       uploadZoneImage(api_url, formData).then ->
         reader = new FileReader()
@@ -209,6 +213,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
     openAutoAdjustMenu: ->
       @set('isAutoAdjustMenuOpen', true)
+      return false
 
     closeAutoAdjustMenu: ->
       @set('isAutoAdjustMenuOpen', false)
@@ -268,6 +273,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
     openAutoAdjust: ->
       this.set('isAutoAdjustMenuOpen', true)
+      return false
 
     saveAutoAdjust: ->
       self = this
@@ -276,7 +282,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       controllerId = @get('model.smartlinkController.id')
       zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
 
-      url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
+      url = "#{config.apiUrl}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
 
       queryParams = {
         timestamp: new Date().getTime(),
@@ -291,7 +297,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       }
 
       new Ember.RSVP.Promise (resolve, reject) ->
-        Ember.$.ajax(url,
+        self.ajax(url,
           type: 'PUT',
           data: queryParams
           success: (response) ->

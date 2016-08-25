@@ -33,12 +33,17 @@
     <form class="weathermatic-run-zone-select-run-time">
       <p>for this amount of time</p>
       <center>
-        {{view 'select' content=availableRunTimeHours value=runTimeHours
-          optionLabelPath='content.label' optionValuePath='content.value'}} :
+        <select onchange={{action (mut runTimeHours) value="target.value"}}>
+          {{#each availableRunTimeHours as |hour|}}
+            <option value="{{hour.value}}" selected={{eq hour.value runTimeHours}}>{{hour.label}}</option>
+          {{/each}}
+        </select> :
 
-        {{view 'select' content=availableRunTimeMinutes value=runTimeMinutes
-          optionLabelPath='content.label' optionValuePath='content.value'}}
-
+        <select onchange={{action (mut runTimeMinutes) value="target.value"}}>
+          {{#each availableRunTimeMinutes as |min|}}
+            <option value="{{min.value}}" selected={{eq min.value runTimeMinutes}}>{{min.label}}</option>
+          {{/each}}
+        </select>
         <strong>HH:MM</strong>
       </center>
     </form>

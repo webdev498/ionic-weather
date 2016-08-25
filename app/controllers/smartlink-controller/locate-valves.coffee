@@ -2,10 +2,6 @@
 `import ManualRunMixin from '../../mixins/manual-run'`
 
 SmartlinkControllerLocateValvesController = Ember.Controller.extend ManualRunMixin,
-  needs: ['smartlinkController']
-
-  smartlinkController: Ember.computed.alias 'controllers.smartlinkController.model'
-
   actions:
     locateValves: ->
       self = this

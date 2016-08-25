@@ -1,18 +1,19 @@
 `import Ember from 'ember'`
 `import Instruction from '../models/instruction'`
+`import AjaxMixin from './ajax'`
 `import config from '../config/environment'`
 
-ManualRunMixin = Ember.Mixin.create
-  needs: ['smartlinkController']
+ManualRunMixin = Ember.Mixin.create(AjaxMixin, {
+  smartlinkControllerController: Ember.inject.controller('smartlink-controller')
 
   store: Ember.inject.service('store:main')
 
-  smartlinkController: Ember.computed.alias('controllers.smartlinkController.model')
+  smartlinkController: Ember.computed.alias('smartlinkControllerController.model')
 
   timeoutThresholdMillis: 20000
 
   url: Ember.computed 'smartlinkController.id', ->
-    "#{@get('config.apiUrl')}/api/v2/controllers/#{@get('smartlinkController.id')}/manual_run"
+    "#{config.apiUrl}/api/v2/controllers/#{@get('smartlinkController.id')}/manual_run"
 
   submitManualRun: (manualRunParams) ->
     self = this
@@ -52,13 +53,13 @@ ManualRunMixin = Ember.Mixin.create
           reject new Error(defaultErrorMessage)
       }
 
-      Ember.$.ajax(url, ajaxOptions)
+      self.ajax(url, ajaxOptions)
 
     manualRunPromise
       .finally ->
         Ember.run.cancel(timeoutWatcher) if timeoutWatcher
 
     return manualRunPromise
-
+})
 
 `export default ManualRunMixin`
