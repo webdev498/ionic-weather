@@ -12,7 +12,10 @@ SitesRoute = Ember.Route.extend(AuthenticatedRouteMixin,
     preCachedSitesList = window.SLN_MOBILE_CACHED_SITES
     return preCachedSitesList if preCachedSitesList?
     @get('sites').lookupAndCacheSites().then (sites) ->
-      return sites
+      return Ember.Object.create({
+        sites: sites.toArray(),
+        meta: sites.get('meta'),
+      });
     .catch (error) ->
       Ember.Logger.debug 'Sites lookup failed, trying again without geolocation'
       self.get('settings').changeSetting('sites-sort-method', 'alpha')
@@ -23,7 +26,6 @@ SitesRoute = Ember.Route.extend(AuthenticatedRouteMixin,
     Ember.Logger.debug 'In SitesRoute setupController'
     Ember.Logger.debug "geolocationUnavailable value: #{@get('geolocationUnavailable')}"
     controller.set('geolocationUnavailable', @get('geolocationUnavailable'))
-    controller.set('sitesMetadata', model.get('meta'))
     this._super(arguments...)
 )
 

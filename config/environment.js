@@ -46,7 +46,7 @@ module.exports = function(environment) {
       'style-src': "'self' 'unsafe-inline'"
     },
 
-    sitesPageSize: 20
+    sitesPageSize: 10
   };
 
   if (environment === 'development') {

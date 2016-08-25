@@ -1,4 +1,4 @@
-<div id="comm-log" {{bind-attr class=':modal isOpen:active'}}>
+<div id="comm-log" class="modal {{if isOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a href="javascript:void(0)" {{action 'close'}}>
       <span class="icon icon-close pull-right"></span>
@@ -8,7 +8,7 @@
 
   <div class="content weathermatic-content">
     <ul class="table-view">
-      {{#each instruction in smartlinkController.instructions}}
+      {{#each smartlinkController.instructions as |instruction|}}
         {{instruction-item instruction=instruction}}
       {{else}}
         <li class="table-view-cell">

@@ -8,130 +8,130 @@
 </header>
 
 {{#pull-to-refresh refreshData='refreshData'}}
-<div class="content weathermatic-content weathermatic-controller-page">
-  <!-- accomodate around pull-to-refresh -->
-  <div style="margin-top: -20px;"></div>
+  <div class="content weathermatic-content weathermatic-controller-page">
+    <!-- accomodate around pull-to-refresh -->
+    <div style="margin-top: -20px;"></div>
 
-  {{need-send-message smartlinkController=model transmit='transmit'}}
+    {{need-send-message smartlinkController=model transmit='transmit'}}
 
-  <div class="content-padded">
-    {{#if model.canRunCommands}}
-      <div class="card">
-        <ul class="table-view">
-          <li class="table-view-cell table-view-divider">
-            {{fa-icon 'wrench spaced-icon'}} Actions
-          </li>
-          <li class="table-view-cell">
-            {{#link-to 'smartlink-controller.select-program' class='push-right'}}
-              {{fa-icon 'play spaced-icon' classNames="spaced-icon"}} Run Program
-            {{/link-to}}
-          </li>
-          <li class="table-view-cell">
-            {{#link-to 'smartlink-controller.select-zone' class='push-right'}}
-              {{fa-icon 'leaf spaced-icon' classNames="spaced-icon"}} Run Zone
+    <div class="content-padded">
+      {{#if model.canRunCommands}}
+        <div class="card">
+          <ul class="table-view">
+            <li class="table-view-cell table-view-divider">
+              {{fa-icon 'wrench spaced-icon'}} Actions
+            </li>
+            <li class="table-view-cell">
+              {{#link-to 'smartlink-controller.select-program' class='push-right'}}
+                {{fa-icon 'play spaced-icon' classNames="spaced-icon"}} Run Program
               {{/link-to}}
-          </li>
-          <li class="table-view-cell">
-            {{#link-to 'smartlink-controller.select-valves' class='push-right'}}
-              {{fa-icon 'crosshairs spaced-icon' classNames="spaced-icon"}} Locate Valve
-            {{/link-to}}
-          </li>
-          <li class="table-view-cell">
-            {{#link-to 'smartlink-controller.walk-site' class='push-right'}}
-              {{fa-icon 'male spaced-icon' classNames="spaced-icon"}} Walk Site
-            {{/link-to}}
-          </li>
-          <li class="table-view-cell">
-            {{#link-to 'smartlink-controller.settings' class='push-right'}}
-              {{fa-icon 'gear spaced-icon'}} Settings
-            {{/link-to}}
-          </li>
-        </ul>
-      </div>
+            </li>
+            <li class="table-view-cell">
+              {{#link-to 'smartlink-controller.select-zone' class='push-right'}}
+                {{fa-icon 'leaf spaced-icon' classNames="spaced-icon"}} Run Zone
+                {{/link-to}}
+            </li>
+            <li class="table-view-cell">
+              {{#link-to 'smartlink-controller.select-valves' class='push-right'}}
+                {{fa-icon 'crosshairs spaced-icon' classNames="spaced-icon"}} Locate Valve
+              {{/link-to}}
+            </li>
+            <li class="table-view-cell">
+              {{#link-to 'smartlink-controller.walk-site' class='push-right'}}
+                {{fa-icon 'male spaced-icon' classNames="spaced-icon"}} Walk Site
+              {{/link-to}}
+            </li>
+            <li class="table-view-cell">
+              {{#link-to 'smartlink-controller.settings' class='push-right'}}
+                {{fa-icon 'gear spaced-icon'}} Settings
+              {{/link-to}}
+            </li>
+          </ul>
+        </div>
 
-      {{#link-to 'smartlink-controller.stop-all' class='btn btn-block btn-negative'}}
-        {{fa-icon 'stop'}} Stop All
-      {{/link-to}}
-    {{else}}
-      <span class="btn btn-block btn-negative btn-outlined">
-        <h3>{{fa-icon 'warning'}} Limited Access</h3>
-        <p>It looks like you are not allowed to run <br>remote commands on this controller</p>
-      </span>
-    {{/if}}
-  </div>
-
-  {{#if isLoading}}
-    <div class="content-padded weathermatic-smartlink-controller-loading">
-      <center>
-        <i class="fa fa-refresh fa-spin fa-lg"></i>
-      </center>
-      <br>
+        {{#link-to 'smartlink-controller.stop-all' class='btn btn-block btn-negative'}}
+          {{fa-icon 'stop'}} Stop All
+        {{/link-to}}
+      {{else}}
+        <span class="btn btn-block btn-negative btn-outlined">
+          <h3>{{fa-icon 'warning'}} Limited Access</h3>
+          <p>It looks like you are not allowed to run <br>remote commands on this controller</p>
+        </span>
+      {{/if}}
     </div>
-  {{/if}}
 
-  <ul class="table-view">
-    <li class="table-view-cell table-view-divider">
-      {{fa-icon 'gears'}} Controller Details
-    </li>
-    <li class="table-view-cell">
-      System Status
-      <button class="btn {{runStatusCssClass}}">{{model.runStatusForHumans}}</button>
-    </li>
-    <li class="table-view-cell">
-      Watering Mode
+    {{#if isLoading}}
+      <div class="content-padded weathermatic-smartlink-controller-loading">
+        <center>
+          <i class="fa fa-refresh fa-spin fa-lg"></i>
+        </center>
+        <br>
+      </div>
+    {{/if}}
 
-      {{#if model.isWateringModeStandard}}
-        <button class="btn btn-primary">Standard</button>
-      {{/if}}
+    <ul class="table-view">
+      <li class="table-view-cell table-view-divider">
+        {{fa-icon 'gears'}} Controller Details
+      </li>
+      <li class="table-view-cell">
+        System Status
+        <button class="btn {{runStatusCssClass}}">{{model.runStatusForHumans}}</button>
+      </li>
+      <li class="table-view-cell">
+        Watering Mode
 
-      {{#if model.isWateringModeAuto}}
-        <button class="btn btn-positive">Auto-Adjust</button>
+        {{#if model.isWateringModeStandard}}
+          <button class="btn btn-primary">Standard</button>
+        {{/if}}
+
+        {{#if model.isWateringModeAuto}}
+          <button class="btn btn-positive">Auto-Adjust</button>
+        {{/if}}
+      </li>
+      <li class="table-view-cell">
+        Rain/Freeze
+        {{#if model.isRainFreezeSensorEnabled}}
+          <button class="btn btn-positive">Active</button>
+        {{else}}
+          <button class="btn btn-negative">Bypass</button>
+        {{/if}}
+      </li>
+      <li class="table-view-cell">
+        Weather
+        {{#if model.weather.length}}
+          <button class="btn {{if model.isWeatherBad 'btn-negative' 'btn-positive'}}">
+            {{model.weather}}
+          </button>
+        {{else}}
+          <button class="btn btn-primary">
+            No Data
+          </button>
+        {{/if}}
+      </li>
+
+      {{#if model.faults.length}}
+        <li class="table-view-cell table-view-divider">
+          {{fa-icon 'warning'}} Faults <span class="badge badge-negative">{{model.faults.length}}</span>
+        </li>
       {{/if}}
-    </li>
-    <li class="table-view-cell">
-      Rain/Freeze
-      {{#if model.isRainFreezeSensorEnabled}}
-        <button class="btn btn-positive">Active</button>
-      {{else}}
-        <button class="btn btn-negative">Bypass</button>
-      {{/if}}
-    </li>
-    <li class="table-view-cell">
-      Weather
-      {{#if model.weather.length}}
-        <button class="btn {{if model.isWeatherBad 'btn-negative' 'btn-positive'}}">
-          {{model.weather}}
-        </button>
-      {{else}}
-        <button class="btn btn-primary">
-          No Data
-        </button>
-      {{/if}}
-    </li>
+    </ul>
 
     {{#if model.faults.length}}
-      <li class="table-view-cell table-view-divider">
-        {{fa-icon 'warning'}} Faults <span class="badge badge-negative">{{model.faults.length}}</span>
-      </li>
+      <div class="content-padded weathermatic-controller-details-faults">
+        {{#each model.faults as |fault|}}
+          <button class="btn btn-negative fault-row">{{fault.description}}</button>
+        {{/each}}
+
+        {{#if model.canRunCommands}}
+          {{#link-to 'smartlink-controller.clear-faults' class='btn btn-block btn-primary'}}
+            {{fa-icon 'fa-refresh'}} Clear Faults
+          {{/link-to}}
+        {{/if}}
+      </div>
     {{/if}}
-  </ul>
 
-  {{#if model.faults.length}}
-    <div class="content-padded weathermatic-controller-details-faults">
-      {{#each model.faults as |fault|}}
-        <button class="btn btn-negative fault-row">{{fault.description}}</button>
-      {{/each}}
-
-      {{#if model.canRunCommands}}
-        {{#link-to 'smartlink-controller.clear-faults' class='btn btn-block btn-primary'}}
-          {{fa-icon 'fa-refresh'}} Clear Faults
-        {{/link-to}}
-      {{/if}}
-    </div>
-  {{/if}}
-
-  <div class="weathermatic-page-bottom"></div>
-</div>
+    <div class="weathermatic-page-bottom"></div>
+  </div>
 {{/pull-to-refresh}}
 
 <div id="options-menu" class="modal {{if isOptionsMenuOpen 'active'}}">
@@ -188,7 +188,7 @@
   `actionReceiver` attribute exposes component action to the outside world.
   Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
 }}
-{{comm-log smartlinkController=model close='commLogClosed' actionReceiver=commLog}}
+{{comm-log smartlinkController=model showNow=showCommLog close='commLogClosed' actionReceiver=commLog}}
 
 {{!
   `actionReceiver` attribute exposes component action to the outside world.
