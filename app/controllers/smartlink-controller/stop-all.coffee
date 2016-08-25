@@ -1,9 +1,6 @@
 `import ManualRunMixin from '../../mixins/manual-run'`
 
 SmartlinkControllerStopAllController = Ember.Controller.extend ManualRunMixin,
-  needs: ['smartlinkController']
-  smartlinkController: Ember.computed.alias 'controllers.smartlinkController.model'
-
   actions:
     stopAll: ->
       self = this
@@ -12,7 +9,7 @@ SmartlinkControllerStopAllController = Ember.Controller.extend ManualRunMixin,
       }
       @get('loadingModal').send('open')
       @submitManualRun(params).then (instruction) ->
-        Ember.Logger.debug "Posted manual stop for controller: #{self.get('smartlinkController.id')}"
+        Ember.Logger.debug "Posted manual stop for controller: #{self.get('model.id')}"
         self.get('loadingModal').send('loadInstruction', instruction)
       .catch (error) ->
         Ember.Logger.error(error)
