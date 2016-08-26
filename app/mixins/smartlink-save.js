@@ -176,8 +176,8 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
             return reject(buildErrors(xhr.responseJSON));
           }
         };
-        Ember.Logger.debug("Save - " + httpMethod + ": " + options.url + ", ajax options:", ajaxOptions);
-        this.ajax(options.url, ajaxOptions);
+        Ember.Logger.debug("SaveAll - " + httpMethod + ": " + opts.url + ", ajax options:", ajaxOptions);
+        this.ajax(opts.url, ajaxOptions);
       });
       savePromise.finally( () => {
         if (timeoutWatcher) {

@@ -22,11 +22,12 @@
         {{/if}}
       </span>
       <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableSeasonalAdjustValues
-          class='seasonal-adj-select'
-          value=model.programASeasonalAdjust.percentage
-          optionLabelPath='content.label'
-          optionValuePath='content.value'}}
+        <select onchange={{action (mut model.programASeasonalAdjust.percentage) value="target.value"}}>
+          {{#each availableSeasonalAdjustValues as |adj|}}
+            <option value={{adj.value}}
+              selected={{eq adj.value model.programASeasonalAdjust.percentage}}>{{adj.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
     <li class="table-view-cell weathermatic-select-program-row weathermatic-select-program-b">
@@ -37,11 +38,12 @@
         {{/if}}
       </span>
       <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableSeasonalAdjustValues
-          class='seasonal-adj-select'
-          value=model.programBSeasonalAdjust.percentage
-          optionLabelPath='content.label'
-          optionValuePath='content.value'}}
+        <select onchange={{action (mut model.programBSeasonalAdjust.percentage) value="target.value"}}>
+          {{#each availableSeasonalAdjustValues as |adj|}}
+            <option value={{adj.value}}
+              selected={{eq adj.value model.programBSeasonalAdjust.percentage}}>{{adj.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
     <li class="table-view-cell weathermatic-select-program-row weathermatic-select-program-c">
@@ -52,11 +54,12 @@
         {{/if}}
       </span>
       <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableSeasonalAdjustValues
-          class='seasonal-adj-select'
-          value=model.programCSeasonalAdjust.percentage
-          optionLabelPath='content.label'
-          optionValuePath='content.value'}}
+        <select onchange={{action (mut model.programCSeasonalAdjust.percentage) value="target.value"}}>
+          {{#each availableSeasonalAdjustValues as |adj|}}
+            <option value={{adj.value}}
+              selected={{eq adj.value model.programCSeasonalAdjust.percentage}}>{{adj.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
     <li class="table-view-cell weathermatic-select-program-row weathermatic-select-program-d">
@@ -67,11 +70,12 @@
         {{/if}}
       </span>
       <span class="pull-right weathermatic-settings-input-small">
-        {{view 'select' content=availableSeasonalAdjustValues
-          class='seasonal-adj-select'
-          value=model.programDSeasonalAdjust.percentage
-          optionLabelPath='content.label'
-          optionValuePath='content.value'}}
+        <select onchange={{action (mut model.programDSeasonalAdjust.percentage) value="target.value"}}>
+          {{#each availableSeasonalAdjustValues as |adj|}}
+            <option value={{adj.value}}
+              selected={{eq adj.value model.programDSeasonalAdjust.percentage}}>{{adj.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
   </ul>

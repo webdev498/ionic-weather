@@ -18,8 +18,7 @@ SmartlinkControllerSettingsEditSeasonalAdjust = Ember.Controller.extend Smartlin
     @set 'availableSeasonalAdjustValues', opts
 
   saveUrl: (controllerId, programId) ->
-    baseUrl = @get('config.apiUrl')
-    "#{baseUrl}/api/v2/controllers/#{controllerId}/programs/#{programId}/seasonal_adjustments/0"
+    "#{@get('baseUrl')}/api/v2/controllers/#{controllerId}/programs/#{programId}/seasonal_adjustments/0"
 
   actions:
     save: ->
