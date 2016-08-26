@@ -10,10 +10,10 @@
       <li class="content-padded weathermatic-sites-search hidden">
         {{input type='search' placeholder='Search Sites' value=search}}
         <button disabled={{isSearchEmpty}} {{action 'performSearch'}}
-          class="btn btn-inverse btn-primary btn-block">{{fa-icon 'search'}} Search</button>
+          class="btn btn-inverse btn-primary btn-block">{{fa-icon 'search'}} {{t 'common.search'}}</button>
       </li>
       <li class="table-view-cell table-view-divider">
-        {{fa-icon 'building'}} Your Sites
+        {{fa-icon 'building'}} {{t 'sites.yourSites'}}
         <button class="btn btn-outlined" {{action 'openSortOptions'}}>
           {{#if isSortByProximity}}
             {{fa-icon 'globe'}} sorted by location

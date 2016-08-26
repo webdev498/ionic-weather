@@ -52,4 +52,17 @@ We are affected by this bug in ember-cli-coffeescript: https://github.com/kimroe
 
 ### i18n
 
-TODO: document....
+We use [ember-i18n](https://github.com/jamesarosen/ember-i18n). See the file `app/locales/en/translations.js`
+
+    common: {
+      search: "Search"
+    },
+    sites: {
+      yourSites: "Your Sites hi"
+    },
+    smartlinkController: {
+      clearFaults: "Clear Faults"
+    },
+    // ...
+
+When adding translations, try to organize the top-level keys roughly one for each page in the app. Use the key `common` for miscellaneous strings that are shared throughout the app, or any that don't make sense anywhere else.
