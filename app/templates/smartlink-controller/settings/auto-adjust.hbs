@@ -20,8 +20,12 @@
     <li class="table-view-cell">
        <span>Latitude</span>
        <span class="pull-right latitudeElement weathermatic-settings-input-small">
-         {{view 'select' content=availableLatitudes value=model.latitude
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.latitude) value="target.value"}}>
+            {{#each availableLatitudes as |lat|}}
+              <option value={{lat.value}}
+                selected={{eq lat.value model.latitude}}>{{lat.label}}</option>
+            {{/each}}
+          </select>
        </span>
     </li>
   </ul>
@@ -45,6 +49,7 @@
             <p>Zone {{zone.number}}</p>
           {{else}}
             Zone {{zone.number}}
+            <p>&nbsp;</p>
           {{/if}}
         {{/link-to}}
       </li>

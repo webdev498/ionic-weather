@@ -117,8 +117,7 @@ SmartlinkControllerSettingsEditAutoAdjustController = Ember.Controller.extend(Me
   saveUrl: Ember.computed 'model.smartlinkController.id', ->
     controllerId = @get('model.smartlinkController.id')
     zoneId = @get('model.id')
-    baseUrl = @get('config.apiUrl')
-    "#{baseUrl}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
+    "#{@get('baseUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
 
   timeoutThresholdMillis: 20000
 

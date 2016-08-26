@@ -15,7 +15,7 @@ InputWithErrorsComponent = Ember.Component.extend(
     @set("model.#{@get('field')}", @get('value'))
 
   hasError: Ember.computed 'model', 'field', 'errors.@each', ->
-    Ember.keys(@get('errors')).length > 0
+    Object.keys(@get('errors')).length > 0
 )
 
 `export default InputWithErrorsComponent`
