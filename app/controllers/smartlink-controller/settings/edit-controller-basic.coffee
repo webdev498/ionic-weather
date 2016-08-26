@@ -13,8 +13,7 @@ SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.exte
     @initAvailableRainFreeze()
 
   saveUrl: Ember.computed 'model.id', ->
-    baseUrl = @get('config.apiUrl')
-    "#{baseUrl}/api/v2/controllers/#{@get('model.id')}/update_basic_settings"
+    "#{@get('baseUrl')}/api/v2/controllers/#{@get('model.id')}/update_basic_settings"
 
   deviceTimeHours: Ember.computed 'model.currentDeviceTime', ->
     moment(@get('model.deviceTime')).utc().format('hh')
