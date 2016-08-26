@@ -33,9 +33,8 @@ SmartlinkControllerSettingsEditProgramRunTimeController = Ember.Controller.exten
   )
 
   saveUrl: Ember.computed 'model.id', ->
-    baseUrl = @get('config.apiUrl')
     zoneId = @get('model.id')
-    "#{baseUrl}/api/v2/zones/#{zoneId}"
+    "#{@get('baseUrl')}/api/v2/zones/#{zoneId}"
 
   actions: {
     save: -> (
