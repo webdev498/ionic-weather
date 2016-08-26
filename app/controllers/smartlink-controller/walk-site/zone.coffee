@@ -147,11 +147,27 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
   isAutoAdjustMenuOpen: false
   isZoneImageViewOpen: false
 
+  activeZones: Ember.computed('model.smartlinkController.zones.@each.active', ->
+    @get('model.smartlinkController.zones')
+      .filterBy('active', true)
+      .sortBy('number')
+  )
+
   isPreviousZoneAvailable: Ember.computed 'model.number', ->
-    "#{@get('model.number')}" != '1'
+    !!@getPreviousZone()
 
   isNextZoneAvailable: Ember.computed 'model.number', ->
-    +@get('model.number') < @get('model').get('smartlinkController.zones.length')
+    !!@getNextZone()
+
+  getNextZone: ->
+    zones = @get('activeZones')
+    thisZoneIndex = zones.indexOf(@get('model'))
+    zones[thisZoneIndex + 1]
+
+  getPreviousZone: ->
+    zones = @get('activeZones')
+    thisZoneIndex = zones.indexOf(@get('model'))
+    zones[thisZoneIndex - 1]
 
   actions:
     saveZoneImage: ->
@@ -227,18 +243,14 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
     goToNextZone: ->
       @set('isLoading', false)
       @set('isAutoAdjustMenuOpen', false)
-      nextZoneNumber = +@get('model.number') + 1
-      nextZone = @get('model.smartlinkController.zones').findBy('number', nextZoneNumber)
       @set('transition', 'toLeft')
-      @transitionToRoute('smartlink-controller.walk-site.zone', nextZone)
+      @transitionToRoute('smartlink-controller.walk-site.zone', this.getNextZone())
 
     goToPreviousZone: ->
       @set('isLoading', false)
       @set('isAutoAdjustMenuOpen', false)
-      prevZoneNumber = +@get('model.number') - 1
-      prevZone = @get('model.smartlinkController.zones').findBy('number', prevZoneNumber)
       @set('transition', 'toRight')
-      @transitionToRoute('smartlink-controller.walk-site.zone', prevZone)
+      @transitionToRoute('smartlink-controller.walk-site.zone', this.getPreviousZone())
 
     start: ->
       self = this
