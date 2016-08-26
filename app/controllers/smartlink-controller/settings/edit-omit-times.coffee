@@ -12,7 +12,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     @initDaysOfMonth()
 
   initAvailableOmitTimes: ->
-    opts = [{label: "Off", value: OmissionTime.OFF_VALUE }]
+    opts = [{label: "Off", value: null }]
     [0...72].forEach (n) ->
       time = moment().startOf('day').add(n * 10, 'minutes').format('hh:mm')
       opts.push({label: time, value: time})
@@ -120,8 +120,8 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     [
       {
         id: ot.get('id')
-        start_time: ot.getCalcdStartTime()
-        end_time: ot.getCalcdEndTime()
+        start_time: ot.get('startTime')
+        end_time: ot.get('endTime')
       }
     ]
 
