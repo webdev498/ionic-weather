@@ -110,8 +110,7 @@ SmartlinkControllerSettingsEditControllerAdvancedController = Ember.Controller.e
     @set 'availableMaxConcurrentProgramgs', [1..4]
 
   saveUrl: Ember.computed 'model.id', ->
-    baseUrl = @get('config.apiUrl')
-    "#{baseUrl}/api/v2/controllers/#{@get('model.id')}/update_advanced_settings"
+    "#{@get('baseUrl')}/api/v2/controllers/#{@get('model.id')}/update_advanced_settings"
 
   actions: {
     save: -> (

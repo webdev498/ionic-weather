@@ -19,8 +19,11 @@ setMv2Params = (zone, params) ->
 SmartlinkControllerSettingsEditZoneMasterValveController = Ember.Controller.extend(SmartlinkSaveMixin, {
 
   saveUrl: Ember.computed 'model.id', ->
-    baseUrl = @get('config.apiUrl')
-    "#{baseUrl}/api/v2/controllers/#{@get('model.id')}/update_advanced_settings"
+    "#{@get('baseUrl')}/api/v2/controllers/#{@get('model.id')}/update_advanced_settings"
+
+  zoneMasterValveDidChange: Ember.observer('model.zones.@each.{mvEnabled,mv2Enabled}', ->
+    this.send('save')
+  )
 
   actions:
     save: ->

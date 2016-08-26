@@ -17,7 +17,7 @@ ProgramMaxRunComponent = Ember.Component.extend
       { label: "#{n} min", value: n }
 
   isMaxRunDisabled: Ember.computed 'program.maxRun', ->
-    @get('program.maxRun') == 0
+    parseInt(@get('program.maxRun')) == 0
 
   minSoakCssClass: Ember.computed 'isMaxRunDisabled', ->
     if @get('isMaxRunDisabled')

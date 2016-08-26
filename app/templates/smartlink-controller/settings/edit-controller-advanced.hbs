@@ -13,42 +13,66 @@
     <li class="table-view-cell">
       <span>Number of Starts</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableNumberOfStarts value=model.numStarts}}
+        <select onchange={{action (mut model.numStarts) value="target.value"}}>
+          {{#each availableNumberOfStarts as |num|}}
+            <option value={{num}} selected={{eq num model.numStarts}}>{{num}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
     <li class="table-view-cell">
       <span>SLW Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableSlwDelayHours value=model.slwDelay
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.slwDelay) value="target.value"}}>
+          {{#each availableSlwDelayHours as |delay|}}
+            <option value={{delay.value}}
+              selected={{eq delay.value model.slwDelay}}>{{delay.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
     <li class="table-view-cell">
       <span>Rain Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableRainDelayDays value=model.rainDelay
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.rainDelay) value="target.value"}}>
+          {{#each availableRainDelayDays as |delay|}}
+            <option value={{delay.value}}
+              selected={{eq delay.value model.rainDelay}}>{{delay.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
     <li class="table-view-cell">
       <span>Zone-to-zone Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableZoneToZoneDelay value=model.interzoneDelay
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.interzoneDelay) value="target.value"}}>
+          {{#each availableZoneToZoneDelay as |delay|}}
+            <option value={{delay.value}}
+              selected={{eq delay.value model.interzoneDelay}}>{{delay.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
     <li class="table-view-cell">
       <span>Master Valve/Zone-on Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableMasterValveZoneOnDelay value=model.mvZoneOnDelay
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.mvZoneOnDelay) value="target.value"}}>
+          {{#each availableMasterValveZoneOnDelay as |delay|}}
+            <option value={{delay.value}}
+              selected={{eq delay.value model.mvZoneOnDelay}}>{{delay.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
     <li class="table-view-cell">
       <span>Master Valve/Zone-off Delay</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableMasterValveZoneOffDelay value=model.mvZoneOffDelay
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.mvZoneOffDelay) value="target.value"}}>
+          {{#each availableMasterValveZoneOffDelay as |delay|}}
+            <option value={{delay.value}}
+              selected={{eq delay.value model.mvZoneOffDelay}}>{{delay.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
 
@@ -56,21 +80,34 @@
       <li class="table-view-cell">
         <span>Master Valve 2 / Zone-on Delay</span>
         <span class="pull-right weathermatic-settings-input-medium">
-          {{view 'select' content=availableMasterValveZoneOnDelay value=model.mv2ZoneOnDelay
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.mv2ZoneOnDelay) value="target.value"}}>
+            {{#each availableMasterValveZoneOffDelay as |delay|}}
+              <option value={{delay.value}}
+                selected={{eq delay.value model.mv2ZoneOnDelay}}>{{delay.label}}</option>
+            {{/each}}
+          </select>
         </span>
       </li>
       <li class="table-view-cell">
         <span>Master Valve 2 / Zone-off Delay</span>
         <span class="pull-right weathermatic-settings-input-medium">
-          {{view 'select' content=availableMasterValveZoneOffDelay value=model.mv2ZoneOffDelay
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.mv2ZoneOffDelay) value="target.value"}}>
+            {{#each availableMasterValveZoneOffDelay as |delay|}}
+              <option value={{delay.value}}
+                selected={{eq delay.value model.mv2ZoneOffDelay}}>{{delay.label}}</option>
+            {{/each}}
+          </select>
         </span>
       </li>
       <li class="table-view-cell">
         <span>Max Concurrent Programs</span>
         <span class="pull-right weathermatic-settings-input-medium">
-          {{view 'select' content=availableMaxConcurrentProgramgs value=model.maxConcurrentPrograms}}
+          <select onchange={{action (mut model.maxConcurrentPrograms) value="target.value"}}>
+            {{#each availableMaxConcurrentProgramgs as |num|}}
+              <option value={{num}}
+                selected={{eq num model.maxConcurrentPrograms}}>{{num}}</option>
+            {{/each}}
+          </select>
         </span>
       </li>
     {{/if}}
@@ -78,63 +115,88 @@
     <li class="table-view-cell">
       <span>Minimum Deficit</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableMinDeficit value=model.minDeficit
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.minDeficit) value="target.value"}}>
+          {{#each availableMinDeficit as |item|}}
+            <option value={{item.value}}
+              selected={{eq item.value model.minDeficit}}>{{item.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
     <li class="table-view-cell">
       <span>Automatically Set Time</span>
-      <div id="weathermatic-toggle-automatically-set-time" class="{{if model.autoSetTime 'active'}} toggle">
-        <div class="toggle-handle"></div>
-      </div>
+      {{toggle-input value=model.autoSetTime}}
     </li>
     <li class="table-view-cell">
       <span>DST Enabled</span>
-      <div id="weathermatic-toggle-dst-enabled" class="{{if model.dstEnabled 'active'}} toggle">
-        <div class="toggle-handle"></div>
-      </div>
+      {{toggle-input value=model.dstEnabled}}
     </li>
     {{#if model.dstEnabled}}
       <li class="table-view-cell">
         <small>DST Start</small>
         <span class="pull-right weathermatic-settings-input-small">
-          {{view 'select' content=availableDaysOfWeek value=model.dstStartDay
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.dstStartDay) value="target.value"}}>
+            {{#each availableDaysOfWeek as |item|}}
+              <option value={{item.value}}
+                selected={{eq item.value model.dstStartDay}}>{{item.label}}</option>
+            {{/each}}
+          </select>
 
-          {{view 'select' content=availableWeeksOfMonth value=model.dstStartWeek
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.dstStartWeek) value="target.value"}}>
+            {{#each availableWeeksOfMonth as |item|}}
+              <option value={{item.value}}
+                selected={{eq item.value model.dstStartWeek}}>{{item.label}}</option>
+            {{/each}}
+          </select>
 
-          {{view 'select' content=availableMonths value=model.dstStartMonth
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.dstStartMonth) value="target.value"}}>
+            {{#each availableMonths as |item|}}
+              <option value={{item.value}}
+                selected={{eq item.value model.dstStartMonth}}>{{item.label}}</option>
+            {{/each}}
+          </select>
         </span>
       </li>
       <li class="table-view-cell">
         <small>DST End</small>
         <span class="pull-right weathermatic-settings-input-small">
-          {{view 'select' content=availableDaysOfWeek value=model.dstStopDay
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.dstStopDay) value="target.value"}}>
+            {{#each availableDaysOfWeek as |item|}}
+              <option value={{item.value}}
+                selected={{eq item.value model.dstStopDay}}>{{item.label}}</option>
+            {{/each}}
+          </select>
 
-          {{view 'select' content=availableWeeksOfMonth value=model.dstStopWeek
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.dstStopWeek) value="target.value"}}>
+            {{#each availableWeeksOfMonth as |item|}}
+              <option value={{item.value}}
+                selected={{eq item.value model.dstStopWeek}}>{{item.label}}</option>
+            {{/each}}
+          </select>
 
-          {{view 'select' content=availableMonths value=model.dstStopMonth
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.dstStopMonth) value="target.value"}}>
+            {{#each availableMonths as |item|}}
+              <option value={{item.value}}
+                selected={{eq item.value model.dstStopMonth}}>{{item.label}}</option>
+            {{/each}}
+          </select>
         </span>
       </li>
     {{/if}}
     <li class="table-view-cell">
       <span>Winterized</span>
-      <div id="weathermatic-toggle-winterized" class="{{if model.winterized 'active'}} toggle">
-        <div class="toggle-handle"></div>
-      </div>
+      {{toggle-input value=model.winterized}}
     </li>
 
     <li class="table-view-cell">
       <span>Aircard Comm Error Interval</span>
       <span class="pull-right weathermatic-settings-input-medium">
-        {{view 'select' content=availableCommErrorIntervals
-          value=model.commErrorInterval
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.commErrorInterval) value="target.value"}}>
+          {{#each availableCommErrorIntervals as |item|}}
+            <option value={{item.value}}
+              selected={{eq item.value model.commErrorInterval}}>{{item.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
 
