@@ -68,7 +68,7 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
     return if @get('model.smartlinkController.isRealtimeFlow')
     # __pageLoaded works around the fact that change occurs while loading, I guess to
     # set the initial values. We only want to run this observer if the user actually
-    # changes the controllers. The view sets __pageLoaded in a didInsertElement.
+    # changes the controllers. The route sets __pageLoaded in `setupController`.
     return unless @get('__pageLoaded')
     valveSize = @get('model.valveSize')
     gpm = {
@@ -101,8 +101,8 @@ SmartlinkControllerSettingsEditFlowController = Ember.Controller.extend MetricFl
         @set('model.highFlowLimit', prevHigh)
         @set('prevHighFlowLimit', null)
     else
-      @set('prevLowFlowLimit', @get('model.lowFlowLimit'))
-      @set('prevHighFlowLimit', @get('model.highFlowLimit'))
+      @set('prevLowFlowLimit', parseInt(@get('model.lowFlowLimit')))
+      @set('prevHighFlowLimit', parseInt(@get('model.highFlowLimit')))
       @set('model.lowFlowLimit', 0)
       @set('model.highFlowLimit', Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER)
   )

@@ -8,6 +8,7 @@ SmartlinkControllerSettingsEditFlowRoute = Ember.Route.extend(AuthenticatedRoute
   setupController: (controller, model) ->
     this._super(controller, model)
     controller.setupDefaults(model)
+    controller.set('__pageLoaded', true)
 })
 
 `export default SmartlinkControllerSettingsEditFlowRoute`
