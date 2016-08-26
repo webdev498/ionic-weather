@@ -10,6 +10,12 @@ SitesAdapter = ApplicationAdapter.extend
     Ember.merge(query, @customQueryParams)
     this._super(arguments...)
 
+  ajaxOptions: (url, type, options) ->
+    Ember.Logger.debug("SitesAdapter.ajaxOptions(), url, type, options", url, type, options)
+    hash = this._super(arguments...) || { data: {} }
+    Ember.merge(hash.data, this.customQueryParams)
+    return hash
+
   findHasMany: (store, snapshot, url, relationship) ->
     switch relationship.key
       when 'smartlinkControllers'

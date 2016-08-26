@@ -7,7 +7,9 @@ const Transitions = function() {
   );
 
   this.transition(
-    this.fromRoute('loading'),
+    this.fromRoute( (route) => {
+      return route.match(/.*loading/);
+    }),
     this.use('toUp'),
   );
 

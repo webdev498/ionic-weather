@@ -2,8 +2,12 @@
 `import leftPad from '../../../util/strings/left-pad'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 `import formatTime from '../../../util/time-formatter'`
+`import config from '../../../config/environment'`
 
 SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSaveMixin, {
+  intervalStartAsInt: Ember.computed 'programInstance.selectedIntervalProgram.interval_start', ->
+    parseInt(@get('programInstance.selectedIntervalProgram.interval_start'))
+
   isDayOmitted: (dayNum) ->
     omitted = false
     @get('model.smartlinkController.omissionDays').forEach((omissionDay) ->
@@ -277,8 +281,8 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
   isIntervalProgramTypeSelected: Ember.computed 'programInstance.selectedProgramType', ->
     @get('programInstance.selectedProgramType').value is @get('PROGRAM_TYPE_ENUM').INTERVAL
 
-  saveUrl: Ember.computed 'config.apiUrl', 'model.id', ->
-    "#{@get('config.apiUrl')}/api/v2/programs/#{@get('model.id')}"
+  saveUrl: Ember.computed 'model.id', ->
+    "#{config.apiUrl}/api/v2/programs/#{@get('model.id')}"
 
   daysOfWeek: ->
     type = @get('programInstance.selectedProgramType.value')
@@ -295,6 +299,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
 
   actions: {
     initProgram: -> (
+      Ember.Logger.debug("SmartlinkControllerProgramDetailController initProgram action called")
       self = this
       programDaysOfWeek = []
       selectedDaysOfWeek = []
@@ -351,8 +356,8 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
                 programDaysOfWeek[index].checked = true
 
         else
-          interval_start = self.get('programInstance.selectedIntervalProgram').interval_start
-          days_intreval = self.get('programInstance.selectedIntervalProgram').days_interval
+          interval_start = parseInt(self.get('programInstance.selectedIntervalProgram').interval_start)
+          days_intreval = parseInt(self.get('programInstance.selectedIntervalProgram').days_interval)
 
           intervalDayIndex = interval_start
 
@@ -438,6 +443,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
 
     setIntervalOpen: ->
       @set('isSetIntervalOpen', true)
+      return false
 
     closeSetInterval: ->
       @set('isSetIntervalOpen', false)
@@ -477,7 +483,9 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
       startTimeId = @get('programInstance.currentSelectedStartTime.id');
       selectTimeSlotId = @get('programInstance.currentSelectedTimeSlot.id')
       availableTimeSlots = @get('availableTimeSlots')
-      selectedTimeSlot = (availableTimeSlots.filter (ts) -> ts.id == selectTimeSlotId)[0]
+      selectedTimeSlot = availableTimeSlots.find( (ts) ->
+        parseInt(ts.id) == parseInt(selectTimeSlotId)
+      )
       selectedAmPm = @get('programInstance.currentSelectedAmPm')
 
       # progStartTimes = @get('programInstance.programStartTimes')
@@ -496,6 +504,7 @@ SmartlinkControllerProgramDetailController = Ember.Controller.extend(SmartlinkSa
       # @set('programInstance.programStartTimes', neProgStartTimes)
       # 😂
       troyStartTime = @get('programInstance.programStartTimes').find (pst) ->
+        Ember.Logger.debug("====", Ember.get(pst, 'id'), startTimeId, Ember.get(pst, 'id') == startTimeId)
         Ember.get(pst, 'id') == startTimeId
 
       if selectedTimeSlot.value == 'Off'

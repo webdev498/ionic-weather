@@ -37,6 +37,7 @@ ApplicationAdapter = ActiveModelAdapter.extend DataAdapterMixin,
     json.result
 
   ajaxOptions: (url, type, options) ->
+    Ember.Logger.debug("ApplicationAdapter.ajaxOptions(), url, type, options", url, type, options)
     hash = this._super(arguments...) or {}
     @addStandardParams(hash)
     return hash

@@ -10,7 +10,11 @@ SitesRoute = Ember.Route.extend(AuthenticatedRouteMixin,
     Ember.Logger.debug 'In SitesRoute model'
     self = this
     preCachedSitesList = window.SLN_MOBILE_CACHED_SITES
-    return preCachedSitesList if preCachedSitesList?
+    if preCachedSitesList
+      return Ember.Object.create({
+        sites: preCachedSitesList.toArray(),
+        meta: preCachedSitesList.get('meta'),
+      })
     @get('sites').lookupAndCacheSites().then (sites) ->
       return Ember.Object.create({
         sites: sites.toArray(),
