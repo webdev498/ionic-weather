@@ -2,7 +2,6 @@ import Ember from 'ember';
 import config from './config/environment';
 
 const Router = Ember.Router.extend({ location: config.locationType }).map(function() {
-
   this.route('login');
   this.route('sites', { resetNamespace: true });
 
@@ -53,9 +52,6 @@ const Router = Ember.Router.extend({ location: config.locationType }).map(functi
     this.route('command-success');
   });
 
-  this.route('smartlink-controller/settings/edit-zone-activations');
-
-  this.route('smartlink-controller/settings/edit-controller-basic');
 });
 
 export default Router;
