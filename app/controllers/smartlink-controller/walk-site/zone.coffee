@@ -197,8 +197,8 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
             return
           xhr.open 'POST', api_url
           xhr.onreadystatechange = handler
-          email = self.get('session.data.secure.email')
-          password = self.get('session.data.secure.password')
+          email = self.get('session.data.authenticated.email')
+          password = self.get('session.data.authenticated.password')
           auth = btoa("#{email}:#{password}")
           xhr.setRequestHeader("Authorization", "Basic #{auth}")
           xhr.send(form_data)

@@ -24,10 +24,10 @@ const SmartlinkControllerIndexController = Ember.Controller.extend(
 
   actions: {
     goBack() {
-      if (this.get('model.site.smartlinkControllers.length') === 1) {
+      if (this.get('model.site.controllersCount') === 1) {
         this.transitionToRoute('sites');
       } else {
-       this.transitionToRouter('site', this.get('model.site'));
+       this.transitionToRoute('site', this.get('model.site'));
       }
     },
 

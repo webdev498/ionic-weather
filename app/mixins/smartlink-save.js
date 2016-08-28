@@ -3,6 +3,15 @@ import Instruction from '../models/instruction';
 import config from '../config/environment';
 import AjaxMixin from './ajax';
 
+const {
+  Mixin,
+  RSVP,
+  Logger: { debug, error },
+  $: { each },
+  String: { capitalize },
+  computed, get, run
+} = Ember;
+
 const buildErrors = function(response) {
   return Ember.get(response, 'meta.errors') || [
     {
@@ -13,7 +22,8 @@ const buildErrors = function(response) {
 
 const defaultErrorMessage = 'There was a problem communicating with our servers. Please try again later';
 
-const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
+const SmartlinkSaveMixin = Mixin.create(AjaxMixin, {
+
   errors: {},
 
   defaultTimeoutThresholdMillis: 20000,
@@ -26,7 +36,7 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
 
   openLoadingModal(message) {
     if (!this.get('loadingModal')) {
-      Ember.Logger.debug('Cannot open loading modal, loadingModal does not exist!');
+      debug('Cannot open loading modal, loadingModal does not exist!');
       return;
     }
     return this.get('loadingModal').send('open', message);
@@ -34,16 +44,16 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
 
   closeLoadingModal() {
     if (!this.get('loadingModal')) {
-      Ember.Logger.debug('Cannot close loading modal, loadingModal does not exist!');
+      debug('Cannot close loading modal, loadingModal does not exist!');
       return;
     }
     return this.get('loadingModal').send('close');
   },
 
-  errorMessages: Ember.computed('errors', function() {
+  errorMessages: computed('errors', function() {
     const messages = [];
-    Ember.$.each(this.get('errors'), (field, errors) => {
-      const name = Ember.String.capitalize(field.split('_').join(' '));
+    each(this.get('errors'), (field, errors) => {
+      const name = capitalize(field.split('_').join(' '));
       return errors.forEach( (msg) => {
         return messages.push(name + " " + msg);
       });
@@ -68,22 +78,19 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
       options.params = {};
     }
     const timeoutThresholdMillis = options.timeoutThresholdMillis || this.defaultTimeoutThresholdMillis;
-    const allParams = Ember.merge(options.params, {
-      timestamp: new Date().getTime()
-    });
     const httpMethod = options.httpMethod || 'PATCH';
-    const savePromise = new Ember.RSVP.Promise( (resolve, reject) => {
-      timeoutWatcher = Ember.run.later(this, () => {
+    const savePromise = new RSVP.Promise( (resolve, reject) => {
+      timeoutWatcher = run.later(this, () => {
         return reject(new Error(options.errorMessage || defaultErrorMessage));
       }, timeoutThresholdMillis);
       const ajaxOptions = {
         type: httpMethod,
-        data: JSON.stringify(allParams),
+        data: JSON.stringify(options.params),
         dataType: 'json',
         contentType: 'application/json',
         success(response) {
-          Ember.Logger.debug("Save, server responsed with success: ", response);
-          if (Ember.get(response, 'meta.success')) {
+          debug("Save, server responsed with success: ", response);
+          if (get(response, 'meta.success')) {
             return resolve(response);
           } else {
             return reject(buildErrors(response));
@@ -93,7 +100,7 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
           return reject(buildErrors(xhr.responseJSON));
         }
       };
-      Ember.Logger.debug(`Save - ${httpMethod}: ${options.url}, ajax options:`, ajaxOptions);
+      debug(`Save - ${httpMethod}: ${options.url}, ajax options:`, ajaxOptions);
       this.ajax(options.url, ajaxOptions);
     });
     savePromise.then( (response) => {
@@ -113,20 +120,20 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
       if (loadingModal != null) {
         return loadingModal.send('finished');
       } else {
-        return Ember.Logger.debug('Cannot send finished action to loading modal, loadingModal does not exist!');
+        return debug('Cannot send finished action to loading modal, loadingModal does not exist!');
       }
     }).catch( (errors) => {
-      Ember.Logger.error('SmartlinkSaveMixin.save() save promise encountered error(s): ', errors);
+      error('SmartlinkSaveMixin.save() save promise encountered error(s): ', errors);
       this.closeLoadingModal();
       if (!options.pollInstructionStatus) {
         return this.set('errors', errors);
       }
     }).finally( () => {
       if (timeoutWatcher) {
-        Ember.run.cancel(timeoutWatcher);
+        run.cancel(timeoutWatcher);
       }
       if (instructionStatusPoller) {
-        return Ember.run.cancel(instructionStatusPoller);
+        return run.cancel(instructionStatusPoller);
       }
     });
     return savePromise;
@@ -148,25 +155,20 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
     }
     timeoutThresholdMillis = options.timeoutThresholdMillis || this.defaultTimeoutThresholdMillis;
     httpMethod = options.httpMethod || 'PATCH';
-    allPromises = Ember.RSVP.all(options.map( (opts) => {
-      var savePromise, timeoutWatcher;
-      timeoutWatcher = null;
-      savePromise = new Ember.RSVP.Promise( (resolve, reject) => {
-        var ajaxOptions, allParams;
-        timeoutWatcher = Ember.run.later(this, () => {
+    allPromises = RSVP.all(options.map( (opts) => {
+      var timeoutWatcher;
+      const savePromise = new RSVP.Promise( (resolve, reject) => {
+        timeoutWatcher = run.later(this, () => {
           return reject(new Error(opts.errorMessage || options.errorMessage || defaultErrorMessage));
         }, timeoutThresholdMillis);
-        allParams = Ember.merge(opts.params, {
-          timestamp: new Date().getTime()
-        });
-        ajaxOptions = {
+        const ajaxOptions = {
           type: httpMethod,
-          data: JSON.stringify(allParams),
+          data: JSON.stringify(opts.params),
           dataType: 'json',
           contentType: 'application/json',
           success(response) {
-            Ember.Logger.debug("Save, server responsed with success: ", response);
-            if (Ember.get(response, 'meta.success')) {
+            debug("Save, server responsed with success: ", response);
+            if (get(response, 'meta.success')) {
               return resolve(response);
             } else {
               return reject(buildErrors(response));
@@ -176,12 +178,12 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
             return reject(buildErrors(xhr.responseJSON));
           }
         };
-        Ember.Logger.debug("SaveAll - " + httpMethod + ": " + opts.url + ", ajax options:", ajaxOptions);
+        debug(`SaveAll - ${httpMethod}: ${opts.url}, ajax options: ${ajaxOptions}`);
         this.ajax(opts.url, ajaxOptions);
       });
       savePromise.finally( () => {
         if (timeoutWatcher) {
-          return Ember.run.cancel(timeoutWatcher);
+          return run.cancel(timeoutWatcher);
         }
       });
       return savePromise;
@@ -194,11 +196,11 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
         if (this.get('loadingModal') != null) {
           return this.get('loadingModal').send('finished');
         } else {
-          return Ember.Logger.debug('Cannot send finished action to loading modal, loadingModal does not exist!');
+          debug('Cannot send finished action to loading modal, loadingModal does not exist!');
         }
       }
     }).catch( (errors) => {
-      Ember.Logger.error('SmartlinkSaveMixin.saveAll(), save promise encountered error(s): ', errors);
+      error('SmartlinkSaveMixin.saveAll(), save promise encountered error(s): ', errors);
       this.closeLoadingModal();
       return this.set('errors', errors);
     });
@@ -206,18 +208,17 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
   },
 
   pollInstructionStatus(delayMillis, instruction) {
-    var loadingModal, statusId;
     delayMillis = delayMillis || this.defaultInstructionPollingInterval;
-    statusId = Ember.get(instruction, 'statusId');
-    loadingModal = this.get('loadingModal');
-    Ember.Logger.debug('Polling instruction status: ', statusId);
+    const statusId = get(instruction, 'statusId');
+    const loadingModal = this.get('loadingModal');
+    debug('Polling instruction status: ', statusId);
     switch (statusId) {
       case Instruction.STATUS_ERROR:
-        Ember.Logger.error("Instruction failed", instruction);
+        error("Instruction failed", instruction);
         alert("There was a problem communicating with your device. Please try again later.");
         return this.closeLoadingModal();
       case Instruction.STATUS_FINISHED:
-        Ember.Logger.debug('Instruction finished successfully', instruction);
+        debug('Instruction finished successfully', instruction);
         instruction.set('controller.hasUnsentChanges', false);
         if (loadingModal != null) {
           loadingModal.send('finished');
@@ -225,17 +226,17 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
         break;
       default:
         return instruction.reload().then( (instruction) => {
-          return Ember.run.later(this, this.pollInstructionStatus, delayMillis, instruction, delayMillis);
+          return run.later(this, this.pollInstructionStatus, delayMillis, instruction, delayMillis);
         });
     }
   },
 
   transmitUrl(smartlinkControllerId) {
-    return config.apiUrl + "/api/v2/controllers/" + smartlinkControllerId + "/transmit";
+    return `${config.apiUrl}/api/v2/controllers/${smartlinkControllerId}/transmit`;
   },
 
   receiveUrl(smartlinkControllerId) {
-    return config.apiUrl + "/api/v2/controllers/" + smartlinkControllerId + "/receive";
+    return `${config.apiUrl}/api/v2/controllers/${smartlinkControllerId}/receive`;
   },
 
   actions: {
@@ -248,7 +249,7 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
     },
 
     transmit(smartlinkController) {
-      Ember.Logger.debug('SmartlinkSaveMixin transmit action called, with smartlink controller:', smartlinkController);
+      debug('SmartlinkSaveMixin transmit action called, with smartlink controller:', smartlinkController);
       return this.save({
         url: this.transmitUrl(smartlinkController.get('id')),
         pollInstructionStatus: true,
@@ -259,7 +260,7 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
     },
 
     receive(smartlinkController) {
-      Ember.Logger.debug('SmartlinkSaveMixin receive action called, with smartlink controller', smartlinkController);
+      debug('SmartlinkSaveMixin receive action called, with smartlink controller', smartlinkController);
       return this.save({
         url: this.receiveUrl(smartlinkController.get('id')),
         pollInstructionStatus: true,
@@ -271,6 +272,7 @@ const SmartlinkSaveMixin = Ember.Mixin.create(AjaxMixin, {
       });
     }
   }
+
 });
 
 export default SmartlinkSaveMixin;

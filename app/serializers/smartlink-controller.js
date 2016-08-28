@@ -25,13 +25,6 @@ const SmartlinkControllerSerializer = ActiveModelSerializer.extend(DS.EmbeddedRe
     }
   },
 
-  normalizeLinks(data) {
-    this._super(...arguments);
-    if (data.site && data.site.site_href) {
-      data.site = data.site.site_href;
-    }
-  },
-
   modelNameFromPayloadKey(payloadKey) {
     switch (payloadKey) {
       case 'controller':

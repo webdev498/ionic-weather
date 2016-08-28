@@ -46,7 +46,7 @@ module.exports = function(environment) {
       'style-src': "'self' 'unsafe-inline'"
     },
 
-    sitesPageSize: 10
+    sitesPageSize: 20
   };
 
   if (environment === 'development') {
@@ -97,6 +97,10 @@ module.exports = function(environment) {
   }
 
   // ENV['ember-simple-auth'] = {};
+
+  ENV.coffeeOptions = {
+    blueprints: false
+  };
 
   return ENV;
 };
