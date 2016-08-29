@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-{ Logger: { error } } = EMber;
+const { Logger: { error } } = Ember;
 
 const initialize = function(_app) {
   if (typeof window.cordova === 'undefined') {
