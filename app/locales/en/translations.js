@@ -3,7 +3,7 @@ export default {
     search: "Search"
   },
   sites: {
-    yourSites: "Your Sites hi"
+    yourSites: "Your Sites"
   },
   smartlinkController: {
     clearFaults: "Clear Faults"
