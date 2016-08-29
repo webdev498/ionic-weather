@@ -1,6 +1,9 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const { Component } = Ember;
+
+export default Component.extend({
+
   pullThreshold: 35,
 
   spinnerTimeout: 1,
@@ -26,4 +29,5 @@ export default Ember.Component.extend({
       loadingHtml: this.get('pullToRefreshLoadingHtml'),
     });
   },
+
 });

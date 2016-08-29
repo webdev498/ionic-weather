@@ -1,12 +1,14 @@
 import Ember from 'ember';
 
+const { Logger: { debug } }  = Ember;
+
 const initialize = function(appInstance) {
   const locations = appInstance.lookup('service:locations');
 
   const updateGeolocation = function() {
     return locations.lookupCurrentLocation().then(function(coords) {
       locations.setCachedLocation(coords);
-      return Ember.Logger.debug(`Updated geolocation to: ${coords.latitude} ${coords.longitude}`);
+      return debug(`Updated geolocation to: ${coords.latitude} ${coords.longitude}`);
     });
   };
 
@@ -16,16 +18,16 @@ const initialize = function(appInstance) {
   };
 
   if (typeof window.cordova === 'undefined') {
-    return startUpdateLoop();
+    startUpdateLoop();
   } else {
     document.addEventListener('deviceready', startUpdateLoop, false);
-    return document.addEventListener('resume', updateGeolocation, false);
+    document.addEventListener('resume', updateGeolocation, false);
   }
 };
 
 const UpdateGeolocationInitializer = {
   name: 'update-geolocation',
-  initialize: initialize
+  initialize,
 };
 
 export {initialize};

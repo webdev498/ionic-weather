@@ -1,12 +1,21 @@
 import Ember from 'ember';
 import promisedProperty from '../util/promised-property';
 
-export default Ember.Component.extend({
-  settings: Ember.inject.service('applicationSettings'),
+const {
+  Component,
+  Logger: { debug },
+  RSVP: { Promise },
+  inject: { service },
+  computed, observer
+} = Ember;
 
-  store: Ember.inject.service(),
+export default Component.extend({
 
-  sites: Ember.inject.service('sites'),
+  settings: service('applicationSettings'),
+
+  store: service(),
+
+  sites: service('sites'),
 
   nextPageToLoad: 2,
 
@@ -17,11 +26,11 @@ export default Ember.Component.extend({
   isSearchEnabled: false,
 
   willDestroyElement() {
-    Ember.Logger.debug("SitesList.willDestroyElement()")
+    debug("SitesList.willDestroyElement()")
     this.stopScrollingPoll()
   },
 
-  searchIcon: Ember.computed('isSearchEnabled', function() {
+  searchIcon: computed('isSearchEnabled', function() {
     if (this.get('isSearchEnabled')) {
       return 'icon-close';
     } else {
@@ -29,28 +38,28 @@ export default Ember.Component.extend({
     }
   }),
 
-  isSortByProximity: Ember.computed('sortMethod', function() {
+  isSortByProximity: computed('sortMethod', function() {
     return this.get('sortMethod') === 'proximity';
   }),
 
-  isSortByAlpha: Ember.computed('sortMethod', function() {
+  isSortByAlpha: computed('sortMethod', function() {
     return this.get('sortMethod') === 'alpha';
   }),
 
-  moreSitesAvailable: Ember.computed('model.meta.found', 'model.sites.length', function() {
+  moreSitesAvailable: computed('model.meta.found', 'model.sites.length', function() {
     var totalSitesCount;
     totalSitesCount = this.get('model.meta.found')
-    Ember.Logger.debug(`SitesList.moreSitesAvailable(), found: ${totalSitesCount}`)
+    debug(`SitesList.moreSitesAvailable(), found: ${totalSitesCount}`)
     return totalSitesCount > this.get('model.sites.length');
   }),
 
-  shouldShowLoading: Ember.computed('moreSitesAvailable', 'isLoading', 'isSearchApplied', function() {
+  shouldShowLoading: computed('moreSitesAvailable', 'isLoading', 'isSearchApplied', function() {
     var isReloadingAfterSearch;
     isReloadingAfterSearch = this.get('isSearchApplied') && this.get('isLoading');
     return this.get('moreSitesAvailable') || isReloadingAfterSearch;
   }),
 
-  sortMethodDidChange: Ember.observer('sortMethod', function() {
+  sortMethodDidChange: observer('sortMethod', function() {
     var newSortMethod;
     newSortMethod = this.get('sortMethod');
     this.get('settings').changeSetting('sites-sort-method', newSortMethod);
@@ -59,11 +68,11 @@ export default Ember.Component.extend({
 
   isSearchApplied: false,
 
-  isSearchEmpty: Ember.computed('search.length', function() {
+  isSearchEmpty: computed('search.length', function() {
     return !this.get('search.length');
   }),
 
-  isSearchEnabledDidChange: Ember.observer('isSearchEnabled', function() {
+  isSearchEnabledDidChange: observer('isSearchEnabled', function() {
     const search = Ember.$('.weathermatic-sites-search');
     search.toggle('fast', () => {
       if (search.is(':visible')) {
@@ -86,11 +95,11 @@ export default Ember.Component.extend({
     Ember.$('.weathermatic-sites-search input[type=search]').focus();
   },
 
-  appVersion: Ember.computed(promisedProperty(null, function() {
+  appVersion: computed(promisedProperty(null, function() {
     if (typeof cordova !== "undefined" && cordova !== null) {
       return cordova.getAppVersion.getVersionCode();
     } else {
-      return Ember.RSVP.Promise.resolve(null);
+      return Promise.resolve(null);
     }
   })),
 
@@ -115,7 +124,7 @@ export default Ember.Component.extend({
     // TODO: There may be a more "ember" way to do this, see here:
     // https://medium.com/delightful-ui-for-ember-apps/ember-js-detecting-if-a-dom-element-is-in-the-viewport-eafcc77a6f86
 
-    Ember.Logger.debug("SitesList starting scroll polling");
+    debug("SitesList starting scroll polling");
 
     const scrollingPollIntervalId = setInterval( () => {
       this.checkForScrolledToBottom();
@@ -124,7 +133,7 @@ export default Ember.Component.extend({
   },
 
   stopScrollingPoll() {
-    Ember.Logger.debug("SitesList stopping scroll polling");
+    debug("SitesList stopping scroll polling");
     clearInterval(this.get('scrollingPollIntervalId'));
   },
 
@@ -181,7 +190,7 @@ export default Ember.Component.extend({
     },
 
     refreshData(callback) {
-      Ember.Logger.debug('SitesController.refreshData()');
+      debug('SitesController.refreshData()');
       this.set('isLoading', true);
       this.get('store').unloadAll('zone');
       this.get('store').unloadAll('program');
@@ -204,7 +213,7 @@ export default Ember.Component.extend({
       };
       doRefresh().catch( (error) => {
         retries += 1;
-        Ember.Logger.debug('Refresh sites failed, trying again without geolocation');
+        debug('Refresh sites failed, trying again without geolocation');
         this.get('settings').changeSetting('sites-sort-method', 'alpha');
         this.set('sortMethod', 'alpha');
         this.set('geolocationUnavailable', true);
@@ -223,7 +232,7 @@ export default Ember.Component.extend({
     },
 
     loadMoreSites() {
-      Ember.Logger.debug("SitesList loading more sites");
+      debug("SitesList loading more sites");
       if (this.get('isLoading')) {
         return;
       }
@@ -260,7 +269,7 @@ export default Ember.Component.extend({
 
     openSortOptions() {
       if (this.get('geolocationUnavailable')) {
-        return Ember.Logger.debug('Geolocation search is not available, not showing sort options');
+        return debug('Geolocation search is not available, not showing sort options');
       } else {
         return this.set('isSortOptionsOpen', true);
       }

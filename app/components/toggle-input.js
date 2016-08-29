@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import RatchetToggleMixin from '../mixins/ratchet-toggle';
 
-export default Ember.Component.extend(RatchetToggleMixin, {
+const { Component } = Ember;
+
+export default Component.extend(RatchetToggleMixin, {
   classNames: ['toggle'],
 
   classNameBindings: ['value:active'],

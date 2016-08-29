@@ -1,10 +1,11 @@
 import Ember from 'ember';
 import SmartlinkSaveMixin from '../../mixins/smartlink-save';
 
-const SmartlinkControllerIndexController = Ember.Controller.extend(
-  SmartlinkSaveMixin, {
+const { Controller, inject, computed } = Ember;
 
-  application: Ember.inject.controller('application'),
+const SmartlinkControllerIndexController = Controller.extend(SmartlinkSaveMixin, {
+
+  application: inject.controller('application'),
 
   queryParams: ['showCommLog'],
 
@@ -16,7 +17,7 @@ const SmartlinkControllerIndexController = Ember.Controller.extend(
     this.send('closeOptionsMenu');
   },
 
-  runStatusCssClass: Ember.computed('model.runStatus', function() {
+  runStatusCssClass: computed('model.runStatus', function() {
     if (this.get('model.isRunning')) { return 'btn-positive'; }
     if (this.get('model.isRunStatusOff')) { return 'btn-negative'; }
     return 'btn-primary';

@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+const { Helper } = Ember;
+
 export function textOrSpace(params/*, hash*/) {
   const text = params[0];
   if (text && text.length) {
@@ -9,4 +11,4 @@ export function textOrSpace(params/*, hash*/) {
   }
 }
 
-export default Ember.Helper.helper(textOrSpace);
+export default helper(textOrSpace);

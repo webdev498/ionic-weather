@@ -1,12 +1,14 @@
 import Ember from 'ember';
 
+{ Logger: { error } } = EMber;
+
 const initialize = function(_app) {
   if (typeof window.cordova === 'undefined') {
     return;
   }
   const configureStatusBar = function() {
     if (typeof StatusBar === 'undefined') {
-      Ember.Logger.error('Cannot configure status bar, missing StatusBar global (cordova status bar plugin installed?)');
+      error('Cannot configure status bar, missing StatusBar global (cordova status bar plugin installed?)');
       return;
     }
     StatusBar.styleBlackOpaque();
@@ -17,7 +19,7 @@ const initialize = function(_app) {
 
 const StatusBarInitializer = {
   name: 'status-bar',
-  initialize: initialize
+  initialize,
 };
 
 export {initialize};
