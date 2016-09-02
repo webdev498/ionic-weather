@@ -103,8 +103,8 @@ const LocationsService = Ember.Service.extend({
     return meters / 1609.34;
   },
 
-  latitudeForPostalCode(postalCode) {
-    postalCode = parseInt(postalCode);
+  latitudeForPostalCode(postalCodeInput) {
+    const postalCode = parseInt(postalCodeInput);
     if (1001 <= postalCode && postalCode <= 15000) {
       return 43;
     }

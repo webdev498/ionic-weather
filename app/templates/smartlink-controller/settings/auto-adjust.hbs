@@ -19,7 +19,7 @@
     </li>
     <li class="table-view-cell">
        <span>Latitude</span>
-       <span class="pull-right latitudeElement weathermatic-settings-input-small">
+       <span class="pull-right latitudeElement weathermatic-settings-input-medium">
           <select onchange={{action (mut model.latitude) value="target.value"}}>
             {{#each availableLatitudes as |lat|}}
               <option value={{lat.value}}
