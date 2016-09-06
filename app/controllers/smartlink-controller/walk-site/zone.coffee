@@ -208,6 +208,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
       uploadZoneImage(api_url, formData).then ->
         reader = new FileReader()
+        self.set('_uploadedZoneImage', true)
         reader.onload = (e) ->
           if self.get('model.id') == zoneId
             self.set('model.photo', e.target.result)
@@ -238,7 +239,15 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       @set('isZoneImageViewOpen', true)
 
     closeZoneImageView: ->
-      @set('isZoneImageViewOpen', false)
+      if @get('_uploadedZoneImage')
+        # bad hack :(
+        # if we've just uploaded a new image, force a refresh
+        # to make sure image orientation is correct.
+        # See: http://stackoverflow.com/questions/19463126/how-to-draw-photo-with-correct-orientation-in-canvas-after-capture-photo-by-usin
+        # for a more correct solution we can implement some day.
+        window.location.reload()
+      else
+        @set('isZoneImageViewOpen', false)
 
     goToNextZone: ->
       @set('isLoading', false)

@@ -11,4 +11,4 @@ export function textOrSpace(params/*, hash*/) {
   }
 }
 
-export default helper(textOrSpace);
+export default Ember.Helper.helper(textOrSpace);

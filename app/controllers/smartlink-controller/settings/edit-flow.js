@@ -37,8 +37,11 @@ const SmartlinkControllerSettingsEditFlowController = Controller.extend(MetricFl
         value: i,
       });
     }
-    for (i = 10; i <= 35; i++) {
+    for (i = 10; i <= 70; i++) {
       n = i * 10;
+      if ((n * parseInt(this.get('model.ppg')) || 0) > Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER) {
+        break;
+      }
       opts.push({
         label: this.flowInLocalUnits(n),
         value: n,
