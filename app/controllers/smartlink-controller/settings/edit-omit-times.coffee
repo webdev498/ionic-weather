@@ -82,16 +82,19 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
   getOmissionDateProperties: ->
     @get('omissionDates').map( (omissionDate) ->
       od = omissionDate.get('object')
-      return {} if od.get('dayNumber') == 0 || od.get('monthNumber') == 0
+      return null if od.get('dayNumber') == 0 || od.get('monthNumber') == 0
       m = leftPad(2, od.get('monthNumber'))
       d = leftPad(2, od.get('dayNumber'))
       date = moment("2016-#{m}-#{d}", "YYYY-MM-DD", true)
-      return {} unless date.isValid()
+      return null unless date.isValid()
       {
         id: omissionDate.get('object.id')
         date: date.toISOString()
       }
+    ).filter((item) ->
+      item != null
     )
+
 
   getOmissionDayProperties: ->
     map = [
@@ -108,14 +111,13 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
         else
           return { day: n }
       else
-        {}
+        null
     ).filter((item) ->
       item != null
     )
 
   getOmissionTimeProperties: ->
     ot = @get('omissionTime')
-    return [{}] unless ot
     [
       {
         id: ot.get('id')
