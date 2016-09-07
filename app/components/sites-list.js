@@ -25,6 +25,19 @@ export default Component.extend({
 
   isSearchEnabled: false,
 
+  isAppVersionAvailable: computed(function() {
+    return typeof(cordova) !== 'undefined' && cordova !== null && cordova.getAppVersion;
+  }),
+
+  didInsertElement() {
+    if (this.get('isAppVersionAvailable')) {
+      cordova.getAppVersion.getVersionCode(function(vers) {
+        debug('App version number:', vers);
+        Ember.$('.app-version-number').append(vers);
+      });
+    }
+  },
+
   willDestroyElement() {
     debug("SitesList.willDestroyElement()")
     this.stopScrollingPoll()
@@ -94,14 +107,6 @@ export default Component.extend({
   focusSearchField() {
     Ember.$('.weathermatic-sites-search input[type=search]').focus();
   },
-
-  appVersion: computed(promisedProperty(null, function() {
-    if (typeof cordova !== "undefined" && cordova !== null) {
-      return cordova.getAppVersion.getVersionCode();
-    } else {
-      return Promise.resolve(null);
-    }
-  })),
 
   init: function() {
     var defaultSortMethod;
