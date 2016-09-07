@@ -30,12 +30,14 @@ OmissionTime = DS.Model.extend {
     this.initEndTime()
 
   initStartTime: ->
-    @set 'startTimeHours', formatTimeString(@get('startTime'), 'hh:mm')
-    @set 'startTimeAmPm', formatTimeString(@get('startTime'), 'a')
+    if !!@get('startTime')
+      @set 'startTimeHours', formatTimeString(@get('startTime'), 'hh:mm')
+      @set 'startTimeAmPm', formatTimeString(@get('startTime'), 'a')
 
   initEndTime: ->
-    @set 'endTimeHours', formatTimeString(@get('endTime'), 'hh:mm')
-    @set 'endTimeAmPm', formatTimeString(@get('endTime'), 'a')
+    if !!@get('endTime')
+      @set 'endTimeHours', formatTimeString(@get('endTime'), 'hh:mm')
+      @set 'endTimeAmPm', formatTimeString(@get('endTime'), 'a')
 
   updateStartTime: Ember.observer('startTimeHours', 'startTimeAmPm', ->
     hr = this.get('startTimeHours')
