@@ -49,6 +49,8 @@ module.exports = function(environment) {
     sitesPageSize: 20
   };
 
+  ENV.locationType = 'hash';
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -66,7 +68,7 @@ module.exports = function(environment) {
   if (environment === 'test') {
     // Testem prefers this...
     ENV.baseURL = '/';
-    ENV.locationType = 'auto';
+    ENV.locationType = 'hash';
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
