@@ -53,52 +53,58 @@
         </select>
       </span>
     </li>
-    <li class="table-view-cell">
-      <span>Master Valve/Zone-on Delay</span>
-      <span class="pull-right weathermatic-settings-input-medium">
-        <select onchange={{action (mut model.mvZoneOnDelay) value="target.value"}}>
-          {{#each availableMasterValveZoneOnDelay as |delay|}}
-            <option value={{delay.value}}
-              selected={{equiv delay.value model.mvZoneOnDelay}}>{{delay.label}}</option>
-          {{/each}}
-        </select>
-      </span>
-    </li>
-    <li class="table-view-cell">
-      <span>Master Valve/Zone-off Delay</span>
-      <span class="pull-right weathermatic-settings-input-medium">
-        <select onchange={{action (mut model.mvZoneOffDelay) value="target.value"}}>
-          {{#each availableMasterValveZoneOffDelay as |delay|}}
-            <option value={{delay.value}}
-              selected={{equiv delay.value model.mvZoneOffDelay}}>{{delay.label}}</option>
-          {{/each}}
-        </select>
-      </span>
-    </li>
+
+    {{#if model.isNormallyClosedMasterValve}}
+      <li class="table-view-cell">
+        <span>Master Valve/Zone-on Delay</span>
+        <span class="pull-right weathermatic-settings-input-medium">
+          <select onchange={{action (mut model.mvZoneOnDelay) value="target.value"}}>
+            {{#each availableMasterValveZoneOnDelay as |delay|}}
+              <option value={{delay.value}}
+                selected={{equiv delay.value model.mvZoneOnDelay}}>{{delay.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      </li>
+      <li class="table-view-cell">
+        <span>Master Valve/Zone-off Delay</span>
+        <span class="pull-right weathermatic-settings-input-medium">
+          <select onchange={{action (mut model.mvZoneOffDelay) value="target.value"}}>
+            {{#each availableMasterValveZoneOffDelay as |delay|}}
+              <option value={{delay.value}}
+                selected={{equiv delay.value model.mvZoneOffDelay}}>{{delay.label}}</option>
+            {{/each}}
+          </select>
+        </span>
+      </li>
+    {{/if}}
 
     {{#if model.hasSecondMasterValve}}
-      <li class="table-view-cell">
-        <span>Master Valve 2 / Zone-on Delay</span>
-        <span class="pull-right weathermatic-settings-input-medium">
-          <select onchange={{action (mut model.mv2ZoneOnDelay) value="target.value"}}>
-            {{#each availableMasterValveZoneOffDelay as |delay|}}
-              <option value={{delay.value}}
-                selected={{equiv delay.value model.mv2ZoneOnDelay}}>{{delay.label}}</option>
-            {{/each}}
-          </select>
-        </span>
-      </li>
-      <li class="table-view-cell">
-        <span>Master Valve 2 / Zone-off Delay</span>
-        <span class="pull-right weathermatic-settings-input-medium">
-          <select onchange={{action (mut model.mv2ZoneOffDelay) value="target.value"}}>
-            {{#each availableMasterValveZoneOffDelay as |delay|}}
-              <option value={{delay.value}}
-                selected={{equiv delay.value model.mv2ZoneOffDelay}}>{{delay.label}}</option>
-            {{/each}}
-          </select>
-        </span>
-      </li>
+      {{#if model.isNormallyClosedMasterValve2}}
+        <li class="table-view-cell">
+          <span>Master Valve 2 / Zone-on Delay</span>
+          <span class="pull-right weathermatic-settings-input-medium">
+            <select onchange={{action (mut model.mv2ZoneOnDelay) value="target.value"}}>
+              {{#each availableMasterValveZoneOffDelay as |delay|}}
+                <option value={{delay.value}}
+                  selected={{equiv delay.value model.mv2ZoneOnDelay}}>{{delay.label}}</option>
+              {{/each}}
+            </select>
+          </span>
+        </li>
+        <li class="table-view-cell">
+          <span>Master Valve 2 / Zone-off Delay</span>
+          <span class="pull-right weathermatic-settings-input-medium">
+            <select onchange={{action (mut model.mv2ZoneOffDelay) value="target.value"}}>
+              {{#each availableMasterValveZoneOffDelay as |delay|}}
+                <option value={{delay.value}}
+                  selected={{equiv delay.value model.mv2ZoneOffDelay}}>{{delay.label}}</option>
+              {{/each}}
+            </select>
+          </span>
+        </li>
+      {{/if}}
+
       <li class="table-view-cell">
         <span>Max Concurrent Programs</span>
         <span class="pull-right weathermatic-settings-input-medium">
