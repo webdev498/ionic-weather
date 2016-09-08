@@ -19,14 +19,14 @@
         <select onchange={{action (mut omissionTime.startTimeHours) value="target.value"}}>
           {{#each availableOmitTimes as |time|}}
           <option value={{time.value}}
-            selected={{eq time.value omissionTime.startTimeHours}}>{{time.label}}</option>
+            selected={{equiv time.value omissionTime.startTimeHours}}>{{time.label}}</option>
           {{/each}}
         </select>
 
         <select onchange={{action (mut omissionTime.startTimeAmPm) value="target.value"}}>
           {{#each timeSuffix as |amPm|}}
           <option value="{{amPm.value}}"
-            selected={{eq amPm.value omissionTime.startTimeAmPm}}>{{amPm.label}}</option>
+            selected={{equiv amPm.value omissionTime.startTimeAmPm}}>{{amPm.label}}</option>
           {{/each}}
         </select>
       </span>
@@ -37,14 +37,14 @@
         <select onchange={{action (mut omissionTime.endTimeHours) value="target.value"}}>
           {{#each availableOmitTimes as |time|}}
           <option value={{time.value}}
-            selected={{eq time.value omissionTime.endTimeHours}}>{{time.label}}</option>
+            selected={{equiv time.value omissionTime.endTimeHours}}>{{time.label}}</option>
           {{/each}}
         </select>
 
         <select onchange={{action (mut omissionTime.endTimeAmPm) value="target.value"}}>
           {{#each timeSuffix as |amPm|}}
           <option value="{{amPm.value}}"
-            selected={{eq amPm.value omissionTime.endTimeAmPm}}>{{amPm.label}}</option>
+            selected={{equiv amPm.value omissionTime.endTimeAmPm}}>{{amPm.label}}</option>
           {{/each}}
         </select>
       </span>
@@ -106,14 +106,14 @@
           <select onchange={{action (mut od.object.monthNumber) value="target.value"}}>
             {{#each monthsOfYear as |month|}}
             <option value={{month.value}}
-              selected={{eq month.value od.object.monthNumber}}>{{month.label}}</option>
+              selected={{equiv month.value od.object.monthNumber}}>{{month.label}}</option>
             {{/each}}
           </select>
 
           <select onchange={{action (mut od.object.dayNumber) value="target.value"}}>
             {{#each daysOfMonth as |day|}}
               <option value="{{day.value}}"
-                selected={{eq day.value od.object.dayNumber}}>{{day.label}}</option>
+                selected={{equiv day.value od.object.dayNumber}}>{{day.label}}</option>
             {{/each}}
           </select>
         </span>

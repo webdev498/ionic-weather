@@ -22,21 +22,21 @@
         <select onchange={{action (mut deviceTimeHours) value="target.value"}}>
           {{#each availableHours as |hour|}}
             <option value={{hour.value}}
-              selected={{eq hour.value deviceTimeHours}}>{{hour.value}}</option>
+              selected={{equiv hour.value deviceTimeHours}}>{{hour.value}}</option>
           {{/each}}
         </select> :
 
         <select onchange={{action (mut deviceTimeMinute) value="target.value"}}>
           {{#each availableMinutes as |min|}}
             <option value={{min.value}}
-              selected={{eq min.value deviceTimeMinutes}}>{{min.value}}</option>
+              selected={{equiv min.value deviceTimeMinutes}}>{{min.value}}</option>
           {{/each}}
         </select> :
 
         <select onchange={{action (mut deviceTimeAmPm) value="target.value"}}>
           {{#each availableAmPm as |amPm|}}
             <option value={{amPm.value}}
-              selected={{eq amPm.value deviceTimeAmPm}}>{{amPm.label}}</option>
+              selected={{equiv amPm.value deviceTimeAmPm}}>{{amPm.label}}</option>
           {{/each}}
         </select> :
       </span>
@@ -47,7 +47,7 @@
         <select onchange={{action (mut model.timezone) value="target.value"}}>
           {{#each availableTimezones as |zone|}}
             <option value={{zone.value}}
-              selected={{eq zone.value model.timezone}}>{{zone.value}}</option>
+              selected={{equiv zone.value model.timezone}}>{{zone.value}}</option>
           {{/each}}
         </select> :
       </span>
@@ -58,7 +58,7 @@
         <select onchange={{action (mut model.runStatus) value="target.value"}}>
           {{#each availableRunStatuses as |status|}}
             <option value={{status.value}}
-              selected={{eq status.value model.runStatus}}>{{status.label}}</option>
+              selected={{equiv status.value model.runStatus}}>{{status.label}}</option>
           {{/each}}
         </select> :
       </span>
@@ -69,7 +69,7 @@
         <select onchange={{action (mut model.wateringMode) value="target.value"}}>
           {{#each availableWateringModes as |mode|}}
             <option value={{mode.value}}
-              selected={{eq mode.value model.wateringMode}}>{{mode.label}}</option>
+              selected={{equiv mode.value model.wateringMode}}>{{mode.label}}</option>
           {{/each}}
         </select> :
       </span>
@@ -80,7 +80,7 @@
         <select onchange={{action (mut model.rainFreezeSensorMode) value="target.value"}}>
           {{#each availableRainFreeze as |mode|}}
             <option value={{mode.value}}
-              selected={{eq mode.value model.rainFreezeSensorMode}}>{{mode.label}}</option>
+              selected={{equiv mode.value model.rainFreezeSensorMode}}>{{mode.label}}</option>
           {{/each}}
         </select> :
       </span>

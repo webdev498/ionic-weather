@@ -140,7 +140,7 @@
         <select onchange={{action (mut model.sprinklerType) value="target.value"}}>
           {{#each availableSprinklerTypes as |sprinklerType|}}
             <option value="{{sprinklerType.value}}"
-              selected={{eq sprinklerType.value model.sprinklerType}}>{{sprinklerType.label}}</option>
+              selected={{equiv sprinklerType.value model.sprinklerType}}>{{sprinklerType.label}}</option>
           {{/each}}
         </select>
       </center>
@@ -150,7 +150,7 @@
         <select onchange={{action (mut model.plantType) value="target.value"}}>
           {{#each availablePlantTypes as |plantType|}}
             <option value="{{plantType.value}}"
-              selected={{eq plantType.value model.plantType}}>{{plantType.label}}</option>
+              selected={{equiv plantType.value model.plantType}}>{{plantType.label}}</option>
           {{/each}}
         </select>
       </center>
@@ -160,7 +160,7 @@
         <select onchange={{action (mut model.soilType) value="target.value"}}>
           {{#each availableSoilTypes as |soilType|}}
             <option value={{soilType.value}}
-              selected={{eq soilType.value model.soilType}}>{{soilType.label}}</option>
+              selected={{equiv soilType.value model.soilType}}>{{soilType.label}}</option>
           {{/each}}
         </select>
       </center>
@@ -170,7 +170,7 @@
         <select onchange={{action (mut model.soilSlope) value="target.value"}}>
           {{#each availableSoilSlopes as |soilSlope|}}
           <option value="{{soilSlope.value}}"
-            selected={{eq soilSlope.value model.soilSlope}}>{{soilSlope.label}}</option>
+            selected={{equiv soilSlope.value model.soilSlope}}>{{soilSlope.label}}</option>
           {{/each}}
         </select>
       </center>
@@ -182,7 +182,7 @@
         <select onchange={{action (mut model.adjustment) value="target.value"}}>
           {{#each availableMoreLess as |moreLess|}}
           <option value="{{moreLess.value}}"
-            selected={{eq moreLess.value model.adjustment}}>{{moreLess.label}}</option>
+            selected={{equiv moreLess.value model.adjustment}}>{{moreLess.label}}</option>
           {{/each}}
         </select>
       </center>

@@ -17,7 +17,7 @@
           <select onchange={{action (mut model.sprinklerType) value="target.value"}}>
             {{#each availableSprinklerTypesMetric as |sprinkler|}}
               <option value={{sprinkler.value}}
-                selected={{eq sprinkler.value model.sprinklerType}}>{{sprinkler.label}}</option>
+                selected={{equiv sprinkler.value model.sprinklerType}}>{{sprinkler.label}}</option>
             {{/each}}
           </select>
         </span>
@@ -29,7 +29,7 @@
           <select onchange={{action (mut model.sprinklerType) value="target.value"}}>
             {{#each availableSprinklerTypesImperial as |sprinkler|}}
               <option value={{sprinkler.value}}
-                selected={{eq sprinkler.value model.sprinklerType}}>{{sprinkler.label}}</option>
+                selected={{equiv sprinkler.value model.sprinklerType}}>{{sprinkler.label}}</option>
             {{/each}}
           </select>
         </span>
@@ -42,7 +42,7 @@
         <select onchange={{action (mut model.plantType) value="target.value"}}>
           {{#each availablePlantTypes as |plantType|}}
             <option value={{plantType.value}}
-              selected={{eq plantType.value model.plantType}}>{{plantType.label}}</option>
+              selected={{equiv plantType.value model.plantType}}>{{plantType.label}}</option>
           {{/each}}
         </select>
       </span>
@@ -54,7 +54,7 @@
         <select onchange={{action (mut model.soilType) value="target.value"}}>
           {{#each availableSoilTypes as |soilType|}}
             <option value={{soilType.value}}
-              selected={{eq soilType.value model.soilType}}>{{soilType.label}}</option>
+              selected={{equiv soilType.value model.soilType}}>{{soilType.label}}</option>
           {{/each}}
         </select>
       </span>
@@ -66,7 +66,7 @@
         <select onchange={{action (mut model.soilSlope) value="target.value"}}>
           {{#each slopeValues as |soilSlope|}}
             <option value={{soilSlope.value}}
-              selected={{eq soilSlope.value model.soilSlope}}>{{soilSlope.label}}</option>
+              selected={{equiv soilSlope.value model.soilSlope}}>{{soilSlope.label}}</option>
           {{/each}}
         </select>
       </span>
@@ -78,7 +78,7 @@
         <select onchange={{action (mut model.adjustment) value="target.value"}}>
           {{#each moreLessValues as |moreLess|}}
             <option value={{moreLess.value}}
-              selected={{eq moreLess.value model.adjustment}}>{{moreLess.label}}</option>
+              selected={{equiv moreLess.value model.adjustment}}>{{moreLess.label}}</option>
           {{/each}}
         </select>
       </span>

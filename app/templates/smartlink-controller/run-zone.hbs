@@ -35,13 +35,13 @@
       <center>
         <select onchange={{action (mut runTimeHours) value="target.value"}}>
           {{#each availableRunTimeHours as |hour|}}
-            <option value="{{hour.value}}" selected={{eq hour.value runTimeHours}}>{{hour.label}}</option>
+            <option value="{{hour.value}}" selected={{equiv hour.value runTimeHours}}>{{hour.label}}</option>
           {{/each}}
         </select> :
 
         <select onchange={{action (mut runTimeMinutes) value="target.value"}}>
           {{#each availableRunTimeMinutes as |min|}}
-            <option value="{{min.value}}" selected={{eq min.value runTimeMinutes}}>{{min.label}}</option>
+            <option value="{{min.value}}" selected={{equiv min.value runTimeMinutes}}>{{min.label}}</option>
           {{/each}}
         </select>
         <strong>HH:MM</strong>
