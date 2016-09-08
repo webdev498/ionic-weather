@@ -33,9 +33,9 @@ const SmartlinkControllerSettingsEditAutoAdjustController = Controller.extend(Me
       });
     }
 
-    for (i=20; i < 30; i++) {
+    for (i=20; i < 31; i++) {
       opts.push({
-        label: `${(i/10).toFixed(2)}`,
+        label: `${(i/10).toFixed(2)}"`,
         value: i*10,
       });
     }

@@ -10,7 +10,7 @@
       <select onchange={{action (mut program.maxRun) value="target.value"}}>
         {{#each availableMaxRun as |item|}}
           <option value={{item.value}}
-            selected={{eq item.value program.maxRun}}>{{item.label}}</option>
+            selected={{equiv item.value program.maxRun}}>{{item.label}}</option>
         {{/each}}
       </select>
     </span>
@@ -25,7 +25,7 @@
         disabled={{isMaxRunDisabled}} class={{minSoakCssClass}}>
         {{#each availableMinSoak as |item|}}
           <option value={{item.value}}
-            selected={{eq item.value program.minSoak}}>{{item.label}}</option>
+            selected={{equiv item.value program.minSoak}}>{{item.label}}</option>
         {{/each}}
       </select>
     </span>

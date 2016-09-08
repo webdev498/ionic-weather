@@ -20,6 +20,9 @@ WEATHER_STATUS_FAULT  = 5
 FLOW_MODE_VIRTUAL = 0
 FLOW_MODE_REALTIME = 1
 
+CONTROLLER_MV_TYPE_NORMALLY_CLOSED = 0
+CONTROLLER_MV_TYPE_NORMALLY_OPEN = 1
+
 SmartlinkController = DS.Model.extend
   name:                     DS.attr 'string'
   runStatus:                DS.attr 'number'
@@ -56,6 +59,8 @@ SmartlinkController = DS.Model.extend
   commErrorInterval:        DS.attr 'number'
   hasSecondMasterValve:     DS.attr 'boolean'
   maxConcurrentPrograms:    DS.attr 'number'
+  masterValveType:          DS.attr 'number'
+  masterValve2Type:         DS.attr 'number'
 
   site:                 DS.belongsTo 'site',        async: true
 
@@ -67,6 +72,12 @@ SmartlinkController = DS.Model.extend
   omissionTimes:        DS.hasMany 'omission-time', async: false
   omissionDates:        DS.hasMany 'omission-date', async: false
 
+
+  isNormallyClosedMasterValve: Ember.computed 'masterValveType', ->
+    @get('masterValveType') is CONTROLLER_MV_TYPE_NORMALLY_CLOSED
+
+  isNormallyClosedMasterValve2: Ember.computed 'masterValve2Type', ->
+    @get('masterValve2Type') is CONTROLLER_MV_TYPE_NORMALLY_CLOSED
 
   isRunning: Ember.computed 'runStatus', ->
     @get('runStatus') is RUN_STATUS_RUN

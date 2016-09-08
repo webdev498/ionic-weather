@@ -30,12 +30,12 @@
               <strong>{{site.name}}</strong>
               <p>
                 <small class="badge">{{site.cityState}}</small>
-                <small class="badge controller-count-badge">{{site.controllersCount}} controllers</small>
+                <small class="badge controller-count-badge">{{count-text 'controller' site.controllersCount}}</small>
                 {{#if site.milesAway}}
                   <small class="badge location-badge">{{fa-icon 'location-arrow'}} {{format-number site.milesAway round=true}} mi</small>
                 {{/if}}
                 {{#if site.faultsCount}}
-                  <small class="badge badge-negative">{{site.faultsCount}} faults</small>
+                  <small class="badge badge-negative">{{count-text 'fault' site.faultsCount}}</small>
                 {{/if}}
               </p>
             </div>

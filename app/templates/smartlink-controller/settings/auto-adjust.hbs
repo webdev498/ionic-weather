@@ -23,7 +23,7 @@
           <select onchange={{action (mut model.latitude) value="target.value"}}>
             {{#each availableLatitudes as |lat|}}
               <option value={{lat.value}}
-                selected={{eq lat.value model.latitude}}>{{lat.label}}</option>
+                selected={{equiv lat.value model.latitude}}>{{lat.label}}</option>
             {{/each}}
           </select>
        </span>

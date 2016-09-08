@@ -131,6 +131,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
       @save(
         url: @get('saveUrl')
         params: {
+          allow_destroy: true
           controller_omissions: {
             controller_omission_dates: @getOmissionDateProperties()
             controller_omission_days: @getOmissionDayProperties()
@@ -138,6 +139,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
           }
         }
       ).then =>
+        @get('model').reload();
         @set('model.hasUnsentChanges', true)
 
 })

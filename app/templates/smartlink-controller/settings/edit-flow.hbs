@@ -35,7 +35,7 @@
             disabled={{model.realtimeFlowDisabled}}>
             {{#each availableLowFlowValues as |flow|}}
               <option value={{flow.value}}
-                selected={{eq flow.value model.lowFlowLimit}}>{{flow.label}}</option>
+                selected={{equiv flow.value model.lowFlowLimit}}>{{flow.label}}</option>
             {{/each}}
           </select>
         </span>
@@ -50,7 +50,7 @@
             disabled={{model.realtimeFlowDisabled}}>
             {{#each availableHighFlowValues as |flow|}}
               <option value={{flow.value}}
-                selected={{eq flow.value model.highFlowLimit}}>{{flow.label}}</option>
+                selected={{equiv flow.value model.highFlowLimit}}>{{flow.label}}</option>
             {{/each}}
           </select>
         </span>
@@ -63,7 +63,7 @@
         <select onchange={{action (mut model.valveSize) value="target.value"}}>
           {{#each availableValveSizes as |size|}}
             <option value={{size.value}}
-              selected={{eq size.value model.valveSize}}>{{size.label}}</option>
+              selected={{equiv size.value model.valveSize}}>{{size.label}}</option>
           {{/each}}
         </select>
       </span>

@@ -26,7 +26,7 @@
           <select onchange={{action (mut model.programZoneA.formattedRunTime) value="target.value"}}>
             {{#each availableProgramTimes as |time|}}
             <option value="{{time.value}}"
-              selected={{eq time.value model.programZoneA.formattedRunTime}}>{{time.label}}</option>
+              selected={{equiv time.value model.programZoneA.formattedRunTime}}>{{time.label}}</option>
             {{/each}}
           </select>
         </span>
@@ -48,7 +48,7 @@
           <select onchange={{action (mut model.programZoneB.formattedRunTime) value="target.value"}}>
             {{#each availableProgramTimes as |time|}}
             <option value="{{time.value}}"
-              selected={{eq time.value model.programZoneB.formattedRunTime}}>{{time.label}}</option>
+              selected={{equiv time.value model.programZoneB.formattedRunTime}}>{{time.label}}</option>
             {{/each}}
           </select>
         </span>
@@ -70,7 +70,7 @@
           <select onchange={{action (mut model.programZoneC.formattedRunTime) value="target.value"}}>
             {{#each availableProgramTimes as |time|}}
             <option value="{{time.value}}"
-              selected={{eq time.value model.programZoneC.formattedRunTime}}>{{time.label}}</option>
+              selected={{equiv time.value model.programZoneC.formattedRunTime}}>{{time.label}}</option>
             {{/each}}
           </select>
         </span>
@@ -92,7 +92,7 @@
           <select onchange={{action (mut model.programZoneD.formattedRunTime) value="target.value"}}>
             {{#each availableProgramTimes as |time|}}
             <option value="{{time.value}}"
-              selected={{eq time.value model.programZoneD.formattedRunTime}}>{{time.label}}</option>
+              selected={{equiv time.value model.programZoneD.formattedRunTime}}>{{time.label}}</option>
             {{/each}}
           </select>
         </span>

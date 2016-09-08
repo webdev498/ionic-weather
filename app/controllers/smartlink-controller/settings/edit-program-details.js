@@ -570,6 +570,7 @@ const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSa
           }
         }
       }).then( () => {
+        this.get('model').reload();
         this.set('model.smartlinkController.hasUnsentChanges', true);
       });
     },

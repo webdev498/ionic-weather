@@ -137,7 +137,7 @@
        <select onchange={{action (mut programInstance.selectedIntervalProgram.interval_start) value="target.value"}}>
          {{#each programInstance.DaysOfWeek as |dayOfWeek|}}
            <option value={{dayOfWeek.value}}
-             selected={{eq dayOfWeek.value intervalStartAsInt}}>{{dayOfWeek.label}}</option>
+             selected={{equiv dayOfWeek.value intervalStartAsInt}}>{{dayOfWeek.label}}</option>
          {{/each}}
        </select>
       </center>
@@ -145,7 +145,7 @@
       <center>
         <select onchange={{action (mut programInstance.selectedIntervalProgram.days_interval) value="target.value"}}>
           {{#each DaysInterval as |days|}}
-            <option value={{days}} selected={{eq days programInstance.selectedIntervalProgram.days_interval}}>{{days}}</option>
+            <option value={{days}} selected={{equiv days programInstance.selectedIntervalProgram.days_interval}}>{{days}}</option>
           {{/each}}
        </select>
       </center>
@@ -174,14 +174,14 @@
        <select onchange={{action (mut programInstance.currentSelectedTimeSlot.id) value="target.value"}}>
          {{#each availableTimeSlots as |slot|}}
          <option value="{{slot.id}}"
-           selected={{eq slot.id programInstance.currentSelectedTimeSlot.id}}>{{slot.value}}</option>
+           selected={{equiv slot.id programInstance.currentSelectedTimeSlot.id}}>{{slot.value}}</option>
          {{/each}}
        </select>
        &nbsp;
        <select onchange={{action (mut programInstance.currentSelectedAmPm) value="target.value"}}>
          {{#each availableAmPm as |amPm|}}
          <option value="{{amPm}}"
-           selected={{eq amPm programInstance.currentSelectedAmPm}}>{{amPm}}</option>
+           selected={{equiv amPm programInstance.currentSelectedAmPm}}>{{amPm}}</option>
          {{/each}}
        </select>
       </center>
