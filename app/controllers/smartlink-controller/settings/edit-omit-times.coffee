@@ -139,6 +139,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
           }
         }
       ).then =>
+        @get('model').reload();
         @set('model.hasUnsentChanges', true)
 
 })
