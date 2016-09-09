@@ -35,7 +35,8 @@
             disabled={{model.realtimeFlowDisabled}}>
             {{#each availableLowFlowValues as |flow|}}
               <option value={{flow.value}}
-                selected={{equiv flow.value model.lowFlowLimit}}>{{flow.label}}</option>
+                selected={{equiv flow.value model.lowFlowLimit}}
+                disabled={{flow.isDisabled}}>{{flow.label}}</option>
             {{/each}}
           </select>
         </span>
@@ -50,7 +51,8 @@
             disabled={{model.realtimeFlowDisabled}}>
             {{#each availableHighFlowValues as |flow|}}
               <option value={{flow.value}}
-                selected={{equiv flow.value model.highFlowLimit}}>{{flow.label}}</option>
+                selected={{equiv flow.value model.highFlowLimit}}
+                disabled={{flow.isDisabled}}>{{flow.label}}</option>
             {{/each}}
           </select>
         </span>

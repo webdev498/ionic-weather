@@ -50,23 +50,39 @@ const SmartlinkControllerSettingsEditFlowController = Controller.extend(MetricFl
     return opts;
   }),
 
-  availableLowFlowValues: computed('availableFlowValues', function() {
-    return [
-      {
-        label: 'Off',
-        value: 0
-      }
-    ].concat(this.get('availableFlowValues'));
-  }),
+  availableLowFlowValues: computed('availableFlowValues', 'model.highFlowLimit',
+    function() {
+      const high = parseInt(this.get('model.highFlowLimit'));
+      return [
+        {
+          label: 'Off',
+          value: 0
+        }
+      ].concat(this.get('availableFlowValues')).map(function(flow) {
+        const copy = Ember.copy(flow);
+        if (flow.value >= high) {
+          copy.isDisabled = true;
+        }
+        return copy;
+      });
+    }),
 
-  availableHighFlowValues: computed('availableFlowValues', function() {
-    return [
-      {
-        label: 'Off',
-        value: Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER
-      }
-    ].concat(this.get('availableFlowValues'));
-  }),
+  availableHighFlowValues: computed('availableFlowValues', 'model.lowFlowLimit',
+    function() {
+      const low = parseInt(this.get('model.lowFlowLimit'));
+      return [
+        {
+          label: 'Off',
+          value: Zone.HIGH_FLOW_LIMIT_DISABLED_MAGIC_NUMBER
+        }
+      ].concat(this.get('availableFlowValues')).map(function(flow) {
+        const copy = Ember.copy(flow);
+        if (flow.value <= low) {
+          copy.isDisabled = true;
+        }
+        return copy;
+      });
+    }),
 
   saveUrl: computed('model.smartlinkController.id', function() {
     const controllerId = this.get('model.smartlinkController.id');
