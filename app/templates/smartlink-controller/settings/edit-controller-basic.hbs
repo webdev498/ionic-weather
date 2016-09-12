@@ -58,7 +58,8 @@
         <select onchange={{action (mut model.runStatus) value="target.value"}}>
           {{#each availableRunStatuses as |status|}}
             <option value={{status.value}}
-              selected={{equiv status.value model.runStatus}}>{{status.label}}</option>
+              selected={{equiv status.value model.runStatus}}
+              disabled={{status.disabled}}>{{status.label}}</option>
           {{/each}}
         </select> :
       </span>

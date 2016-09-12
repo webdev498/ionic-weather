@@ -1,14 +1,22 @@
 import Ember from 'ember';
 import SmartlinkSaveMixin from '../../../mixins/smartlink-save';
-var SmartlinkControllerSettingsEditControllerBasicController;
+import SmartlinkController from '../../../models/smartlink-controller';
 
-SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.extend(SmartlinkSaveMixin, {
+const { computed } = Ember;
+
+const {
+  RUN_STATUS_OFF,
+  RUN_STATUS_RUN,
+  RUN_STATUS_REMOTE_OFF,
+  RUN_STATUS_RAIN_DELAY,
+} = SmartlinkController;
+
+const SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.extend(SmartlinkSaveMixin, {
   init: function() {
     this.initAvailableHours();
     this.initAvailableMinutes();
     this.initAvailalbleAmPm();
     this.initAvailableTimezones();
-    this.initAvailableRunStatuses();
     this.initAvailableWateringModes();
     return this.initAvailableRainFreeze();
   },
@@ -109,20 +117,6 @@ SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.exte
       }
     ]);
   },
-  initAvailableRunStatuses: function() {
-    return this.set('availableRunStatuses', [
-      {
-        label: 'Run',
-        value: 1
-      }, {
-        label: 'Remote Off',
-        value: 2
-      }, {
-        label: 'Rain Delay',
-        value: 3
-      }
-    ]);
-  },
   initAvailableWateringModes: function() {
     return this.set('availableWateringModes', [
       {
@@ -154,7 +148,41 @@ SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.exte
         value: tz
       };
     }));
-  }
+  },
+
+  availableRunStatuses: computed('model.runStatus', function() {
+    const statuses = [];
+    const status = parseInt(this.get('model.runStatus'))
+
+    if (this.get('model.isRunStatusOff')) {
+      return [{
+        label: 'System Off',
+        value: RUN_STATUS_OFF,
+        disabled: true,
+      }];
+    }
+
+    if (status === RUN_STATUS_RUN || status === RUN_STATUS_REMOTE_OFF) {
+      return [{
+        label: 'Run',
+        value: RUN_STATUS_RUN,
+      }, {
+        label: 'Remote Off',
+        value: RUN_STATUS_REMOTE_OFF,
+      }];
+    }
+
+    return [{
+      label: 'Run',
+      value: RUN_STATUS_RUN,
+    }, {
+      label: 'Remote Off',
+      value: RUN_STATUS_REMOTE_OFF,
+    }, {
+      label: 'Rain Delay',
+      value: RUN_STATUS_RAIN_DELAY,
+    }];
+  }),
 });
 
 export default SmartlinkControllerSettingsEditControllerBasicController;
