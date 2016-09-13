@@ -8,7 +8,7 @@ SmartlinkControllerSettingsEditSeasonalAdjust = Ember.Controller.extend Smartlin
   initAvailableSeasonalAdjustValues: ->
     opts = []
 
-    [1..60].forEach( (n) ->
+    [0..60].forEach( (n) ->
       val = n * 5
       opts.push {
         label: "#{val}%", value: val
