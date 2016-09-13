@@ -1,4 +1,4 @@
-<li {{bind-attr class=':table-view-cell :weathermatic-select-program cssClass'}}>
+<li class="table-view-cell weathermatic-select-program {{cssClass}}">
   {{#link-to 'smartlink-controller.run-program' program.id class='push-right'}}
     <h3>Run Program {{upper-case program.identifier}}</h3>
     {{#if program.description.length}}

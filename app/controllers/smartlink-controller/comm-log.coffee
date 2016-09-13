@@ -1,5 +1,6 @@
 `import Ember from 'ember'`
 
+# TODO: is this in use? can we delete?
 SmartlinkControllerCommLogController = Ember.Controller.extend
   needs: ['smartlinkController']
 

@@ -95,6 +95,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
       item != null
     )
 
+
   getOmissionDayProperties: ->
     map = [
       'isSundaySelected', 'isMondaySelected', 'isTuesdaySelected',
@@ -120,8 +121,8 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     [
       {
         id: ot.get('id')
-        start_time: ot.getCalcdStartTime()
-        end_time: ot.getCalcdEndTime()
+        start_time: ot.get('startTime')
+        end_time: ot.get('endTime')
       }
     ]
 
@@ -130,6 +131,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
       @save(
         url: @get('saveUrl')
         params: {
+          allow_destroy: true
           controller_omissions: {
             controller_omission_dates: @getOmissionDateProperties()
             controller_omission_days: @getOmissionDayProperties()
@@ -137,6 +139,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
           }
         }
       ).then =>
+        @get('model').reload();
         @set('model.hasUnsentChanges', true)
 
 })

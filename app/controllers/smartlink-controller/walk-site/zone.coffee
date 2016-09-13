@@ -1,9 +1,14 @@
 `import Ember from 'ember'`
 `import ManualRunMixin from '../../../mixins/manual-run'`
-`import Base from 'simple-auth/authenticators/base'`
+`import Base from 'ember-simple-auth/authenticators/base'`
 `import AuthenticationMixin from '../../../mixins/authentication'`
+`import AjaxMixin from '../../../mixins/ajax'`
+`import config from '../../../config/environment'`
 
-SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMixin,
+SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMixin, AjaxMixin,
+
+  session: Ember.inject.service()
+
   init: ->
     self = this
 
@@ -142,11 +147,27 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
   isAutoAdjustMenuOpen: false
   isZoneImageViewOpen: false
 
+  activeZones: Ember.computed('model.smartlinkController.zones.@each.active', ->
+    @get('model.smartlinkController.zones')
+      .filterBy('active', true)
+      .sortBy('number')
+  )
+
   isPreviousZoneAvailable: Ember.computed 'model.number', ->
-    "#{@get('model.number')}" != '1'
+    !!@getPreviousZone()
 
   isNextZoneAvailable: Ember.computed 'model.number', ->
-    +@get('model.number') < @get('model').get('smartlinkController.zones.length')
+    !!@getNextZone()
+
+  getNextZone: ->
+    zones = @get('activeZones')
+    thisZoneIndex = zones.indexOf(@get('model'))
+    zones[thisZoneIndex + 1]
+
+  getPreviousZone: ->
+    zones = @get('activeZones')
+    thisZoneIndex = zones.indexOf(@get('model'))
+    zones[thisZoneIndex - 1]
 
   actions:
     saveZoneImage: ->
@@ -159,7 +180,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
       file = Ember.$('#image-upload-input').get(0).files[0]
 
-      api_url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}/photo"
+      api_url = "#{config.apiUrl}/api/v2/controllers/#{controllerId}/zones/#{zoneId}/photo"
 
       formData = new FormData(document.querySelector("form"))
 
@@ -176,16 +197,18 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
             return
           xhr.open 'POST', api_url
           xhr.onreadystatechange = handler
-          email = self.get('session.content.secure.email')
-          password = self.get('session.content.secure.password')
+          email = self.get('session.data.authenticated.email')
+          password = self.get('session.data.authenticated.password')
           auth = btoa("#{email}:#{password}")
           xhr.setRequestHeader("Authorization", "Basic #{auth}")
           xhr.send(form_data)
           return
       )
+      return unless !!Ember.$('#image-upload-input').val()
 
       uploadZoneImage(api_url, formData).then ->
         reader = new FileReader()
+        self.set('_uploadedZoneImage', true)
         reader.onload = (e) ->
           if self.get('model.id') == zoneId
             self.set('model.photo', e.target.result)
@@ -207,6 +230,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
     openAutoAdjustMenu: ->
       @set('isAutoAdjustMenuOpen', true)
+      return false
 
     closeAutoAdjustMenu: ->
       @set('isAutoAdjustMenuOpen', false)
@@ -215,23 +239,27 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       @set('isZoneImageViewOpen', true)
 
     closeZoneImageView: ->
-      @set('isZoneImageViewOpen', false)
+      if @get('_uploadedZoneImage')
+        # bad hack :(
+        # if we've just uploaded a new image, force a refresh
+        # to make sure image orientation is correct.
+        # See: http://stackoverflow.com/questions/19463126/how-to-draw-photo-with-correct-orientation-in-canvas-after-capture-photo-by-usin
+        # for a more correct solution we can implement some day.
+        window.location.reload()
+      else
+        @set('isZoneImageViewOpen', false)
 
     goToNextZone: ->
       @set('isLoading', false)
       @set('isAutoAdjustMenuOpen', false)
-      nextZoneNumber = +@get('model.number') + 1
-      nextZone = @get('model.smartlinkController.zones').findBy('number', nextZoneNumber)
       @set('transition', 'toLeft')
-      @transitionToRoute('smartlink-controller.walk-site.zone', nextZone)
+      @transitionToRoute('smartlink-controller.walk-site.zone', this.getNextZone())
 
     goToPreviousZone: ->
       @set('isLoading', false)
       @set('isAutoAdjustMenuOpen', false)
-      prevZoneNumber = +@get('model.number') - 1
-      prevZone = @get('model.smartlinkController.zones').findBy('number', prevZoneNumber)
       @set('transition', 'toRight')
-      @transitionToRoute('smartlink-controller.walk-site.zone', prevZone)
+      @transitionToRoute('smartlink-controller.walk-site.zone', this.getPreviousZone())
 
     start: ->
       self = this
@@ -266,6 +294,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
 
     openAutoAdjust: ->
       this.set('isAutoAdjustMenuOpen', true)
+      return false
 
     saveAutoAdjust: ->
       self = this
@@ -274,7 +303,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       controllerId = @get('model.smartlinkController.id')
       zoneId = @get('model.smartlinkController.zones').findBy('number', zoneNumber).id
 
-      url = "#{@get('config.apiUrl')}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
+      url = "#{config.apiUrl}/api/v2/controllers/#{controllerId}/zones/#{zoneId}"
 
       queryParams = {
         timestamp: new Date().getTime(),
@@ -289,7 +318,7 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
       }
 
       new Ember.RSVP.Promise (resolve, reject) ->
-        Ember.$.ajax(url,
+        self.ajax(url,
           type: 'PUT',
           data: queryParams
           success: (response) ->

@@ -23,8 +23,12 @@
         </span>
       {{else}}
         <span class="pull-right weathermatic-settings-input-small">
-          {{view 'select' content=availableProgramTimes value=model.programZoneA.formattedRunTime
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.programZoneA.formattedRunTime) value="target.value"}}>
+            {{#each availableProgramTimes as |time|}}
+            <option value="{{time.value}}"
+              selected={{equiv time.value model.programZoneA.formattedRunTime}}>{{time.label}}</option>
+            {{/each}}
+          </select>
         </span>
       {{/if}}
     </li>
@@ -41,8 +45,12 @@
         </span>
       {{else}}
         <span class="pull-right weathermatic-settings-input-small">
-          {{view 'select' content=availableProgramTimes value=model.programZoneB.formattedRunTime
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.programZoneB.formattedRunTime) value="target.value"}}>
+            {{#each availableProgramTimes as |time|}}
+            <option value="{{time.value}}"
+              selected={{equiv time.value model.programZoneB.formattedRunTime}}>{{time.label}}</option>
+            {{/each}}
+          </select>
         </span>
       {{/if}}
     </li>
@@ -59,8 +67,12 @@
         </span>
       {{else}}
         <span class="pull-right weathermatic-settings-input-small">
-          {{view 'select' content=availableProgramTimes value=model.programZoneC.formattedRunTime
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.programZoneC.formattedRunTime) value="target.value"}}>
+            {{#each availableProgramTimes as |time|}}
+            <option value="{{time.value}}"
+              selected={{equiv time.value model.programZoneC.formattedRunTime}}>{{time.label}}</option>
+            {{/each}}
+          </select>
         </span>
       {{/if}}
     </li>
@@ -77,8 +89,12 @@
         </span>
       {{else}}
         <span class="pull-right weathermatic-settings-input-small">
-          {{view 'select' content=availableProgramTimes value=model.programZoneD.formattedRunTime
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.programZoneD.formattedRunTime) value="target.value"}}>
+            {{#each availableProgramTimes as |time|}}
+            <option value="{{time.value}}"
+              selected={{equiv time.value model.programZoneD.formattedRunTime}}>{{time.label}}</option>
+            {{/each}}
+          </select>
         </span>
       {{/if}}
     </li>

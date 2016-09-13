@@ -14,16 +14,24 @@
       <li class="table-view-cell">
         <span>Sprinkler Type</span>
         <span class="pull-right weathermatic-settings-input-large">
-          {{view 'select' content=availableSprinklerTypesMetric value=model.sprinklerType
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.sprinklerType) value="target.value"}}>
+            {{#each availableSprinklerTypesMetric as |sprinkler|}}
+              <option value={{sprinkler.value}}
+                selected={{equiv sprinkler.value model.sprinklerType}}>{{sprinkler.label}}</option>
+            {{/each}}
+          </select>
         </span>
       </li>
     {{else}}
       <li class="table-view-cell">
         <span>Sprinkler Type</span>
         <span class="pull-right weathermatic-settings-input-large">
-          {{view 'select' content=availableSprinklerTypesImperial value=model.sprinklerType
-            optionLabelPath='content.label' optionValuePath='content.value'}}
+          <select onchange={{action (mut model.sprinklerType) value="target.value"}}>
+            {{#each availableSprinklerTypesImperial as |sprinkler|}}
+              <option value={{sprinkler.value}}
+                selected={{equiv sprinkler.value model.sprinklerType}}>{{sprinkler.label}}</option>
+            {{/each}}
+          </select>
         </span>
       </li>
     {{/if}}
@@ -31,32 +39,48 @@
     <li class="table-view-cell">
       <span>Plant Type</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=availablePlantTypes value=model.plantType
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.plantType) value="target.value"}}>
+          {{#each availablePlantTypes as |plantType|}}
+            <option value={{plantType.value}}
+              selected={{equiv plantType.value model.plantType}}>{{plantType.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
 
     <li class="table-view-cell">
       <span>Soil Type</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=availableSoilTypes value=model.soilType
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.soilType) value="target.value"}}>
+          {{#each availableSoilTypes as |soilType|}}
+            <option value={{soilType.value}}
+              selected={{equiv soilType.value model.soilType}}>{{soilType.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
 
     <li class="table-view-cell">
       <span>Slope</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=slopeValues value=model.soilSlope
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.soilSlope) value="target.value"}}>
+          {{#each slopeValues as |soilSlope|}}
+            <option value={{soilSlope.value}}
+              selected={{equiv soilSlope.value model.soilSlope}}>{{soilSlope.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
 
     <li class="table-view-cell">
       <span>More / Less</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=moreLessValues value=model.adjustment
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.adjustment) value="target.value"}}>
+          {{#each moreLessValues as |moreLess|}}
+            <option value={{moreLess.value}}
+              selected={{equiv moreLess.value model.adjustment}}>{{moreLess.label}}</option>
+          {{/each}}
+        </select>
       </span>
     </li>
   </ul>

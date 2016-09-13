@@ -12,7 +12,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 CORDOVA_DIR=$DIR/../cordova
 APP_VERSION=$(($(cat $CORDOVA_DIR/android-last-build-version) + 1))
 ANDROID_PROJECT_DIR=$CORDOVA_DIR/platforms/android
-ANDROID_BUILD_TOOLS_VERSION=24.0.1
+ANDROID_BUILD_TOOLS_VERSION=${ANDROID_BUILD_TOOLS_VERSION:=24.0.1}
 KEYSTORE=$DIR/../smartlink.keystore
 KEYSTORE_PASSWORD="Savewatern0w1"
 KEY_ALIAS="smartlinkmobile"
@@ -102,7 +102,7 @@ else
 fi
 
 msg "Building android cordova project and .apk"
-MOBILE_PLATFORM=android ember cordova:build --environment=${EMBER_ENV:=production} --platform=android
+MOBILE_PLATFORM=android ember cordova:build --release --environment=${EMBER_ENV:=production} --platform=android
 
 msg "Signing apk file"
  jarsigner -verbose \

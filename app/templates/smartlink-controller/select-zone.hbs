@@ -10,7 +10,7 @@
     <li class="table-view-cell table-view-divider">
       {{fa-icon 'leaf'}} Select a Zone to Run
     </li>
-    {{#each zone in model}}
+    {{#each model as |zone|}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.run-zone' zone.id class='push-right'}}
           {{#if zone.description}}

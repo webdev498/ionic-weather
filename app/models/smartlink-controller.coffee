@@ -20,6 +20,9 @@ WEATHER_STATUS_FAULT  = 5
 FLOW_MODE_VIRTUAL = 0
 FLOW_MODE_REALTIME = 1
 
+CONTROLLER_MV_TYPE_NORMALLY_CLOSED = 0
+CONTROLLER_MV_TYPE_NORMALLY_OPEN = 1
+
 SmartlinkController = DS.Model.extend
   name:                     DS.attr 'string'
   runStatus:                DS.attr 'number'
@@ -56,6 +59,8 @@ SmartlinkController = DS.Model.extend
   commErrorInterval:        DS.attr 'number'
   hasSecondMasterValve:     DS.attr 'boolean'
   maxConcurrentPrograms:    DS.attr 'number'
+  masterValveType:          DS.attr 'number'
+  masterValve2Type:         DS.attr 'number'
 
   site:                 DS.belongsTo 'site',        async: true
 
@@ -67,6 +72,12 @@ SmartlinkController = DS.Model.extend
   omissionTimes:        DS.hasMany 'omission-time', async: false
   omissionDates:        DS.hasMany 'omission-date', async: false
 
+
+  isNormallyClosedMasterValve: Ember.computed 'masterValveType', ->
+    @get('masterValveType') is CONTROLLER_MV_TYPE_NORMALLY_CLOSED
+
+  isNormallyClosedMasterValve2: Ember.computed 'masterValve2Type', ->
+    @get('masterValve2Type') is CONTROLLER_MV_TYPE_NORMALLY_CLOSED
 
   isRunning: Ember.computed 'runStatus', ->
     @get('runStatus') is RUN_STATUS_RUN
@@ -144,5 +155,30 @@ SmartlinkController = DS.Model.extend
     # we need to tell ember-data that yes, we have actually saved the
     # model, even though .save() was never actually called.
     @set '_attributes', {}
+
+SmartlinkController.reopenClass({
+  RAIN_FREEZE_SENSOR_MODE_ACTIVE: RAIN_FREEZE_SENSOR_MODE_ACTIVE
+
+  RUN_STATUS_OFF: RUN_STATUS_OFF
+  RUN_STATUS_RUN: RUN_STATUS_RUN
+  RUN_STATUS_REMOTE_OFF: RUN_STATUS_REMOTE_OFF
+  RUN_STATUS_RAIN_DELAY: RUN_STATUS_RAIN_DELAY
+
+  WATERING_MODE_STANDARD: WATERING_MODE_STANDARD
+  WATERING_MODE_AUTO: WATERING_MODE_AUTO
+
+  WEATHER_STATUS_NONE: WEATHER_STATUS_NONE
+  WEATHER_STATUS_NORMAL: WEATHER_STATUS_NORMAL
+  WEATHER_STATUS_RAIN: WEATHER_STATUS_RAIN
+  WEATHER_STATUS_FREEZE: WEATHER_STATUS_FREEZE
+  WEATHER_STATUS_DELAY: WEATHER_STATUS_DELAY
+  WEATHER_STATUS_FAULT: WEATHER_STATUS_FAULT
+
+  FLOW_MODE_VIRTUAL: FLOW_MODE_VIRTUAL
+  FLOW_MODE_REALTIME: FLOW_MODE_REALTIME
+
+  CONTROLLER_MV_TYPE_NORMALLY_CLOSED: CONTROLLER_MV_TYPE_NORMALLY_CLOSED
+  CONTROLLER_MV_TYPE_NORMALLY_OPEN: CONTROLLER_MV_TYPE_NORMALLY_OPEN
+});
 
 `export default SmartlinkController`

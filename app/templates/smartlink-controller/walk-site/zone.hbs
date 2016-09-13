@@ -1,4 +1,4 @@
-{{#liquid-with model as model use=transition}}
+{{#liquid-bind model use=transition as |model|}}
 <header class="bar bar-nav weathermatic-header">
   {{#link-to 'smartlink-controller' model.smartlinkController class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
@@ -13,15 +13,15 @@
       {{fa-icon 'male'}} Walk Site
     </li>
     <li class="table-view-cell">
-      Site <button class="btn btn-outlined btn-primary"> {{fa-icon 'building'}} {{model.smartlinkController.site.name}}</button>
+      Site <button class="btn"> {{fa-icon 'building'}} {{model.smartlinkController.site.name}}</button>
     </li>
     <li class="table-view-cell">
-      Controller <button class="btn btn-outlined btn-primary"> {{fa-icon 'signal'}} {{model.smartlinkController.name}}</button>
+      Controller <button class="btn"> {{fa-icon 'signal'}} {{model.smartlinkController.name}}</button>
     </li>
   </ul>
 
   <div class="content-padded">
-    <span class="btn btn-block btn-primary btn-outlined">
+    <span class="btn btn-block">
       {{#if model.description}}
         <h3>
           {{fa-icon 'male'}} {{short-text model.description size=20}}
@@ -94,10 +94,9 @@
     {{/if}}
   </div>
 </div>
+{{/liquid-bind}}
 
-{{/liquid-with}}
-
-<div id="options-menu" {{bind-attr class=':modal isOptionsMenuOpen:active'}}>
+<div id="options-menu" class="modal {{if isOptionsMenuOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeOptionsMenu'}}></a>
     <h1 class="title">{{fa-icon 'gear'}} Advanced Options</h1>
@@ -123,7 +122,7 @@
   </div>
 </div>
 
-<div id="auto-adjust-menu" {{bind-attr class=':modal isAutoAdjustMenuOpen:active'}}>
+<div id="auto-adjust-menu" class="modal {{if isAutoAdjustMenuOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeAutoAdjust'}}></a>
     <h1 class="title">{{fa-icon 'gear'}} Auto Adjust Settings</h1>
@@ -138,32 +137,54 @@
 
       <p>Sprinkler Type:</p>
       <center>
-        {{view 'select' content=availableSprinklerTypes value=model.sprinklerType
-        optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.sprinklerType) value="target.value"}}>
+          {{#each availableSprinklerTypes as |sprinklerType|}}
+            <option value="{{sprinklerType.value}}"
+              selected={{equiv sprinklerType.value model.sprinklerType}}>{{sprinklerType.label}}</option>
+          {{/each}}
+        </select>
       </center>
 
       <p>Plant Type:</p>
       <center>
-        {{view 'select' content=availablePlantTypes value=model.plantType
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.plantType) value="target.value"}}>
+          {{#each availablePlantTypes as |plantType|}}
+            <option value="{{plantType.value}}"
+              selected={{equiv plantType.value model.plantType}}>{{plantType.label}}</option>
+          {{/each}}
+        </select>
       </center>
 
       <p>Soil Type:</p>
       <center>
-        {{view 'select' content=availableSoilTypes value=model.soilType
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.soilType) value="target.value"}}>
+          {{#each availableSoilTypes as |soilType|}}
+            <option value={{soilType.value}}
+              selected={{equiv soilType.value model.soilType}}>{{soilType.label}}</option>
+          {{/each}}
+        </select>
       </center>
 
       <p>Soil Slope:</p>
       <center>
-        {{view 'select' content=availableSoilSlopes value=model.soilSlope
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.soilSlope) value="target.value"}}>
+          {{#each availableSoilSlopes as |soilSlope|}}
+          <option value="{{soilSlope.value}}"
+            selected={{equiv soilSlope.value model.soilSlope}}>{{soilSlope.label}}</option>
+          {{/each}}
+        </select>
       </center>
 
       <p>More/Less:</p>
       <center>
-        {{view 'select' content=availableMoreLess value=model.adjustment
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        {{!-- view 'select' content=availableMoreLess value=model.adjustment
+          optionLabelPath='content.label' optionValuePath='content.value' --}}
+        <select onchange={{action (mut model.adjustment) value="target.value"}}>
+          {{#each availableMoreLess as |moreLess|}}
+          <option value="{{moreLess.value}}"
+            selected={{equiv moreLess.value model.adjustment}}>{{moreLess.label}}</option>
+          {{/each}}
+        </select>
       </center>
     </form>
 
@@ -178,16 +199,16 @@
   </center>
 </div>
 
-<div id="zone-image-view" {{bind-attr class=':modal isZoneImageViewOpen:active'}}>
+<div id="zone-image-view" class="modal {{if isZoneImageViewOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeZoneImageView'}}></a>
     <h1 class="title">{{fa-icon 'photo'}} Zone Image</h1>
   </header>
 
-  <img id="zone-image" {{bind-attr src=model.photo}} />
+  <img id="zone-image" src={{model.photo}} />
 </div>
 
-<div id="jump-to-zone" {{bind-attr class=':modal isJumpToZoneOpen:active'}}>
+<div id="jump-to-zone" class="modal {{if isJumpToZoneOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeJumpToZone'}}></a>
     <h1 class="title">{{fa-icon 'leaf'}} Jump to Zone</h1>
@@ -195,15 +216,18 @@
 
   <div class="content weathermatic-content">
     <ul class="table-view weathermatic-page-bottom">
-      {{#each zone in model.smartlinkController.activeZones}}
-        <li class="table-view-cell high-contrast">
+      {{#each model.smartlinkController.activeZones as |zone|}}
+        <li class="table-view-cell">
           <a href="javascript:void(0)" class="push-right" {{action 'jumpToZone' zone}}>
-            {{#if zone.description}}
-              {{short-text zone.description size=30}}
-              <p>Zone {{zone.number}}</p>
-            {{else}}
-               Zone {{zone.number}}
-            {{/if}}
+            <div class="media-body">
+              {{#if zone.description}}
+                {{short-text zone.description size=30}}
+                <p>Zone {{zone.number}}</p>
+              {{else}}
+                Zone {{zone.number}}
+                <p>&nbsp;</p>
+              {{/if}}
+            </div>
           </a>
         </li>
       {{/each}}

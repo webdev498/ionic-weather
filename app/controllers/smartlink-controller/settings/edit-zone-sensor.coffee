@@ -4,8 +4,11 @@
 SmartlinkControllerSettingsEditZoneSensorController = Ember.Controller.extend(SmartlinkSaveMixin, {
 
   saveUrl: Ember.computed 'model.id', ->
-    baseUrl = @get('config.apiUrl')
-    "#{baseUrl}/api/v2/controllers/#{@get('model.id')}/update_advanced_settings"
+    "#{@get('baseUrl')}/api/v2/controllers/#{@get('model.id')}/update_advanced_settings"
+
+  zoneUsesSensorLoopDidChange: Ember.observer('model.zones.@each.usesSensorLoop', ->
+    this.send('save')
+  )
 
   actions:
     save: ->

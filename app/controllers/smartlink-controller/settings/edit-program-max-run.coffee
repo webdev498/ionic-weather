@@ -7,7 +7,7 @@ SmartlinkControllerSettingsEditProgramMaxRunController = Ember.Controller.extend
 
   getMinSoakValue: (programIdent) ->
     maxRun = @get("model.program#{programIdent}.maxRun")
-    if maxRun == 0
+    if parseInt(maxRun) == 0
       return 0
     else
       return @get("model.program#{programIdent}.minSoak")

@@ -17,7 +17,7 @@
     {{#if isDayOfWeekProgramTypeSelected}}
       <li class="table-view-cell">
         <div class="btn-group">
-        {{#each day in programInstance.DaysOfWeek}}
+        {{#each programInstance.DaysOfWeek as |day|}}
           {{#if day.isOmitted}}
             <button type="button" class="btn btn-warning">X</button>
           {{else}}
@@ -29,7 +29,7 @@
     {{else}}
       <li class="table-view-cell">
         <div class="btn-group">
-        {{#each day in programInstance.DaysOfWeek}}
+        {{#each programInstance.DaysOfWeek as |day|}}
           {{#if day.isOmitted}}
             <button type="button" class="btn btn-warning">X</button>
           {{else}}
@@ -85,7 +85,7 @@
   </div>
 </div>
 
-<div id="set-program-type" {{bind-attr class=':modal isSetProgramTypeOpen:active'}}>
+<div id="set-program-type" class="modal {{if isSetProgramTypeOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetProgramType'}}></a>
     <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
@@ -104,7 +104,7 @@
   </div>
 </div>
 
-<div id="set-odd-even" {{bind-attr class=':modal isSetOddEvenOpen:active'}}>
+<div id="set-odd-even" class="modal {{if isSetOddEvenOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetOddEven'}}></a>
     <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
@@ -123,7 +123,7 @@
   </div>
 </div>
 
-<div id="set-interval" {{bind-attr class=':modal isSetIntervalOpen:active'}}>
+<div id="set-interval" class="modal {{if isSetIntervalOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetInterval'}}></a>
     <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
@@ -134,15 +134,20 @@
     <form class="weathermatic-zone-configure-auto-adjust">
       <p>Interval Start Day:</p>
       <center>
-       {{view "select" content=programInstance.DaysOfWeek
-       optionValuePath="content.value"
-       optionLabelPath="content.label"
-       value=programInstance.selectedIntervalProgram.interval_start}}
+       <select onchange={{action (mut programInstance.selectedIntervalProgram.interval_start) value="target.value"}}>
+         {{#each programInstance.DaysOfWeek as |dayOfWeek|}}
+           <option value={{dayOfWeek.value}}
+             selected={{equiv dayOfWeek.value intervalStartAsInt}}>{{dayOfWeek.label}}</option>
+         {{/each}}
+       </select>
       </center>
           <p>Interval Days:</p>
       <center>
-        {{view "select" content=DaysInterval
-       value=programInstance.selectedIntervalProgram.days_interval}}
+        <select onchange={{action (mut programInstance.selectedIntervalProgram.days_interval) value="target.value"}}>
+          {{#each DaysInterval as |days|}}
+            <option value={{days}} selected={{equiv days programInstance.selectedIntervalProgram.days_interval}}>{{days}}</option>
+          {{/each}}
+       </select>
       </center>
     </form>
     </center>
@@ -155,7 +160,7 @@
   </div>
 </div>
 
-<div id="set-start-times" {{bind-attr class=':modal isSetStartTimeOpen:active'}}>
+<div id="set-start-times" class="modal {{if isSetStartTimeOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSetStartTime'}}></a>
     <h1 class="title">{{fa-icon 'leaf'}} Program Type</h1>
@@ -166,12 +171,19 @@
     <form class="weathermatic-zone-configure-auto-adjust">
       <p>Start Time:</p>
       <center>
-       {{view "select" content=availableTimeSlots
-       optionValuePath="content.id"
-       optionLabelPath="content.value"
-       value=programInstance.currentSelectedTimeSlot.id}} &nbsp;
-      {{view "select" content=availableAmPm
-       value=programInstance.currentSelectedAmPm}}
+       <select onchange={{action (mut programInstance.currentSelectedTimeSlot.id) value="target.value"}}>
+         {{#each availableTimeSlots as |slot|}}
+         <option value="{{slot.id}}"
+           selected={{equiv slot.id programInstance.currentSelectedTimeSlot.id}}>{{slot.value}}</option>
+         {{/each}}
+       </select>
+       &nbsp;
+       <select onchange={{action (mut programInstance.currentSelectedAmPm) value="target.value"}}>
+         {{#each availableAmPm as |amPm|}}
+         <option value="{{amPm}}"
+           selected={{equiv amPm programInstance.currentSelectedAmPm}}>{{amPm}}</option>
+         {{/each}}
+       </select>
       </center>
     </form>
     </center>

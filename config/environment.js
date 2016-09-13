@@ -18,7 +18,8 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'sln-mobile-ember',
     environment: environment,
-    baseURL: '/',
+    rootURL: '/',
+
     defaultLocationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -49,6 +50,8 @@ module.exports = function(environment) {
     sitesPageSize: 20
   };
 
+  ENV.locationType = 'hash';
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -66,7 +69,7 @@ module.exports = function(environment) {
   if (environment === 'test') {
     // Testem prefers this...
     ENV.baseURL = '/';
-    ENV.locationType = 'auto';
+    ENV.locationType = 'hash';
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
@@ -96,9 +99,10 @@ module.exports = function(environment) {
     ENV.production = true;
   }
 
-  ENV['simple-auth'] = {
-    authorizer: 'authorizer:weathermatic',
-    crossOriginWhitelist: [ENV.apiUrl]
+  // ENV['ember-simple-auth'] = {};
+
+  ENV.coffeeOptions = {
+    blueprints: false
   };
 
   return ENV;

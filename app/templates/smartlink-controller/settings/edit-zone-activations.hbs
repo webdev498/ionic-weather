@@ -11,7 +11,14 @@
 
   <ul id="select-zones" class="table-view">
     {{#each model.zones as |zone|}}
-      {{edit-zone zone=zone field='active' save='save'}}
+      <li class="table-view-cell">
+        <span class="pull-left">
+          <strong>Zone {{zone.number}}</strong>
+          <br>
+          <small>{{textOrSpace zone.description}}</small>
+        </span>
+        {{toggle-input value=zone.active}}
+      </li>
     {{/each}}
   </ul>
 </div>

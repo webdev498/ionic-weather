@@ -19,44 +19,71 @@
     <li class="table-view-cell">
       <span>Time</span>
       <span class="pull-right weathermatic-settings-input-time">
-        {{view 'select' content=availableHours value=deviceTimeHours
-          optionLabelPath='content.label' optionValuePath='content.value'}} :
+        <select onchange={{action (mut deviceTimeHours) value="target.value"}}>
+          {{#each availableHours as |hour|}}
+            <option value={{hour.value}}
+              selected={{equiv hour.value deviceTimeHours}}>{{hour.value}}</option>
+          {{/each}}
+        </select> :
 
-        {{view 'select' content=availableMinutes value=deviceTimeMinutes
-          optionLabelPath='content.label' optionValuePath='content.value'}} :
+        <select onchange={{action (mut deviceTimeMinute) value="target.value"}}>
+          {{#each availableMinutes as |min|}}
+            <option value={{min.value}}
+              selected={{equiv min.value deviceTimeMinutes}}>{{min.value}}</option>
+          {{/each}}
+        </select> :
 
-        {{model.deviceTimeSeconds}}
-
-        {{view 'select' content=availableAmPm value=deviceTimeAmPm
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut deviceTimeAmPm) value="target.value"}}>
+          {{#each availableAmPm as |amPm|}}
+            <option value={{amPm.value}}
+              selected={{equiv amPm.value deviceTimeAmPm}}>{{amPm.label}}</option>
+          {{/each}}
+        </select> :
       </span>
     </li>
     <li class="table-view-cell">
       <span>Controller Time Zone</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=availableTimezones value=model.timezone
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.timezone) value="target.value"}}>
+          {{#each availableTimezones as |zone|}}
+            <option value={{zone.value}}
+              selected={{equiv zone.value model.timezone}}>{{zone.value}}</option>
+          {{/each}}
+        </select> :
       </span>
     </li>
     <li class="table-view-cell">
       <span>Run Status</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=availableRunStatuses value=model.runStatus
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.runStatus) value="target.value"}}>
+          {{#each availableRunStatuses as |status|}}
+            <option value={{status.value}}
+              selected={{equiv status.value model.runStatus}}
+              disabled={{status.disabled}}>{{status.label}}</option>
+          {{/each}}
+        </select> :
       </span>
     </li>
     <li class="table-view-cell">
       <span>Watering Mode</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=availableWateringModes value=model.wateringMode
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.wateringMode) value="target.value"}}>
+          {{#each availableWateringModes as |mode|}}
+            <option value={{mode.value}}
+              selected={{equiv mode.value model.wateringMode}}>{{mode.label}}</option>
+          {{/each}}
+        </select> :
       </span>
     </li>
     <li class="table-view-cell">
       <span>Rain/Freeze</span>
       <span class="pull-right weathermatic-settings-input-large">
-        {{view 'select' content=availableRainFreeze value=model.rainFreezeSensorMode
-          optionLabelPath='content.label' optionValuePath='content.value'}}
+        <select onchange={{action (mut model.rainFreezeSensorMode) value="target.value"}}>
+          {{#each availableRainFreeze as |mode|}}
+            <option value={{mode.value}}
+              selected={{equiv mode.value model.rainFreezeSensorMode}}>{{mode.label}}</option>
+          {{/each}}
+        </select> :
       </span>
     </li>
   </ul>

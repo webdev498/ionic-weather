@@ -5,16 +5,29 @@
   <li class="table-view-cell">
     <span>Max Run</span>
     <span class="pull-right weathermatic-settings-input-medium">
-      {{view 'select' value=program.maxRun content=availableMaxRun
-        optionLabelPath='content.label' optionValuePath='content.value'}}
+      {{!--view 'select' value=program.maxRun content=availableMaxRun
+        optionLabelPath='content.label' optionValuePath='content.value'--}}
+      <select onchange={{action (mut program.maxRun) value="target.value"}}>
+        {{#each availableMaxRun as |item|}}
+          <option value={{item.value}}
+            selected={{equiv item.value program.maxRun}}>{{item.label}}</option>
+        {{/each}}
+      </select>
     </span>
   </li>
   <li class="table-view-cell">
     <span class="{{if isMaxRunDisabled 'weathermatic-disabled'}}">Min Soak</span>
     <span class="pull-right weathermatic-settings-input-medium">
-      {{view 'select' value=program.minSoak content=availableMinSoak
+      {{!--view 'select' value=program.minSoak content=availableMinSoak
         optionLabelPath='content.label' optionValuePath='content.value'
-        disabled=isMaxRunDisabled class=minSoakCssClass}}
+        disabled=isMaxRunDisabled class=minSoakCssClass--}}
+      <select onchange={{action (mut program.minSoak) value="target.value"}}
+        disabled={{isMaxRunDisabled}} class={{minSoakCssClass}}>
+        {{#each availableMinSoak as |item|}}
+          <option value={{item.value}}
+            selected={{equiv item.value program.minSoak}}>{{item.label}}</option>
+        {{/each}}
+      </select>
     </span>
   </li>
 </ul>

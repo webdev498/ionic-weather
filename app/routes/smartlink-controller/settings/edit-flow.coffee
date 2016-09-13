@@ -1,5 +1,5 @@
 `import Ember from 'ember';`
-`import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin'`
+`import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin'`
 
 SmartlinkControllerSettingsEditFlowRoute = Ember.Route.extend(AuthenticatedRouteMixin, {
   model: (params) ->
@@ -8,6 +8,7 @@ SmartlinkControllerSettingsEditFlowRoute = Ember.Route.extend(AuthenticatedRoute
   setupController: (controller, model) ->
     this._super(controller, model)
     controller.setupDefaults(model)
+    controller.set('__pageLoaded', true)
 })
 
 `export default SmartlinkControllerSettingsEditFlowRoute`

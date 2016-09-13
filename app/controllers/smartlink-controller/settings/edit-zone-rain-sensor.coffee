@@ -4,8 +4,11 @@
 SmartlinkControllerSettingsEditZoneRainSensorController = Ember.Controller.extend(SmartlinkSaveMixin, {
 
   saveUrl: Ember.computed 'model.id', ->
-    baseUrl = @get('config.apiUrl')
-    "#{baseUrl}/api/v2/controllers/#{@get('model.id')}/update_advanced_settings"
+    "#{@get('baseUrl')}/api/v2/controllers/#{@get('model.id')}/update_advanced_settings"
+
+  zoneUsesRainSensorDidChange: Ember.observer('model.zones.@each.usesRainSensor', ->
+    this.send('save')
+  )
 
   actions:
     save: ->

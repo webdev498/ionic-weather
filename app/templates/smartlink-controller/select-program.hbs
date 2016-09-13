@@ -12,7 +12,7 @@
     <li class="table-view-cell table-view-divider weathermatic-select-program-call-to-action">
       {{fa-icon 'play'}} Select a Program
     </li>
-    {{#each program in model}}
+    {{#each model as |program|}}
       {{select-program-item program=program}}
     {{else}}
       <li class="table-view-cell weathermatic-error-list-item">

@@ -11,7 +11,14 @@
 
   <ul class="table-view">
     {{#each model.zones as |zone|}}
-      {{edit-zone zone=zone field='usesFreezeSensor' save='save'}}
+      <li class="table-view-cell">
+        <span class="pull-left">
+          <strong>Zone {{zone.number}}</strong>
+          <br>
+          <small>{{text-or-space zone.description}}</small>
+        </span>
+        {{toggle-input value=zone.usesFreezeSensor}}
+      </li>
     {{/each}}
   </ul>
 </div>

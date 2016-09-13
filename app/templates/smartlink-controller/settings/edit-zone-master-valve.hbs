@@ -21,11 +21,26 @@
     {{/if}}
 
     {{#each model.zones as |zone|}}
-      {{#if model.hasSecondMasterValve}}
-        {{edit-zone-master-valve zone=zone save='save'}}
-      {{else}}
-        {{edit-zone zone=zone field='mvEnabled' save='save'}}
-      {{/if}}
+      <li class="table-view-cell">
+        {{#if model.hasSecondMasterValve}}
+          <span class="pull-left">
+            <strong>Zone {{zone.number}}</strong>
+            <br>
+            <small>{{short-text zone.description}}</small>
+          </span>
+          <div class="toggle-row">
+            {{toggle-input value=zone.mvEnabled class="pull-left"}}
+            {{toggle-input value=zone.mv2Enabled class="pull-right"}}
+          </div>
+        {{else}}
+          <span class="pull-left">
+            <strong>Zone {{zone.number}}</strong>
+            <br>
+            <small>{{text-or-space zone.description}}</small>
+          </span>
+          {{toggle-input value=zone.mvEnabled class="pull-left"}}
+        {{/if}}
+      </li>
     {{/each}}
   </ul>
 </div>
