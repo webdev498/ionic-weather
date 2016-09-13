@@ -8,6 +8,9 @@ const { Logger: { debug }, Controller, computed, get, set } = Ember;
 
 const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSaveMixin, {
 
+  pendingDescription: '',
+  isEditDescriptionOpen: false,
+
   intervalStartAsInt: computed('programInstance.selectedIntervalProgram.interval_start', function() {
     return parseInt(this.get('programInstance.selectedIntervalProgram.interval_start'));
   }),
@@ -606,6 +609,21 @@ const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSa
         this.get('model').reload();
         this.set('model.smartlinkController.hasUnsentChanges', true);
       });
+    },
+
+    setEditDescriptionOpen: function() {
+      this.set('pendingDescription', this.get('model.description'));
+      this.set('isEditDescriptionOpen', true);
+    },
+
+    closeEditDescription: function() {
+      this.set('pendingDescription', this.get('model.description'));
+      this.set('isEditDescriptionOpen', false);
+    },
+
+    setEditedDescription: function() {
+      this.set('model.description', this.get('pendingDescription'));
+      this.set('isEditDescriptionOpen', false);
     },
 
     setProgramTypeOpen: function() {

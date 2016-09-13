@@ -14,14 +14,6 @@
 
   <div class="program-detail weathermatic-page-bottom">
   <ul class="table-view">
-
-    <li class="table-view-cell">
-      <span class='center'>Description</span>
-      <span class="pull-right weathermatic-settings-input-description">
-        {{input-with-errors model=model field='description' errors=errors}}
-      </span>
-    </li>
-
     {{#if isDayOfWeekProgramTypeSelected}}
       <li class="table-view-cell">
         <div class="btn-group">
@@ -47,6 +39,13 @@
         </div>
       </li>
     {{/if}}
+
+    <li class="table-view-cell">
+      <a href="javascript:void(0)" class="push-right" {{action 'setEditDescriptionOpen'}}>
+        Description
+      </a>
+    </li>
+
     <li class="table-view-cell">
       <a href="javascript:void(0)" class="push-right" {{action 'setProgramTypeOpen'}} data-value="{{programInstance.selectedProgramType.value}}">
         {{programInstance.selectedProgramType.label}}
@@ -86,7 +85,7 @@
     {{/each}}
   </ul>
   <div class="content-padded">
-    <button class="btn btn-block btn-positive" {{action 'save'}}>
+    <button style="padding: 15px 1px; font-size: 18px;" class="btn btn-block btn-positive" {{action 'save'}}>
       {{fa-icon 'save'}} Save Changes
     </button>
   </div>
@@ -203,6 +202,26 @@
     </div>
   </div>
 </div>
+
+{{#modal-dialog isActive=isEditDescriptionOpen}}
+  <header class="bar bar-nav weathermatic-header">
+    <a href="javascript:void(0)" class="icon icon-close pull-right" {{action 'closeEditDescription'}}></a>
+    <h1 class="title">{{fa-icon 'edit'}} Edit Description</h1>
+  </header>
+  <div class="content weathermatic-content">
+    <ul class="table-view">
+      <li class="table-view-cell">
+        {{textarea value=pendingDescription rows=4 class='full-width-textarea'}}
+      </li>
+    </ul>
+
+    <div class="content-padded">
+      <button class="btn btn-positive btn-block" {{action 'setEditedDescription'}}>
+        {{fa-icon 'save'}} Ok
+      </button>
+    </div>
+  </div>
+{{/modal-dialog}}
 
 {{!
   `actionReceiver` attribute exposes component action to the outside world.

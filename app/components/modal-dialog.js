@@ -10,6 +10,12 @@ const ModalDialogComponent = Component.extend({
 
   classNameBindings: ['isActive:active'],
 
+  didInsertElement: function() {
+    this.$('.full-width-textarea').each(function() {
+      const width = $(this).parent().width();
+      $(this).width(width + 20);
+    });
+  }
 });
 
 export default ModalDialogComponent;
