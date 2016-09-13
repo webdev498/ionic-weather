@@ -553,7 +553,7 @@ const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSa
         params: {
           id: this.get('model.id'),
           program: {
-            description:         this.get('model.description') ? this.get('model.description') : 'Program ' + this.get('model.identifier'),
+            description:         this.get('model.description') ? this.get('model.description') : '',
             program_type:        this.get('programInstance.selectedProgramType.value'),
             days_of_week:        this.daysOfWeek(),
             oddeven:             this.get('programInstance.selectedOddEvenProgram.value'),

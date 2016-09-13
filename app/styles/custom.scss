@@ -256,6 +256,13 @@ h2 {
   }
 }
 
+.weathermatic-settings-input-description {
+  input {
+    margin: 0;
+    width: 170px;
+  }
+}
+
 .weathermatic-disabled-label {
   color: lightgray;
 }
