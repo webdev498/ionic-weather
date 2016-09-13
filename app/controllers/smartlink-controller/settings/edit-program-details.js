@@ -452,6 +452,39 @@ const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSa
     }
   },
 
+  // SM-125 make sure we're sending the right days_of_week param for odd/even
+  getDaysOfWeekSaveValue: function() {
+    const type = parseInt(this.get('programInstance.selectedProgramType.value'));
+    const orig = this.daysOfWeek();
+    const oddOrEvenSelection = this.get('programInstance.selectedOddEvenProgram.value');
+    // if it's an odd number, we're doing odd
+    const isOdd = (oddOrEvenSelection % 2 !== 0);
+
+    if (type === this.get('PROGRAM_TYPE_ENUM').ODD_EVEN) {
+
+      if (isOdd) {
+        // odd days in zero-indexed format
+        return '0,2,4,6';
+      } else {
+        // even days in zero-indexed format
+        return '1,3,5,7';
+      }
+    } else {
+      return orig;
+    }
+  },
+
+  getOddEvenSaveValue: function () {
+    const orig = parseInt(this.get('programInstance.selectedOddEvenProgram.value'));
+    if (orig === 1) {
+      return 3;
+    }
+    if (orig === 0) {
+      return 2;
+    }
+    return orig;
+  },
+
   actions: {
     initProgram: function() {
       var curr, currentDaysOfWeek, currentDaysOfWeekStr, date, day, daysOfWeek, days_intreval, first, firstDate, intervalDayIndex, interval_start, last, lastDate, programDaysOfWeek, selectedDaysOfWeek, self, todayDate;
@@ -555,8 +588,8 @@ const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSa
           program: {
             description:         this.get('model.description') ? this.get('model.description') : '',
             program_type:        this.get('programInstance.selectedProgramType.value'),
-            days_of_week:        this.daysOfWeek(),
-            oddeven:             this.get('programInstance.selectedOddEvenProgram.value'),
+            days_of_week:        this.getDaysOfWeekSaveValue(),
+            oddeven:             this.getOddEvenSaveValue(),
             interval_start:      this.get('programInstance.selectedIntervalProgram.interval_start'),
             days_interval:       this.get('programInstance.selectedIntervalProgram.days_interval'),
             program_start_times: this.get('programInstance.programStartTimes').map(function(st, index, array) {
