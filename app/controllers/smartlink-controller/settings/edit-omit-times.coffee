@@ -42,10 +42,11 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     @set 'daysOfMonth', opts
 
   omissionDates: Ember.computed 'model.omissionDates.length', ->
+    dates = @get('model.omissionDates').toArray()
     [1..15].map (n) =>
       Ember.Object.create({
         number: n
-        object: @get('model.omissionDates').toArray()[n-1] || @get('model.omissionDates').createRecord()
+        object: dates[n-1] || Ember.Object.create()
       })
 
   omissionDayNumbers: Ember.computed 'model.omissionDays.length', ->
