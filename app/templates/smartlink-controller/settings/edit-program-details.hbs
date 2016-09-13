@@ -14,6 +14,14 @@
 
   <div class="program-detail weathermatic-page-bottom">
   <ul class="table-view">
+
+    <li class="table-view-cell">
+      <span class='center'>Description</span>
+      <span class="pull-right weathermatic-settings-input-description">
+        {{input-with-errors model=model field='description' errors=errors}}
+      </span>
+    </li>
+
     {{#if isDayOfWeekProgramTypeSelected}}
       <li class="table-view-cell">
         <div class="btn-group">
