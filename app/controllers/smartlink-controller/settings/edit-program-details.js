@@ -474,6 +474,17 @@ const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSa
     }
   },
 
+  getOddEvenSaveValue: function () {
+    const orig = parseInt(this.get('programInstance.selectedOddEvenProgram.value'));
+    if (orig === 1) {
+      return 3;
+    }
+    if (orig === 0) {
+      return 2;
+    }
+    return orig;
+  },
+
   actions: {
     initProgram: function() {
       var curr, currentDaysOfWeek, currentDaysOfWeekStr, date, day, daysOfWeek, days_intreval, first, firstDate, intervalDayIndex, interval_start, last, lastDate, programDaysOfWeek, selectedDaysOfWeek, self, todayDate;
@@ -578,7 +589,7 @@ const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSa
             description:         this.get('model.description') ? this.get('model.description') : 'Program ' + this.get('model.identifier'),
             program_type:        this.get('programInstance.selectedProgramType.value'),
             days_of_week:        this.getDaysOfWeekSaveValue(),
-            oddeven:             this.get('programInstance.selectedOddEvenProgram.value'),
+            oddeven:             this.getOddEvenSaveValue(),
             interval_start:      this.get('programInstance.selectedIntervalProgram.interval_start'),
             days_interval:       this.get('programInstance.selectedIntervalProgram.days_interval'),
             program_start_times: this.get('programInstance.programStartTimes').map(function(st, index, array) {
