@@ -75,6 +75,8 @@ const LoadingModalComponent = ModalDialogComponent.extend(InboundActions, {
     },
 
     close() {
+      const callback = this.get('onCloseCallback');
+      this.set('onCloseCallback', null);
       if (this.isDestroyed) {
         debug('Tried to close destroyed modal, will do nothing');
         return;
@@ -83,7 +85,11 @@ const LoadingModalComponent = ModalDialogComponent.extend(InboundActions, {
       this.set('instruction', null);
       this.set('isLoadingFinished', false);
       if (this.get('autoCloseLater') != null) {
-        return run.cancel(this.get('autoCloseLater'));
+        run.cancel(this.get('autoCloseLater'));
+      }
+      if (callback) {
+        debug('LoadingModal running onCloseCallback');
+        callback();
       }
     },
 
@@ -92,10 +98,12 @@ const LoadingModalComponent = ModalDialogComponent.extend(InboundActions, {
       return this.sendAction('loadingAbandoned');
     },
 
-    finished(message) {
+    finished(message, onCloseCallback) {
       var autoClose;
       this.stopPolling();
+      this.set('onCloseCallback', onCloseCallback);
       this.set('isLoadingFinished', true);
+
       autoClose = run.later( () => {
         return this.send('close');
       }, 3000);

@@ -110,7 +110,7 @@ const SmartlinkSaveMixin = Mixin.create(AjaxMixin, {
         const pollingIntervalMillis = options.pollingIntervalMillis || this.defaultInstructionPollingInterval;
         this.get('store').pushPayload('instruction', response.result);
         return this.get('store').find('instruction', response.result.instruction.id).then( (instruction) => {
-          return this.pollInstructionStatus(pollingIntervalMillis, instruction);
+          return this.pollInstructionStatus(pollingIntervalMillis, instruction, options.saveSuccessCallback);
         });
       }
       if (options.successRoute != null) {
@@ -118,7 +118,7 @@ const SmartlinkSaveMixin = Mixin.create(AjaxMixin, {
         return;
       }
       if (loadingModal != null) {
-        return loadingModal.send('finished');
+        return loadingModal.send('finished', null, options.saveSuccessCallback);
       } else {
         return debug('Cannot send finished action to loading modal, loadingModal does not exist!');
       }
@@ -207,7 +207,7 @@ const SmartlinkSaveMixin = Mixin.create(AjaxMixin, {
     return allPromises;
   },
 
-  pollInstructionStatus(delayMillis, instruction) {
+  pollInstructionStatus(delayMillis, instruction, callback) {
     delayMillis = delayMillis || this.defaultInstructionPollingInterval;
     const statusId = get(instruction, 'statusId');
     const loadingModal = this.get('loadingModal');
@@ -221,12 +221,13 @@ const SmartlinkSaveMixin = Mixin.create(AjaxMixin, {
         debug('Instruction finished successfully', instruction);
         instruction.set('controller.hasUnsentChanges', false);
         if (loadingModal != null) {
-          loadingModal.send('finished');
+          loadingModal.send('finished', null, callback);
         }
         break;
       default:
         return instruction.reload().then( (instruction) => {
-          return run.later(this, this.pollInstructionStatus, delayMillis, instruction, delayMillis);
+          return run.later(this, this.pollInstructionStatus,
+            delayMillis, instruction, callback, delayMillis);
         });
     }
   },
@@ -264,9 +265,12 @@ const SmartlinkSaveMixin = Mixin.create(AjaxMixin, {
       return this.save({
         url: this.receiveUrl(smartlinkController.get('id')),
         pollInstructionStatus: true,
-        saveMessage: 'Successfully received settings from your Smartlink controller'
+        saveMessage: 'Successfully received settings from your Smartlink controller',
+        saveSuccessCallback: () => {
+          this.send('refreshData');
+        }
       }).then( () => {
-        return smartlinkController.set('hasUnsentChanges', false);
+        smartlinkController.set('hasUnsentChanges', false);
       }).catch( (errors) => {
         return alert(errors.join('. '));
       });
