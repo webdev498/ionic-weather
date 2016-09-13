@@ -9,7 +9,7 @@
 <div class="content weathermatic-content">
   {{need-send-message smartlinkController=model.smartlinkController transmit='transmit'}}
 
-  <ul class="table-view">
+  <ul class="table-view weathermatic-select-edit-program">
     <li class="table-view-cell weathermatic-select-program-a">
       <span class="pull-left">
         <h3>Program A</h3>
@@ -22,7 +22,7 @@
           <button class="btn">{{fa-icon 'ban'}} Used</button>
         </span>
       {{else}}
-        <span class="pull-right weathermatic-settings-input-small">
+        <span class="pull-right weathermatic-settings-input-small weathermatic-zone-available">
           <select onchange={{action (mut model.programZoneA.formattedRunTime) value="target.value"}}>
             {{#each availableProgramTimes as |time|}}
             <option value="{{time.value}}"
@@ -44,7 +44,7 @@
           <button class="btn">{{fa-icon 'ban'}} Used</button>
         </span>
       {{else}}
-        <span class="pull-right weathermatic-settings-input-small">
+        <span class="pull-right weathermatic-settings-input-small weathermatic-zone-available">
           <select onchange={{action (mut model.programZoneB.formattedRunTime) value="target.value"}}>
             {{#each availableProgramTimes as |time|}}
             <option value="{{time.value}}"
@@ -66,7 +66,7 @@
           <button class="btn">{{fa-icon 'ban'}} Used</button>
         </span>
       {{else}}
-        <span class="pull-right weathermatic-settings-input-small">
+        <span class="pull-right weathermatic-settings-input-small weathermatic-zone-available">
           <select onchange={{action (mut model.programZoneC.formattedRunTime) value="target.value"}}>
             {{#each availableProgramTimes as |time|}}
             <option value="{{time.value}}"
@@ -88,7 +88,7 @@
           <button class="btn">{{fa-icon 'ban'}} Used</button>
         </span>
       {{else}}
-        <span class="pull-right weathermatic-settings-input-small">
+        <span class="pull-right weathermatic-settings-input-small weathermatic-zone-available">
           <select onchange={{action (mut model.programZoneD.formattedRunTime) value="target.value"}}>
             {{#each availableProgramTimes as |time|}}
             <option value="{{time.value}}"

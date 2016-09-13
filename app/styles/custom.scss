@@ -187,6 +187,12 @@ h2 {
   }
 }
 
+.weathermatic-select-edit-program {
+  li.table-view-cell {
+    min-height: 90px;
+  }
+}
+
 .weathermatic-run-zone-select-run-time {
   select {
     width: 3.5em;
@@ -199,9 +205,11 @@ h2 {
 .weathermatic-zone-used {
   margin-right: -2.7em;
   button {
-    margin: 0;
+    margin: 11px 0;
     width: 75px;
     color: #666;
+    height: auto;
+    min-height: 44px;
   }
 }
 
@@ -246,6 +254,12 @@ h2 {
   select,input {
     margin: 0;
     width: 55px;
+  }
+}
+
+.weathermatic-zone-available {
+  select {
+    margin: 11px 0;
   }
 }
 
