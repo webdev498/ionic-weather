@@ -44,10 +44,12 @@ Run:
 
 That will produce `smartlink.apk` in the root project directory which you can upload to the google play store.
 
-### Known Issues
+### Versioning
 
-We are affected by this bug in ember-cli-coffeescript: https://github.com/kimroen/ember-cli-coffeescript/pull/115
-  We should update ember-cli-coffeescript once that patch is released (or switch to ES6 and remove it). Workaround: remove ember-cli-coffee-script from package.json temporarily, run the command that was breaking (e.g. ember generate ...), then put the package.json entry pack.
+Whenever a build is run for android or ios, the build script automatically increments the version number appropriately for the specific platform. See these files:
+
+    cordova/ios-last-build-version
+    cordova/android-last-build-version
 
 
 ### i18n
