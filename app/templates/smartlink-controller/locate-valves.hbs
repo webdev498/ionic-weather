@@ -13,11 +13,11 @@
       Confirm Zone
     </li>
     <li class="table-view-cell">
-      Site <button class="btn btn-outlined btn-primary"> {{fa-icon 'building'}}
+      Site <button class="btn"> {{fa-icon 'building'}}
         {{model.smartlinkController.site.name}}</button>
     </li>
     <li class="table-view-cell">
-      Controller <button class="btn btn-outlined btn-primary"> {{fa-icon 'signal'}}
+      Controller <button class="btn"> {{fa-icon 'signal'}}
         {{model.smartlinkController.name}}</button>
     </li>
   </ul>
@@ -25,7 +25,7 @@
   <div class="content-padded weathermatic-height-100-percent">
     <p>About to run valve locators</p>
 
-    <span class="btn btn-block btn-primary btn-outlined">
+    <span class="btn btn-block">
       {{#if model.description}}
         <h3>{{fa-icon 'leaf'}} {{short-text model.description size=20}}</h3>
         <p>Locate Zone {{model.number}}</p>
