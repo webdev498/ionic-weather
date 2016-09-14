@@ -1,4 +1,7 @@
+import Ember from 'ember';
 import DS from 'ember-data';
+
+const { get } = Ember;
 
 const ProgramZone = DS.Model.extend({
 
@@ -22,7 +25,7 @@ const ProgramZone = DS.Model.extend({
 
     updateIsUsed: Ember.observer('zone.programZones.@each.formattedRunTime', function() {
       this.get('zone.smartlinkController').then( (ctrl) => {
-        if (!ctrl.get('hasDripZoneConstraint')) {
+        if (!get(ctrl, 'hasDripZoneConstraint')) {
           return;
         }
 
