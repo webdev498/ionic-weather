@@ -7,13 +7,12 @@ const { Logger: { debug }, computed, observer, run } = Ember;
 const LoadingModalComponent = ModalDialogComponent.extend(InboundActions, {
 
   instructionStatusCssClass: computed('instruction.statusId', function() {
-    switch (false) {
-      case !this.get('instruction.isInProgress'):
-        return 'btn-positive';
-      case !this.get('instruction.isStatusError'):
-        return 'btn-negative';
-      default:
-        return 'btn-primary';
+    if (this.get('instruction.isInProgress')) {
+      return 'btn-positive';
+    } else if (this.get('instruction.isStatusError')) {
+      return 'btn-negative';
+    } else {
+      return 'btn-primary';
     }
   }),
 
@@ -29,14 +28,13 @@ const LoadingModalComponent = ModalDialogComponent.extend(InboundActions, {
     if (!this.get('instruction')) {
       return;
     }
-    switch (false) {
-      case !this.get('instruction.isInProgress'):
-        this.startPolling();
-      case !this.get('instruction.isStatusError'):
-        this.stopPolling();
-      default:
-        this.stopPolling();
-        this.sendAction('loadingFinished');
+    if (this.get('instruction.isInProgress')) {
+      this.startPolling();
+    } else if (this.get('instruction.isStatusError')) {
+      this.stopPolling();
+    } else {
+      this.stopPolling();
+      this.sendAction('loadingFinished');
     }
   }),
 
