@@ -6,19 +6,23 @@ We use [ember-cli-cordova](https://github.com/poetic/ember-cli-cordova) to help 
 
 ## Dependencies
 
+Make sure the correct version of Ember is installed onto your machine. In our case, we're using 2.7.1:
+
+    npm install -g ember-cli@2.7
+
 ### Cordova
 
     npm install -g cordova
 
+Install dependencies. 
+
+    npm install && bower install
 
 ## Running locally
 
 To initialize the cordova project, run:
 
     ember cordova:prepare
-
-
-
 
 To run a local web server so you can view the pages in a browser, run:
 
