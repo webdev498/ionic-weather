@@ -55,6 +55,7 @@
     "npm": "2.14.3"
   },
   "dependencies": {
+    "ember-cli": "^2.7.0",
     "ember-inflector": "^1.6.1"
   }
 }
