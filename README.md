@@ -14,10 +14,6 @@ Make sure the correct version of Ember is installed onto your machine. In our ca
 
     npm install -g cordova
 
-Install dependencies. 
-
-    npm install && bower install
-
 ## Running locally
 
 To initialize the cordova project, run:
@@ -26,7 +22,7 @@ To initialize the cordova project, run:
 
 To run a local web server so you can view the pages in a browser, run:
 
-    EMBER_CLI_CORDOVA=0 ember serve --environment=development
+    EMBER_CLI_CORDOVA=0 ember serve -p 4200 --environment=staging
 
 And visit `http://localhost:4200` in your browser
 
