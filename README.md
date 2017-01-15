@@ -6,6 +6,10 @@ We use [ember-cli-cordova](https://github.com/poetic/ember-cli-cordova) to help 
 
 ## Dependencies
 
+Download Node.js with NPM. 
+
+https://nodejs.org/en/
+
 Make sure the correct version of Ember is installed onto your machine. In our case, we're using 2.7.1:
 
     npm install -g ember-cli@2.7
@@ -24,7 +28,7 @@ To run a local web server so you can view the pages in a browser, run:
 
     EMBER_CLI_CORDOVA=0 ember serve -p 4200 --environment=staging
 
-And visit `http://localhost:4200` in your browser
+And visit `http://localhost:4200` in your browser.
 
 
 ### To build for ios
