@@ -7,5 +7,8 @@ export default {
   },
   smartlinkController: {
     clearFaults: "Clear Faults"
+  },
+  programming: {
+    basic: "Smart (Auto Adjust)"
   }
 };

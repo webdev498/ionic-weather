@@ -1,4 +1,5 @@
 body {
+
   background-color: #efeff4;
 }
 
@@ -375,6 +376,23 @@ h2 {
 
 .weathermatic-content {
   padding-top: 52px !important;
+}
+
+.background-area {
+    background-image: url(images/weathermatic-logo.png);
+    background-size: auto 30%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 9px;
+    left: 0px;
+    right: 0;
+    opacity: 0.1;
+    bottom: 0px;
+}
+
+.controllers {
+  padding-top: 65px !important;
 }
 
 
