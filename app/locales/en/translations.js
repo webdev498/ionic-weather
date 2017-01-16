@@ -9,6 +9,7 @@ export default {
     clearFaults: "Clear Faults"
   },
   programming: {
-    smart: "Smart (Auto Adjust)"
+    smart: "Smart (Auto Adjust)",
+    basic: "Basic (Standard)"
   }
 };
