@@ -120,10 +120,10 @@ const SmartlinkControllerSettingsEditControllerBasicController = Ember.Controlle
   initAvailableWateringModes: function() {
     return this.set('availableWateringModes', [
       {
-        label: 'Standard',
+        label: 'Basic (Standard)',
         value: 0
       }, {
-        label: 'Auto-Adjust',
+        label: 'Smart (Auto-Adjust)',
         value: 1
       }
     ]);
