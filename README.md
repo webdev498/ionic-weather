@@ -48,7 +48,7 @@ Run:
 
 You may need to accept all license agreements. If so do this by entering in the following code in your terminal:
 
-    echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" >             "$ANDROID_HOME/licenses/android-sdk-license"
+    echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
 
 That will produce `smartlink.apk` in the root project directory which you can upload to the google play store.
 
