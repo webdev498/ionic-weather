@@ -29,7 +29,8 @@
       {{/if}}
 
       <span class="badge">Running Avg {{runningAvgFlowInLocalUnits}}</span>
-      <span class="badge">Current Avg {{format-decimal zone.currentAverageFlow decimalPlaces=1}} {{flowUnits}}</span>
+      <span class="badge">Current Avg {{currentAvgGPMInLocalUnits}}</span>
+
     {{else}}
       <span class="badge">{{gpmInLocalUnits}}</span>
     {{/if}}

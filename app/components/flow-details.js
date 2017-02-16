@@ -35,6 +35,10 @@ const FlowDetailsComponent = Component.extend(MetricFlowMixin, {
 
   runningAvgFlowInLocalUnits: computed('isMetricEnabled', function() {
     return this.flowInLocalUnits(this.get('zone.runningAverageFlow'));
+  }),
+
+  currentAvgGPMInLocalUnits: computed('isMetricEnabled', function() {
+    return this.flowInLocalUnits(this.get('zone.currentAverageGPM'))
   })
 });
 
