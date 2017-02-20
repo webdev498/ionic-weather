@@ -1,6 +1,6 @@
 /* jshint node: true */
 
-var os     = require('os');
+var os = require('os');
 var ifaces = os.networkInterfaces();
 
 var addresses = [];

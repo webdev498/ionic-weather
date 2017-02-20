@@ -12,8 +12,10 @@ SmartlinkControllerWalkSiteZoneController = Ember.Controller.extend ManualRunMix
   init: ->
     self = this
 
-    $('body').change '#image-upload-input', ->
+    $('body').change '#image-upload-input', (e) ->
       self.send('saveZoneImage')
+      e.preventDefault();
+      e.stopPropagation();
       return
 
 

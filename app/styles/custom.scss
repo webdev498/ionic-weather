@@ -6,7 +6,57 @@ body {
 h2 {
   font-size: 25px;
 }
-
+.zone-image {
+    margin: 65px 0 0 0;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    background: #000;
+    height: 150px;
+}
+button.full-screen-image {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    padding: 0;
+    background: none;
+}
+button.full-screen-image i {
+    width: 100%;
+    height: 100%;
+    display: block;
+    color: #fff;
+    font-size: 23px;
+}
+.statusBar {
+  height: 50px;
+  text-align: center;
+  color:#fff !important;
+  font-size:13px;
+  line-height: 62px;
+  background:#4cd964;
+  display:none;
+}
+.statusBar div {
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0.5;
+}
+.zones a {
+  display:block;
+  color:#000
+}
+@-webkit-keyframes pulsate {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1.0;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
 .custom-file-input {
   color: transparent;
   visibility: hidden;
@@ -306,6 +356,11 @@ h2 {
   color: #777;
 }
 
+.edit-labels .weathermatic-edit-zone p {
+  margin: 10px 0;
+  text-align: left;
+}
+
 .weathermatic-sites-search {
   input[type=search] {
     margin-top: 10px;
@@ -487,11 +542,6 @@ $walk-site-zone-nav-border-color: #ddd;
   background-color: #D6D6D6;
 }
 
-.walk-site-controls {
-  top: 55%;
-  width: 100%;
-}
-
 .walk-site-control {
   width: 60%;
   height: 50px;
@@ -532,6 +582,53 @@ $walk-site-zone-nav-border-color: #ddd;
   color: #666;
 }
 
+.weathermatic-edit-zone {
+  padding-top:20px;
+  width:90%;
+}
+
+.zone-image button {
+  border: none;
+}
+
+#zone-thumbnail {
+    display: block;
+    margin: auto;
+    height: 100px;
+    width: 100px;
+}
+
+form#image-uploads {
+  height: 100%;
+}
+
+.edit-label-control.upload-image-control {
+  position: absolute;
+  bottom: 10px;
+  background: #000;
+  border: none;
+  height: 50px;
+  border-radius: 25px;
+  width: 50px;
+  padding: 0;
+  margin: 0;
+  right: 10px;
+}
+
+.edit-label-control .custom-file-input {
+    width: 100% !important;
+    height: 100%;
+}
+
+#zone-thumbnail {
+  width: 100%;
+  height: 150px;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: #000;
+}
+
 .weathermatic-zone-configure-auto-adjust {
   padding-top:75px;
   width:90%;
@@ -557,6 +654,7 @@ div.ember-view.liquid-child {
 #zone-image {
   margin-top:60px;
   width:100%;
+
 }
 
 .weathermatic-content {
@@ -574,20 +672,86 @@ div.ember-view.liquid-child {
   height:100px;
 }
 
-#zone-thumbnail {
-  display:block;
-  margin:auto;
-  height:100px;
-  width:100px;
-}
-
 .btn-show-zone-image {
   margin-bottom:0px;
 }
 
+#image-upload-input {
+  width:210px;
+}
+
+.uploading {
+    background: #000;
+    display: inline-block;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 52px;
+    left: 50%;
+    margin-left: -67px;
+}
+
+.zone-image #image-upload-inputs:before {
+  content: "";
+  background-image: url(images/camera.png);
+  background-size: 50% auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #000;
+  border: none;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  margin: 0;
+  font-size: 16px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 0;
+  text-shadow: none;
+}
+
+.image-uploads {
+  height: 100%;
+}
+
+.edit-label-control p {
+    background: #000;
+    border: none;
+    width: 200px;
+    text-align: center;
+    margin: 0;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: solid 1px #000;
+    box-sizing: border-box;
+    padding: 10px 0px;
+    text-shadow: none;
+    color: #fff;
+    position: relative;
+    top: 0px;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.upload-image-control:active {
+  background-color: transparent;
+}
+
 .upload-image-control {
-  height: 64px;
-  margin-bottom:10px;
+    height: 64px;
+    margin-bottom: 10px;
+}
+
+.edit-label-control .upload-image-control {
+    margin-bottom: 10px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
 }
 
 .upload-image-title {
@@ -596,10 +760,6 @@ div.ember-view.liquid-child {
   color: #333;
   margin-bottom:5px;
   font-size: 18px;
-}
-
-#image-upload-input {
-  width:210px;
 }
 
 .weathermatic-height-100-percent {

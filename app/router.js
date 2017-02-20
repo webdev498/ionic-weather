@@ -38,6 +38,7 @@ const Router = Ember.Router.extend({ location: config.locationType }).map(functi
       this.route('edit-auto-adjust', { path: 'edit-auto-adjust/:zoneId' });
       this.route('edit-controller-basic');
       this.route('edit-controller-advanced');
+      this.route('edit-labels');
       this.route('edit-zone-activations');
       this.route('edit-zone-rain-sensor');
       this.route('edit-zone-freeze-sensor');

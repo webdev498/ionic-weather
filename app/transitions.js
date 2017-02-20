@@ -100,6 +100,7 @@ const Transitions = function() {
      'smartlink-controller.settings.edit-controller-basic',
      'smartlink-controller.settings.edit-controller-advanced',
      'smartlink-controller.settings.edit-omit-times',
+     'smartlink-controller.settings.edit-labels'
     ]),
     this.use('toLeft'),
     this.reverse('toRight'),

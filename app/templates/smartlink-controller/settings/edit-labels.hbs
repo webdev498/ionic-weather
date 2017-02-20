@@ -1,0 +1,83 @@
+{{#liquid-bind model use=transition as |model|}}
+<header class="bar bar-nav weathermatic-header">
+  {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+
+  <h1 class="title">{{fa-icon 'leaf'}} Edit Zones</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model transmit='transmit'}}
+  <ul class="table-view weathermatic-page-bottom zones">
+    {{#each model.zones as |zone|}}
+      <a href="javascript:void(0)" class="table-view-cell" {{action 'openAutoAdjust' zone.description zone.number zone.id zone.photo zone.photoThumbnail}}>
+          {{#if zone.description}}
+            Edit {{short-text zone.description size=20}}
+            <p>Zone {{zone.number}}</p>
+          {{else}}
+            Edit Zone {{zone.number}}
+          {{/if}}
+      </a>
+    {{/each}}
+  </ul>
+</div>
+{{/liquid-bind}}
+
+
+<div id="auto-adjust-menu" class="modal  edit-labels {{if isAutoAdjustMenuOpen 'active'}}">
+  <header class="bar bar-nav weathermatic-header">
+    <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeAutoAdjust'}}></a>
+    <h1 class="title">{{fa-icon 'bookmark'}} Edit Zone {{activeNumber}}</h1>
+  </header>
+
+  <center>
+
+      <div class="content-padded zone-image">
+        {{#if model.photo}}
+          <a href="javascript:void(0)" id="zone-thumbnail" style="background-image: url({{model.photo}})"></a>
+          <button class="full-screen-image align-center" {{action 'openZoneImageView'}}>
+            {{fa-icon 'expand'}}
+          </button>
+        {{/if}}
+          {{#if isLoading}}
+            <div class="uploading">{{fa-icon 'circle-o-notch fa-spin'}} Uploading...</div>
+          {{else}}
+            <div class="btn edit-label-control upload-image-control">
+              <form id="image-uploads" enctype="multipart/form-data" method="POST">
+                <input id="image-upload-inputs" class="align-center custom-file-input" type="file" accept="image/*" name="photo" />
+              </form>
+            </div>
+          {{/if}}
+      </div>
+
+    <form class="weathermatic-edit-zone">
+      <p>Zone Name:</p>
+      <center>
+        {{input value=activeZone}}
+      </center>
+    </form>
+
+    <div class="content-padded">
+      <button class="btn btn-positive btn-block btn-auto-adjust-menu" {{action 'saveAutoAdjust' activeZone}}>
+        Save
+      </button>
+      <button class="btn btn-negative btn-block btn-auto-adjust-menu" {{action 'closeAutoAdjust'}}>
+        Cancel
+      </button>
+    </div>
+  </center>
+  <div id="zone-image-view" class="modal {{if showZoneImage 'active'}}">
+    <header class="bar bar-nav weathermatic-header">
+      <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeZoneImageView'}}></a>
+      <h1 class="title">{{fa-icon 'photo'}} Zone Image</h1>
+    </header>
+    <img id="zone-image" src={{model.photo}} />
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

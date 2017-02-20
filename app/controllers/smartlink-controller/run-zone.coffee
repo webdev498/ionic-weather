@@ -3,6 +3,7 @@
 `import leftPad from '../../util/strings/left-pad'`
 
 SmartlinkControllerRunZoneController = Ember.Controller.extend ManualRunMixin,
+  $scope = this;
   init: ->
     allMins = [1..59].map (num) ->
       {
@@ -31,6 +32,47 @@ SmartlinkControllerRunZoneController = Ember.Controller.extend ManualRunMixin,
 
     @set('availableRunTimeHours', availHrs)
     @set('availableRunTimeMinutes', allMins)
+
+  startCountdown: (min, display) ->
+    $(display).css('display','block')
+    if (window.cordova) then StatusBar.overlaysWebView(true)
+    start = Date.now()
+    duration = min * 60
+
+    stop = ->
+      clearInterval($scope.countdown)
+      $(display).html(' ').removeClass('close').css('display','none')
+      if (window.cordova) then StatusBar.overlaysWebView(false)
+
+    keepGoing = ->
+      #get the number of seconds that have elapsed since
+      #startCountdown() was called
+      diff = duration - (((Date.now() - start) / 1000) | 0)
+
+      #does the same job as parseInt truncates the float
+      minutes = (diff / 60) | 0
+      seconds = (diff % 60) | 0
+
+      minutes = if (minutes < 10) then ("0" + minutes) else minutes
+      seconds = if (seconds < 10) then ("0" + seconds) else seconds
+
+      zone = if ($scope.zoneName) then $scope.zoneName + " (Zone " + $scope.zoneNumber + ")" else "Zone " + $scope.zoneNumber
+
+      $(display).css('display','block').attr('href',$scope.zoneLink).html('<div>Running ' + zone + '<span> - '+minutes + ':' + seconds+'</span></div>')
+      if (window.cordova) then StatusBar.overlaysWebView(true)
+
+      #add one second so that the count down starts at the full duration
+      #example 05:00 not 04:59
+
+      if (diff <= 0) then stop()
+
+    timer = ->
+      if(!$('.statusBar').hasClass('close')) then keepGoing() else stop()
+
+    #we don't want to wait a full second before the timer starts
+    stop()
+    timer()
+    $scope.countdown = setInterval(timer, 1000)
 
   runTimeHours: 0
 
@@ -78,8 +120,12 @@ SmartlinkControllerRunZoneController = Ember.Controller.extend ManualRunMixin,
     60 + fiveMinIntvls
 
   actions:
-    runZone: ->
+    runZone: (zoneName,zone) ->
       self = this
+      $scope.zone = {}
+      $scope.zone.name = zoneName
+      $scope.zone.number = zone
+      $scope.zone.href = location.hash
       params = {
         zone: @get('model.number')
         run_time: @get('totalRunTimeMinutesConverted')
@@ -95,11 +141,19 @@ SmartlinkControllerRunZoneController = Ember.Controller.extend ManualRunMixin,
         self.get('loadingModal').send('close')
 
     loadingFinished: ->
+      $scope.zoneName = $scope.zone.name;
+      $scope.zoneNumber = $scope.zone.number;
+      $scope.zoneLink = $scope.zone.href;
+      this.startCountdown(this.runTimeMinutes,'.statusBar');
       Ember.run.later this, ->
         @get('loadingModal').send('close')
       , 750
 
     loadingAbandoned: ->
+      $scope.zoneName = $scope.zone.name;
+      $scope.zoneNumber = $scope.zone.number;
+      $scope.zoneLink = $scope.zone.href;
+      this.startCountdown(this.runTimeMinutes,'.statusBar');
       @get('loadingModal').send('close')
 
 

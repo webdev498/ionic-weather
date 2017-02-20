@@ -4,7 +4,7 @@
   xmlns="http://www.w3.org/ns/widgets"
   xmlns:cdv="http://cordova.apache.org/ns/1.0"
   android-versionCode="200094"
-  ios-CFBundleVersion="2.3.31"
+  ios-CFBundleVersion="2.3.64"
   >
     <config-file platform="ios" parent="CFBundleShortVersionString">
       <string>2.3</string>
@@ -19,7 +19,9 @@
     </author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarOverlaysWebView" value="false"/>
+    <preference name="StatusBarBackgroundColor" value="#000000"/>
+    <preference name="StatusBarStyle" value="default" />
     <allow-navigation href="*" />
     <access origin="*" />
     <access origin="mailto:*" launch-external="yes"/>

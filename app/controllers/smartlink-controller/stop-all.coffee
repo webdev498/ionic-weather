@@ -19,9 +19,11 @@ SmartlinkControllerStopAllController = Ember.Controller.extend ManualRunMixin,
     loadingFinished: ->
       Ember.run.later this, ->
         @transitionToRoute('smartlink-controller.index')
+        $('.statusBar').addClass('close')
       , 750
 
     loadingAbandoned: ->
       @transitionToRoute('smartlink-controller.index')
+      $('.statusBar').addClass('close');
 
 `export default SmartlinkControllerStopAllController`
