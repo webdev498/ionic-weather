@@ -6,10 +6,17 @@ We use [ember-cli-cordova](https://github.com/poetic/ember-cli-cordova) to help 
 
 ## Dependencies
 
+Download Node.js with NPM. 
+
+https://nodejs.org/en/
+
+Make sure the correct version of Ember is installed onto your machine. In our case, we're using 2.7.1:
+
+    npm install -g ember-cli@2.7
+
 ### Cordova
 
     npm install -g cordova
-
 
 ## Running locally
 
@@ -17,14 +24,11 @@ To initialize the cordova project, run:
 
     ember cordova:prepare
 
-
-
-
 To run a local web server so you can view the pages in a browser, run:
 
-    EMBER_CLI_CORDOVA=0 ember serve --environment=development
+    EMBER_CLI_CORDOVA=0 ember serve -p 4200 --environment=staging
 
-And visit `http://localhost:4200` in your browser
+And visit `http://localhost:4200` in your browser.
 
 
 ### To build for ios
@@ -41,6 +45,10 @@ This will create (or re-create) an XCode project from which you can create and d
 Run:
 
     EMBER_ENV=staging bin/android
+
+You may need to accept all license agreements. If so do this by entering in the following code in your terminal:
+
+    echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
 
 That will produce `smartlink.apk` in the root project directory which you can upload to the google play store.
 
