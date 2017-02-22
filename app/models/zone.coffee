@@ -24,6 +24,7 @@ Zone = DS.Model.extend
   mv2Enabled:          DS.attr 'boolean'
   runningAverageFlow:  DS.attr 'number'
   currentAverageFlow:  DS.attr 'number'
+  currentAverageGPM:   DS.attr 'number'
 
   smartlinkController: DS.belongsTo 'smartlinkController', async: true
   programZones: DS.hasMany 'program-zone', async: false

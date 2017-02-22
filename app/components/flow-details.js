@@ -31,6 +31,14 @@ const FlowDetailsComponent = Component.extend(MetricFlowMixin, {
 
   valveSizeInLocalUnits: computed('zone.valveSize', 'isMetricEnabled', function() {
     return this.sizeInLocalUnits(this.get('zone.valveSize'));
+  }),
+
+  runningAvgFlowInLocalUnits: computed('isMetricEnabled', function() {
+    return this.flowInLocalUnits(this.get('zone.runningAverageFlow'));
+  }),
+
+  currentAvgGPMInLocalUnits: computed('isMetricEnabled', function() {
+    return this.flowInLocalUnits(this.get('zone.currentAverageGPM'))
   })
 });
 

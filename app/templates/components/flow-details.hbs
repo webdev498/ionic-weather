@@ -14,21 +14,23 @@
         <span class="badge weathermatic-badge-warning">Shutdown Disabled</span>
       {{/if}}
 
+      {{#if zone.realtimeFlowEnabled}}
+        {{#if isLowFlowLimitOff}}
+          <span class="badge weathermatic-badge-warning">Low Flow Limit Off</span>
+        {{else}}
+          <span class="badge">Low Flow Limit {{lowFlowLimit}}</span>
+        {{/if}}
 
-      {{#if isLowFlowLimitOff}}
-        <span class="badge weathermatic-badge-warning">Low Flow Limit Off</span>
-      {{else}}
-        <span class="badge">Low Flow Limit {{lowFlowLimit}}</span>
+        {{#if isHighFlowLimitOff}}
+          <span class="badge weathermatic-badge-warning">High Flow Limit Off</span>
+        {{else}}
+          <span class="badge">High Flow Limit {{highFlowLimit}}</span>
+        {{/if}}
       {{/if}}
 
-      {{#if isHighFlowLimitOff}}
-        <span class="badge weathermatic-badge-warning">High Flow Limit Off</span>
-      {{else}}
-        <span class="badge">High Flow Limit {{highFlowLimit}}</span>
-      {{/if}}
+      <span class="badge">Running Avg {{runningAvgFlowInLocalUnits}}</span>
+      <span class="badge">Current Avg {{currentAvgGPMInLocalUnits}}</span>
 
-      <span class="badge">Running Avg {{format-decimal zone.runningAverageFlow decimalPlaces=1}} {{flowUnits}}</span>
-      <span class="badge">Current Avg {{format-decimal zone.currentAverageFlow decimalPlaces=1}} {{flowUnits}}</span>
     {{else}}
       <span class="badge">{{gpmInLocalUnits}}</span>
     {{/if}}
