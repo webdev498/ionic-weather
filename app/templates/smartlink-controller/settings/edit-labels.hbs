@@ -35,10 +35,14 @@
 
       <div class="content-padded zone-image">
         {{#if model.photo}}
-          <a href="javascript:void(0)" id="zone-thumbnail" style="background-image: url({{model.photo}})"></a>
+          <a href="javascript:void(0)" id="zone-thumbnail">
+            <img class="zone-image-default" src={{model.photo}} />
+          </a>
           <button class="full-screen-image align-center" {{action 'openZoneImageView'}}>
             {{fa-icon 'expand'}}
           </button>
+        {{else}}
+        <a href="javascript:void(0)" id="zone-thumbnail-default"></a>
         {{/if}}
           {{#if isLoading}}
             <div class="uploading">{{fa-icon 'circle-o-notch fa-spin'}} Uploading...</div>
@@ -54,7 +58,7 @@
     <form class="weathermatic-edit-zone">
       <p>Zone Name:</p>
       <center>
-        {{input value=activeZone}}
+        {{input placeholder=activeZoneArea value=activeZone}}
       </center>
     </form>
 

@@ -3,41 +3,43 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'gear'}} Programming</h1>
+  <h1 class="title">{{fa-icon 'gear'}} Controller Programming</h1>
 </header>
 
-<div class="content weathermatic-content">
+
+  <div class="content weathermatic-content weathermatic-controller-page programming">
+    <div style="margin-top: -15px;"></div>
   {{need-send-message smartlinkController=model transmit='transmit'}}
 
   <ul class="table-view">
     <li class="table-view-cell">
+      {{#link-to 'smartlink-controller.settings.edit-controller-basic'}}
+        <div class="media-body">
+          <h2>{{fa-icon 'gear spaced-icon'}} Basic Settings</h2>
+          <p>Edit time/date and status settings</p>
+        </div>
+      {{/link-to}}
+    </li>
+    <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.programming'}}
         <div class="media-body">
-          <h2>{{fa-icon 'play spaced-icon'}} Programming</h2>
-          <p>Edit programming settings</p>
+          <h2>{{fa-icon 'play spaced-icon'}} Program Settings</h2>
+          <p>Edit program schedules</p>
         </div>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.flow'}}
         <div class="media-body">
-          <h2>{{fa-icon 'filter spaced-icon'}} Flow Programming</h2>
-          <p>Edit flow programming</p>
-        </div>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-controller-basic'}}
-        <div class="media-body">
-          <h2>{{fa-icon 'gear spaced-icon'}} Basic Programming</h2>
-          <p>Edit basic controller programming</p>
+          <h2>{{fa-icon 'filter spaced-icon'}} Flow Settings</h2>
+          <p>Edit flow settings</p>
         </div>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-controller-advanced'}}
         <div class="media-body">
-          <h2>{{fa-icon 'gears spaced-icon'}} Advanced Programming</h2>
+          <h2>{{fa-icon 'gears spaced-icon'}} Advanced Settings</h2>
           <p>Edit advanced controller programming</p>
         </div>
       {{/link-to}}
@@ -46,11 +48,12 @@
       {{#link-to 'smartlink-controller.settings.edit-labels'}}
         <div class="media-body">
           <h2>{{fa-icon 'leaf spaced-icon'}} Edit Zones</h2>
-          <p>Edit Zone's</p>
+          <p>Edit zone's name and image</p>
         </div>
       {{/link-to}}
     </li>
   </ul>
+  <div class="weathermatic-page-bottom"></div>
 </div>
 
 {{!

@@ -14,12 +14,24 @@ h2 {
     background: #000;
     height: 150px;
 }
+.programming .pull-indicator {
+  display: none;
+}
+.programming .weathermatic-page-bottom {
+  margin-bottom: 280px;
+}
 button.full-screen-image {
     position: absolute;
-    top: 10px;
-    right: 25px;
-    padding: 0;
+    bottom: 40px;
+    right: 16px;
     background: none;
+    padding: 10px;
+}
+.needs-send-message .table-view-cell > a:not(.btn) {
+  padding: 11px 48px 11px 15px;
+}
+.card .table-view-cell > a:not(.btn) {
+  padding: 11px 28px 11px 15px;
 }
 button.full-screen-image i {
     width: 100%;
@@ -27,6 +39,7 @@ button.full-screen-image i {
     display: block;
     color: #fff;
     font-size: 23px;
+    text-shadow: 1px 1px 1px #000;
 }
 .statusBar {
   height: 50px;
@@ -569,7 +582,11 @@ $walk-site-zone-nav-border-color: #ddd;
   padding-top: 20px;
   padding-bottom: 20px;
 }
-
+.zone-image-default {
+  margin: 0;
+  height: 100%;
+  width: auto;
+}
 .app-version {
   bottom: 5px;
   margin-left: auto;
@@ -587,6 +604,9 @@ $walk-site-zone-nav-border-color: #ddd;
   width:90%;
 }
 
+.weathermatic-edit-zone input::-webkit-input-placeholder {
+  color: #d9d9d9;
+}
 .zone-image button {
   border: none;
 }
@@ -604,15 +624,15 @@ form#image-uploads {
 
 .edit-label-control.upload-image-control {
   position: absolute;
-  bottom: 10px;
-  background: #000;
+  bottom: 0px;
   border: none;
   height: 50px;
   border-radius: 25px;
+  background: none;
   width: 50px;
   padding: 0;
   margin: 0;
-  right: 10px;
+  right: 11px;
 }
 
 .edit-label-control .custom-file-input {
@@ -620,13 +640,20 @@ form#image-uploads {
     height: 100%;
 }
 
-#zone-thumbnail {
+#zone-thumbnail,
+#zone-thumbnail-default {
   width: 100%;
   height: 150px;
   background-size: auto 100%;
   background-repeat: no-repeat;
   background-position: center center;
   background-color: #000;
+}
+
+#zone-thumbnail-default,
+.zone-default {
+  background-image: url(images/default-zone-image.jpg);
+  display: block;
 }
 
 .weathermatic-zone-configure-auto-adjust {
@@ -643,7 +670,7 @@ div.ember-view.liquid-child {
 }
 
 #auto-adjust-menu {
-  overflow:auto !important;
+  overflow-y:auto !important;
 
   .ember-select {
     height: 2.5em;
@@ -659,6 +686,7 @@ div.ember-view.liquid-child {
 
 .weathermatic-content {
   overflow-y:scroll !important;
+  overflow-x:hidden;
   height:800px;
   @media(min-height: 800px) {
     height: 1100px;
@@ -693,22 +721,21 @@ div.ember-view.liquid-child {
 }
 
 .zone-image #image-upload-inputs:before {
-  content: "";
-  background-image: url(images/camera.png);
-  background-size: 50% auto;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: #000;
-  border: none;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  margin: 0;
-  font-size: 16px;
-  border-radius: 5px;
-  box-sizing: border-box;
-  padding: 0;
-  text-shadow: none;
+    content: "";
+    background-image: url(images/camera.png);
+    background-size: 50% auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin: 0;
+    font-size: 16px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0;
+    text-shadow: none;
 }
 
 .image-uploads {
@@ -838,4 +865,21 @@ div.ember-view.liquid-child {
   .zone-mv-label-1 {
     margin-right: 60px;
   }
+}
+.center-buttons {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.edit-inspection-form {
+  padding: 15px;
+  select {
+    font:inherit; /*keep font style*/
+    height:35px; /*force same height as inputs*/
+
+    /* remove border, background and inset shadow */
+    background-color:transparent;
+    box-shadow:none;
+  }
+
 }

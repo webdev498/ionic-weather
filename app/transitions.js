@@ -87,7 +87,9 @@ const Transitions = function() {
 
   this.transition(
     this.fromRoute(['smartlink-controller.index', 'smartlink-controller']),
-    this.toRoute(['smartlink-controller.settings', 'smartlink-controller.settings.index']),
+    this.toRoute([
+      'smartlink-controller.settings',
+      'smartlink-controller.settings.index']),
     this.use('toLeft'),
     this.reverse('toRight'),
   );
@@ -100,7 +102,7 @@ const Transitions = function() {
      'smartlink-controller.settings.edit-controller-basic',
      'smartlink-controller.settings.edit-controller-advanced',
      'smartlink-controller.settings.edit-omit-times',
-     'smartlink-controller.settings.edit-labels'
+     'smartlink-controller.settings.edit-labels',
     ]),
     this.use('toLeft'),
     this.reverse('toRight'),
@@ -167,6 +169,16 @@ const Transitions = function() {
     this.use('toLeft'),
     this.reverse('toRight'),
   );
+
+  this.transition(
+    this.fromRoute('smartlink-controller.inspections'),
+    this.toRoute([
+     'smartlink-controller.edit-inspection'
+    ]),
+    this.use('toLeft'),
+    this.reverse('toRight'),
+  );
+
 };
 
 export default Transitions;

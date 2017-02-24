@@ -93,6 +93,7 @@ SmartlinkControllerEditZoneController = Ember.Controller.extend ManualRunMixin, 
       $scope.zone.number = number
       $scope.zone.active = this.active(@get('model.zones'),id)
       this.set('activeNumber', number)
+      this.set('activeZoneArea', 'Zone '+number)
       this.set('activeZone', zone)
       this.set('isAutoAdjustMenuOpen', true)
       this.set('model.photo', photo)
