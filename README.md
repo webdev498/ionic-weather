@@ -28,6 +28,10 @@ To run a local web server so you can view the pages in a browser, run:
 
     EMBER_CLI_CORDOVA=0 ember serve -p 4200 --environment=staging
 
+or 
+
+    EMBER_CLI_CORDOVA=0 ember serve -p 4200 --environment=production
+
 And visit `http://localhost:4200` in your browser.
 
 
@@ -35,7 +39,10 @@ And visit `http://localhost:4200` in your browser.
 
 Run:
 
-    EMBER_ENV=staging bin/ios
+    EMBER_ENV=staging bin/ios 
+or 
+
+    EMBER_ENV=production bin/ios
 
 This will create (or re-create) an XCode project from which you can create and deploy application archives.  To create an archive and send it to the app store, select "iOS Device" as the target device and run Product -> Archive and the publish to app store.  Be sure to bump up the app's version number first or the app store won't accept the build (e.g. 2.0.6 -> 2.0.7)
 
