@@ -1,6 +1,6 @@
 {{#liquid-bind model use=transition as |model|}}
 <header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
-  {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
+  {{#link-to 'smartlink-controller.inspections' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
   <h1 class="title">{{fa-icon 'fa-clipboard spaced-icon'}} {{short-text smartlinkController.name size=15}} Inspections</h1>
@@ -17,7 +17,7 @@
     </li>
     {{#each model.inspectionDetail as |inspection|}}
       <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.inspections.select-inspection' class='push-right'}}
+        {{#link-to inspection.link class='push-right'}}
           {{inspection.option}}
           {{#if inspection.description}}
           <p>{{inspection.description}}</p>

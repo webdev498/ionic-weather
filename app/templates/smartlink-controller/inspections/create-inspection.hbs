@@ -1,13 +1,16 @@
 <header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
-  {{#link-to 'smartlink-controller.inspections.create-inspection' class='btn btn-link btn-nav pull-left'}}
+  {{#link-to 'smartlink-controller.inspections.select-zone' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'fa-clipboard'}} Edit Inspection </h1>
+  <h1 class="title">{{fa-icon 'fa-clipboard'}} Inspections </h1>
+  {{#link-to 'smartlink-controller.inspections.edit-inspection' class='menu-option'}}
+    {{fa-icon 'fa-gear'}}
+  {{/link-to}}
 </header>
 <div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
-      {{fa-icon 'leaf'}} Create a new inspection
+      {{fa-icon 'leaf'}} Done!!
     </li>
   </ul>
   <form class="weathermatic-page-bottom edit-inspection-form">
@@ -22,11 +25,11 @@
       <option value="scheduled">Scheduled Inspection</option>
     </select>
     <div class="center-buttons">
-      {{#link-to 'smartlink-controller.inspections.create-inspection'}}
+      {{#link-to 'smartlink-controller.inspections.select-zone'}}
         <button class="btn btn-positive">Cancel</button>
       {{/link-to}}
-      {{#link-to 'smartlink-controller.inspections.create-inspection'}}
-        <button class="btn btn-negative">Save Inspection</button>
+      {{#link-to 'smartlink-controller.inspections.select-inspection'}}
+        <button class="btn btn-negative">Save</button>
       {{/link-to}}
     </div>
   </form>
