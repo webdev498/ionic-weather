@@ -14,11 +14,33 @@ h2 {
     background: #000;
     height: 150px;
 }
+.radio-button {
+  float: left;
+}
+.radio-button input {
+  margin: 0 5px 0 0;
+}
+.radio-button:first-child {
+  margin: 0 10px 0 0;
+}
+.same-line {
+  display: inline-block;
+}
 .programming .pull-indicator {
   display: none;
 }
 .programming .weathermatic-page-bottom {
   margin-bottom: 280px;
+}
+.menu-option {
+    background: none;
+    border: none;
+    float: right;
+    margin: 18px 5px;
+    font-size: 21px;
+    cursor: pointer;
+    z-index: 20;
+    position: relative;
 }
 button.full-screen-image {
     position: absolute;
@@ -659,6 +681,10 @@ form#image-uploads {
 .weathermatic-zone-configure-auto-adjust {
   padding-top:75px;
   width:90%;
+}
+
+.edit-inspection-form {
+  margin: 75px 0 0 0;
 }
 
 .btn-auto-adjust-menu {

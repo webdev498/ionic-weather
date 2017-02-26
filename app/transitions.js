@@ -36,6 +36,7 @@ const Transitions = function() {
      'smartlink-controller.stop-all',
      'smartlink-controller.clear-faults',
      'smartlink-controller.comm-log',
+     'smartlink-controller.inspections',
     ]),
     this.use('toLeft'),
     this.reverse('toRight'),
@@ -171,9 +172,10 @@ const Transitions = function() {
   );
 
   this.transition(
-    this.fromRoute('smartlink-controller.inspections'),
+    this.fromRoute('smartlink-controller.inspections.index'),
     this.toRoute([
-     'smartlink-controller.edit-inspection'
+     'smartlink-controller.inspections.edit-inspection',
+     'smartlink-controller.inspections.select-inspection'
     ]),
     this.use('toLeft'),
     this.reverse('toRight'),

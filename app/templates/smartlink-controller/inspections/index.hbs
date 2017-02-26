@@ -1,0 +1,46 @@
+{{#liquid-bind model use=transition as |model|}}
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{fa-icon 'fa-clipboard spaced-icon'}} {{short-text smartlinkController.name size=15}} Inspections</h1>
+</header>
+
+<div class="content weathermatic-content">
+  {{need-send-message smartlinkController=model transmit='transmit'}}
+  <ul class="table-view weathermatic-page-bottom">
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'leaf'}} Select an Inspection
+    </li>
+    <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.inspections.edit-inspection' class='push-right'}}
+          Create Inspection
+          <p>Click to start Inspection</p>
+        {{/link-to}}
+    </li>
+    {{#each model.inspections as |inspection|}}
+      <li class="table-view-cell">
+        {{#link-to 'smartlink-controller.inspections.select-inspection' class='push-right'}}
+          {{#if inspection.description}}
+            {{inspection.description}}
+          {{else}}
+            Inspection {{inspection.number}}
+          {{/if}}
+          <p>Zone {{inspection.zone}} Inspection</p>
+        {{/link-to}}
+      </li>
+    {{else}}
+      <li class="table-view-cell weathermatic-error-list-item">
+        <center>
+          <h1 class="weathermatic-warning-icon">
+            {{fa-icon 'warning fa-3x'}}
+          </h1>
+          <h4>
+            No inspections set up for this controller
+          </h4>
+        </center>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+{{/liquid-bind}}
