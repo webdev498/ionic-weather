@@ -6,6 +6,9 @@ body {
 h2 {
   font-size: 25px;
 }
+.section select {
+  -webkit-appearance: menulist;
+}
 .zone-image {
     margin: 65px 0 0 0;
     display: inline-block;
@@ -755,7 +758,6 @@ button.full-screen-image i {
 
   &.weathermatic-left-nav-only {
     h1.title {
-      margin-left: 7px;
     }
   }
 }
@@ -979,10 +981,94 @@ form#image-uploads {
   width:90%;
 }
 
+.weathermatic-content .center-buttons {
+  text-align: right;
+  margin: 20px 10px 0 0;
+  .btn {
+    padding: 15px 35px;
+    font-size: 14px;
+    margin: 0 0 0 5px;
+  }
+}
+
+#create-inspection {
+  .section {
+    border-bottom: solid 1px #ccc;
+    padding: 10px 15px 20px 15px;
+    width: 100%;
+    display: inline-block;
+    .choose-pic {
+      margin: 10px 0 0 0;
+      font-size: 12px;
+    }
+    .run-zone {
+      background: #5cb85c;
+      border:none;
+      color: #fff;
+      font-size: 14px;
+      padding: 12px 45px;
+      border-radius: 3px;
+    }
+    .form-group {
+      float: left;
+      width: 100%;
+      li {
+        list-style: none;
+        label {
+          margin: 0 0 3px 0;
+          display: block;
+          font-size: 14px;
+        }
+        .programs {
+          padding: 10px 0 0 0;
+          span {
+            font-size: 16px;
+            width: 20%;
+            display: inline-block;
+          }
+        }
+      }
+    }
+    .half {
+      float: left;
+      li {
+        width: 50%;
+        float: left;
+        box-sizing: border-box;
+      }
+      li:last-child {
+        padding: 0 0 0 10px;
+      }
+      li:first-child {
+        padding: 0 10px 0 0;
+      }
+    }
+    .half-input {
+      select {
+        width: 40px;
+      }
+      input {
+        width: 80px;
+        margin: 0 0 0 5px;
+      }
+    }
+  }
+  .run-zone-section {
+    li {
+      text-align: center;
+    }
+    label {
+      text-align: left;
+    }
+  }
+}
+
 .edit-inspection-form {
   margin: 75px 0 0 0;
 }
-
+.create-inspection {
+  padding: 0;
+}
 .btn-auto-adjust-menu {
   width: 90%;
 }

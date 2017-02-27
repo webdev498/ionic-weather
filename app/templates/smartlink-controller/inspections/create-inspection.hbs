@@ -7,23 +7,180 @@
     {{fa-icon 'fa-gear'}}
   {{/link-to}}
 </header>
-<div class="content weathermatic-content">
+<div id="create-inspection" class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
-      {{fa-icon 'leaf'}} Done!!
+      Brief Instructions
     </li>
   </ul>
-  <form class="weathermatic-page-bottom edit-inspection-form">
-    <label for="title">Inspection Title</label>
-    <input id="title" type="text" />
-    <label for="date">Date & Time</label>
-    <div class="same-line" style="width: 100%">
-      <input id="date" type="date" style="width: 48%"/>  <input id="date" type="time" style="width: 48%; float: right;" />
+  <form class="weathermatic-page-bottom create-inspection">
+    <div class="section">
+      <div class="form-group full">
+        <li class="column">
+          <label for="title">Zone Name</label>
+          <input id="title" type="text" />
+        </li>
+      </div>
+      <div class="form-group half">
+        <li class="column">
+          <label for="inspection-type">% of Area</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">&nbsp;</option>
+          </select>
+        </li>
+        <li class="column">
+          <label for="inspection-type">Sprinkler Type</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">&nbsp;</option>
+          </select>
+        </li>
+      </div>
+      <div class="form-group half">
+        <li class="column">
+          <label for="inspection-type">Plant Type</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">&nbsp;</option>
+          </select>
+        </li>
+        <li class="column">
+          <label for="inspection-type">Soil Type</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">&nbsp;</option>
+          </select>
+        </li>
+      </div>
+      <div class="form-group half">
+        <li class="column">
+          <label for="inspection-type">More/Less</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">&nbsp;</option>
+          </select>
+        </li>
+        <li class="column">
+          <label for="inspection-type">Value Size</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">&nbsp;</option>
+          </select>
+        </li>
+      </div>
+      <div class="form-group half">
+        <li class="column">
+          <label for="inspection-type">GPM</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">&nbsp;</option>
+          </select>
+        </li>
+      </div>
     </div>
-    <label for="inspection-type">Inspection Type</label>
-    <select id="scheduled-select" name="cars">
-      <option value="scheduled">Scheduled Inspection</option>
-    </select>
+    <div class="section">
+      <div class="form-group full">
+        <li class="column">
+          <label for="title">Photos</label>
+          <input type="file" class="choose-pic" accept="image/*">
+        </li>
+      </div>
+    </div>
+    <div class="section">
+      <div class="form-group full">
+        <li class="column">
+          <label for="title">Programs</label>
+          <div class="programs">
+            <span class="a-program">A</span>
+            <span class="b-program">B</span>
+            <span class="c-program">C</span>
+            <span class="d-program">D</span>
+          </div>
+        </li>
+      </div>
+    </div>
+    <div class="section run-zone-section">
+      <div class="form-group full">
+        <li class="column">
+          <label for="title">Run Zone</label>
+          <button class="run-zone" type="button">Start</button>
+        </li>
+      </div>
+    </div>
+    <div class="section">
+      <div class="form-group half half-input">
+        <li class="column">
+          <label for="inspection-type">Clogged Nozzle</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">0</option>
+          </select>
+        </li>
+        <li class="column">
+          <label for="inspection-type">Blocked Head</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">0</option>
+          </select>
+        </li>
+      </div>
+      <div class="form-group half half-input">
+        <li class="column">
+          <label for="inspection-type">Broken Head</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">0</option>
+          </select>
+        </li>
+        <li class="column">
+          <label for="inspection-type">Raise Head</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">0</option>
+          </select>
+        </li>
+      </div>
+      <div class="form-group half half-input">
+        <li class="column">
+          <label for="inspection-type">Lower Head</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">0</option>
+          </select>
+        </li>
+        <li class="column">
+          <label for="inspection-type">Replace Head</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">0</option>
+          </select>
+        </li>
+      </div>
+      <div class="form-group half half-input">
+        <li class="column">
+          <label for="inspection-type">Broken Lateral</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">0</option>
+          </select>
+        </li>
+        <li class="column">
+          <label for="inspection-type">Broken Main</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">0</option>
+          </select>
+        </li>
+      </div>
+    </div>
+    <div class="section">
+      <div class="form-group half half-input">
+        <li class="column">
+          <label for="inspection-type">In/Out Scope</label>
+          <select id="scheduled-select" name="cars">
+            <option value="scheduled">0</option>
+          </select>
+        </li>
+        <li class="column">
+          <label for="inspection-type">Estimated Cost</label>
+          $<input id="title" type="text" />
+        </li>
+      </div>
+    </div>
+    <div class="section">
+      <div class="form-group full">
+        <li class="column">
+          <label for="inspection-type">Comments</label>
+          <textarea rows="4" cols="50"></textarea>
+        </li>
+      </div>
+    </div>
     <div class="center-buttons">
       {{#link-to 'smartlink-controller.inspections.select-zone'}}
         <button class="btn btn-positive">Cancel</button>
