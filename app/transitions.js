@@ -218,8 +218,8 @@ const Transitions = function() {
      'smartlink-controller.inspections.select-inspection',
      'smartlink-controller.inspections.edit-inspection'
     ]),
-    this.use('toRight'),
-    this.reverse('toLeft'),
+    this.use('toUp'),
+    this.reverse('toDown'),
   );
 
 };
