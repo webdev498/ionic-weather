@@ -14,6 +14,32 @@ h2 {
     background: #000;
     height: 150px;
 }
+#general-inspection {
+  .table-view {
+    margin: 12px 0 0 0;
+  }
+  .section {
+    border-bottom: solid 1px #ccc;
+    .section-title {
+      margin: 20px 0 0 15px;
+      font-weight: normal;
+      color: #505050;
+      font-size: 18px;
+      display: block;
+    }
+    ul {
+      padding: 0 15px;
+      li {
+        list-style: none;
+        font-size: 14px;
+        margin: 0 0 5px 0;
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
 .radio-button {
   float: left;
 }
