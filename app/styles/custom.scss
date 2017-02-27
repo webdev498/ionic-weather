@@ -979,6 +979,12 @@ form#image-uploads {
   background-color: #000;
 }
 
+.value-status {
+  font-size: 15px;
+  li {
+    margin: 0 0 10px 0;
+  }
+}
 #zone-thumbnail-default,
 .zone-default {
   background-image: url(images/default-zone-image.jpg);
