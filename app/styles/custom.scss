@@ -17,6 +17,15 @@ h2 {
     background: #000;
     height: 150px;
 }
+.email-inspection-form {
+    padding: 20px 15px 0 15px;
+    margin: 65px 0 0 0;
+    font-size: 14px;
+}
+.email-inspection-form label {
+    margin: 0 0 10px 0;
+    display: block;
+}
 #general-inspection {
   .table-view {
     margin: 12px 0 0 0;
@@ -990,6 +999,18 @@ form#image-uploads {
     margin: 0 0 0 5px;
   }
 }
+
+,
+.email-inspection-form .center-buttons {
+  text-align: right;
+  margin: 20px 10px 0 0;
+  .btn {
+    padding: 15px 30px;
+    font-size: 14px;
+    margin: 0 0 0 5px;
+  }
+}
+
 
 #create-inspection {
   .section {
