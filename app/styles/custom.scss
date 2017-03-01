@@ -771,10 +771,6 @@ button.full-screen-image i {
   }
 }
 
-.weathermatic-content {
-  padding-top: 52px !important;
-}
-
 .background-area {
     background-image: url(images/weathermatic-logo.png);
     background-size: auto 30%;
@@ -998,9 +994,9 @@ form#image-uploads {
 
 .weathermatic-content .center-buttons {
   text-align: right;
-  margin: 20px 10px 0 0;
+  margin: 20px 0 0 0;
   .btn {
-    padding: 15px 30px;
+    padding: 15px 25px;
     font-size: 14px;
     margin: 0 0 0 5px;
   }
@@ -1100,10 +1096,6 @@ form#image-uploads {
   width: 90%;
 }
 
-div.ember-view.liquid-child {
-  overflow-y:scroll !important;
-}
-
 #auto-adjust-menu {
   overflow-y:auto !important;
 
@@ -1118,11 +1110,20 @@ div.ember-view.liquid-child {
   width:100%;
 
 }
-
+.content > .table-view:first-child {
+    margin: 0;
+}
+.table-view .table-view-cell:last-child {
+  background: none;
+}
 .weathermatic-content {
-  overflow-y:scroll !important;
-  overflow-x:hidden;
-  height:800px;
+  overflow-y: scroll !important;
+  overflow-x: hidden;
+  min-height: 800px;
+  padding: 65px 0 0 0 !important;
+  height: 100%;
+  background: #fff;
+  position: relative;
   @media(min-height: 800px) {
     height: 1100px;
   }
@@ -1310,11 +1311,13 @@ div.ember-view.liquid-child {
   padding: 15px;
   select {
     font:inherit; /*keep font style*/
-    height:35px; /*force same height as inputs*/
-
     /* remove border, background and inset shadow */
     background-color:transparent;
     box-shadow:none;
+  }
+  label {
+    display: block;
+    margin: 0 0 10px 0;
   }
 
 }
