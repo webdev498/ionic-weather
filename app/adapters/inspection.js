@@ -44,7 +44,7 @@ const InspectionAdapter = ApplicationAdapter.extend({
             ]
         }
         */
-        //
+        // MISSING: No inspections have an id, which ember needs. Will need to parse from a string or ask api to return it to us.
         if (status !== 200) {
             error("InspectionAdapter.handleResponse() got non-success status code: ", status);
         }
