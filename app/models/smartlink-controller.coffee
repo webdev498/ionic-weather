@@ -71,6 +71,7 @@ SmartlinkController = DS.Model.extend
   omissionDays:         DS.hasMany 'omission-day',  async: false
   omissionTimes:        DS.hasMany 'omission-time', async: false
   omissionDates:        DS.hasMany 'omission-date', async: false
+  inspections:          DS.hasMany 'inspection', async: true
 
 
   isNormallyClosedMasterValve: Ember.computed 'masterValveType', ->

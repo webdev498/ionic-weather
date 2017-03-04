@@ -17,7 +17,7 @@
           <p>Click to start Inspection</p>
         {{/link-to}}
     </li>
-    {{#each model.inspections as |inspection|}}
+    {{#each model as |inspection|}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.inspections.select-inspection' class='push-right'}}
           {{#if inspection.description}}
