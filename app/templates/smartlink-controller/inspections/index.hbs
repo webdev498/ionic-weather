@@ -20,12 +20,14 @@
     {{#each model as |inspection|}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.inspections.select-inspection' class='push-right'}}
-          {{#if inspection.description}}
-            {{inspection.description}}
+          {{#if inspection.title}}
+            {{inspection.title}}
           {{else}}
-            Inspection {{inspection.number}}
+            Inspection {{inspection.id}}
           {{/if}}
-          <p>Zone {{inspection.zone}} Inspection</p>
+          {{#if inspection.inspector_name}}
+          <p>Inspector: {{inspection.inspector_name}}</p>
+          {{/if}}
         {{/link-to}}
       </li>
     {{else}}

@@ -3,9 +3,7 @@
 
 SmartlinkControllerInspectionRoute = Ember.Route.extend(AuthenticatedRouteMixin,
   model: () ->
-    this.get('store').findAll('inspection').then (inspections) ->
-      console.log(inspections)
-      inspections.filterBy('active', true)
+    this.get('store').findAll('inspection')
 )
 
 `export default SmartlinkControllerInspectionRoute`
