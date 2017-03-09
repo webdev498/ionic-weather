@@ -12,12 +12,13 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 CORDOVA_DIR=$DIR/../cordova
 APP_VERSION=$(($(cat $CORDOVA_DIR/android-last-build-version) + 1))
 ANDROID_PROJECT_DIR=$CORDOVA_DIR/platforms/android
-ANDROID_BUILD_TOOLS_VERSION=${ANDROID_BUILD_TOOLS_VERSION:=24.0.1}
+#Getting latest android build tools version
+ANDROID_BUILD_TOOLS_DIRECTORY=$(ls -td $ANDROID_HOME/build-tools/*/ | head -1)
 KEYSTORE=$DIR/../smartlink.keystore
 KEYSTORE_PASSWORD="Savewatern0w1"
 KEY_ALIAS="smartlinkmobile"
 KEY_PASSWORD="Savewatern0w1"
-ZIPALIGN_BINARY=$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION/zipalign
+ZIPALIGN_BINARY=$ANDROID_BUILD_TOOLS_DIRECTORY/zipalign
 UNSIGNED_APK_FILE=$ANDROID_PROJECT_DIR/build/outputs/apk/android-release-unsigned.apk
 FINAL_APK_FILE=$DIR/../smartlink-android.apk
 
@@ -67,6 +68,8 @@ for SIZE in $SIZES; do
   rm -f $ANDROID_PROJECT_DIR/res/drawable-land-$SIZE/{icon.png,screen.png}
 
   # Icon
+  # Create the directory if it doesn't exist
+  mkdir -p $ANDROID_PROJECT_DIR/res/drawable-$SIZE
   cp $CORDOVA_DIR/res/android/icons/wmatic_icon.png $ANDROID_PROJECT_DIR/res/drawable-$SIZE/icon.png
 
   # Splash images
