@@ -4,8 +4,13 @@ const { merge } = Ember;
 
 const InspectionAdapter = ApplicationAdapter.extend({
     buildURL: function (type, id, snapshot) {
-        //This is where the I am testing the API Url to figure out the inspections 
-        return this.host + '/' + this.namespace + '/inspections';
+        //Let's get the current controller id
+        var controller = this.get('store').peekAll('smartlinkController');
+        var id = 0;
+        if(controller.objectAt(0)) {
+            id = controller.objectAt(0).id;
+        }
+        return this.host + '/' + this.namespace + '/controllers/' + id + '/inspections';
     },
 
     ajaxOptions(url, type, options) {
@@ -23,7 +28,6 @@ const InspectionAdapter = ApplicationAdapter.extend({
 
         return {
             embed_controller: true,
-            controller_id: 8830
         };
     },
     //Overriding the handleResponse from the application adapter as it seems inspections are a bit different
@@ -50,23 +54,13 @@ const InspectionAdapter = ApplicationAdapter.extend({
             ]
         }
         */
-        // MISSING: No inspections have an id, which ember needs. Will need to parse from a string or ask api to return it to us.
         if (status !== 200) {
             error("InspectionAdapter.handleResponse() got non-success status code: ", status);
         }
         console.log("inspection returns: ");
         console.log(json);
-        //Since the inspection object is embedded, lets return it. There is no id in the reponse either
         for(var i = 0; i < json.inspections.length; i++) {
             var inspection = json.inspections[i];
-            var href = inspection.inspection_href;
-            //Parse the id from the end of the string
-            var stringArr = href.split("/");
-            var id = stringArr[stringArr.length - 1];
-            if (id) {
-                //Get the id from the embedded route
-                inspection.id = id;
-            }
             //Now, set the embedded inspection attrs
             inspection.inspector_id = inspection.inspector.id;
             inspection.inspector_name = inspection.inspector.name;
