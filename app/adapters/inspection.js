@@ -6,11 +6,16 @@ const InspectionAdapter = ApplicationAdapter.extend({
     buildURL: function (type, id, snapshot) {
         //Let's get the current controller id
         var controller = this.get('store').peekAll('smartlinkController');
-        var id = 0;
+        var controllerId = 0;
         if(controller.objectAt(0)) {
-            id = controller.objectAt(0).id;
+            controllerId = controller.objectAt(0).id;
         }
-        return this.host + '/' + this.namespace + '/controllers/' + id + '/inspections';
+        var url = this.host + '/' + this.namespace + '/controllers/' + controllerId + '/inspections';
+        //If this is a request for the single inspection, our id will be defined
+        if(id) {
+            url += ("/" + id);
+        }
+        return url;
     },
 
     ajaxOptions(url, type, options) {
@@ -21,11 +26,6 @@ const InspectionAdapter = ApplicationAdapter.extend({
 
     addCustomParams(options) {
         options.data = options.data || {};
-        /*return Ember.merge(options.data, {
-            embed_controller: true,
-            controller_id: 8830
-        }); */
-
         return {
             embed_controller: true,
         };
@@ -59,15 +59,24 @@ const InspectionAdapter = ApplicationAdapter.extend({
         }
         console.log("inspection returns: ");
         console.log(json);
-        for(var i = 0; i < json.inspections.length; i++) {
-            var inspection = json.inspections[i];
-            //Now, set the embedded inspection attrs
-            inspection.inspector_id = inspection.inspector.id;
-            inspection.inspector_name = inspection.inspector.name;
+        if(json.inspections) {
+            for(var i = 0; i < json.inspections.length; i++) {
+                var inspection = json.inspections[i];
+                //Now, set the embedded inspection attrs
+                inspection.inspector_id = inspection.inspector.id;
+                inspection.inspector_name = inspection.inspector.name;
+            }
+             return json;
         }
-        return json;
+        else {
+            if(json.inspector) {
+                json.inspector_name = json.inspector.name;
+                json.inspector_id = json.inspector.id;
+            }
+            //In proper JSON API, a singular request is encased with the type
+            return {inspection: json};
+        }
     }
-
 });
 
 export default InspectionAdapter;
