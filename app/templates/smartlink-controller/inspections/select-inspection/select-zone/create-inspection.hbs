@@ -1,5 +1,5 @@
 <header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
-  {{#link-to 'smartlink-controller.inspections.select-zone' class='btn btn-link btn-nav pull-left'}}
+  {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
   <h1 class="title">{{fa-icon 'fa-clipboard'}} Inspections </h1>
@@ -191,7 +191,7 @@
       </div>
     </div>
     <div class="center-buttons">
-      {{#link-to 'smartlink-controller.inspections.select-zone'}}
+      {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone'}}
         <button class="btn btn-positive">Cancel</button>
       {{/link-to}}
       {{#link-to 'smartlink-controller.inspections.select-inspection'}}
