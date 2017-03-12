@@ -7,31 +7,31 @@ SmartlinkControllerSelectInspectionRoute = Ember.Route.extend(AuthenticatedRoute
     inspectionDetail: [
         {
             option: "Select Zone to Inspect",
-            link: "smartlink-controller.inspections.select-zone",
+            link: "smartlink-controller.inspections.select-inspection.select-zone",
             id: "option1"
         },
         {
             option: "General"
             description: "Brief Details",
-            link: "smartlink-controller.inspections.general-inspection",
+            link: "smartlink-controller.inspections.select-inspection.general",
             id: "option2"
         },
         {
             option: "Programs"
             description: "Brief Details",
-            link: "smartlink-controller.inspections.program-inspection",
+            link: "smartlink-controller.inspections.select-inspection.program",
             id: "option3"
         },
         {
             option: "Seasonal"
             description: "Brief Details",
-            link: "smartlink-controller.inspections.seasonal-inspection",
+            link: "smartlink-controller.inspections.select-inspection.seasonal",
             id: "option4"
         },
         {
             option: "Omit"
             description: "Brief Details",
-            link: "smartlink-controller.inspections.omit-inspection",
+            link: "smartlink-controller.inspections.select-inspection.omit",
             id: "option4"
         }
     ]
