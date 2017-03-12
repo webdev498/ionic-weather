@@ -22,7 +22,7 @@ const Router = Ember.Router.extend({ location: config.locationType }).map(functi
     this.route('inspections', { path: 'inspections' }, function() {
       this.route('edit-inspection', { path: 'edit-inspection' });
       this.route('new-inspection', { path: 'new-inspection' });
-      this.route('select-inspection', { path: 'some-inspection' });
+      this.route('select-inspection', { path: ':inspectionId' });
       this.route('select-zone', { path: 'some-inspection/select-zone' });
       this.route('general-inspection', { path: 'some-inspection/general' });
       this.route('omit-inspection', { path: 'some-inspection/omit' });

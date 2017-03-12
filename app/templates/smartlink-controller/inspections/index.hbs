@@ -19,7 +19,7 @@
     </li>
     {{#each model as |inspection|}}
       <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.inspections.select-inspection' class='push-right'}}
+        {{#link-to 'smartlink-controller.inspections.select-inspection' inspection.id class='push-right'}}
           {{#if inspection.title}}
             {{inspection.title}}
           {{else}}
