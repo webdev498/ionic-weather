@@ -15,8 +15,8 @@ Inspection = DS.Model.extend
   prior_equipment: DS.attr 'string'
   water_pressure:  DS.attr 'number'
   # Currently seems to be returning 0..
-  water_pressure_unit: DS.attr 'string' 
+  water_pressure_unit: DS.attr 'string'
 
 
-  smartlinkController: DS.belongsTo 'smartlinkController', async: true
+smartlinkController: DS.belongsTo 'smartlinkController', async: true
 `export default Inspection`

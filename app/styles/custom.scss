@@ -1084,7 +1084,9 @@ form#image-uploads {
     }
   }
 }
-
+div.ember-view.liquid-child {
+  overflow-y: scroll !important;
+}
 .edit-inspection-form {
   margin: 0;
 }
@@ -1097,13 +1099,11 @@ form#image-uploads {
 
 #auto-adjust-menu {
   overflow-y:auto !important;
-
   .ember-select {
     height: 2.5em;
     font-size: 17px;
   }
 }
-
 #zone-image {
   margin-top:60px;
   width:100%;
@@ -1118,9 +1118,8 @@ form#image-uploads {
 .weathermatic-content {
   overflow-y: scroll !important;
   overflow-x: hidden;
-  min-height: 800px;
+  height: 800px;
   padding: 65px 0 0 0 !important;
-  height: 100%;
   background: #fff;
   position: relative;
   @media(min-height: 800px) {

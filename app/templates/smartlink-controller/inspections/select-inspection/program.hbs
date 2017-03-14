@@ -11,9 +11,10 @@
     </li>
   </ul>
   <div class="general-info">
+    {{#each model as |program|}}
     <div class="section">
       <div class="section-title">
-        <span class="program-title">Program A</span>
+        <span class="program-title">Program {{program.identifier}}</span>
         <span class="program-details">Watering Day Setting</span>
       </div>
       <ul class="days-of-week">
@@ -32,68 +33,6 @@
         <span class="end-time">00:00 PM</span>
       </div>
     </div>
-    <div class="section">
-      <div class="section-title">
-        <span class="program-title">Program B</span>
-        <span class="program-details">Watering Day Setting</span>
-      </div>
-      <ul class="days-of-week">
-        <li class="day">S</li>
-        <li class="day">M</li>
-        <li class="day active">T</li>
-        <li class="day">W</li>
-        <li class="day">T</li>
-        <li class="day active">F</li>
-        <li class="day active">S</li>
-      </ul>
-      <span class="time-of-day">during</span>
-      <div class="section-content">
-        <span class="start-time">00:00 AM</span>
-        -
-        <span class="end-time">00:00 PM</span>
-      </div>
-    </div>
-    <div class="section">
-      <div class="section-title">
-        <span class="program-title">Program C</span>
-        <span class="program-details">Watering Day Setting</span>
-      </div>
-      <ul class="days-of-week">
-        <li class="day">S</li>
-        <li class="day">M</li>
-        <li class="day active">T</li>
-        <li class="day">W</li>
-        <li class="day active">T</li>
-        <li class="day active">F</li>
-        <li class="day">S</li>
-      </ul>
-      <span class="time-of-day">during</span>
-      <div class="section-content">
-        <span class="start-time">00:00 AM</span>
-        -
-        <span class="end-time">00:00 PM</span>
-      </div>
-    </div>
-    <div class="section">
-      <div class="section-title">
-        <span class="program-title">Program D</span>
-        <span class="program-details">Watering Day Setting</span>
-      </div>
-      <ul class="days-of-week">
-        <li class="day active">S</li>
-        <li class="day">M</li>
-        <li class="day">T</li>
-        <li class="day active">W</li>
-        <li class="day">T</li>
-        <li class="day active">F</li>
-        <li class="day">S</li>
-      </ul>
-      <span class="time-of-day">during</span>
-      <div class="section-content">
-        <span class="start-time">00:00 AM</span>
-        -
-        <span class="end-time">00:00 PM</span>
-      </div>
-    </div>
+    {{/each}}
   </div>
 </div>

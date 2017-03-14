@@ -3,8 +3,7 @@
 
 SmartlinkControllerProgramInspectionRoute = Ember.Route.extend(AuthenticatedRouteMixin, {
   model: (params) ->
-    @modelFor('smartlinkController').get('zones').then (zones) ->
-      zones.filterBy('active', true)
+    @modelFor('smartlinkController').get('programs')
 })
 
 `export default SmartlinkControllerProgramInspectionRoute`
