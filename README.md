@@ -34,12 +34,18 @@ or
 
 And visit `http://localhost:4200` in your browser.
 
+### We use cordova-icon's to download icons - you can download it as so:
+
+    sudo npm install cordova-icon -g
+
+here is the docs: https://www.npmjs.com/package/cordova-icon
 
 ### To build for ios
 
 Run:
 
-    EMBER_ENV=staging bin/ios 
+    EMBER_ENV=staging bin/ios
+ 
 or 
 
     EMBER_ENV=production bin/ios
