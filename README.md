@@ -34,7 +34,7 @@ or
 
 And visit `http://localhost:4200` in your browser.
 
-### We use cordova-icon's to download icons - you can download it as so:
+### We use cordova-icon's to populate icons. Install it by doing the following:
 
     sudo npm install cordova-icon -g
 
