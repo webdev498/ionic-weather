@@ -89,3 +89,32 @@ We use [ember-i18n](https://github.com/jamesarosen/ember-i18n). See the file `ap
     // ...
 
 When adding translations, try to organize the top-level keys roughly one for each page in the app. Use the key `common` for miscellaneous strings that are shared throughout the app, or any that don't make sense anywhere else.
+
+
+#API Calls
+
+###Inspections:
+
+Inspections:
+GET - https://staging.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/
+
+Inspection General:
+GET - https://staging.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id
+
+Inspection Programs: 
+GET - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
+
+Inspection Seasonal:
+GET - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
+
+Inspection Omit:
+GET - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
+
+Create Inspection (Step 3):
+POST - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id
+
+Save Inspection: 
+POST - https://staging.smartlinknetwork.com/controls/:controller_id/inspections/:id?publish=true
+
+Basic Edit Inspection:
+POST - https://staging.smartlinknetwork.com/controls/:controller_id/inspections/:id/edit
