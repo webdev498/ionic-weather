@@ -95,26 +95,26 @@ When adding translations, try to organize the top-level keys roughly one for eac
 
 ###Inspections:
 
-### All Inspections: ### 
+### All Inspections:  
 **GET** - https://staging.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/
 
-### Inspection General: ###  
+### Inspection General:  
 **GET** - https://staging.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id
 
-### Inspection Programs: ###   
+### Inspection Programs:     
 **GET** - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
 
-### Inspection Seasonal: ###  
+### Inspection Seasonal:   
 **GET** - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
 
-### Inspection Omit: ###  
+### Inspection Omit:   
 **GET** - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
 
-### Create Inspection: ###  
+### Create Inspection:   
 **POST** - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id
 
-### Save Inspection: ###   
+### Save Inspection:    
 **POST** - https://staging.smartlinknetwork.com/controls/:controller_id/inspections/:id?publish=true
 
-### Basic Edit Inspection: ###  
+### Basic Edit Inspection:   
 **POST** - https://staging.smartlinknetwork.com/controls/:controller_id/inspections/:id/edit
