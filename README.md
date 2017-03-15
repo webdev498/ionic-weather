@@ -95,26 +95,26 @@ When adding translations, try to organize the top-level keys roughly one for eac
 
 ###Inspections:
 
-Inspections:
-GET - https://staging.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/
+### All Inspections: ### 
+**GET** - https://staging.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/
 
-Inspection General:
-GET - https://staging.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id
+### Inspection General: ###  
+**GET** - https://staging.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id
 
-Inspection Programs: 
-GET - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
+### Inspection Programs: ###   
+**GET** - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
 
-Inspection Seasonal:
-GET - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
+### Inspection Seasonal: ###  
+**GET** - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
 
-Inspection Omit:
-GET - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
+### Inspection Omit: ###  
+**GET** - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id/snapshot
 
-Create Inspection (Step 3):
-POST - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id
+### Create Inspection: ###  
+**POST** - https://my.smartlinknetwork.com/api/v2/controllers/:controller_id/inspections/:id
 
-Save Inspection: 
-POST - https://staging.smartlinknetwork.com/controls/:controller_id/inspections/:id?publish=true
+### Save Inspection: ###   
+**POST** - https://staging.smartlinknetwork.com/controls/:controller_id/inspections/:id?publish=true
 
-Basic Edit Inspection:
-POST - https://staging.smartlinknetwork.com/controls/:controller_id/inspections/:id/edit
+### Basic Edit Inspection: ###  
+**POST** - https://staging.smartlinknetwork.com/controls/:controller_id/inspections/:id/edit
