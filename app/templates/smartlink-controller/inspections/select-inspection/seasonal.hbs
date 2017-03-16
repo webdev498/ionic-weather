@@ -2,7 +2,7 @@
   {{#link-to 'smartlink-controller.inspections.select-inspection' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'fa-clipboard'}} Seasonal Inspections </h1>
+  <h1 class="title">{{fa-icon 'fa-clipboard'}} Seasonal </h1>
 </header>
 <div id="seasonal-inspection" class="content weathermatic-content">
   <ul class="table-view">
@@ -12,172 +12,17 @@
   </ul>
   <div class="general-info">
     <div class="section">
-      <h2 class="section-title">January</h2>
+      {{#each (getMonthsOfYear) as |month monthIndex|}}
+      <h2 class="section-title">{{month}}</h2>
       <ul class="section-content">
+        {{#each model.insp_programs as |program| }}
         <li class="section-list program-a">
-          <span class="seasonal-program">Program A</span>
-          <span class="seasonal-percentage">0%</span>
+          <span class="seasonal-program">Program {{program.identifier}}</span>
+          <span class="seasonal-percentage">{{getSeasonPercentageByMonth program.program_seasonal_adjustments monthIndex}}%</span>
         </li>
-        <li class="section-list program-b">
-          <span class="seasonal-program">Program B</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-c">
-          <span class="seasonal-program">Program C</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-d">
-          <span class="seasonal-program">Program D</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
+        {{/each}}
       </ul>
-    </div>
-    <div class="section">
-      <h2 class="section-title">Feburary</h2>
-      <ul class="section-content">
-        <li class="section-list program-a">
-          <span class="seasonal-program">Program A</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-b">
-          <span class="seasonal-program">Program B</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-c">
-          <span class="seasonal-program">Program C</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-d">
-          <span class="seasonal-program">Program D</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-      </ul>
-    </div>
-    <div class="section">
-      <h2 class="section-title">March</h2>
-      <ul class="section-content">
-        <li class="section-list program-a">
-          <span class="seasonal-program">Program A</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-b">
-          <span class="seasonal-program">Program B</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-c">
-          <span class="seasonal-program">Program C</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-d">
-          <span class="seasonal-program">Program D</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-      </ul>
-    </div>
-    <div class="section">
-      <h2 class="section-title">April</h2>
-      <ul class="section-content">
-        <li class="section-list program-a">
-          <span class="seasonal-program">Program A</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-b">
-          <span class="seasonal-program">Program B</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-c">
-          <span class="seasonal-program">Program C</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-d">
-          <span class="seasonal-program">Program D</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-      </ul>
-    </div>
-    <div class="section">
-      <h2 class="section-title">May</h2>
-      <ul class="section-content">
-        <li class="section-list program-a">
-          <span class="seasonal-program">Program A</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-b">
-          <span class="seasonal-program">Program B</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-c">
-          <span class="seasonal-program">Program C</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-d">
-          <span class="seasonal-program">Program D</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-      </ul>
-    </div>
-    <div class="section">
-      <h2 class="section-title">June</h2>
-      <ul class="section-content">
-        <li class="section-list program-a">
-          <span class="seasonal-program">Program A</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-b">
-          <span class="seasonal-program">Program B</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-c">
-          <span class="seasonal-program">Program C</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-d">
-          <span class="seasonal-program">Program D</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-      </ul>
-    </div>
-    <div class="section">
-      <h2 class="section-title">July</h2>
-      <ul class="section-content">
-        <li class="section-list program-a">
-          <span class="seasonal-program">Program A</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-b">
-          <span class="seasonal-program">Program B</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-c">
-          <span class="seasonal-program">Program C</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-d">
-          <span class="seasonal-program">Program D</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-      </ul>
-    </div>
-      <div class="section">
-      <h2 class="section-title">August</h2>
-      <ul class="section-content">
-        <li class="section-list program-a">
-          <span class="seasonal-program">Program A</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-b">
-          <span class="seasonal-program">Program B</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-c">
-          <span class="seasonal-program">Program C</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-        <li class="section-list program-d">
-          <span class="seasonal-program">Program D</span>
-          <span class="seasonal-percentage">0%</span>
-        </li>
-      </ul>
+      {{/each}}
     </div>
   </div>
 </div>
