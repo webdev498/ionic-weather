@@ -1306,6 +1306,7 @@ div.ember-view.liquid-child {
 }
 
 .edit-inspection-form {
+  margin: 0;
   padding: 15px;
   select {
     font:inherit; /*keep font style*/
@@ -1316,6 +1317,12 @@ div.ember-view.liquid-child {
   label {
     display: block;
     margin: 0 0 10px 0;
+  }
+  #date {
+    width: 48%;
+  }
+  #time {
+    width: 48%; float: right;
   }
 
 }
