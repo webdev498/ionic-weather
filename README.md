@@ -34,9 +34,9 @@ or
 
 And visit `http://localhost:4200` in your browser.
 
-### We use cordova-icon's to populate icons. Install it by doing the following:
+### We use cordova-icon's to populate icons. Install it to your system by doing the following:
 
-    sudo npm install cordova-icon -g
+    npm install cordova-icon -g
 
 here is the docs: https://www.npmjs.com/package/cordova-icon
 
