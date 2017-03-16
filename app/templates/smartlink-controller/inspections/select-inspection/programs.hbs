@@ -2,7 +2,7 @@
   {{#link-to 'smartlink-controller.inspections.select-inspection' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'fa-clipboard'}} Program Inspections </h1>
+  <h1 class="title">{{fa-icon 'fa-clipboard'}} Programs </h1>
 </header>
 <div id="program-inspection" class="content weathermatic-content">
   <ul class="table-view">
@@ -11,20 +11,20 @@
     </li>
   </ul>
   <div class="general-info">
-    {{#each model as |program|}}
+    {{#each model.insp_programs as |program|}}
     <div class="section">
       <div class="section-title">
         <span class="program-title">Program {{program.identifier}}</span>
         <span class="program-details">Watering Day Setting</span>
       </div>
       <ul class="days-of-week">
-        <li class="day active">S</li>
-        <li class="day">M</li>
-        <li class="day">T</li>
-        <li class="day">W</li>
-        <li class="day">T</li>
-        <li class="day">F</li>
-        <li class="day">S</li>
+        <li class="day {{if (containsItem program.days_of_week '0') "active"}}">S</li>
+        <li class="day {{if (containsItem program.days_of_week '1') "active"}}">M</li>
+        <li class="day {{if (containsItem program.days_of_week '2') "active"}}">T</li>
+        <li class="day {{if (containsItem program.days_of_week '3') "active"}}">W</li>
+        <li class="day {{if (containsItem program.days_of_week '4') "active"}}">T</li>
+        <li class="day {{if (containsItem program.days_of_week '5') "active"}}">F</li>
+        <li class="day {{if (containsItem program.days_of_week '6') "active"}}">S</li>
       </ul>
       <span class="time-of-day">during</span>
       <div class="section-content">

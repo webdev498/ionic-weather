@@ -21,7 +21,7 @@ SmartlinkControllerSelectInspectionRoute = Ember.Route.extend(AuthenticatedRoute
         {
             option: "Programs"
             description: "Brief Details",
-            link: "smartlink-controller.inspections.select-inspection.program",
+            link: "smartlink-controller.inspections.select-inspection.programs",
             id: "option3"
         },
         {

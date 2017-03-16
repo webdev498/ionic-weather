@@ -28,7 +28,7 @@ const Router = Ember.Router.extend({ location: config.locationType }).map(functi
         });
         this.route('general');
         this.route('omit');
-        this.route('program');
+        this.route('programs');
         this.route('seasonal');
       });
     });

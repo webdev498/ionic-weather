@@ -2,8 +2,10 @@
 `import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin'`
 
 SmartlinkControllerProgramInspectionRoute = Ember.Route.extend(AuthenticatedRouteMixin, {
-  model: (params) ->
-    @modelFor('smartlinkController').get('programs')
+  model: (params, transition) ->
+    # This is how we get the id of the inspection
+    inspectionId = transition.state.params['smartlink-controller.inspections.select-inspection'].inspectionId
+    @get('store').find('snapshot', inspectionId)
 })
 
 `export default SmartlinkControllerProgramInspectionRoute`
