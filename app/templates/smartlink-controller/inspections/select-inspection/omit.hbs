@@ -14,7 +14,13 @@
     <div class="section">
       <h2 class="section-title">Omit Specific Times</h2>
       <ul class="section-content">
+        {{#if (isArrayEmpty model.controller_omission_times.length)}}
         <li class="section-list">None</li>
+        {{else}}
+          {{#each model.controller_omission_times as |times|}}
+          <li class="section-list">{{times.start_time}} to {{times.end_time}}</li>
+          {{/each}}
+        {{/if}}
       </ul>
     </div>
     <div class="section">
@@ -22,19 +28,21 @@
         <span class="omit-title">Omit Days of Week</span>
       </div>
       <ul class="days-of-week">
-        <li class="day">S</li>
-        <li class="day">M</li>
-        <li class="day active">T</li>
-        <li class="day">W</li>
-        <li class="day">T</li>
-        <li class="day active">F</li>
-        <li class="day active">S</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '0') "active"}}">S</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '1') "active"}}">M</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '2') "active"}}">T</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '3') "active"}}">W</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '4') "active"}}">T</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '5') "active"}}">F</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '6') "active"}}">S</li>
       </ul>
     </div>
     <div class="section">
       <h2 class="section-title">Omit Event Dates</h2>
       <ul class="section-content">
-        <li class="section-list">None</li>
+        {{#each model.controller_omission_dates as |date|}}
+          <li class="section-list">{{date.date}}</li>
+        {{/each}}
       </ul>
     </div>
   </div>
