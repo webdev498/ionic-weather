@@ -26,6 +26,30 @@ h2 {
     margin: 0 0 10px 0;
     display: block;
 }
+
+.days-of-week {
+  display: inline-block;
+  padding: 0 10px;
+  margin: 6px 0;
+  li {
+    float: left;
+    height: 40px;
+    width: 40px;
+    margin: 0 6px 0 0;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 24px;
+    border: solid 2px #fff;
+  }
+  li:last-child {
+    margin: 0;
+  }
+  .active {
+    background: #303030;
+    color: #fff;
+  }
+}
+    
 #general-inspection {
   .table-view {
     margin: 12px 0 0 0;
@@ -73,28 +97,6 @@ h2 {
         float:right;
         color: #303030;
         font-weight: bold;
-      }
-    }
-    .days-of-week {
-      display: block;
-      padding: 0 10px;
-      li {
-        float: left;
-        height: 40px;
-        width: 40px;
-        margin: 0 6px 0 0;
-        line-height: 36px;
-        text-align: center;
-        border-radius: 24px;
-        border: solid 2px #fff;
-        cursor: pointer;
-      }
-      li:last-child {
-        margin: 0;
-      }
-      li:hover,.active {
-        background: #303030;
-        color: #fff;
       }
     }
     .time-of-day {
@@ -145,29 +147,6 @@ h2 {
         float:right;
         color: #303030;
         font-weight: bold;
-      }
-    }
-    .days-of-week {
-      display: inline-block;
-      padding: 0 10px;
-      margin: 6px 0;
-      li {
-        float: left;
-        height: 40px;
-        width: 40px;
-        margin: 0 6px 0 0;
-        line-height: 36px;
-        text-align: center;
-        border-radius: 24px;
-        border: solid 2px #fff;
-        cursor: pointer;
-      }
-      li:last-child {
-        margin: 0;
-      }
-      li:hover,.active {
-        background: #303030;
-        color: #fff;
       }
     }
     .time-of-day {
@@ -227,29 +206,6 @@ h2 {
         float:right;
         color: #303030;
         font-weight: bold;
-      }
-    }
-    .days-of-week {
-      display: inline-block;
-      padding: 0 10px;
-      margin: 6px 0;
-      li {
-        float: left;
-        height: 40px;
-        width: 40px;
-        margin: 0 6px 0 0;
-        line-height: 36px;
-        text-align: center;
-        border-radius: 24px;
-        border: solid 2px #fff;
-        cursor: pointer;
-      }
-      li:last-child {
-        margin: 0;
-      }
-      li:hover,.active {
-        background: #303030;
-        color: #fff;
       }
     }
     .time-of-day {
