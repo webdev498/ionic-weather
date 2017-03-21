@@ -7,14 +7,14 @@
 <div id="omit-inspection" class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
-      Brief Inspection
+      Brief Instructions
     </li>
   </ul>
   <div class="general-info">
     <div class="section">
       <h2 class="section-title">Omit Specific Times</h2>
       <ul class="section-content">
-        {{#if (isArrayEmpty model.controller_omission_times.length)}}
+        {{#if (isArrayEmpty model.controller_omission_times)}}
         <li class="section-list">None</li>
         {{else}}
           {{#each model.controller_omission_times as |times|}}
@@ -40,9 +40,13 @@
     <div class="section">
       <h2 class="section-title">Omit Event Dates</h2>
       <ul class="section-content">
-        {{#each model.controller_omission_dates as |date|}}
-          <li class="section-list">{{date.date}}</li>
-        {{/each}}
+        {{#if (isArrayEmpty model.controller_omission_dates)}}
+          <li class="section-list">None</li>
+        {{else}}
+          {{#each model.controller_omission_dates as |date|}}
+            <li class="section-list">{{date.date}}</li>
+          {{/each}}
+        {{/if}}
       </ul>
     </div>
   </div>
