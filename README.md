@@ -53,6 +53,12 @@ or
 This will create (or re-create) an XCode project from which you can create and deploy application archives.  To create an archive and send it to the app store, select "iOS Device" as the target device and run Product -> Archive and the publish to app store.  Be sure to bump up the app's version number first or the app store won't accept the build (e.g. 2.0.6 -> 2.0.7)
 
 
+### To run in emulator:
+
+Navigate to the cordova folder in the root directory and run:
+
+    corodova run ios or cordova run android
+
 ### To build for android
 
 Run:
