@@ -7,7 +7,7 @@ const SLNAS = '52834b76a803eb35706701fa71c7ac79';
 const AuthenticationMixin = Ember.Mixin.create({
   verifyTimestamp: function(options) {
     var data;
-    if (options.contentType === 'application/json') {
+    if (options.contentType === 'application/json' || options.contentType === "application/json; charset=utf-8") {
       if (typeof options.data === 'string') {
         data = JSON.parse(options.data);
       } else {

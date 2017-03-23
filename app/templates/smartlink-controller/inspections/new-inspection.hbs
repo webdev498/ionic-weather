@@ -19,7 +19,8 @@
     </div>
     <label for="inspection-type">Inspection Type</label>
     <select id="scheduled-select" name="cars" onchange={{action 'onSelectEntityType' value="target.value"}}>
-      <option value="scheduled">Scheduled Inspection</option>
+      <option value="0">Scheduled Inspection</option>
+      <option value="1">Service Call</option>
     </select>
     <div class="center-buttons">
       {{#link-to 'smartlink-controller.inspections'}}

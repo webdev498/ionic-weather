@@ -19,17 +19,26 @@ const InspectionAdapter = ApplicationAdapter.extend({
     },
 
     ajaxOptions(url, type, options) {
-        const hash = this._super(...arguments);
-        this.addCustomParams(hash);
+        var hash = this._super(...arguments);
+        //hash.data.timestamp = new Date().getTime();
+        //debugger;
+        //this.addCustomParams(hash);
         return hash;
+    },
+    addStandardParams(options) {
+      options.data = options.data || {};
+      return {
+         timestamp: new Date().getTime()
+      }
     },
 
     addCustomParams(options) {
         options.data = options.data || {};
         return {
-            embed_controller: true,
+            timestamp: new Date().getTime(),
         };
     },
+
     //Overriding the handleResponse from the application adapter as it seems inspections are a bit different
     handleResponse(status, _headers, json) {
         //  Weathermatic API responses are wrapped in an object called `result`, e.g.
