@@ -12,7 +12,7 @@
   </ul>
   <form {{action "submission" title date time scheduleSelect on="submit"}} class="weathermatic-page-bottom edit-inspection-form">
     <label for="title">Inspection Title</label>
-    {{input id="title" name="title" value=title type="text"}}
+    {{input id="title" name="title" value=title type="text" placeholder="Enter a Title"}}
     <label for="date">Date & Time</label>
     <div class="same-line" style="width: 100%">
       {{input id="date" type="date" value=date}}  {{input id="time" type="time" value=time}}
