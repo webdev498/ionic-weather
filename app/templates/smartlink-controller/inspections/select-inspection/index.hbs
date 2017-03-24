@@ -15,7 +15,7 @@
     <li class="table-view-cell table-view-divider">
       {{fa-icon 'leaf'}} Inspection Options
     </li>
-    {{#each model.inspectionDetail as |inspection|}}
+    {{#each model.menu as |inspection|}}
       <li class="table-view-cell">
         {{#link-to inspection.link class='push-right'}}
           {{inspection.option}}
@@ -36,26 +36,22 @@
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeEmailInspectionMenu'}}></a>
     <h1 class="title">{{fa-icon 'bookmark'}} Email Inspection</h1>
   </header>
-  <form class="weathermatic-page-bottom email-inspection-form">
-    <label for="title">What email(s) would you like to send the inspection to?</label>
-    <input id="title" type="text" />
+  <form id="send-inspection" class="weathermatic-page-bottom email-inspection-form">
+    <label for="emails">What email(s) would you like to send the inspection to? (Comma Seperated)</label>
+    <input id="emails" name="emails" type="text" />
     <label for="date">What type of file do you want to attach:</label>
-    <div class="same-line" style="width: 100%">
-      <div class="radio-button"><input type="radio" name="pdf" value="PDF" checked>PDF</div>
-      <div class="radio-button"><input type="radio" name="xls" value="XLS">Other</div>
+    <div class="same-line">
+      <div class="radio-button"><input type="radio" name="fileGroup" value="pdf" checked>PDF</div>
+      <div class="radio-button"><input type="radio" name="fileGroup" value="xls">XLS</div>
     </div>
     <label for="inspection-type">Do you want to include photos?</label>
-    <div class="same-line" style="width: 100%">
-      <div class="radio-button"><input type="radio" name="yes" value="Yes" checked>Yes</div>
-      <div class="radio-button"><input type="radio" name="no" value="No">No</div>
+    <div class="same-line">
+      <div class="radio-button"><input type="radio" name="photoGroup" value="true" checked>Yes</div>
+      <div class="radio-button"><input type="radio" name="photoGroup" value="false">No</div>
     </div>
     <div class="center-buttons">
-      {{#link-to 'smartlink-controller.inspections'}}
-        <button class="btn btn-positive">Cancel</button>
-      {{/link-to}}
-      {{#link-to 'smartlink-controller.inspections'}}
-        <button class="btn btn-negative">Send</button>
-      {{/link-to}}
+        <button class="btn btn-positive" {{action 'closeEmailInspectionMenu'}}>Cancel</button>
+        <button class="btn btn-negative" {{action 'sendInspectionEmail'}}>Send</button>
     </div>
   </form>
 </div>
