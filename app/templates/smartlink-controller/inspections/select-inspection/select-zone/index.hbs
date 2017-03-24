@@ -12,7 +12,7 @@
     </li>
     {{#each model.inspections_zones as |zone|}}
       <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.create-inspection' zone.id class='push-right'}}
+        {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.start-inspection' zone.id class='push-right'}}
           {{#if zone.description}}
             {{zone.description}}
             <p>Zone {{zone.zone_number}}</p>

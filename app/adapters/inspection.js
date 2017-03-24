@@ -13,7 +13,7 @@ const InspectionAdapter = ApplicationAdapter.extend({
         var url = this.host + '/' + this.namespace + '/controllers/' + controllerId + '/inspections';
         //If this is a request for the single inspection, our id will be defined
         if(id) {
-            url += ("/" + id);
+            url += "/" + id;
         }
         return url;
     },
