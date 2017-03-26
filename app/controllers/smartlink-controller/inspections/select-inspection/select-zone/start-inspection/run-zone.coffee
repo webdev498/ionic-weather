@@ -1,8 +1,8 @@
 `import Ember from 'ember'`
-`import ManualRunMixin from '../../mixins/manual-run'`
-`import leftPad from '../../util/strings/left-pad'`
+`import ManualRunMixin from '../../../../../../mixins/manual-run'`
+`import leftPad from '../../../../../../util/strings/left-pad'`
 
-SmartlinkControllerRunZoneController = Ember.Controller.extend ManualRunMixin,
+SmartlinkControllerRunInspectionZoneController = Ember.Controller.extend ManualRunMixin,
   $scope = this
   init: ->
     allMins = [1..59].map (num) ->
@@ -157,4 +157,4 @@ SmartlinkControllerRunZoneController = Ember.Controller.extend ManualRunMixin,
       @get('loadingModal').send('close')
 
 
-`export default SmartlinkControllerRunZoneController`
+`export default SmartlinkControllerRunInspectionZoneController`

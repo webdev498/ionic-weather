@@ -20,19 +20,19 @@
         <li class="column">
           {{zones.zone.zone_id}}
           <label for="title">Zone Name</label>
-          <input id="title" type="text" />
+          <input id="title" type="text" value="{{model_zone.description}}" />
         </li>
       </div>
       <div class="form-group half">
         <li class="column">
-          <label for="inspection-type">% of Area</label>
-          <select id="scheduled-select" name="cars">
+          <label for="area-percent">% of Area</label>
+          <select id="area-percent" name="area-percent">
                 <option value="scheduled">&nbsp;</option>
               </select>
         </li>
         <li class="column">
-          <label for="inspection-type">Sprinkler Type</label>
-          <select class="form-control" name="sprinkler_type">
+          <label for="sprinkler_type">Sprinkler Type</label>
+          <select class="sprinkler_type" name="sprinkler_type">
             {{#each model.sprinklerTypes as |value|}}
               <option value={{value.id}} selected={{eq value.id model_zone.sprinklerType}}>{{value.display}}</option>
             {{/each}}
@@ -41,16 +41,16 @@
       </div>
       <div class="form-group half">
         <li class="column">
-          <label for="inspection-type">Plant Type</label>
-          <select id="scheduled-select" name="cars">
+          <label for="plant-type">Plant Type</label>
+          <select id="plant-type" name="plant_type">
              {{#each model.plantTypes as |value|}}
               <option value={{value.id}} selected={{eq value.id model_zone.plantType}}>{{value.display}}</option>
             {{/each}}
           </select>
         </li>
         <li class="column">
-          <label for="inspection-type">Soil Type</label>
-          <select class="form-control" name="soil_type">
+          <label for="soil-type">Soil Type</label>
+          <select class="soil-type" name="soil_type">
             {{#each model.soilTypes as |value|}}
               <option value={{value.id}} selected={{eq value.id model_zone.soilType}}>{{value.display}}</option>
             {{/each}}
@@ -59,16 +59,16 @@
       </div>
       <div class="form-group half">
         <li class="column">
-          <label for="inspection-type">More/Less</label>
-          <select id="scheduled-select" name="cars">
+          <label for="more-less">More/Less</label>
+          <select id="more-less" name="more-less">
             {{#each model.more_less as |value|}}
               <option value={{value.id}} selected={{eq value.id model_zone.soilType}}>{{value.display}}</option>
             {{/each}}
           </select>
         </li>
         <li class="column">
-          <label for="inspection-type">Value Size</label>
-            <select class="form-control valve_size" name="valve-size">
+          <label for="valve_size">Valve Size</label>
+            <select class="form-control valve_size" id="valve_size" name="valve-size">
               <option value="0.0">Not Set</option>
               <option value="0.75">0.75"</option>
               <option selected="" value="1.0">1.0"</option>
@@ -82,8 +82,8 @@
       </div>
       <div class="form-group half">
         <li class="column">
-          <label for="inspection-type">GPM</label>
-          <input id="scheduled-select" name="gpm" value="{{model_zone.gpm}}" />
+          <label for="gpm">GPM</label>
+          <input id="gpm" name="gpm" value="{{model_zone.gpm}}" />
         </li>
       </div>
     </div>
@@ -122,8 +122,8 @@
         <li class="column">
           <label for="date">Value Status:</label>
           <div class="same-line" style="width: 100%">
-            <div class="radio-button"><input type="radio" name="valve-group" value="Pass" checked>Pass</div>
-            <div class="radio-button"><input type="radio" name="valve-group" value="Fail">Fail</div>
+            <div class="radio-button"><input type="radio" name="valve-group" value="true" checked="{{if zone.valve_status "checked" ""}}">Pass</div>
+            <div class="radio-button"><input type="radio" name="valve-group" value="false"  checked="{{unless zone.valve_status "checked" "" }}">Fail</div>
           </div>
         </li>
       </div>
@@ -137,10 +137,10 @@
           </select>
         </li>
         <li class="column">
-          <label for="inspection-type">Blocked Head</label>
-          <select id="scheduled-select" name="cars">
+          <label for="blocked-head">Blocked Head</label>
+          <select id="blocked-head" name="blocked_head">
             {{#each model.selectValues as |value|}}
-              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+              <option value={{value.id}} selected={{eq value.id zone.blocked_head}}>{{value.display}}</option>
             {{/each}}
           </select>
         </li>
@@ -148,53 +148,53 @@
       <div class="form-group half half-input">
         <li class="column">
           <label for="inspection-type">Broken Head</label>
-          <select id="scheduled-select" name="cars">
+          <select id="broken-head" name="broken_head">
             {{#each model.selectValues as |value|}}
-              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+              <option value={{value.id}} selected={{eq value.id zone.broken_head}}>{{value.display}}</option>
             {{/each}}  
           </select>
         </li>
         <li class="column">
           <label for="inspection-type">Raise Head</label>
-          <select id="scheduled-select" name="cars">
+          <select id="raise-head" name="raise_head">
             {{#each model.selectValues as |value|}}
-              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+              <option value={{value.id}} selected={{eq value.id zone.raise_head}}>{{value.display}}</option>
             {{/each}}
           </select>
         </li>
       </div>
       <div class="form-group half half-input">
         <li class="column">
-          <label for="inspection-type">Lower Head</label>
-          <select id="scheduled-select" name="cars">
+          <label for="lower-head">Lower Head</label>
+          <select id="lower-head" name="lower_head">
             {{#each model.selectValues as |value|}}
-              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+              <option value={{value.id}} selected={{eq value.id zone.lower_head}}>{{value.display}}</option>
             {{/each}}
           </select>
         </li>
         <li class="column">
-          <label for="inspection-type">Replace Head</label>
-          <select id="scheduled-select" name="cars">
+          <label for="replace-head">Replace Head</label>
+          <select id="replace-head" name="replace_head">
              {{#each model.selectValues as |value|}}
-              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+              <option value={{value.id}} selected={{eq value.id zone.replace_head}}>{{value.display}}</option>
             {{/each}}
           </select>
         </li>
       </div>
       <div class="form-group half half-input">
         <li class="column">
-          <label for="inspection-type">Broken Lateral</label>
-          <select id="scheduled-select" name="cars">
+          <label for="broken-head">Broken Lateral</label>
+          <select id="broken-head" name="broken_head">
             {{#each model.selectValues as |value|}}
-              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+              <option value={{value.id}} selected={{eq value.id zone.broken_lateral}}>{{value.display}}</option>
             {{/each}}
           </select>
         </li>
         <li class="column">
-          <label for="inspection-type">Broken Main</label>
-          <select id="scheduled-select" name="cars">
+          <label for="broken-main">Broken Main</label>
+          <select id="broken-main" name="broken_main">
             {{#each model.selectValues as |value|}}
-              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+              <option value={{value.id}} selected={{eq value.id zone.broken_main}}>{{value.display}}</option>
             {{/each}}
           </select>
         </li>
@@ -203,31 +203,33 @@
     <div class="section">
       <div class="form-group half half-input">
         <li class="column">
-          <label for="inspection-type">In/Out Scope</label>
-          <select id="scheduled-select" name="cars">
+          <label for="in-out-scope">In/Out Scope</label>
+          <select id="in-out-scope" name="in_out_scope">
             <option value="scheduled">In</option>
             <option value="scheduled">Out</option>
             <option value="scheduled">None</option>
           </select>
         </li>
         <li class="column">
-          <label for="inspection-type">Estimated Cost</label> $
-          <input id="title" type="text" />
+          <label for="estimated_cost">Estimated Cost</label> $
+          <input id="estimated_cost" name="estimated_cost" type="text" value="{{zone.estimated_cost}}"/>
         </li>
       </div>
     </div>
     <div class="section">
       <div class="form-group full">
         <li class="column">
-          <label for="inspection-type">Comments</label>
-          <textarea rows="4" cols="50"></textarea>
+          <label for="note">Note</label>
+          <textarea id="note" name="note" rows="4" cols="50">{{zone.note}}</textarea>
         </li>
       </div>
     </div>
     <div class="center-buttons">
       {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone'}}
-      <button class="btn btn-positive">Cancel</button> {{/link-to}} {{#link-to 'smartlink-controller.inspections.select-inspection'}}
-      <button class="btn btn-negative">Save</button> {{/link-to}}
+      <button class="btn btn-positive">Cancel</button> {{/link-to}} 
+      {{#link-to 'smartlink-controller.inspections.select-inspection'}}
+      <button class="btn btn-negative">Save</button> 
+      {{/link-to}}
     </div>
   </form>
   {{/if}} {{/each}}
