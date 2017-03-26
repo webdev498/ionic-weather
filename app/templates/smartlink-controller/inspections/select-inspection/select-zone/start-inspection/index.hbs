@@ -61,7 +61,7 @@
                     <div class="form-group half">
                       <li class="column">
                         <label for="more-less">More/Less</label>
-                        <select id="more-less" name="more-less">
+                        <select id="more-less" name="more_less">
                           {{#each model.more_less as |value|}}
                             <option value={{value.id}} selected={{eq value.id model_zone.soilType}}>{{value.display}}</option>
                           {{/each}}
@@ -69,7 +69,7 @@
                       </li>
                       <li class="column">
                         <label for="valve_size">Valve Size</label>
-                          <select class="form-control valve_size" id="valve_size" name="valve-size">
+                          <select class="form-control valve_size" id="valve_size" name="valve_size">
                             <option value="0.0">Not Set</option>
                             <option value="0.75">0.75"</option>
                             <option selected="" value="1.0">1.0"</option>
@@ -142,15 +142,15 @@
                       <li class="column">
                         <label for="date">Value Status:</label>
                         <div class="same-line" style="width: 100%">
-                          <div class="radio-button"><input type="radio" name="valve-group" value="true" checked="{{if zone.valve_status "checked" ""}}">Pass</div>
-                          <div class="radio-button"><input type="radio" name="valve-group" value="false"  checked="{{unless zone.valve_status "checked" "" }}">Fail</div>
+                          <div class="radio-button"><input type="radio" name="valve_status" value="true" checked="{{if zone.valve_status "checked" ""}}">Pass</div>
+                          <div class="radio-button"><input type="radio" name="valve_status" value="false"  checked="{{unless zone.valve_status "checked" "" }}">Fail</div>
                         </div>
                       </li>
                     </div>
                     <div class="form-group half half-input">
                       <li class="column">
                         <label for="clogged-nozzle">Clogged Nozzle</label>
-                        <select id="clogged-nozzle" name="clogged-nozzle">
+                        <select id="clogged-nozzle" name="clogged_nozzle">
                           {{#each model.selectValues as |value|}}
                             <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
                           {{/each}}
@@ -203,8 +203,8 @@
                     </div>
                     <div class="form-group half half-input">
                       <li class="column">
-                        <label for="broken-head">Broken Lateral</label>
-                        <select id="broken-head" name="broken_head">
+                        <label for="broken-lateral">Broken Lateral</label>
+                        <select id="broken-lateral" name="broken_lateral">
                           {{#each model.selectValues as |value|}}
                             <option value={{value.id}} selected={{eq value.id zone.broken_lateral}}>{{value.display}}</option>
                           {{/each}}

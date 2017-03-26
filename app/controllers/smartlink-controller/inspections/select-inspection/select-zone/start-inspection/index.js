@@ -24,8 +24,22 @@ export default Ember.Controller.extend(AjaxMixin, {
                 var obj = params[i];
                 data[obj.name] = obj.value;
             }
-            console.log(data);
-            this.transitionToRoute('smartlink-controller.inspections.select-inspection.select-zone');
+            var finalBody = { "controlers_inspections_zone": data };
+            var zone_id = $('#image-upload-input').attr('data-zone');
+            var controllerId = this.get('model').controller_id;
+            var api_url = config.apiUrl + "/api/v2/controls/" + controllerId + "/zones/" + zone_id;
+            $.ajax({
+                type: "POST",
+                url: api_url,
+                data: finalBody 
+            }).done(function() {
+               alert("Item saved")
+            }).error(function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            });
+            console.log(finalBody);
+            //this.transitionToRoute('smartlink-controller.inspections.select-inspection.select-zone');
         },
         openZoneImageView() {
             this.set('isZoneImageViewOpen', true);
