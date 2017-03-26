@@ -64,7 +64,7 @@ const InspectionAdapter = ApplicationAdapter.extend({
         }
         */
         if (status !== 200) {
-            error("InspectionAdapter.handleResponse() got non-success status code: ", status);
+            throw new Error("InspectionAdapter.handleResponse() got non-success status code: ", status);
         }
         console.log("inspection returns: ");
         console.log(json);

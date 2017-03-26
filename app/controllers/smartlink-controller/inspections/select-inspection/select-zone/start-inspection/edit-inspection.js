@@ -6,39 +6,29 @@ export default Ember.Controller.extend({
   date: moment().format('YYYY-MM-DD'),
   time:  moment().format('HH:mm'),
   init() {
-    this.inspection_type = 0
+    this._super();
+    this.inspection_type = 0;
+    console.log(this.get('model'));
   },
+  
   actions: {
     onSelectEntityType(value) {
       this.inspection_type = value
     },
     submission(title, date, time) {
       var combinedDateTime = date + "T" + time
-      var inspection = this.get('store').createRecord('inspection',
-        {
-          title: title,
-          date: combinedDateTime,
-          inspection_type: this.inspection_type
-        });
+      var inspection_id = this.get('model').inspection_id;
+      debugger;
       if(title && date && time) {
-        inspection.save().then((response) => {
-          var id = inspection.id;
-          if(id) {
-            this.transitionToRoute('smartlink-controller.inspections.select-inspection',id);
-          } else {
+        this.get('store').find('inspection', inspection_id).then((item) => {
+          item.set('title' , title);
+          item.set('date', combinedDateTime);
+          item.set('inspection_type', this.inspection_type);
+          item.save().then(this.transitionToRoute('smartlink-controller.inspections.select-inspection',inspection_id), 
+             alert("There has been an issue creating your inspection. Please check your fields and try again")
+          );
+        }).catch(() => {
             alert("There has been an issue creating your inspection. Please check your fields and try again");
-          }
-        },(response) => {
-          //if failure
-          //server responded with {"error":"some custom error message"}
-          //BUT HOW TO CATCH THIS AND POSSIBLY REMOVE THE MODEL FROM THE STORE
-          if (response.error) {
-            alert(response.error);
-          }
-          else {
-             alert("There has been an issue creating your inspection. Please check your fields and try again");
-          }
-          inspection.deleteRecord();
         });
       } else {
         alert('Please make sure you have entered a title');

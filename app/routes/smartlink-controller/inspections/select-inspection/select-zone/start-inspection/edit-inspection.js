@@ -8,6 +8,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     var inspectionId = transition.state.params['smartlink-controller.inspections.select-inspection'].inspectionId;
     return RSVP.hash({
       controller_id: controller_id,
+      inspection_id: inspectionId,
       inspection: this.get('store').find('inspection', Number(inspectionId)),
     });
   }
