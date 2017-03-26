@@ -18,13 +18,12 @@ export default Ember.Controller.extend({
     submission(title, date, time) {
       var combinedDateTime = date + "T" + time
       var inspection_id = this.get('model').inspection_id;
-      debugger;
       if(title && date && time) {
         this.get('store').find('inspection', inspection_id).then((item) => {
           item.set('title' , title);
           item.set('date', combinedDateTime);
           item.set('inspection_type', this.inspection_type);
-          item.save().then(this.transitionToRoute('smartlink-controller.inspections.select-inspection',inspection_id), 
+          item.save().then(this.transitionToRoute('smartlink-controller.inspections.select-inspection.select-zone.start-inspection'), 
              alert("There has been an issue creating your inspection. Please check your fields and try again")
           );
         }).catch(() => {
