@@ -34,7 +34,7 @@ export default Ember.Controller.extend(AjaxMixin, {
         },
         saveImage() {
             var self = this;
-            self.set('isLoading', true);
+            this.set('isLoading', true);
 
             var zone = this.get('model');
             var zone_id = $('#image-upload-input').attr('data-zone');
@@ -44,39 +44,54 @@ export default Ember.Controller.extend(AjaxMixin, {
             var email = self.get('session.data.authenticated.email');
             var password = self.get('session.data.authenticated.password');
             var formData = new FormData(document.querySelector("#image-upload"));
-            $.ajax({
-                // Your server script to process the upload
-                url: api_url,
-                type: 'POST',
-
-                // Form data
-                data: formData,
-                username: email,
-                password: password,
-
-                // Tell jQuery not to process data or worry about content-type
-                // You *must* include these options!
-                cache: false,
-                processData: false,
-
-                // Custom XMLHttpRequest
-                xhr: function () {
-                    var myXhr = $.ajaxSettings.xhr();
-                    if (myXhr.upload) {
-                        // For handling the progress of the upload
-                        myXhr.upload.addEventListener('progress', function (e) {
-                            if (e.lengthComputable) {
-                                $('progress').attr({
-                                    value: e.loaded,
-                                    max: e.total,
-                                });
+            var uploadZoneImage = function (url, form_data) {
+                return new Promise(function (resolve, reject) {
+                    var xhr = new XMLHttpRequest;
+                    var handler = function () {
+                        if (this.readyState == this.DONE) {
+                            if (this.status == 201) {
+                                formData = null
+                                resolve(this.response);
                             }
-                        }, false);
+                            else {
+                                reject('getJSON: ' + url + ' failed with status: [' + this.status + this.response + ']');
+                            }
+                        }
+                        return;
                     }
-                    return myXhr;
-                },
+                    xhr.open('POST', api_url);
+                    xhr.onreadystatechange = handler;
+                    var email = self.get('session.data.authenticated.email');
+                    var password = self.get('session.data.authenticated.password');
+                    var auth = btoa("#{email}:#{password}");
+                    xhr.setRequestHeader("Authorization", "Basic #{auth}");
+                    xhr.send(form_data);
+                });
+            }
+
+            uploadZoneImage(api_url, formData).then((response) => {
+                var reader = new FileReader();
+                self.set('_uploadedZoneImage', true);
+                reader.onload = (e) => {
+                    /*if (self.get('model.id') == zoneId) {
+                        self.set('model.photo', e.target.result)
+                        self.set('model.photoThumbnail', e.target.result)
+                        self.set('isZoneImageViewOpen', true)
+                        self.set('isLoading', false)
+                    }
+                    else {
+                        oldZone = self.get('model.smartlinkController.zones').findBy('number', zoneNumber)
+                        oldZone.set('photo', e.target.result)
+                        oldZone.set('photoThumbnail', e.target.result)
+                    }*/
+                    reader.readAsDataURL(file);
+                    self.set('isLoading', false);
+                }
+            }).catch((err) => {
+                console.error(err);
+                self.set('isLoading', false);
             });
+
         }
     }
-
-})
+});

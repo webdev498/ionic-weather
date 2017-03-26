@@ -150,11 +150,21 @@ SmartlinkControllerRunInspectionZoneController = Ember.Controller.extend ManualR
       , 750
 
     loadingAbandoned: ->
-      $scope.zoneName = $scope.zone.name;
-      $scope.zoneNumber = $scope.zone.number;
-      $scope.zoneLink = $scope.zone.href;
-      this.startCountdown(this.runTimeMinutes,'.statusBar');
-      @get('loadingModal').send('close')
+      $('.statusBar').addClass('close');
 
+    stop: ->
+      self = this
+      params = {
+        run_action: 'manual_stop_program'
+      }
+      @get('loadingModal').send('open')
+      @submitManualRun(params).then (instruction) ->
+        Ember.Logger.debug "Manual stop complete for controller #{self.get('model.smartlinkController.id')}"
+        self.get('loadingModal').send('loadInstruction', instruction)
+      .catch (error) ->
+        Ember.Logger.error(error)
+        alert error
+        self.get('loadingModal').send('close')
+      
 
 `export default SmartlinkControllerRunInspectionZoneController`
