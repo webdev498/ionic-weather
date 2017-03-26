@@ -4,12 +4,12 @@ import RSVP from 'rsvp';
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   sprinklerTypes: [
-        { display: "Standard (non-ET)", id: 0 },
-        { display: "Off", id: 1 },
-        { display: 'Spray (1.5")', id: 2 },
-        { display: 'Rotor (0.5")', id: 3 },
-        { display: 'Drip (1.1")', id: 4 },
-        { display: 'Bubbler (2.3")', id: 5 },
+    { display: "Standard (non-ET)", id: 0 },
+    { display: "Off", id: 1 },
+    { display: 'Spray (1.5")', id: 2 },
+    { display: 'Rotor (0.5")', id: 3 },
+    { display: 'Drip (1.1")', id: 4 },
+    { display: 'Bubbler (2.3")', id: 5 },
   ],
   plant_types: [
     { display: "CTURF", id: 0 },
@@ -27,18 +27,18 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   more_less: [],
   model(params, transition) {
     //This is how we get the id of the inspection
-    for(var i= 20; i <= 100; i++ ) {
-      var val = i/100;
-      var obj_local = {display: val.toFixed(2)+'"', index: i};
+    for (var i = 20; i <= 100; i++) {
+      var val = i / 100;
+      var obj_local = { display: val.toFixed(2) + '"', index: i };
       this.sprinklerTypes.push(obj_local);
     }
-    for(var i= 10; i <= 300; i++ ) {
-      var obj_local = {display: i+'%', index: i};
+    for (var i = 10; i <= 300; i++) {
+      var obj_local = { display: i + '%', index: i };
       this.plant_types.push(obj_local);
     }
-    for(var i=25; i >= -50; i--) {
-       var obj_local = {display: i+'%', index: i};
-       this.more_less.push(obj_local);
+    for (var i = 25; i >= -50; i--) {
+      var obj_local = { display: i + '%', index: i };
+      this.more_less.push(obj_local);
     }
     var controller_id = transition.state.params['smartlink-controller'].controllerId
     var inspectionId = transition.state.params['smartlink-controller.inspections.select-inspection'].inspectionId;
@@ -64,8 +64,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       soilTypes: this.soil_types,
       controller_id: controller_id,
       inspection: this.get('store').find('inspection', Number(inspectionId)),
-      zones:  this.modelFor('smartlinkController').get('zones').then((zones) => {
-      return zones.filterBy('active', true);
+      zones: this.modelFor('smartlinkController').get('zones').then((zones) => {
+        return zones.filterBy('active', true);
       })
     });
   }

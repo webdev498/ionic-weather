@@ -26,6 +26,12 @@ export default Ember.Controller.extend(AjaxMixin, {
             }
             console.log(data);
         },
+        openZoneImageView() {
+            this.set('isZoneImageViewOpen', true);
+        },
+        closeZoneImageView() {
+            this.set('isZoneImageViewOpen', false);
+        },
         saveImage() {
             var self = this;
             self.set('isLoading', true);
@@ -51,7 +57,6 @@ export default Ember.Controller.extend(AjaxMixin, {
                 // Tell jQuery not to process data or worry about content-type
                 // You *must* include these options!
                 cache: false,
-                contentType: false,
                 processData: false,
 
                 // Custom XMLHttpRequest
