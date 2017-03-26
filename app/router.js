@@ -1,17 +1,17 @@
 import Ember from 'ember';
 import config from './config/environment';
 
-const Router = Ember.Router.extend({ location: config.locationType }).map(function() {
+const Router = Ember.Router.extend({ location: config.locationType }).map(function () {
   this.route('login');
   this.route('sites', { resetNamespace: true });
 
-  this.route('site', { resetNamespace: true, path: 'sites/:siteId' }, function() {
+  this.route('site', { resetNamespace: true, path: 'sites/:siteId' }, function () {
     this.route('index', {
       path: 'controllers'
     });
   });
 
-  this.route('smartlink-controller', { resetNamespace: true, path: 'controllers/:controllerId' }, function() {
+  this.route('smartlink-controller', { resetNamespace: true, path: 'controllers/:controllerId' }, function () {
     this.route('select-program');
     this.route('run-program', { path: 'run-program/:programId' });
     this.route('select-zone');
@@ -19,14 +19,14 @@ const Router = Ember.Router.extend({ location: config.locationType }).map(functi
     this.route('select-valves');
     this.route('locate-valves', { path: 'locate-valves/:zoneId' });
     //Inspection Routes
-    this.route('inspections', { path: 'inspections' }, function() {
+    this.route('inspections', { path: 'inspections' }, function () {
       this.route('new-inspection', { path: 'new' });
-      this.route('select-inspection', { path: ':inspectionId' }, function() {
-        this.route('select-zone', function() {
-          this.route('start-inspection', { path: ':zoneId/start-inspection' }, function() {
+      this.route('select-inspection', { path: ':inspectionId' }, function () {
+        this.route('select-zone', function () {
+          this.route('start-inspection', { path: ':zoneId/start-inspection' }, function () {
             this.route('run-zone', { path: ':runZoneId/run-zone' });
+            this.route('edit-inspection', { path: ':zoneId/edit-inspection' });
           });
-            this.route('edit-inspection', { path: ':zoneId/edit-inspection'});
         });
         this.route('general');
         this.route('omit');
@@ -35,11 +35,11 @@ const Router = Ember.Router.extend({ location: config.locationType }).map(functi
       });
     });
 
-    this.route('walk-site', function() {
+    this.route('walk-site', function () {
       this.route('zone', { path: 'zone/:zoneId' });
 
     });
-    this.route('settings', { path: 'settings' }, function() {
+    this.route('settings', { path: 'settings' }, function () {
       this.route('programming');
       this.route('program-details');
       this.route('edit-program-details', { path: 'program-details/:programId' });

@@ -1,0 +1,32 @@
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.start-inspection' zone.id class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{fa-icon 'fa-clipboard'}} Edit Inspection </h1>
+</header>
+<div class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      {{fa-icon 'leaf'}} Edit inspection
+    </li>
+  </ul>
+  <form {{action "submission" title date time scheduleSelect on="submit"}} class="weathermatic-page-bottom edit-inspection-form">
+    <label for="title">Inspection Title</label>
+    {{input id="title" name="title" value=title type="text" placeholder="Enter a Title"}}
+    <label for="date">Date & Time</label>
+    <div class="same-line" style="width: 100%">
+      {{input id="date" type="date" value=date}}  {{input id="time" type="time" value=time}}
+    </div>
+    <label for="inspection-type">Inspection Type</label>
+    <select id="scheduled-select" name="cars" onchange={{action 'onSelectEntityType' value="target.value"}}>
+      <option value="0">Scheduled Inspection</option>
+      <option value="1">Service Call</option>
+    </select>
+    <div class="center-buttons">
+      {{#link-to 'smartlink-controller.inspections'}}
+        <button class="btn btn-positive">Cancel</button>
+      {{/link-to}}
+        <button type="submit" class="btn btn-negative">Save Inspection</button>
+    </div>
+  </form>
+</div>
