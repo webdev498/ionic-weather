@@ -25,6 +25,7 @@ export default Ember.Controller.extend(AjaxMixin, {
                 data[obj.name] = obj.value;
             }
             console.log(data);
+            this.transitionToRoute('smartlink-controller.inspections.select-inspection.select-zone');
         },
         openZoneImageView() {
             this.set('isZoneImageViewOpen', true);
@@ -43,7 +44,7 @@ export default Ember.Controller.extend(AjaxMixin, {
             var api_url = config.apiUrl + "/api/v2/controllers/" + controllerId + "/zones/" + zone_id + "/photo";
             var email = self.get('session.data.authenticated.email');
             var password = self.get('session.data.authenticated.password');
-            var formData = new FormData(document.querySelector("#image-upload"));
+            var formData = new FormData($("#image-upload")[0]);
             var uploadZoneImage = function (url, form_data) {
                 return new Promise(function (resolve, reject) {
                     var xhr = new XMLHttpRequest;

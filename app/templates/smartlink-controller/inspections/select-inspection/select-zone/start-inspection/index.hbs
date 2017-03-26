@@ -1,7 +1,3 @@
-{{#each model.inspection.inspections_zones as |zone|}}
-  {{#if (equiv zone.id model.id) }}
-    {{#each model.zones as |model_zone|}}
-      {{#if (equiv zone.zone_id model_zone.id) }}
         <header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
           {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone' class='btn btn-link btn-nav pull-left'}}
           <span class="icon icon-left-nav"></span> {{/link-to}}
@@ -14,6 +10,11 @@
               Brief Instructions
             </li>
           </ul>
+          {{!These loops are here because the api request doesn't include individual data, so we have to find it}}
+          {{#each model.inspection.inspections_zones as |zone|}}
+            {{#if (equiv zone.id model.id) }}
+              {{#each model.zones as |model_zone|}}
+                {{#if (equiv zone.zone_id model_zone.id) }}
                 <form id="inspection-form" class="weathermatic-page-bottom start-inspection">
                   <div class="section">
                     <div class="form-group full">
@@ -249,8 +250,8 @@
                     <button type="submit" class="btn btn-negative" {{action 'submitForm'}}>Save</button>
                   </div>
                 </form>
-              </div>
-            {{/if}}
-          {{/each}}
-        {{/if}}
-      {{/each}}
+              {{/if}}
+            {{/each}}
+          {{/if}}
+        {{/each}}
+    </div>
