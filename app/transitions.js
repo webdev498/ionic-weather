@@ -215,8 +215,7 @@ const Transitions = function() {
   this.transition(
     this.fromRoute('smartlink-controller.inspections.new-inspection'),
     this.toRoute([
-     'smartlink-controller.inspections.select-inspection',
-     'smartlink-controller.inspections.edit-inspection'
+     'smartlink-controller.inspections.select-inspection'
     ]),
     this.use('toUp'),
     this.reverse('toDown'),
