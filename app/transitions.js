@@ -213,10 +213,19 @@ const Transitions = function() {
   );
 
   this.transition(
-    this.fromRoute('smartlink-controller.inspections.create-inspection'),
+    this.fromRoute('smartlink-controller.inspections.new-inspection'),
     this.toRoute([
      'smartlink-controller.inspections.select-inspection',
      'smartlink-controller.inspections.edit-inspection'
+    ]),
+    this.use('toUp'),
+    this.reverse('toDown'),
+  );
+
+  this.transition(
+    this.fromRoute('smartlink-controller.inspections.select-inspection.select-zone.start-inspection'),
+    this.toRoute([
+     'smartlink-controller.run-zone',
     ]),
     this.use('toUp'),
     this.reverse('toDown'),

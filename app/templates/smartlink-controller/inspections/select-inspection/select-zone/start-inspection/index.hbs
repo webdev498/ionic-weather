@@ -1,11 +1,8 @@
 <header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
   {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone' class='btn btn-link btn-nav pull-left'}}
-    <span class="icon icon-left-nav"></span>
-  {{/link-to}}
+  <span class="icon icon-left-nav"></span> {{/link-to}}
   <h1 class="title">{{fa-icon 'fa-clipboard'}} Inspections </h1>
-  {{#link-to 'smartlink-controller.inspections.edit-inspection' class='menu-option'}}
-    {{fa-icon 'fa-gear'}}
-  {{/link-to}}
+  {{#link-to 'smartlink-controller.inspections.edit-inspection' class='menu-option'}} {{fa-icon 'fa-gear'}} {{/link-to}}
 </header>
 <div id="start-inspection" class="content weathermatic-content">
   <ul class="table-view">
@@ -13,10 +10,15 @@
       Brief Instructions
     </li>
   </ul>
+  {{#each model.inspection.inspections_zones as |zone|}} 
+  {{#if (equiv zone.id model.id) }}
+  {{#each model.zones as |model_zone|}}
+  {{#if (equiv zone.zone_id model_zone.id) }}
   <form class="weathermatic-page-bottom start-inspection">
     <div class="section">
       <div class="form-group full">
         <li class="column">
+          {{zones.zone.zone_id}}
           <label for="title">Zone Name</label>
           <input id="title" type="text" />
         </li>
@@ -25,13 +27,15 @@
         <li class="column">
           <label for="inspection-type">% of Area</label>
           <select id="scheduled-select" name="cars">
-            <option value="scheduled">&nbsp;</option>
-          </select>
+                <option value="scheduled">&nbsp;</option>
+              </select>
         </li>
         <li class="column">
           <label for="inspection-type">Sprinkler Type</label>
-          <select id="scheduled-select" name="cars">
-            <option value="scheduled">&nbsp;</option>
+          <select class="form-control" name="sprinkler_type">
+            {{#each model.sprinklerTypes as |value|}}
+              <option value={{value.id}} selected={{eq value.id model_zone.sprinklerType}}>{{value.display}}</option>
+            {{/each}}
           </select>
         </li>
       </div>
@@ -39,13 +43,17 @@
         <li class="column">
           <label for="inspection-type">Plant Type</label>
           <select id="scheduled-select" name="cars">
-            <option value="scheduled">&nbsp;</option>
+             {{#each model.plantTypes as |value|}}
+              <option value={{value.id}} selected={{eq value.id model_zone.plantType}}>{{value.display}}</option>
+            {{/each}}
           </select>
         </li>
         <li class="column">
           <label for="inspection-type">Soil Type</label>
-          <select id="scheduled-select" name="cars">
-            <option value="scheduled">&nbsp;</option>
+          <select class="form-control" name="soil_type">
+            {{#each model.soilTypes as |value|}}
+              <option value={{value.id}} selected={{eq value.id model_zone.soilType}}>{{value.display}}</option>
+            {{/each}}
           </select>
         </li>
       </div>
@@ -53,22 +61,29 @@
         <li class="column">
           <label for="inspection-type">More/Less</label>
           <select id="scheduled-select" name="cars">
-            <option value="scheduled">&nbsp;</option>
+            {{#each model.more_less as |value|}}
+              <option value={{value.id}} selected={{eq value.id model_zone.soilType}}>{{value.display}}</option>
+            {{/each}}
           </select>
         </li>
         <li class="column">
           <label for="inspection-type">Value Size</label>
-          <select id="scheduled-select" name="cars">
-            <option value="scheduled">&nbsp;</option>
+            <select class="form-control valve_size" name="valve-size">
+              <option value="0.0">Not Set</option>
+              <option value="0.75">0.75"</option>
+              <option selected="" value="1.0">1.0"</option>
+              <option value="1.25">1.25"</option>
+              <option value="1.5">1.5"</option>
+              <option value="2.0">2.0"</option>
+              <option value="2.5">2.5"</option>
+              <option value="3.0">3.0"</option>
           </select>
         </li>
       </div>
       <div class="form-group half">
         <li class="column">
           <label for="inspection-type">GPM</label>
-          <select id="scheduled-select" name="cars">
-            <option value="scheduled">&nbsp;</option>
-          </select>
+          <input id="scheduled-select" name="gpm" value="{{model_zone.gpm}}" />
         </li>
       </div>
     </div>
@@ -96,8 +111,9 @@
     <div class="section run-zone-section">
       <div class="form-group full">
         <li class="column">
-          <label for="title">Run Zone</label>
-          <button class="run-zone" type="button">Start</button>
+          <label for="title">Run Zone</label> {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.start-inspection.run-zone'
+          zone.zone_id class='push-right'}}
+          <button class="run-zone" type="button">Start</button> {{/link-to}}
         </li>
       </div>
     </div>
@@ -106,22 +122,26 @@
         <li class="column">
           <label for="date">Value Status:</label>
           <div class="same-line" style="width: 100%">
-            <div class="radio-button"><input type="radio" name="pass" value="Pass" checked>Pass</div>
-            <div class="radio-button"><input type="radio" name="fail" value="Fail">Fail</div>
+            <div class="radio-button"><input type="radio" name="valve-group" value="Pass" checked>Pass</div>
+            <div class="radio-button"><input type="radio" name="valve-group" value="Fail">Fail</div>
           </div>
         </li>
       </div>
       <div class="form-group half half-input">
         <li class="column">
-          <label for="inspection-type">Clogged Nozzle</label>
-          <select id="scheduled-select" name="cars">
-            <option value="scheduled">0</option>
+          <label for="clogged-nozzle">Clogged Nozzle</label>
+          <select id="clogged-nozzle" name="clogged-nozzle">
+            {{#each model.selectValues as |value|}}
+              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+            {{/each}}
           </select>
         </li>
         <li class="column">
           <label for="inspection-type">Blocked Head</label>
           <select id="scheduled-select" name="cars">
-            <option value="scheduled">0</option>
+            {{#each model.selectValues as |value|}}
+              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+            {{/each}}
           </select>
         </li>
       </div>
@@ -129,13 +149,17 @@
         <li class="column">
           <label for="inspection-type">Broken Head</label>
           <select id="scheduled-select" name="cars">
-            <option value="scheduled">0</option>
+            {{#each model.selectValues as |value|}}
+              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+            {{/each}}  
           </select>
         </li>
         <li class="column">
           <label for="inspection-type">Raise Head</label>
           <select id="scheduled-select" name="cars">
-            <option value="scheduled">0</option>
+            {{#each model.selectValues as |value|}}
+              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+            {{/each}}
           </select>
         </li>
       </div>
@@ -143,13 +167,17 @@
         <li class="column">
           <label for="inspection-type">Lower Head</label>
           <select id="scheduled-select" name="cars">
-            <option value="scheduled">0</option>
+            {{#each model.selectValues as |value|}}
+              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+            {{/each}}
           </select>
         </li>
         <li class="column">
           <label for="inspection-type">Replace Head</label>
           <select id="scheduled-select" name="cars">
-            <option value="scheduled">0</option>
+             {{#each model.selectValues as |value|}}
+              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+            {{/each}}
           </select>
         </li>
       </div>
@@ -157,13 +185,17 @@
         <li class="column">
           <label for="inspection-type">Broken Lateral</label>
           <select id="scheduled-select" name="cars">
-            <option value="scheduled">0</option>
+            {{#each model.selectValues as |value|}}
+              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+            {{/each}}
           </select>
         </li>
         <li class="column">
           <label for="inspection-type">Broken Main</label>
           <select id="scheduled-select" name="cars">
-            <option value="scheduled">0</option>
+            {{#each model.selectValues as |value|}}
+              <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
+            {{/each}}
           </select>
         </li>
       </div>
@@ -173,12 +205,14 @@
         <li class="column">
           <label for="inspection-type">In/Out Scope</label>
           <select id="scheduled-select" name="cars">
-            <option value="scheduled">0</option>
+            <option value="scheduled">In</option>
+            <option value="scheduled">Out</option>
+            <option value="scheduled">None</option>
           </select>
         </li>
         <li class="column">
-          <label for="inspection-type">Estimated Cost</label>
-          $<input id="title" type="text" />
+          <label for="inspection-type">Estimated Cost</label> $
+          <input id="title" type="text" />
         </li>
       </div>
     </div>
@@ -192,11 +226,10 @@
     </div>
     <div class="center-buttons">
       {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone'}}
-        <button class="btn btn-positive">Cancel</button>
-      {{/link-to}}
-      {{#link-to 'smartlink-controller.inspections.select-inspection'}}
-        <button class="btn btn-negative">Save</button>
-      {{/link-to}}
+      <button class="btn btn-positive">Cancel</button> {{/link-to}} {{#link-to 'smartlink-controller.inspections.select-inspection'}}
+      <button class="btn btn-negative">Save</button> {{/link-to}}
     </div>
   </form>
+  {{/if}} {{/each}}
+  {{/if}} {{/each}}
 </div>

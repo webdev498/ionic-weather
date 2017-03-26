@@ -3,6 +3,7 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 import config from '../../../../config/environment';
 import RSVP from 'rsvp';
 
+
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
     inspection_id: 0,
     controller_id: 0,

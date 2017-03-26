@@ -1,0 +1,67 @@
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.start-inspection' class='btn btn-link btn-nav pull-left'}}
+    <span class="icon icon-left-nav"></span>
+  {{/link-to}}
+  <h1 class="title">{{fa-icon 'signal'}} {{short-text model.smartlinkController.name size=15}} - Run Zone</h1>
+</header>
+
+<div class="content weathermatic-content">
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">
+      Confirm Zone
+    </li>
+    <li class="table-view-cell">
+      Site <button class="btn"> {{fa-icon 'building'}} {{model.smartlinkController.site.name}}</button>
+    </li>
+    <li class="table-view-cell">
+      Controller <button class="btn"> {{fa-icon 'signal'}} {{model.smartlinkController.name}}</button>
+    </li>
+  </ul>
+
+  <div class="content-padded">
+    <p>We're about to run</p>
+
+    <span class="btn btn-block">
+      {{#if model.description}}
+        <h3>{{fa-icon 'leaf'}} {{short-text model.description size=20}}</h3>
+        <p>Zone {{model.number}}</p>
+      {{else}}
+        <h3>{{fa-icon 'leaf'}} Zone {{model.number}}</h3>
+      {{/if}}
+    </span>
+
+    <form class="weathermatic-run-zone-select-run-time">
+      <p>for this amount of time</p>
+      <center>
+        <select onchange={{action (mut runTimeHours) value="target.value"}}>
+          {{#each availableRunTimeHours as |hour|}}
+            <option value="{{hour.value}}" selected={{equiv hour.value runTimeHours}}>{{hour.label}}</option>
+          {{/each}}
+        </select> :
+
+        <select onchange={{action (mut runTimeMinutes) value="target.value"}}>
+          {{#each availableRunTimeMinutes as |min|}}
+            <option value="{{min.value}}" selected={{equiv min.value runTimeMinutes}}>{{min.label}}</option>
+          {{/each}}
+        </select>
+        <strong>HH:MM</strong>
+      </center>
+    </form>
+
+    <p>Ready?</p>
+
+    <button class="btn btn-block btn-positive" {{action 'runZone' model.description model.number}}>
+      {{fa-icon 'check'}} Go!
+    </button>
+
+    {{#link-to 'smartlink-controller' class='btn btn-block btn-negative'}}
+      {{fa-icon 'times-circle'}} Cancel
+    {{/link-to}}
+  </div>
+</div>
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}
