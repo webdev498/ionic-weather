@@ -40,6 +40,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
        var obj_local = {display: i+'%', index: i};
        this.more_less.push(obj_local);
     }
+    var controller_id = transition.state.params['smartlink-controller'].controllerId
     var inspectionId = transition.state.params['smartlink-controller.inspections.select-inspection'].inspectionId;
     var zoneId = transition.state.params['smartlink-controller.inspections.select-inspection.select-zone.start-inspection'].zoneId;
     return RSVP.hash({
@@ -61,6 +62,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       sprinklerTypes: this.sprinklerTypes,
       plantTypes: this.plant_types,
       soilTypes: this.soil_types,
+      controller_id: controller_id,
       inspection: this.get('store').find('inspection', Number(inspectionId)),
       zones:  this.modelFor('smartlinkController').get('zones').then((zones) => {
       return zones.filterBy('active', true);
