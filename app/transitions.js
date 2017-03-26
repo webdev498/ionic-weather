@@ -172,7 +172,7 @@ const Transitions = function() {
   );
 
   this.transition(
-    this.fromRoute('smartlink-controller.inspections.index'),
+    this.fromRoute('smartlink-controller.inspections'),
     this.toRoute([
      'smartlink-controller.inspections.new-inspection',
      'smartlink-controller.inspections.select-inspection'
@@ -184,11 +184,11 @@ const Transitions = function() {
   this.transition(
     this.fromRoute('smartlink-controller.inspections.select-inspection'),
     this.toRoute([
-     'smartlink-controller.inspections.select-zone',
-     'smartlink-controller.inspections.general-inspection',
-     'smartlink-controller.inspections.program-inspection',
-     'smartlink-controller.inspections.seasonal-inspection',
-     'smartlink-controller.inspections.omit-inspection'
+     'smartlink-controller.inspections.select-inspection.select-zone',
+     'smartlink-controller.inspections.select-inspection.general',
+     'smartlink-controller.inspections.select-inspection.program',
+     'smartlink-controller.inspections.select-inspection.seasonal',
+     'smartlink-controller.inspections.select-inspection.omit'
     ]),
     this.use('toLeft'),
     this.reverse('toRight'),
@@ -197,16 +197,17 @@ const Transitions = function() {
   this.transition(
     this.fromRoute('smartlink-controller.inspections.select-zone'),
     this.toRoute([
-     'smartlink-controller.inspections.create-inspection'
+     'smartlink-controller.inspections.select-zone.start-inspection'
     ]),
     this.use('toLeft'),
     this.reverse('toRight'),
   );
 
   this.transition(
-    this.fromRoute('smartlink-controller.inspections.new-inspection'),
+    this.fromRoute('smartlink-controller.inspections.select-zone.start-inspection'),
     this.toRoute([
-     'smartlink-controller.inspections.select-zone'
+     'smartlink-controller.inspections.select-zone.start-inspection.run-zone',
+    'smartlink-controller.inspections.select-zone.start-inspection.edit-zone'
     ]),
     this.use('toLeft'),
     this.reverse('toRight'),
@@ -217,8 +218,8 @@ const Transitions = function() {
     this.toRoute([
      'smartlink-controller.inspections.select-inspection'
     ]),
-    this.use('toUp'),
-    this.reverse('toDown'),
+    this.use('toLeft'),
+    this.reverse('toRight'),
   );
 
   this.transition(
@@ -226,8 +227,8 @@ const Transitions = function() {
     this.toRoute([
      'smartlink-controller.run-zone',
     ]),
-    this.use('toUp'),
-    this.reverse('toDown'),
+     this.use('toLeft'),
+    this.reverse('toRight'),
   );
 
 };
