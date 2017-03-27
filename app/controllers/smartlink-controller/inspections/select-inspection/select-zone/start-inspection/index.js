@@ -208,21 +208,23 @@ export default Ember.Controller.extend(AjaxMixin,ManualRunMixin, {
             };
             for (var i = 0; i < params.length; i++) {
                 var obj = params[i];
-                data["controllers_inspections_zone"][obj.name] = obj.value;
+                data[obj.name] = obj.value;
             }
+            
+            //Store the body in object form, with the final result as a nested object
             var finalBody = {
               "controllers_inspections_zone": data
             }
-
 
             var zone_id = this.get('model.id');
             var controllerId = this.get('model').controller_id;
             var inspectionID = this.get('model.inspection.id');
             var api_url = config.apiUrl + "/api/v2/controls/" + controllerId + "/inspections/" + inspectionID + "/zones/" + zone_id;
+            console.log(api_url);
             $.ajax({
                 type: "POST",
                 url: api_url,
-                data: JSON.stringify(finalBody)
+                data: finalBody
             }).done(function() {
                alert("Item saved")
             }).error(function (xhr, ajaxOptions, thrownError) {
