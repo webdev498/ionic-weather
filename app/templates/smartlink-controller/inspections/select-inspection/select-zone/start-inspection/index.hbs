@@ -134,11 +134,11 @@
                         <label for="title">Run Zone</label>
 
                         {{#if showTimer }}
-                          <button class="btn btn-block btn-positive run-zone" {{action 'stop'}}>
-                            {{fa-icon 'times-circle'}} Cancel
+                          <button class="btn btn-block btn-negative" {{action 'stop'}}>
+                            {{fa-icon 'stop'}} Stop
                           </button>
                         {{else}}
-                          <button class="btn btn-block btn-positive run-zone" {{action 'runZone' model_zone.description zone.zone_number}}>
+                          <button class="btn btn-block btn-positive" {{action 'runZone' model_zone.description zone.zone_number}}>
                             {{fa-icon 'check'}} Start
                           </button>
                         {{/if}}
