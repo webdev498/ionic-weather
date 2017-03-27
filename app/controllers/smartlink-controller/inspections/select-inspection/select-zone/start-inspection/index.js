@@ -204,7 +204,6 @@ export default Ember.Controller.extend(AjaxMixin,ManualRunMixin, {
             var $form = $('#inspection-form');
             var params = $form.serializeArray();
             var data = {
-                "controllers_inspections_zone": {}
             };
             for (var i = 0; i < params.length; i++) {
                 var obj = params[i];
@@ -213,9 +212,9 @@ export default Ember.Controller.extend(AjaxMixin,ManualRunMixin, {
             
             //Store the body in object form, with the final result as a nested object
             var finalBody = {
-              "controllers_inspections_zone": data
+              controllers_inspections_zone: data
             }
-
+            
             var zone_id = this.get('model.id');
             var controllerId = this.get('model').controller_id;
             var inspectionID = this.get('model.inspection.id');
@@ -223,7 +222,9 @@ export default Ember.Controller.extend(AjaxMixin,ManualRunMixin, {
             $.ajax({
                 type: "POST",
                 url: api_url,
-                data: finalBody
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(finalBody)
             }).done(function() {
                alert("Item saved")
             }).error(function (xhr, ajaxOptions, thrownError) {
