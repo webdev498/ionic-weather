@@ -214,7 +214,7 @@ export default Ember.Controller.extend(AjaxMixin,ManualRunMixin, {
             var finalBody = {
               controllers_inspections_zone: data
             }
-            
+
             var zone_id = this.get('model.id');
             var controllerId = this.get('model').controller_id;
             var inspectionID = this.get('model.inspection.id');
@@ -222,7 +222,6 @@ export default Ember.Controller.extend(AjaxMixin,ManualRunMixin, {
             $.ajax({
                 type: "POST",
                 url: api_url,
-                dataType: 'json',
                 contentType: 'application/json',
                 data: JSON.stringify(finalBody)
             }).done(function() {

@@ -15,7 +15,7 @@ const addMobileAppHeaders = function(options) {
 
 const addTimestamp = function(options) {
   var data;
-  var isJSON = options.type.toUpperCase() !== 'GET' && options.dataType === 'json';
+  var isJSON = options.type.toUpperCase() !== 'GET' && (options.dataType === 'json' || options.contentType === "application/json");
   if (isJSON) {
     data = JSON.parse(options.data);
   } else {
