@@ -9,6 +9,9 @@ h2 {
 .section select {
   -webkit-appearance: menulist;
 }
+.ember-view {
+  height:100%;
+}
 .zone-image {
     margin: 65px 0 0 0;
     display: inline-block;
@@ -49,7 +52,7 @@ h2 {
     color: #fff;
   }
 }
-    
+
 #general-inspection {
   .table-view {
     margin: 12px 0 0 0;
@@ -392,10 +395,6 @@ button.full-screen-image i {
 }
 .custom-file-input:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
-}
-
-.weathermatic-controller-page {
-  margin-top: 8px;
 }
 
 .spaced-icon {
@@ -787,7 +786,6 @@ button.full-screen-image i {
 
 .walk-site-nav-container {
   margin-top: 15px;
-  height: 100%;
 }
 
 $walk-site-zone-nav-border-color: #ddd;
@@ -1041,9 +1039,6 @@ form#image-uploads {
     }
   }
 }
-div.ember-view.liquid-child {
-  overflow-y: scroll !important;
-}
 .edit-inspection-form {
   margin: 0;
 }
@@ -1072,17 +1067,17 @@ div.ember-view.liquid-child {
 .table-view .table-view-cell:last-child {
   background: none;
 }
+.bar-nav ~ .content {
+  padding: 0;
+}
 .weathermatic-content {
   overflow-y: scroll !important;
   overflow-x: hidden;
-  height: 800px;
-  padding: 65px 0 0 0 !important;
   background: #fff;
-  position: relative;
+  top: 65px;
   @media(min-height: 800px) {
     height: 1100px;
   }
-  position:relative;
 }
 
 .show-zone-image {
@@ -1218,7 +1213,7 @@ div.ember-view.liquid-child {
 }
 
 .needs-send-message-container {
-  padding-top: 20px;
+  height: auto;
 }
 
 .needs-send-message {
