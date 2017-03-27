@@ -69,6 +69,7 @@ export default Ember.Controller.extend(AjaxMixin,ManualRunMixin, {
       var duration, keepGoing, start, stop, timer;
       if(this.get('showTimer')){
           $(display).css('display', 'block');
+          $('.weathermatic-content').css('bottom','50px');
           if (window.cordova) {
             StatusBar.overlaysWebView(true);
           }
@@ -109,6 +110,7 @@ export default Ember.Controller.extend(AjaxMixin,ManualRunMixin, {
           $scope.countdown = setInterval(timer, 1000);
         }else{
             $('.statusBar').addClass('close');
+            $('.weathermatic-content').css('bottom','0px');
         }
     },
 
