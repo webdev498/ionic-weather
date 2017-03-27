@@ -131,9 +131,17 @@
                   <div class="section run-zone-section">
                     <div class="form-group full">
                       <li class="column">
-                        <label for="title">Run Zone</label> {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.start-inspection.run-zone'
-                        zone.zone_id class='push-right'}}
-                        <button class="run-zone" type="button">Start</button> {{/link-to}}
+                        <label for="title">Run Zone</label>
+
+                        {{#if showTimer }}
+                          <button class="btn btn-block btn-positive run-zone" {{action 'stop'}}>
+                            {{fa-icon 'times-circle'}} Cancel
+                          </button>
+                        {{else}}
+                          <button class="btn btn-block btn-positive run-zone" {{action 'runZone' model_zone.description zone.zone_number}}>
+                            {{fa-icon 'check'}} Start
+                          </button>
+                        {{/if}}
                       </li>
                     </div>
                   </div>
@@ -255,3 +263,8 @@
           {{/if}}
         {{/each}}
     </div>
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

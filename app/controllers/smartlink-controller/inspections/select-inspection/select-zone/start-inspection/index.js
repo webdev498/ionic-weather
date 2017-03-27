@@ -4,8 +4,11 @@ import Base from 'ember-simple-auth/authenticators/base';
 import AuthenticationMixin from '../../../../../../mixins/authentication';
 import AjaxMixin from '../../../../../../mixins/ajax';
 import config from '../../../../../../config/environment';
+import leftPad from '../../../../../../util/strings/left-pad';
 
-export default Ember.Controller.extend(AjaxMixin, {
+var $scope = this;
+
+export default Ember.Controller.extend(AjaxMixin,ManualRunMixin, {
     session: Ember.inject.service(),
     init: function () {
         $('body').on('change', '#image-upload-input', (e) => {
@@ -14,8 +17,187 @@ export default Ember.Controller.extend(AjaxMixin, {
             e.stopPropagation();
             return;
         });
+
+        //running zone code
+
+      var allMins, availHrs, fiveMinIntvls, i, j, results, results1;
+
+      allMins = (function () {
+        results = [];
+        for (i = 1; i <= 59; i++) {
+          results.push(i);
+        }
+        return results;
+      }).apply(this).map(function (num) {
+        return {
+          label: (0, leftPad)(2, num),
+          value: num
+        };
+      });
+
+      fiveMinIntvls = [];
+
+      (function () {
+        results1 = [];
+        for (j = 0; j <= 55; j++) {
+          results1.push(j);
+        }
+        return results1;
+      }).apply(this).forEach(function (num) {
+        if (num % 5 === 0) {
+          return fiveMinIntvls.push({
+            label: (0, leftPad)(2, num),
+            value: num
+          });
+        }
+      }, this);
+
+      availHrs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (num) {
+        return {
+          label: (0, leftPad)(2, num),
+          value: num
+        };
+      });
+
+      this.set('allMinutes', allMins);
+      this.set('fiveMinuteIntervals', fiveMinIntvls);
+      this.set('availableRunTimeHours', availHrs);
+      this.set('availableRunTimeMinutes', allMins);
+
     },
+    startCountdown: function startCountdown(min, display) {
+      var duration, keepGoing, start, stop, timer;
+      if(this.get('showTimer')){
+          $(display).css('display', 'block');
+          if (window.cordova) {
+            StatusBar.overlaysWebView(true);
+          }
+          start = Date.now();
+          duration = min * 60;
+          stop = function () {
+            clearInterval($scope.countdown);
+            $(display).html(' ').removeClass('close').css('display', 'none');
+            if (window.cordova) {
+              return StatusBar.overlaysWebView(false);
+            }
+          };
+          keepGoing = function () {
+            var diff, minutes, seconds, zone;
+            diff = duration - ((Date.now() - start) / 1000 | 0);
+            minutes = diff / 60 | 0;
+            seconds = diff % 60 | 0;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            zone = $scope.zoneName ? $scope.zoneName + " (Zone " + $scope.zoneNumber + ")" : "Zone " + $scope.zoneNumber;
+            $(display).css('display', 'block').attr('href', $scope.zoneLink).html('<div>Running ' + zone + '<span> - ' + minutes + ':' + seconds + '</span></div>');
+            if (window.cordova) {
+              StatusBar.overlaysWebView(true);
+            }
+            if (diff <= 0) {
+              return stop();
+            }
+          };
+          timer = function () {
+            if (!$('.statusBar').hasClass('close')) {
+              return keepGoing();
+            } else {
+              return stop();
+            }
+          };
+          stop();
+          timer();
+          $scope.countdown = setInterval(timer, 1000);
+        }else{
+            $('.statusBar').addClass('close');
+        }
+    },
+
+    runTimeHours: 0,
+
+    runTimeMinutes: 5,
+
+    minutesDidChange: Ember.observer('runTimeMinutes', function () {
+      if (parseInt(this.get('runTimeHours')) === 0) {
+        return this.set('previousRunTimeMinutesSelection', this.get('runTimeMinutes'));
+      }
+    }),
+
+    hoursDidChange: Ember.observer('runTimeHours', function () {
+      var prevMin;
+      if (parseInt(this.get('runTimeHours')) >= 1) {
+        this.set('availableRunTimeMinutes', this.get('fiveMinuteIntervals'));
+        return this.set('runTimeMinutes', 0);
+      } else {
+        prevMin = this.get('previousRunTimeMinutesSelection');
+        if (prevMin) {
+          this.set('runTimeMinutes', prevMin);
+        }
+          this.set('availableRunTimeMinutes', this.allMinutes);
+      }
+    }),
+
+    totalRunTimeMinutesConverted: Ember.computed('runTimeHours', 'runTimeMinutes', function () {
+      var extraMins, fiveMinIntvls, hrs, mins, totalMins;
+      hrs = parseInt(this.get('runTimeHours'));
+      mins = parseInt(this.get('runTimeMinutes'));
+      totalMins = hrs * 60 + mins;
+      if (totalMins <= 60) {
+        return totalMins;
+      }
+      extraMins = totalMins - 60;
+      fiveMinIntvls = Math.floor(extraMins / 5);
+      return 60 + fiveMinIntvls;
+    }),
+
     actions: {
+        runZone(zoneName,zone){
+            var params, self;
+            self = this;
+            $scope.zone = {};
+            $scope.zone.name = zoneName;
+            $scope.zone.number = zone;
+            $scope.zone.href = location.hash;
+            this.set('showTimer',true);
+            params = {
+              zone: zone,
+              run_time: this.get('totalRunTimeMinutesConverted')
+            };
+            this.get('loadingModal').send('open');
+            this.submitManualRun(params).then(function (instruction) {
+              Ember.debug("Posted run zone: " + self.get('model.number') + " for controller: " + self.get('model.smartlinkController.id'));
+              self.get('loadingModal').send('loadInstruction', instruction);
+            })["catch"](function (error) {
+              Ember.Logger.error(error);
+              self.get('loadingModal').send('close');
+            });
+        },
+        loadingFinished() {
+            var self = this;
+            $scope.zoneName = $scope.zone.name;
+            $scope.zoneNumber = $scope.zone.number;
+            $scope.zoneLink = $scope.zone.href;
+            this.startCountdown(this.runTimeMinutes, '.statusBar');
+            Ember.run.later(this, function () {
+              self.get('loadingModal').send('close');
+            }, 750);
+        },
+        loadingAbandoned() {
+            $('.statusBar').addClass('close');
+        },
+        stop: function stop() {
+            var params, self;
+            self = this;
+            this.set('showTimer',false);
+            params = {
+              run_action: 'manual_stop_program'
+            };
+            this.get('loadingModal').send('open');
+            this.submitManualRun(params).then(function (instruction) {
+              self.get('loadingModal').send('loadInstruction', instruction);
+            })["catch"](function (error) {
+              self.get('loadingModal').send('close');
+            });
+        },
         submitForm() {
             var $form = $('#inspection-form');
             var params = $form.serializeArray();
@@ -31,7 +213,7 @@ export default Ember.Controller.extend(AjaxMixin, {
             $.ajax({
                 type: "POST",
                 url: api_url,
-                data: finalBody 
+                data: finalBody
             }).done(function() {
                alert("Item saved")
             }).error(function (xhr, ajaxOptions, thrownError) {
