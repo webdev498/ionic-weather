@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import moment from 'moment'; 
+import moment from 'moment';
 
 export default Ember.Controller.extend({
   needs: ['smartlinkController'],
@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
     this.inspection_type = 0;
     console.log(this.get('model'));
   },
-  
+
   actions: {
     onSelectEntityType(value) {
       this.inspection_type = value
@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
           item.set('title' , title);
           item.set('date', combinedDateTime);
           item.set('inspection_type', this.inspection_type);
-          item.save().then(this.transitionToRoute('smartlink-controller.inspections.select-inspection.select-zone.start-inspection'), 
+          item.save().then(this.transitionToRoute('smartlink-controller.inspections'),
              alert("There has been an issue creating your inspection. Please check your fields and try again")
           );
         }).catch(() => {
