@@ -220,7 +220,6 @@ export default Ember.Controller.extend(AjaxMixin,ManualRunMixin, {
             var controllerId = this.get('model').controller_id;
             var inspectionID = this.get('model.inspection.id');
             var api_url = config.apiUrl + "/api/v2/controls/" + controllerId + "/inspections/" + inspectionID + "/zones/" + zone_id;
-            console.log(api_url);
             $.ajax({
                 type: "POST",
                 url: api_url,
@@ -231,7 +230,6 @@ export default Ember.Controller.extend(AjaxMixin,ManualRunMixin, {
                 alert(xhr.status);
                 alert(thrownError);
             });
-            console.log(finalBody);
             //this.transitionToRoute('smartlink-controller.inspections.select-inspection.select-zone');
         },
         openZoneImageView() {
