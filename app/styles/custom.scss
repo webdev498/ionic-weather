@@ -949,7 +949,7 @@ form#image-uploads {
 
 .weathermatic-content .center-buttons {
   text-align: right;
-  margin: 20px 0 0 0;
+  margin: 20px 20px 0 0;
   .btn {
     padding: 15px 25px;
     font-size: 14px;
@@ -1181,7 +1181,7 @@ form#image-uploads {
 
 // Address issue where bottom of scrolled list is not visible, see SM-49, SM-50
 .weathermatic-page-bottom {
-  margin-bottom: 250px;
+  margin-bottom: 50px;
 }
 
 .weathermatic-errors {
