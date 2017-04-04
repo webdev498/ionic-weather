@@ -3,18 +3,18 @@
   {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'fa-clipboard spaced-icon'}} {{short-text smartlinkController.name size=15}} Inspections</h1>
+  <h1 class="title">{{fa-icon 'search spaced-icon'}} {{short-text smartlinkController.name size=15}} Inspections</h1>
 </header>
 
 <div class="content weathermatic-content">
   <ul class="table-view weathermatic-page-bottom">
     <li class="table-view-cell table-view-divider">
-      {{fa-icon 'leaf'}} Select an Inspection
+      {{fa-icon 'search'}} Select an Inspection or Create One
     </li>
     <li class="table-view-cell">
         {{#link-to 'smartlink-controller.inspections.new-inspection' class='push-right'}}
           Create Inspection
-          <p>Click to start Inspection</p>
+          <p>Click to create an inspection</p>
         {{/link-to}}
     </li>
     {{#each model as |inspection|}}
@@ -25,8 +25,8 @@
           {{else}}
             Inspection {{inspection.id}}
           {{/if}}
-          {{#if inspection.inspector_name}}
-          <p>Inspector: {{inspection.inspector_name}}</p>
+          {{#if inspection.created_at}}
+          <p>{{inspection.created_at}}</p>
           {{/if}}
         {{/link-to}}
       </li>

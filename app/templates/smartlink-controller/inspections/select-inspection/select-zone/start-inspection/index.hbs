@@ -1,262 +1,198 @@
-        <header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
-          {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone' class='btn btn-link btn-nav pull-left'}}
-          <span class="icon icon-left-nav"></span> {{/link-to}}
-          <h1 class="title">{{fa-icon 'fa-clipboard'}} Inspections </h1>
-          {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.start-inspection.edit-inspection' model.inspection.id class='menu-option'}} {{fa-icon 'fa-gear'}} {{/link-to}}
+<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+  {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone' class='btn btn-link btn-nav pull-left'}}
+  <span class="icon icon-left-nav"></span> {{/link-to}}
+  <h1 class="title">{{fa-icon 'search'}} Edit Inspection </h1>
+  {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.start-inspection.edit-inspection' model.inspection.id class='menu-option'}} {{fa-icon 'fa-gear'}} {{/link-to}}
+</header>
+  {{!These loops are here because the api request doesn't include individual data, so we have to find it}}
+  {{#each model.inspection.inspections_zones as |zone|}}
+    {{#if (equiv zone.id model.id) }}
+      {{#each model.zones as |model_zone|}}
+        {{#if (equiv zone.zone_id model_zone.id) }}
+      <div id="start-inspection" class="content weathermatic-content">
+        <ul class="table-view">
+          <li class="table-view-cell table-view-divider">
+            Brief Instructions
+          </li>
+        </ul>
+        <form id="inspection-form" class="weathermatic-page-bottom start-inspection">
+          <div class="section">
+            <div class="form-group full">
+              <li class="column">
+                {{zones.zone.zone_id}}
+                <label for="title">Zone Name</label>
+                <input id="title" disabled="disabled" type="text" value="{{model_zone.description}}" />
+              </li>
+            </div>
+          </div>
+          <div class="section">
+            <div class="form-group full">
+              <li class="column">
+                <label for="file">Photos</label>
+                  <input name="inspections_photos" id="image-upload-input" data-zone="{{model_zone.id}}" type="file" accept="image/*">
+                {{#if model_zone.photo}}
+                  <span class="content-padded show-zone-image">
+                    <button id="zone-thumbnail" style="background-image: url({{model_zone.photoThumbnail}}); width:100px;height:100px;background-size:100% 100%;" {{action 'openZoneImageView'}}></button>
+                  </span>
+                {{/if}}
+              </li>
+            </div>
+          </div>
+          <div class="section">
+            <div class="form-group full">
+              <li class="column">
+                <label for="title">Programs</label>
+                <div class="programs">
+                  <span class="a-program">A</span>
+                  <span class="b-program">B</span>
+                  <span class="c-program">C</span>
+                  <span class="d-program">D</span>
+                </div>
+              </li>
+            </div>
+          </div>
+          <div class="section run-zone-section">
+            <div class="form-group full">
+              <li class="column">
+                <label for="title">Run Zone</label>
+
+                {{#if showTimer }}
+                  <button class="btn btn-block btn-negative" {{action 'stop'}}>
+                    {{fa-icon 'stop'}} Stop
+                  </button>
+                {{else}}
+                  <button class="btn btn-block btn-positive" {{action 'runZone' model_zone.description zone.zone_number}}>
+                    {{fa-icon 'check'}} Start
+                  </button>
+                {{/if}}
+              </li>
+            </div>
+          </div>
+          <div class="section">
+            <div class="form-group full value-status">
+              <li class="column">
+                <label for="date">Value Status:</label>
+                <div class="same-line" style="width: 100%">
+                  <div class="radio-button"><input type="radio" name="valve_status" value="true" checked="{{if zone.valve_status "checked" ""}}">Pass</div>
+                  <div class="radio-button"><input type="radio" name="valve_status" value="false"  checked="{{unless zone.valve_status "checked" "" }}">Fail</div>
+                </div>
+              </li>
+            </div>
+            <div class="form-group half half-input">
+              <li class="column">
+                <label for="clogged-nozzle">Clogged Nozzle</label>
+                <select id="clogged-nozzle" name="nozzle">
+                  {{#each model.selectValues as |value|}}
+                    <option value={{value.id}} selected={{eq value.id zone.nozzle}}>{{value.display}}</option>
+                  {{/each}}
+                </select>
+              </li>
+              <li class="column">
+                <label for="blocked-head">Blocked Head</label>
+                <select id="blocked-head" name="blocked_head">
+                  {{#each model.selectValues as |value|}}
+                    <option value={{value.id}} selected={{eq value.id zone.blocked_head}}>{{value.display}}</option>
+                  {{/each}}
+                </select>
+              </li>
+            </div>
+            <div class="form-group half half-input">
+              <li class="column">
+                <label for="inspection-type">Broken Head</label>
+                <select id="broken-head" name="broken_head">
+                  {{#each model.selectValues as |value|}}
+                    <option value={{value.id}} selected={{eq value.id zone.broken_head}}>{{value.display}}</option>
+                  {{/each}}
+                </select>
+              </li>
+              <li class="column">
+                <label for="inspection-type">Raise Head</label>
+                <select id="raise-head" name="raise_head">
+                  {{#each model.selectValues as |value|}}
+                    <option value={{value.id}} selected={{eq value.id zone.raise_head}}>{{value.display}}</option>
+                  {{/each}}
+                </select>
+              </li>
+            </div>
+            <div class="form-group half half-input">
+              <li class="column">
+                <label for="lower-head">Lower Head</label>
+                <select id="lower-head" name="lower_head">
+                  {{#each model.selectValues as |value|}}
+                    <option value={{value.id}} selected={{eq value.id zone.lower_head}}>{{value.display}}</option>
+                  {{/each}}
+                </select>
+              </li>
+              <li class="column">
+                <label for="replace-head">Replace Head</label>
+                <select id="replace-head" name="replace_head">
+                  {{#each model.selectValues as |value|}}
+                    <option value={{value.id}} selected={{eq value.id zone.replace_head}}>{{value.display}}</option>
+                  {{/each}}
+                </select>
+              </li>
+            </div>
+            <div class="form-group half half-input">
+              <li class="column">
+                <label for="broken-lateral">Broken Lateral</label>
+                <select id="broken-lateral" name="broken_lateral">
+                  {{#each model.selectValues as |value|}}
+                    <option value={{value.id}} selected={{eq value.id zone.broken_lateral}}>{{value.display}}</option>
+                  {{/each}}
+                </select>
+              </li>
+              <li class="column">
+                <label for="broken-main">Broken Main</label>
+                <select id="broken-main" name="broken_main">
+                  {{#each model.selectValues as |value|}}
+                    <option value={{value.id}} selected={{eq value.id zone.broken_main}}>{{value.display}}</option>
+                  {{/each}}
+                </select>
+              </li>
+            </div>
+          </div>
+          <div class="section">
+            <div class="form-group half half-input">
+              <li class="column">
+                <label for="in-out-scope">In/Out Scope</label>
+                <select id="in-out-scope" name="scope">
+                  <option selected={{eq zone.scope false}} value="false">False</option>
+                  <option selected={{eq zone.scope true}} value="true">True</option>
+                </select>
+              </li>
+              <li class="column">
+                <label for="estimated_cost">Estimated Cost</label> $
+                <input id="estimated_cost" name="estimated_cost" type="text" value="{{zone.estimated_cost}}"/>
+              </li>
+            </div>
+          </div>
+          <div class="section">
+            <div class="form-group full">
+              <li class="column">
+                <label for="note">Note</label>
+                <textarea id="note" name="note" rows="4" value="{{zone.note}}" cols="50"></textarea>
+              </li>
+            </div>
+          </div>
+          <div class="center-buttons">
+            {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone'}}
+            <button class="btn btn-positive">Cancel</button> {{/link-to}}
+            <button type="submit" class="btn btn-negative" {{action 'submitForm'}}>Save</button>
+          </div>
+        </form>
+      </div>
+      <div id="zone-image-view" class="modal {{if isZoneImageViewOpen 'active'}}">
+        <header class="bar bar-nav weathermatic-header">
+          <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeZoneImageView'}}></a>
+          <h1 class="title">{{fa-icon 'photo'}} Zone Image</h1>
         </header>
-          {{!These loops are here because the api request doesn't include individual data, so we have to find it}}
-          {{#each model.inspection.inspections_zones as |zone|}}
-            {{#if (equiv zone.id model.id) }}
-              {{#each model.zones as |model_zone|}}
-                {{#if (equiv zone.zone_id model_zone.id) }}
-              <div id="start-inspection" class="content weathermatic-content">
-                <ul class="table-view">
-                  <li class="table-view-cell table-view-divider">
-                    Brief Instructions
-                  </li>
-                </ul>
-                <form id="inspection-form" class="weathermatic-page-bottom start-inspection">
-                  <div class="section">
-                    <div class="form-group full">
-                      <li class="column">
-                        {{zones.zone.zone_id}}
-                        <label for="title">Zone Name</label>
-                        <input id="title" type="text" value="{{model_zone.description}}" />
-                      </li>
-                    </div>
-                    <div class="form-group half">
-                      <li class="column">
-                        <label for="area-percent">% of Area</label>
-                        <select id="area-percent" name="area-percent">
-                              <option value="scheduled">&nbsp;</option>
-                            </select>
-                      </li>
-                      <li class="column">
-                        <label for="sprinkler_type">Sprinkler Type</label>
-                        <select class="sprinkler_type" name="sprinkler_type">
-                          {{#each model.sprinklerTypes as |value|}}
-                            <option value={{value.id}} selected={{eq value.id model_zone.sprinklerType}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                    </div>
-                    <div class="form-group half">
-                      <li class="column">
-                        <label for="plant-type">Plant Type</label>
-                        <select id="plant-type" name="plant_type">
-                          {{#each model.plantTypes as |value|}}
-                            <option value={{value.id}} selected={{eq value.id model_zone.plantType}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                      <li class="column">
-                        <label for="soil-type">Soil Type</label>
-                        <select class="soil-type" name="soil_type">
-                          {{#each model.soilTypes as |value|}}
-                            <option value={{value.id}} selected={{eq value.id model_zone.soilType}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                    </div>
-                    <div class="form-group half">
-                      <li class="column">
-                        <label for="more-less">More/Less</label>
-                        <select id="more-less" name="more_less">
-                          {{#each model.more_less as |value|}}
-                            <option value={{value.id}} selected={{eq value.id model_zone.soilType}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                      <li class="column">
-                        <label for="valve_size">Valve Size</label>
-                          <select class="form-control valve_size" id="valve_size" name="valve_size">
-                            <option value="0.0">Not Set</option>
-                            <option value="0.75">0.75"</option>
-                            <option selected="" value="1.0">1.0"</option>
-                            <option value="1.25">1.25"</option>
-                            <option value="1.5">1.5"</option>
-                            <option value="2.0">2.0"</option>
-                            <option value="2.5">2.5"</option>
-                            <option value="3.0">3.0"</option>
-                        </select>
-                      </li>
-                    </div>
-                    <div class="form-group half">
-                      <li class="column">
-                        <label for="gpm">GPM</label>
-                        <input id="gpm" name="gpm" value="{{model_zone.gpm}}" />
-                      </li>
-                    </div>
-                  </div>
-                  <div class="section">
-                    <div class="form-group full">
-                      <li class="column">
-                        <label for="file">Photos</label>
-                          <input id="image-upload-input" data-zone="{{model_zone.id}}" type="file" class="choose-pic" accept="image/*">
-                        {{#if model_zone.photo}}
-                          <span class="content-padded show-zone-image">
-                            <button id="zone-thumbnail" style="background-image: url({{model_zone.photoThumbnail}});width:100px;height:100px;background-size:100% 100%;" {{action 'openZoneImageView'}}></button>
-                          </span>
-                        {{/if}}
-                      </li>
-                    </div>
-                  </div>
-                  <div class="section">
-                    <div class="form-group full">
-                      <li class="column">
-                        <label for="title">Programs</label>
-                        <div class="programs">
-                          <span class="a-program">A</span>
-                          <span class="b-program">B</span>
-                          <span class="c-program">C</span>
-                          <span class="d-program">D</span>
-                        </div>
-                      </li>
-                    </div>
-                  </div>
-                  <div class="section run-zone-section">
-                    <div class="form-group full">
-                      <li class="column">
-                        <label for="title">Run Zone</label>
 
-                        {{#if showTimer }}
-                          <button class="btn btn-block btn-negative" {{action 'stop'}}>
-                            {{fa-icon 'stop'}} Stop
-                          </button>
-                        {{else}}
-                          <button class="btn btn-block btn-positive" {{action 'runZone' model_zone.description zone.zone_number}}>
-                            {{fa-icon 'check'}} Start
-                          </button>
-                        {{/if}}
-                      </li>
-                    </div>
-                  </div>
-                  <div class="section">
-                    <div class="form-group full value-status">
-                      <li class="column">
-                        <label for="date">Value Status:</label>
-                        <div class="same-line" style="width: 100%">
-                          <div class="radio-button"><input type="radio" name="valve_status" value="true" checked="{{if zone.valve_status "checked" ""}}">Pass</div>
-                          <div class="radio-button"><input type="radio" name="valve_status" value="false"  checked="{{unless zone.valve_status "checked" "" }}">Fail</div>
-                        </div>
-                      </li>
-                    </div>
-                    <div class="form-group half half-input">
-                      <li class="column">
-                        <label for="clogged-nozzle">Clogged Nozzle</label>
-                        <select id="clogged-nozzle" name="clogged_nozzle">
-                          {{#each model.selectValues as |value|}}
-                            <option value={{value.id}} selected={{eq value.id 0}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                      <li class="column">
-                        <label for="blocked-head">Blocked Head</label>
-                        <select id="blocked-head" name="blocked_head">
-                          {{#each model.selectValues as |value|}}
-                            <option value={{value.id}} selected={{eq value.id zone.blocked_head}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                    </div>
-                    <div class="form-group half half-input">
-                      <li class="column">
-                        <label for="inspection-type">Broken Head</label>
-                        <select id="broken-head" name="broken_head">
-                          {{#each model.selectValues as |value|}}
-                            <option value={{value.id}} selected={{eq value.id zone.broken_head}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                      <li class="column">
-                        <label for="inspection-type">Raise Head</label>
-                        <select id="raise-head" name="raise_head">
-                          {{#each model.selectValues as |value|}}
-                            <option value={{value.id}} selected={{eq value.id zone.raise_head}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                    </div>
-                    <div class="form-group half half-input">
-                      <li class="column">
-                        <label for="lower-head">Lower Head</label>
-                        <select id="lower-head" name="lower_head">
-                          {{#each model.selectValues as |value|}}
-                            <option value={{value.id}} selected={{eq value.id zone.lower_head}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                      <li class="column">
-                        <label for="replace-head">Replace Head</label>
-                        <select id="replace-head" name="replace_head">
-                          {{#each model.selectValues as |value|}}
-                            <option value={{value.id}} selected={{eq value.id zone.replace_head}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                    </div>
-                    <div class="form-group half half-input">
-                      <li class="column">
-                        <label for="broken-lateral">Broken Lateral</label>
-                        <select id="broken-lateral" name="broken_lateral">
-                          {{#each model.selectValues as |value|}}
-                            <option value={{value.id}} selected={{eq value.id zone.broken_lateral}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                      <li class="column">
-                        <label for="broken-main">Broken Main</label>
-                        <select id="broken-main" name="broken_main">
-                          {{#each model.selectValues as |value|}}
-                            <option value={{value.id}} selected={{eq value.id zone.broken_main}}>{{value.display}}</option>
-                          {{/each}}
-                        </select>
-                      </li>
-                    </div>
-                  </div>
-                  <div class="section">
-                    <div class="form-group half half-input">
-                      <li class="column">
-                        <label for="in-out-scope">In/Out Scope</label>
-                        <select id="in-out-scope" name="in_out_scope">
-                          <option value="scheduled">In</option>
-                          <option value="scheduled">Out</option>
-                          <option value="scheduled">None</option>
-                        </select>
-                      </li>
-                      <li class="column">
-                        <label for="estimated_cost">Estimated Cost</label> $
-                        <input id="estimated_cost" name="estimated_cost" type="text" value="{{zone.estimated_cost}}"/>
-                      </li>
-                    </div>
-                  </div>
-                  <div class="section">
-                    <div class="form-group full">
-                      <li class="column">
-                        <label for="note">Note</label>
-                        <textarea id="note" name="note" rows="4" cols="50">{{zone.note}}</textarea>
-                      </li>
-                    </div>
-                  </div>
-                  <div class="center-buttons">
-                    {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone'}}
-                    <button class="btn btn-positive">Cancel</button> {{/link-to}}
-                    <button type="submit" class="btn btn-negative" {{action 'submitForm'}}>Save</button>
-                  </div>
-                </form>
-              </div>
-              <div id="zone-image-view" class="modal {{if isZoneImageViewOpen 'active'}}">
-                <header class="bar bar-nav weathermatic-header">
-                  <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeZoneImageView'}}></a>
-                  <h1 class="title">{{fa-icon 'photo'}} Zone Image</h1>
-                </header>
-
-                <img id="zone-image" src={{model_zone.photo}} />
-              </div>
-              {{/if}}
-            {{/each}}
-          {{/if}}
-        {{/each}}
+        <img id="zone-image" src={{model_zone.photo}} />
+      </div>
+      {{/if}}
+    {{/each}}
+  {{/if}}
+{{/each}}
 
 {{!
   `actionReceiver` attribute exposes component action to the outside world.

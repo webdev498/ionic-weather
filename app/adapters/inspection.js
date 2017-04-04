@@ -59,7 +59,7 @@ const InspectionAdapter = ApplicationAdapter.extend({
         // For the inspection route, it returns:
         /* {
             "inspections": [
-                "controller": 
+                "controller":
             ]
         }
         */

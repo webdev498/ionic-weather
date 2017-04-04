@@ -10,7 +10,7 @@
 {{#pull-to-refresh refreshData='refreshData'}}
   <div class="content weathermatic-content weathermatic-controller-page">
     <!-- accomodate around pull-to-refresh -->
-    <div style="margin-top: -20px;"></div>
+    <div></div>
 
     {{need-send-message smartlinkController=model transmit='transmit'}}
 
@@ -48,7 +48,7 @@
             </li>
             <li class="table-view-cell">
               {{#link-to 'smartlink-controller.inspections' class='push-right'}}
-                {{fa-icon 'fa-clipboard spaced-icon'}} Inspections
+                {{fa-icon 'search spaced-icon'}} Inspections
               {{/link-to}}
             </li>
           </ul>

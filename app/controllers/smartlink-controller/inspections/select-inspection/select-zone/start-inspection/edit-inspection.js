@@ -24,7 +24,7 @@ export default Ember.Controller.extend({
           item.set('date', combinedDateTime);
           item.set('inspection_type', this.inspection_type);
           item.save().then(this.transitionToRoute('smartlink-controller.inspections'),
-             alert("There has been an issue creating your inspection. Please check your fields and try again")
+             alert("Inspection has been successfully updated")
           );
         }).catch(() => {
             alert("There has been an issue creating your inspection. Please check your fields and try again");
