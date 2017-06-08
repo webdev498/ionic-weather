@@ -21,6 +21,7 @@ testem.log
 # cordova
 
 cordova/hooks
+cordova/node_modules
 cordova/platforms
 cordova/plugins
 cordova/www

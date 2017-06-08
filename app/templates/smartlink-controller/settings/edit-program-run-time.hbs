@@ -12,7 +12,7 @@
   <ul class="table-view weathermatic-select-edit-program">
     <li class="table-view-cell weathermatic-select-program-a">
       <span class="pull-left">
-        <h3>Program A</h3>
+        <h3>{{t 'common.program'}} A</h3>
         {{#if model.programZoneA.program.description.length}}
           <p class="weathermatic-program-description">{{short-text model.programZoneA.program.description}}</p>
         {{/if}}
@@ -34,7 +34,7 @@
     </li>
     <li class="table-view-cell weathermatic-select-program-b">
       <span class="pull-left">
-        <h3>Program B</h3>
+        <h3>{{t 'common.program'}} B</h3>
         {{#if model.programZoneB.program.description.length}}
           <p class="weathermatic-program-description">{{short-text model.programZoneB.program.description}}</p>
         {{/if}}
@@ -56,7 +56,7 @@
     </li>
     <li class="table-view-cell weathermatic-select-program-c">
       <span class="pull-left">
-        <h3>Program C</h3>
+        <h3>{{t 'common.program'}} C</h3>
         {{#if model.programZoneC.program.description.length}}
           <p class="weathermatic-program-description">{{short-text model.programZoneC.program.description}}</p>
         {{/if}}
@@ -78,7 +78,7 @@
     </li>
     <li class="table-view-cell weathermatic-select-program-d">
       <span class="pull-left">
-        <h3>Program D</h3>
+        <h3>{{t 'common.program'}} D</h3>
         {{#if model.programZoneD.program.description.length}}
           <p class="weathermatic-program-description">{{short-text model.programZoneD.program.description}}</p>
         {{/if}}
@@ -101,7 +101,7 @@
   </ul>
   <div class="content-padded">
     <button class="btn btn-block btn-positive" {{action 'save'}}>
-      {{fa-icon 'save'}} Save Changes
+      {{fa-icon 'save'}} {{t 'common.save'}}
     </button>
   </div>
 </div>

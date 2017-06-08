@@ -15,10 +15,10 @@
         {{#link-to 'smartlink-controller.settings.edit-seasonal-adjust' month.index}}
           <h4>{{month.name}}</h4>
           <div class="segmented-control">
-            <a class="control-item weathermatic-select-program-a">A: {{month.programASeasonalAdjust.percentage}}%</a>
-            <a class="control-item weathermatic-select-program-b">B: {{month.programBSeasonalAdjust.percentage}}%</a>
-            <a class="control-item weathermatic-select-program-c">C: {{month.programCSeasonalAdjust.percentage}}%</a>
-            <a class="control-item weathermatic-select-program-d">D: {{month.programDSeasonalAdjust.percentage}}%</a>
+            <a class="control-item weathermatic-select-program-a">{{t 'common.programs.a'}}: {{month.programASeasonalAdjust.percentage}}%</a>
+            <a class="control-item weathermatic-select-program-b">{{t 'common.programs.b'}}: {{month.programBSeasonalAdjust.percentage}}%</a>
+            <a class="control-item weathermatic-select-program-c">{{t 'common.programs.c'}}: {{month.programCSeasonalAdjust.percentage}}%</a>
+            <a class="control-item weathermatic-select-program-d">{{t 'common.programs.d'}}: {{month.programDSeasonalAdjust.percentage}}%</a>
           </div>
         {{/link-to}}
       </li>

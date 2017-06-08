@@ -5,7 +5,18 @@
   <h1 class="title">{{#if model.description.length}}
           {{short-text model.description}}
           {{else}}
-          Program {{upper-case model.identifier}}
+            {{#if (eq model.identifier "A")}}
+                {{t 'common.program'}} A
+            {{/if}}
+            {{#if (eq model.identifier "B")}}
+                {{t 'common.program'}} B
+            {{/if}}
+            {{#if (eq model.identifier "C")}}
+                {{t 'common.program'}} C
+            {{/if}}
+            {{#if (eq model.identifier "D")}}
+                {{t 'common.program'}} D
+            {{/if}}
           {{/if}}</h1>
 </header>
 
@@ -21,7 +32,29 @@
           {{#if day.isOmitted}}
             <button type="button" class="btn btn-warning">X</button>
           {{else}}
-            <button type="button" class="btn {{if day.checked 'btn-success btn-active' 'btn-danger'}}" {{action "toggleDay" day}}>{{day.label}}</button>
+            <button type="button" class="btn {{if day.checked 'btn-success btn-active' 'btn-danger'}}" {{action "toggleDay" day}}>
+            {{#if (eq day.label "Sun")}}
+              {{t 'common.daysOfWeek.sun'}}
+            {{/if}}
+            {{#if (eq day.label "Mon")}}
+              {{t 'common.daysOfWeek.mon'}}
+            {{/if}}
+            {{#if (eq day.label "Tue")}}
+              {{t 'common.daysOfWeek.tue'}}
+            {{/if}}
+            {{#if (eq day.label "Wed")}}
+              {{t 'common.daysOfWeek.wed'}}
+            {{/if}}
+            {{#if (eq day.label "Thu")}}
+              {{t 'common.daysOfWeek.thurs'}}
+            {{/if}}
+            {{#if (eq day.label "Fri")}}
+              {{t 'common.daysOfWeek.fri'}}
+            {{/if}}
+            {{#if (eq day.label "Sat")}}
+              {{t 'common.daysOfWeek.sat'}}
+            {{/if}}
+            </button>
           {{/if}}
         {{/each}}
         </div>
@@ -42,30 +75,30 @@
 
     <li class="table-view-cell">
       <a href="javascript:void(0)" class="push-right" {{action 'setEditDescriptionOpen'}}>
-        Description
+        {{t 'common.description'}}
       </a>
     </li>
 
     <li class="table-view-cell">
-      <a href="javascript:void(0)" class="push-right" {{action 'setProgramTypeOpen'}} data-value="{{programInstance.selectedProgramType.value}}">
-        {{programInstance.selectedProgramType.label}}
+      <a href="javascript:void(0)" class="push-right program" {{action 'setProgramTypeOpen'}} data-value="{{programInstance.selectedProgramType.value}}">
+        {{t 'common.dayOfWeek'}}
       </a>
     </li>
 
     {{#if isOddEvenProgramTypeSelected}}
      <li class="table-view-cell">
-      <a href="javascript:void(0)" class="push-right" {{action 'setOddEvenOpen'}} data-value="{{programInstance.selectedOddEvenProgram.value}}">
+      <a href="javascript:void(0)" class="push-right odd" {{action 'setOddEvenOpen'}} data-value="{{programInstance.selectedOddEvenProgram.value}}">
         {{programInstance.selectedOddEvenProgram.label}}
       </a>
     </li>
     {{else if isIntervalProgramTypeSelected}}
       <li class="table-view-cell">
-        <a href="javascript:void(0)" class="push-right" {{action 'setIntervalOpen'}} data-value="{{programInstance.selectedIntervalProgram.interval_start}}">
+        <a href="javascript:void(0)" class="push-right start" {{action 'setIntervalOpen'}} data-value="{{programInstance.selectedIntervalProgram.interval_start}}">
           {{programInstance.selectedIntervalProgram.interval_start_label}}
         </a>
       </li>
       <li class="table-view-cell">
-        <a href="javascript:void(0)" class="push-right" {{action 'setIntervalOpen'}} data-value="{{programInstance.selectedIntervalProgram.days_interval}}">
+        <a href="javascript:void(0)" class="push-right days" {{action 'setIntervalOpen'}} data-value="{{programInstance.selectedIntervalProgram.days_interval}}">
           {{programInstance.selectedIntervalProgram.days_interval_label}}
         </a>
       </li>
@@ -74,11 +107,11 @@
        <li class="table-view-cell">
         <a href="javascript:void(0)" class="push-right" {{action 'setStartTimeOpen' programStartTime.id}}>
           {{#if programStartTime.start_time.length}}
-            <small>Start Time {{programStartTime.number}}:</small>
+            <small>{{t 'common.startTime'}} {{programStartTime.number}}:</small>
             <strong>{{format-time programStartTime.start_time}}</strong>
           {{else}}
-            <small>Start Time {{programStartTime.number}}: </small>
-            <strong>Off</strong>
+            <small>{{t 'common.startTime'}} {{programStartTime.number}}: </small>
+            <strong>{{t 'common.off'}}</strong>
           {{/if}}
         </a>
       </li>
@@ -86,7 +119,7 @@
   </ul>
   <div class="content-padded">
     <button style="padding: 15px 1px; font-size: 18px;" class="btn btn-block btn-positive" {{action 'save'}}>
-      {{fa-icon 'save'}} Save Changes
+      {{fa-icon 'save'}} {{t 'common.save'}}
     </button>
   </div>
   </div>
@@ -176,7 +209,7 @@
   <div class="content weathermatic-content" data-value="{{programInstance.currentSelectedStartTime.id}}">
     <center>
     <form class="weathermatic-zone-configure-auto-adjust">
-      <p>Start Time:</p>
+      <p>{{t 'common.startTime'}}:</p>
       <center>
        <select onchange={{action (mut programInstance.currentSelectedTimeSlot.id) value="target.value"}}>
          {{#each availableTimeSlots as |slot|}}

@@ -7,26 +7,41 @@
 <div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
-      {{fa-icon 'leaf'}} Edit inspection
+      {{fa-icon 'leaf'}} {{t 'inspections.title'}}
     </li>
   </ul>
   <form {{action "submission" model.inspection.title date time scheduleSelect on="submit"}} class="weathermatic-page-bottom edit-inspection-form">
-    <label for="title">Inspection Title</label>
+    <label for="title">{{t 'inspections.title'}}</label>
     {{input id="title" name="title" value=model.inspection.title type="text" placeholder="Enter a Title"}}
-    <label for="date">Date & Time</label>
+    <label for="date">{{t 'inspections.date'}}</label>
     <div class="same-line" style="width: 100%">
       {{input id="date" type="date" value=date}}  {{input id="time" type="time" value=time}}
     </div>
-    <label for="inspection-type">Inspection Type</label>
-    <select id="scheduled-select" name="cars" onchange={{action 'onSelectEntityType' value="target.value"}}>
-      <option value="0" >Scheduled Inspection</option>
-      <option value="1">Service Call</option>
-    </select>
+
+
+    <label for="inspection-type">{{t 'inspections.type'}}</label>
+    <div class="same-line" style="width: 100%">
+      <div class="radio-button">
+        <input type="radio" id="scheduled-select-two" name="cars" value="1" onchange={{action 'onSelectEntityType' 1}} checked={{eq model.inspection.inspection_type 1}}>
+        <label for="scheduled-select-two">{{t 'inspections.schedule'}}</label>
+      </div>
+      <div class="radio-button">
+        <input type="radio" id="scheduled-select" name="cars" value="0"  onchange={{action 'onSelectEntityType' 0}} checked={{eq model.inspection.inspection_type 0}}>
+        <label for="scheduled-select">{{t 'inspections.service'}}</label>
+      </div>
+    </div>
+
     <div class="center-buttons">
       {{#link-to 'smartlink-controller.inspections'}}
-        <button class="btn btn-positive">Cancel</button>
+        <button class="btn btn-negative">{{t 'common.cancel'}}</button>
       {{/link-to}}
-        <button type="submit" class="btn btn-negative">Save Inspection</button>
+        <button type="submit" class="btn btn-positive">
+        {{#if (eq inspection_status "Start Inspection")}}
+            {{t 'selectProgram.programA'}}
+        {{else}}
+            {{inspections.start}}
+        {{/if}}
+        </button>
     </div>
   </form>
 </div>

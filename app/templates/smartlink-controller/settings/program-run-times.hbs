@@ -15,9 +15,9 @@
         {{#link-to 'smartlink-controller.settings.edit-program-run-time' zone.id}}
           {{#if zone.description}}
             {{short-text zone.description size=20}}
-            <p>Zone {{zone.number}}</p>
+            <p>{{t 'common.zone'}} {{zone.number}}</p>
           {{else}}
-            Zone {{zone.number}}
+            {{t 'common.zone'}} {{zone.number}}
             <p>&nbsp;</p>
           {{/if}}
         {{/link-to}}

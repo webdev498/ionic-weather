@@ -6,10 +6,10 @@ const InspectionAdapter = ApplicationAdapter.extend({
     buildURL: function (type, id, snapshot) {
         //Let's get the current controller id
         var controller = this.get('store').peekAll('smartlinkController');
-        var controllerId = 0;
-        if(controller.objectAt(0)) {
-            controllerId = controller.objectAt(0).id;
-        }
+
+        //gotta find a better way to do this???
+        var controllerId = location.href.split('/inspections')[0].split('/controllers/')[1];
+
         var url = this.host + '/' + this.namespace + '/controllers/' + controllerId + '/inspections';
         //If this is a request for the single inspection, our id will be defined
         if(id) {
@@ -41,34 +41,16 @@ const InspectionAdapter = ApplicationAdapter.extend({
 
     //Overriding the handleResponse from the application adapter as it seems inspections are a bit different
     handleResponse(status, _headers, json) {
-        //  Weathermatic API responses are wrapped in an object called `result`, e.g.
-        //
-        //  {
-        //    "result": {
-        //      "site": { ... }
-        //    },
-        //    "meta": { ... }
-        //  }
-        //
-        //  We want something like this instead:
-        //  {
-        //    "site": { ... },
-        //    "meta": { ... }
-        //  }
-        //
-        // For the inspection route, it returns:
-        /* {
-            "inspections": [
-                "controller":
-            ]
-        }
-        */
         if (status !== 200) {
-            throw new Error("InspectionAdapter.handleResponse() got non-success status code: ", status);
+            if(json.error){
+
+            }
         }
-        console.log("inspection returns: ");
-        console.log(json);
+        if(json.total_pages >= 0 && !json.inspections){
+            json.inspections = []
+        }
         if(json.inspections) {
+            this.get('store').unloadAll('inspection');
             for(var i = 0; i < json.inspections.length; i++) {
                 var inspection = json.inspections[i];
                 //Now, set the embedded inspection attrs

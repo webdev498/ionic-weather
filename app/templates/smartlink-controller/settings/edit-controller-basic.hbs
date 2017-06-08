@@ -3,7 +3,7 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'gear'}} Basic Settings</h1>
+  <h1 class="title">{{fa-icon 'gear'}} {{t 'basicSettings.subTitle'}}</h1>
 </header>
 
 <div class="content weathermatic-content">
@@ -11,13 +11,13 @@
 
   <ul class="table-view">
     <li class="table-view-cell">
-      <span>Date</span>
+      <span>{{t 'basicSettings.date'}}</span>
       <span class="pull-right weathermatic-settings-date">
         {{input type='date' value=deviceTimeDate}}
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Time</span>
+      <span>{{t 'basicSettings.time'}}</span>
       <span class="pull-right weathermatic-settings-input-time">
         <select onchange={{action (mut deviceTimeHours) value="target.value"}}>
           {{#each availableHours as |hour|}}
@@ -42,7 +42,7 @@
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Controller Time Zone</span>
+      <span>{{t 'basicSettings.timeZone'}}</span>
       <span class="pull-right weathermatic-settings-input-large">
         <select onchange={{action (mut model.timezone) value="target.value"}}>
           {{#each availableTimezones as |zone|}}
@@ -53,35 +53,51 @@
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Run Status</span>
+      <span>{{t 'basicSettings.runStatus'}}</span>
       <span class="pull-right weathermatic-settings-input-large">
         <select onchange={{action (mut model.runStatus) value="target.value"}}>
           {{#each availableRunStatuses as |status|}}
-            <option value={{status.value}}
-              selected={{equiv status.value model.runStatus}}
-              disabled={{status.disabled}}>{{status.label}}</option>
+            {{#if (eq status.label "Run")}}
+              <option value={{status.value}}
+                selected={{equiv status.value model.runStatus}}
+                disabled={{status.disabled}}>{{t 'basicSettings.runStatus1'}}</option>
+            {{else}}
+              <option value={{status.value}}
+                selected={{equiv status.value model.runStatus}}
+                disabled={{status.disabled}}>{{status.label}}</option>
+            {{/if}}
           {{/each}}
         </select> :
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Watering Mode</span>
+      <span>{{t 'basicSettings.waterMode'}}</span>
       <span class="pull-right weathermatic-settings-input-large">
         <select onchange={{action (mut model.wateringMode) value="target.value"}}>
           {{#each availableWateringModes as |mode|}}
-            <option value={{mode.value}}
-              selected={{equiv mode.value model.wateringMode}}>{{mode.label}}</option>
+            {{#if (eq mode.label "Basic (Standard)")}}
+              <option value={{mode.value}}
+                selected={{equiv mode.value model.wateringMode}}>{{t 'basicSettings.waterMode1'}}</option>
+            {{else}}
+              <option value={{mode.value}}
+                selected={{equiv mode.value model.wateringMode}}>{{t 'basicSettings.waterMode2'}}</option>
+            {{/if}}
           {{/each}}
         </select> :
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Rain/Freeze</span>
+      <span>{{t 'basicSettings.rainMode'}}</span>
       <span class="pull-right weathermatic-settings-input-large">
         <select onchange={{action (mut model.rainFreezeSensorMode) value="target.value"}}>
           {{#each availableRainFreeze as |mode|}}
-            <option value={{mode.value}}
-              selected={{equiv mode.value model.rainFreezeSensorMode}}>{{mode.label}}</option>
+            {{#if (eq mode.label "Active")}}
+              <option value={{mode.value}}
+                selected={{equiv mode.value model.rainFreezeSensorMode}}>{{t 'controllerOptions.rainStatusActive'}}</option>
+            {{else}}
+              <option value={{mode.value}}
+                selected={{equiv mode.value model.rainFreezeSensorMode}}>{{t 'controllerOptions.rainStatusBypass'}}</option>
+            {{/if}}
           {{/each}}
         </select> :
       </span>
@@ -89,7 +105,7 @@
   </ul>
   <div class="content-padded">
     <button class="btn btn-block btn-positive" {{action 'save'}}>
-      {{fa-icon 'save'}} Save Changes
+      {{fa-icon 'save'}} {{t 'common.save'}}
     </button>
   </div>
 </div>

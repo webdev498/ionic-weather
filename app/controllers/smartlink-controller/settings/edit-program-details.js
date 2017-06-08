@@ -3,6 +3,7 @@ import leftPad from '../../../util/strings/left-pad';
 import SmartlinkSaveMixin from '../../../mixins/smartlink-save';
 import formatTime from '../../../util/time-formatter';
 import config from '../../../config/environment';
+import { translationMacro as t } from "ember-i18n";
 
 const { Logger: { debug }, Controller, computed, get, set } = Ember;
 
@@ -10,6 +11,8 @@ const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSa
 
   pendingDescription: '',
   isEditDescriptionOpen: false,
+
+  i18n: Ember.inject.service(),
 
   intervalStartAsInt: computed('programInstance.selectedIntervalProgram.interval_start', function() {
     return parseInt(this.get('programInstance.selectedIntervalProgram.interval_start'));
@@ -42,13 +45,13 @@ const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSa
     this.set('PROGRAM_TYPE_ENUM', PROGRAM_TYPE_ENUM);
     programTypes = [
       {
-        label: 'Day of Week',
+        label: this.get('i18n').t('common.dayOfWeek'),
         value: this.get('PROGRAM_TYPE_ENUM').DAYS_OF_WEEK
       }, {
-        label: 'Odd/Even',
+        label: this.get('i18n').t('common.odd') + '/' + this.get('i18n').t('common.even'),
         value: this.get('PROGRAM_TYPE_ENUM').ODD_EVEN
       }, {
-        label: 'Interval',
+        label: this.get('i18n').t('common.interval'),
         value: this.get('PROGRAM_TYPE_ENUM').INTERVAL
       }
     ];
@@ -118,7 +121,7 @@ const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSa
     timeSlots = [
       {
         id: 0,
-        value: 'Off'
+        value: this.get('i18n').t('common.off')
       }, {
         id: 1,
         value: '12:00'
@@ -338,7 +341,7 @@ const SmartlinkControllerProgramDetailController = Controller.extend(SmartlinkSa
       }
     ];
     this.set('availableTimeSlots', timeSlots);
-    amPM = ['am', 'pm'];
+    amPM = [this.get('i18n').t('common.am'), this.get('i18n').t('common.pm')];
     this.set('availableAmPm', amPM);
     programInstance = {
       selectedProgramType: {},

@@ -3,23 +3,23 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
   <h1 class="title">
-    {{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - Run Program
+    {{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - {{t 'controllerOptions.runProgram'}}
   </h1>
 </header>
 
 <div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
-      Confirm Program
+      {{t 'confirmProgram.subTitle'}}
     </li>
     <li class="table-view-cell">
-      Site
+      {{t 'common.site'}}
       <button class="btn">
         {{fa-icon 'building'}} {{model.smartlinkController.site.name}}
       </button>
     </li>
     <li class="table-view-cell">
-      Controller
+      {{t 'common.controller'}}
       <button class="btn">
         {{fa-icon 'signal'}} {{model.smartlinkController.name}}
       </button>
@@ -27,10 +27,21 @@
   </ul>
 
   <div class="content-padded">
-    <p>We're about to run</p>
+    <p>{{t 'confirmZone.zonePrompt'}}</p>
   </div>
   <span class="btn btn-block weathermatic-btn-run-program {{cssClass}}">
-    <h3>{{fa-icon 'play'}} Program {{upper-case model.identifier}}</h3>
+    {{#if (eq model.identifier "A")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programA'}}</h3>
+    {{/if}}
+    {{#if (eq model.identifier "B")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programB'}}</h3>
+    {{/if}}
+    {{#if (eq model.identifier "C")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programC'}}</h3>
+    {{/if}}
+    {{#if (eq model.identifier "D")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programD'}}</h3>
+    {{/if}}
     {{#if model.description.length}}
       <p class="weathermatic-run-program-description">
         {{model.description}}
@@ -39,14 +50,14 @@
   </span>
 
   <div class="content-padded">
-    <p>Ready?</p>
+    <p>{{t 'common.buttonPrompt'}}</p>
 
     <button class="btn btn-block btn-positive" {{action 'runProgram'}}>
-      {{fa-icon 'check'}} Go!
+      {{fa-icon 'check'}} {{t 'common.go'}}
     </button>
 
     {{#link-to 'smartlink-controller' class='btn btn-block btn-negative'}}
-      {{fa-icon 'times-circle'}} Cancel
+      {{fa-icon 'times-circle'}} {{t 'common.cancel'}}
     {{/link-to}}
   </div>
 </div>

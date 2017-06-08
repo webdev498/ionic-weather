@@ -1,6 +1,17 @@
 <li class="table-view-cell weathermatic-select-program {{cssClass}}">
   {{#link-to 'smartlink-controller.run-program' program.id class='push-right'}}
-    <h3>Run Program {{upper-case program.identifier}}</h3>
+    {{#if (eq program.identifier "A")}}
+        <h3>{{t 'selectProgram.programA'}}</h3>
+    {{/if}}
+    {{#if (eq program.identifier "B")}}
+        <h3>{{t 'selectProgram.programB'}}</h3>
+    {{/if}}
+    {{#if (eq program.identifier "C")}}
+        <h3>{{t 'selectProgram.programC'}}</h3>
+    {{/if}}
+    {{#if (eq program.identifier "D")}}
+        <h3>{{t 'selectProgram.programD'}}</h3>
+    {{/if}}
     {{#if program.description.length}}
       <p class="weathermatic-program-description">{{short-text program.description}}</p>
     {{/if}}

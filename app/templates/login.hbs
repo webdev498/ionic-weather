@@ -7,7 +7,7 @@
     <form id="login-form" onsubmit="return false;" {{action 'logIn' on='submit'}}>
       <center>
         <h2>
-          {{fa-icon 'key'}} Please log in
+          {{fa-icon 'key'}} {{t 'login.text'}}
         </h2>
         <br>
         {{input type='email' placeholder='Email' value=email required=true}}
@@ -26,9 +26,9 @@
           {{action 'logIn'}} {{bind-attr disabled=isLoading}}>
 
           {{#if hasErrored}}
-            Retry
+            {{t 'login.retryButton'}}
           {{else}}
-            Log In
+            {{t 'login.loginButton'}}
           {{/if}}
 
           {{#if isLoading}}
@@ -40,16 +40,16 @@
         {{#if isError}}
           <div class="errors">
             <center>
-              <h4>{{fa-icon 'warning'}} Login failed</h4>
+              <h4>{{fa-icon 'warning'}} {{t 'login.error'}}</h4>
             </center>
-            <p class="messages">Please check your email and password</p>
+            <p class="messages">{{t 'login.errorMessage'}}</p>
           </div>
         {{/if}}
-        <p class="login-help">If you don't have an account yet, please go to
+        <p class="login-help">{{t 'login.disclaimer'}}
           <a href="javascript:void(0)" {{action 'createAccount'}}>
             <strong>smartlinknetwork.com</strong>
           </a>
-          and sign up.
+          {{t 'login.disclaimerCont'}}
         </p>
       </center>
     </form>
@@ -60,7 +60,7 @@
   <div class="content-padded loading-icon">
     <br>
     <h1>
-      <center>{{fa-icon 'spinner fa-pulse'}} Loading…</center>
+      <center>{{fa-icon 'spinner fa-pulse'}} {{t 'common.status'}}</center>
     </h1>
   </div>
 </div>

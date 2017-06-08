@@ -2,36 +2,36 @@
   {{#link-to 'smartlink-controller.select-zone' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'signal'}} {{short-text model.smartlinkController.name size=15}} - Run Zone</h1>
+  <h1 class="title">{{fa-icon 'signal'}} {{short-text model.smartlinkController.name size=15}} - {{t 'common.runZone'}}</h1>
 </header>
 
 <div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
-      Confirm Zone
+      {{t 'confirmZone.subTitle'}}
     </li>
     <li class="table-view-cell">
-      Site <button class="btn"> {{fa-icon 'building'}} {{model.smartlinkController.site.name}}</button>
+      {{t 'common.site'}}  <button class="btn"> {{fa-icon 'building'}} {{model.smartlinkController.site.name}}</button>
     </li>
     <li class="table-view-cell">
-      Controller <button class="btn"> {{fa-icon 'signal'}} {{model.smartlinkController.name}}</button>
+      {{t 'common.controller'}}  <button class="btn"> {{fa-icon 'signal'}} {{model.smartlinkController.name}}</button>
     </li>
   </ul>
 
   <div class="content-padded">
-    <p>We're about to run</p>
+    <p>{{t 'confirmZone.zonePrompt'}} </p>
 
     <span class="btn btn-block">
       {{#if model.description}}
         <h3>{{fa-icon 'leaf'}} {{short-text model.description size=20}}</h3>
-        <p>Zone {{model.number}}</p>
+        <p>{{t 'common.zone'}} {{model.number}}</p>
       {{else}}
-        <h3>{{fa-icon 'leaf'}} Zone {{model.number}}</h3>
+        <h3>{{fa-icon 'leaf'}} {{t 'common.zone'}} {{model.number}}</h3>
       {{/if}}
     </span>
 
     <form class="weathermatic-run-zone-select-run-time">
-      <p>for this amount of time</p>
+      <p>{{t 'confirmZone.timePrompt'}}</p>
       <center>
         <select onchange={{action (mut runTimeHours) value="target.value"}}>
           {{#each availableRunTimeHours as |hour|}}
@@ -48,14 +48,14 @@
       </center>
     </form>
 
-    <p>Ready?</p>
+    <p>{{t 'common.buttonPrompt'}}</p>
 
     <button class="btn btn-block btn-positive" {{action 'runZone' model.description model.number}}>
-      {{fa-icon 'check'}} Go!
+      {{fa-icon 'check'}} {{t 'common.go'}}
     </button>
 
     <button class="btn btn-block btn-negative" {{action 'stop'}}>
-      {{fa-icon 'times-circle'}} Cancel
+      {{fa-icon 'times-circle'}} {{t 'common.cancel'}}
     </button>
   </div>
 </div>

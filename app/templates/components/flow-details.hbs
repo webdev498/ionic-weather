@@ -1,9 +1,9 @@
 {{#link-to 'smartlink-controller.settings.edit-flow' zone.id}}
   {{#if zone.description}}
     Edit {{short-text zone.description size=20}}
-    <p>Zone {{zone.number}}</p>
+    <p>{{t 'common.zone'}} {{zone.number}}</p>
   {{else}}
-    Edit Zone {{zone.number}}
+    {{t "programming.editZone"}} {{zone.number}}
   {{/if}}
   <p style="clear: both;">
     {{#if zone.smartlinkController.isRealtimeFlow}}
@@ -35,7 +35,7 @@
       <span class="badge">{{gpmInLocalUnits}}</span>
     {{/if}}
 
-    <span class="badge">Valve Size {{valveSizeInLocalUnits}}</span>
+    <span class="badge">{{t 'inspectionDetails.valveSize'}} {{valveSizeInLocalUnits}}</span>
   </p>
 
 {{/link-to}}

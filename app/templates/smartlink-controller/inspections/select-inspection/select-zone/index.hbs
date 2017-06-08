@@ -8,18 +8,21 @@
 <div class="content weathermatic-content">
   <ul class="table-view weathermatic-page-bottom">
     <li class="table-view-cell table-view-divider">
-      {{fa-icon 'signal'}} Select a Zone to Inspect
+      {{fa-icon 'signal'}} {{t 'inspections.subTitle'}}
     </li>
-    {{#each model.inspections_zones as |zone|}}
+    {{#each model.zones as |zone|}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.start-inspection' zone.id class='push-right'}}
           {{#if zone.description}}
             {{zone.description}}
-            <p>Zone {{zone.zone_number}}</p>
+            <p>{{t 'common.zone'}} {{zone.number}}</p>
           {{else}}
-            Run Zone {{zone.zone_number}}
+            {{t 'common.zone'}} {{zone.number}}
             <p>&nbsp;</p>
           {{/if}}
+        {{#if zone.status}}
+          <div class="checked">{{fa-icon 'check'}}</div>
+        {{/if}}
         {{/link-to}}
       </li>
     {{else}}

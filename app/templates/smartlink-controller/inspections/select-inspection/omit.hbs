@@ -2,7 +2,7 @@
   {{#link-to 'smartlink-controller.inspections.select-inspection' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'fa-clipboard'}} Omit Inspections </h1>
+  <h1 class="title">{{fa-icon 'fa-clipboard'}} {{t 'omit.title'}} </h1>
 </header>
 <div id="omit-inspection" class="content weathermatic-content">
   <ul class="table-view">
@@ -12,7 +12,7 @@
   </ul>
   <div class="general-info">
     <div class="section">
-      <h2 class="section-title">Omit Specific Times</h2>
+      <h2 class="section-title">{{t 'omit.specificTime'}}</h2>
       <ul class="section-content">
         {{#if (isArrayEmpty model.controller_omission_times)}}
         <li class="section-list">None</li>
@@ -23,22 +23,22 @@
         {{/if}}
       </ul>
     </div>
-    <div class="section">
+    <div class="section new">
       <div class="section-title">
-        <span class="omit-title">Omit Days of Week</span>
+        <span class="omit-title">{{t 'omit.specificDay'}}</span>
       </div>
       <ul class="days-of-week">
-        <li class="day {{if (arrayContainsDay model.controller_omission_days '0') "active"}}">S</li>
-        <li class="day {{if (arrayContainsDay model.controller_omission_days '1') "active"}}">M</li>
-        <li class="day {{if (arrayContainsDay model.controller_omission_days '2') "active"}}">T</li>
-        <li class="day {{if (arrayContainsDay model.controller_omission_days '3') "active"}}">W</li>
-        <li class="day {{if (arrayContainsDay model.controller_omission_days '4') "active"}}">T</li>
-        <li class="day {{if (arrayContainsDay model.controller_omission_days '5') "active"}}">F</li>
-        <li class="day {{if (arrayContainsDay model.controller_omission_days '6') "active"}}">S</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '0') "active"}}">{{t 'programInspection.daysOfWeek.sun'}}</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '1') "active"}}">{{t 'programInspection.daysOfWeek.mon'}}</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '2') "active"}}">{{t 'programInspection.daysOfWeek.tue'}}</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '3') "active"}}">{{t 'programInspection.daysOfWeek.wed'}}</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '4') "active"}}">{{t 'programInspection.daysOfWeek.thurs'}}</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '5') "active"}}">{{t 'programInspection.daysOfWeek.fri'}}</li>
+        <li class="day {{if (arrayContainsDay model.controller_omission_days '6') "active"}}">{{t 'programInspection.daysOfWeek.sat'}}</li>
       </ul>
     </div>
     <div class="section">
-      <h2 class="section-title">Omit Event Dates</h2>
+      <h2 class="section-title">{{t 'omit.specificDates'}}</h2>
       <ul class="section-content">
         {{#if (isArrayEmpty model.controller_omission_dates)}}
           <li class="section-list">None</li>

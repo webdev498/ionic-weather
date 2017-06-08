@@ -3,7 +3,7 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'gear'}} Program Settings</h1>
+  <h1 class="title">{{fa-icon 'gear'}} {{t 'programming.program'}}</h1>
 </header>
 
 <div class="content weathermatic-content">
@@ -13,40 +13,40 @@
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.program-details'}}
         <div class="media-body">
-          <h2>{{fa-icon 'play spaced-icon'}} Days &amp; Start Times</h2>
-          <p>Edit watering days and start times</p>
+          <h2>{{fa-icon 'play spaced-icon'}} {{t 'programSettings.dayTime'}}</h2>
+          <p>{{t 'programSettings.dayMessage'}}</p>
         </div>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.program-run-times'}}
         <div class="media-body">
-          <h2>{{fa-icon 'clock-o spaced-icon'}} Zone Run Times</h2>
-          <p>Edit zone run times by program</p>
+          <h2>{{fa-icon 'clock-o spaced-icon'}} {{t 'programSettings.zoneTime'}}</h2>
+          <p>{{t 'programSettings.zoneMessage'}}</p>
         </div>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.auto-adjust'}}
         <div class="media-body">
-          <h2>{{fa-icon 'tree spaced-icon'}} {{t 'programming.smart'}}</h2>
-          <p>Edit  {{t 'programming.smart'}} settings</p>
+          <h2>{{fa-icon 'tree spaced-icon'}} {{t 'programSettings.programSmart'}}</h2>
+          <p>{{t 'programSettings.programMessage'}}</p>
         </div>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-omit-times'}}
         <div class="media-body">
-          <h2>{{fa-icon 'times-circle-o spaced-icon'}} Omit Days &amp; Times </h2>
-          <p>Edit omit times/days/dates</p>
+          <h2>{{fa-icon 'times-circle-o spaced-icon'}} {{t 'programSettings.omitTime'}} </h2>
+          <p>{{t 'programSettings.omitMessage'}}</p>
         </div>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.seasonal-adjust'}}
         <div class="media-body">
-          <h2>{{fa-icon 'calendar spaced-icon'}} Seasonal Adjust</h2>
-          <p>Edit monthly seasonal % by program</p>
+          <h2>{{fa-icon 'calendar spaced-icon'}} {{t 'programSettings.seasonalAdjust'}}</h2>
+          <p>{{t 'programSettings.seasonalMessage'}}</p>
         </div>
       {{/link-to}}
     </li>

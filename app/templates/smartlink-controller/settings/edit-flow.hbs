@@ -3,7 +3,7 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'gear'}} Flow Settings</h1>
+  <h1 class="title">{{fa-icon 'gear'}} {{t 'programming.flow'}}</h1>
 </header>
 
 <div class="content weathermatic-content">
@@ -60,7 +60,7 @@
       </li>
     {{/if}}
     <li class="table-view-cell">
-      <span class="pull-left">Valve Size</span>
+      <span class="pull-left">{{t 'inspectionDetails.valveSize'}}</span>
       <span class="pull-right weathermatic-settings-input-medium-2">
         <select onchange={{action (mut model.valveSize) value="target.value"}}>
           {{#each availableValveSizes as |size|}}
@@ -74,7 +74,7 @@
   </ul>
   <div class="content-padded">
     <button class="btn btn-block btn-positive" {{action 'save'}}>
-      {{fa-icon 'save'}} Save Changes
+      {{fa-icon 'save'}} {{t 'common.save'}}
     </button>
   </div>
 </div>

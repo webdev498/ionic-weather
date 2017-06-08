@@ -3,14 +3,14 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
   <h1 class="title">
-    {{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - Select Program
+    {{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - {{t 'selectProgram.headerTitle'}}
   </h1>
 </header>
 
 <div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider weathermatic-select-program-call-to-action">
-      {{fa-icon 'play'}} Select a Program
+      {{fa-icon 'play'}} {{t 'selectProgram.subTitle'}}
     </li>
     {{#each model as |program|}}
       {{select-program-item program=program}}
@@ -30,7 +30,7 @@
 
   <div class="content-padded">
     {{#link-to 'smartlink-controller' class='btn btn-block btn-negative'}}
-      {{fa-icon 'times-circle'}} Cancel
+      {{fa-icon 'times-circle'}} {{t 'common.cancel'}}
     {{/link-to}}
   </div>
 </div>

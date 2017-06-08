@@ -31,27 +31,56 @@
 </div>
 {{/liquid-bind}}
 
+  emailInspection: {
+    //title: "Email Inspection",
+    discliamer: "What email(s) would you like to send the inspection to?",
+    fileType: "What type of file do you want to attach:",
+    file: {
+      pdf: "PDF",
+      xls: "XLS"
+    },
+    includePhotos: "Do you want to include photos?",
+    photos: {
+      yes: "Yes",
+      no: "No"
+    }
+  },
+
+
+
 <div id="auto-adjust-menu" class="modal select-inspection {{if isEmailInspectionOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeEmailInspectionMenu'}}></a>
     <h1 class="title">{{fa-icon 'bookmark'}} Email Inspection</h1>
   </header>
   <form id="send-inspection" class="weathermatic-page-bottom email-inspection-form">
-    <label for="emails">What email(s) would you like to send the inspection to? (Comma Seperated)</label>
-    <input id="emails" name="emails" type="text" />
-    <label for="date">What type of file do you want to attach:</label>
+    <label for="emails">{{t 'emailInspection.discliamer'}}</label>
+    <input id="emails" name="emails" type="email" required=""/>
+    <label for="date">{{t 'emailInspection.fileType'}}</label>
     <div class="same-line">
-      <div class="radio-button"><input type="radio" name="fileGroup" value="pdf" checked>PDF</div>
-      <div class="radio-button"><input type="radio" name="fileGroup" value="xls">XLS</div>
+      <div class="radio-button">
+        <input type="radio" id="pdf" name="fileGroup" value="pdf" checked>
+        <label for="pdf">{{t 'emailInspection.file.pdf'}}</label>
+      </div>
+      <div class="radio-button">
+        <input id="xls" type="radio" name="fileGroup" value="xls">
+        <label for="xls">{{t 'emailInspection.file.xls'}}</label>
+      </div>
     </div>
-    <label for="inspection-type">Do you want to include photos?</label>
+    <label for="inspection-type">{{t 'emailInspection.includePhotos'}}</label>
     <div class="same-line">
-      <div class="radio-button"><input type="radio" name="photoGroup" value="true" checked>Yes</div>
-      <div class="radio-button"><input type="radio" name="photoGroup" value="false">No</div>
+      <div class="radio-button">
+        <input type="radio" id="includePhotos" name="photoGroup" value="true" checked>
+        <label for="includePhotos">{{t 'emailInspection.photos.yes'}}</label>
+      </div>
+      <div class="radio-button">
+        <input type="radio" id="noPhotos" name="photoGroup" value="false">
+        <label for="noPhotos">{{t 'emailInspection.photos.no'}}</label>
+      </div>
     </div>
     <div class="center-buttons">
-        <button class="btn btn-positive" {{action 'closeEmailInspectionMenu'}}>Cancel</button>
-        <button type="submit" class="btn btn-negative" {{action 'sendInspectionEmail'}}>Send</button>
+        <button class="btn btn-positive" {{action 'closeEmailInspectionMenu'}}>{{t 'common.cancel'}}</button>
+        <button type="submit" class="btn btn-negative" {{action 'sendInspectionEmail'}}>{{t 'menu.advance.sendButton'}}</button>
     </div>
   </form>
 </div>

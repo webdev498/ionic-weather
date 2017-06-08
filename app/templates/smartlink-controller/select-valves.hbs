@@ -2,22 +2,22 @@
   {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
-  <h1 class="title">{{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - Locate Valves</h1>
+  <h1 class="title">{{fa-icon 'signal'}} {{short-text smartlinkController.name size=15}} - {{t 'controllerOptions.locateValve'}}</h1>
 </header>
 
 <div class="content weathermatic-content">
   <ul class="table-view weathermatic-page-bottom">
     <li class="table-view-cell table-view-divider">
-      {{fa-icon 'crosshairs'}} Select a Zone to Locate
+      {{fa-icon 'crosshairs'}} {{t 'locateValve.subTitle'}}
     </li>
     {{#each model as |zone|}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.locate-valves' zone.id class='push-right'}}
           {{#if zone.description}}
             {{zone.description}}
-            <p>Zone {{zone.number}}</p>
+            <p>{{t 'common.zone'}} {{zone.number}}</p>
           {{else}}
-            Locate Zone {{zone.number}}
+            {{t 'common.locateZone'}} {{zone.number}}
             <p>&nbsp;</p>
           {{/if}}
         {{/link-to}}

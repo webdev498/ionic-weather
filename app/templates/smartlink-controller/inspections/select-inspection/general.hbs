@@ -12,42 +12,41 @@
   </ul>
   <div class="general-info">
     <div class="section">
-      <h2 class="section-title">Inspection</h2>
+      <h2 class="section-title">{{t 'inspections.inspection'}}</h2>
       <ul class="section-content">
-        <li class="section-list"><span>Date:</span> {{model.date}} </li>
-        <li class="section-list"><span>Inspector:</span> {{model.inspector_name}} </li>
-        <li class="section-list"><span>Type:</span> Scheduled Inspection</li>
-        <li class="section-list"><span>Compliant:</span>
+        <li class="section-list"><span>{{t 'generalInspection.date'}}:</span> {{model.inspection.date}} </li>
+        <li class="section-list"><span>{{t 'generalInspection.inspector'}}:</span> {{model.inspection.inspector_name}} </li>
+        <li class="section-list"><span>{{t 'generalInspection.type'}}:</span> {{scheduleType}}</li>
+        <li class="section-list"><span>{{t 'generalInspection.compliant'}}:</span>
         {{#if model.prior_configuration_compliant}}
-        Yes
+        {{t 'emailInspection.photos.yes'}}
         {{else}}
-        No
+        {{t 'emailInspection.photos.no'}}
         {{/if}}</li>
-        <li class="section-list"><span>Function R/F Sensor?</span>
+        <li class="section-list"><span>{{t 'generalInspection.function'}}</span>
         {{#if model.prior_configuration_rf_present}}
-        Yes
+        {{t 'emailInspection.photos.yes'}}
         {{else}}
-        No
+        {{t 'emailInspection.photos.no'}}
         {{/if}}</li>
-        <li class="section-list"><span>Water Pressure:</span> {{model.water_pressure}} PSI </li>
+        <li class="section-list"><span>{{t 'generalInspection.waterPressure'}}:</span> {{model.inspection.water_pressure}} PSI </li>
       </ul>
     </div>
     <div class="section">
-      <h2 class="section-title">Site</h2>
+      <h2 class="section-title">{{t 'common.site'}}</h2>
       <ul class="section-content">
-        <li class="section-list"><span>Name:</span> {{model.controller.site.name}}</li>
-        <li class="section-list"><span>Address:</span> 301 Las Colinas Boulevard E. Irving, Texas 75039</li>
+        <li class="section-list"><span>{{t 'generalInspection.name'}}:</span> {{model.controller.site.name}}</li>
+        <li class="section-list"><span>{{t 'generalInspection.location'}}:</span> {{address}}</li>
       </ul>
     </div>
     <div class="section">
-      <h2 class="section-title">Controller</h2>
+      <h2 class="section-title">{{t 'common.controller'}}</h2>
       <ul class="section-content">
-        <li class="section-list"><span>Name:</span> {{model.controller.name}}</li>
-        <li class="section-list"><span>Location:</span></li>
-        <li class="section-list"><span>Model:</span> SL1600</li>
-        <li class="section-list"><span>Zones:</span> {{model.controller.zone_count}}</li>
-        <li class="section-list"><span>Aircard:</span> 89011704252318499867</li>
-        <li class="section-list"><span>SLW:</span> SLWS Side of House</li>
+        <li class="section-list"><span>{{t 'generalInspection.name'}}:</span> {{model.controller.name}}</li>
+        <li class="section-list"><span>{{t 'generalInspection.model'}}:</span> {{model.controller.model}} </li>
+        <li class="section-list"><span>{{t 'generalInspection.waterPressure'}}:</span> {{model.inspection.controller.zone_count}}</li>
+        <li class="section-list" style="display:none"><span>Aircard:</span> </li>
+        <li class="section-list" style="display:none"><span>SLW:</span> </li>
       </ul>
     </div>
 

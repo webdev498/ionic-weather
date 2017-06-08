@@ -8,16 +8,16 @@
 <div class="content weathermatic-content">
   <ul class="table-view weathermatic-page-bottom">
     <li class="table-view-cell table-view-divider">
-      {{fa-icon 'leaf'}} Select a Zone to Run
+      {{fa-icon 'leaf'}} {{t 'runZone.subTitle'}}
     </li>
     {{#each model as |zone|}}
       <li class="table-view-cell">
         {{#link-to 'smartlink-controller.run-zone' zone.id class='push-right'}}
           {{#if zone.description}}
             {{zone.description}}
-            <p>Zone {{zone.number}}</p>
+            <p>{{t 'common.zone'}} {{zone.number}}</p>
           {{else}}
-            Run Zone {{zone.number}}
+            {{t 'common.runZone'}} {{zone.number}}
             <p>&nbsp;</p>
           {{/if}}
         {{/link-to}}

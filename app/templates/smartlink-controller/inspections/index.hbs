@@ -1,4 +1,3 @@
-{{#liquid-bind model use=transition as |model|}}
 <header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
   {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
@@ -9,24 +8,24 @@
 <div class="content weathermatic-content">
   <ul class="table-view weathermatic-page-bottom">
     <li class="table-view-cell table-view-divider">
-      {{fa-icon 'search'}} Select an Inspection or Create One
+      {{fa-icon 'search'}} {{t 'inspections.subTitle'}}
     </li>
     <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.inspections.new-inspection' class='push-right'}}
-          Create Inspection
+        {{#link-to 'smartlink-controller.inspections.new-inspection'}}
+          {{t 'inspections.create'}}
           <p>Click to create an inspection</p>
         {{/link-to}}
     </li>
     {{#each model as |inspection|}}
       <li class="table-view-cell">
-        {{#link-to 'smartlink-controller.inspections.select-inspection' inspection.id class='push-right'}}
+        {{#link-to 'smartlink-controller.inspections.select-inspection' inspection.id}}
           {{#if inspection.title}}
             {{inspection.title}}
           {{else}}
             Inspection {{inspection.id}}
           {{/if}}
-          {{#if inspection.created_at}}
-          <p>{{inspection.created_at}}</p>
+          {{#if inspection.date}}
+          <p>{{inspection.date}}</p>
           {{/if}}
         {{/link-to}}
       </li>
@@ -44,4 +43,9 @@
     {{/each}}
   </ul>
 </div>
-{{/liquid-bind}}
+
+{{!
+  `actionReceiver` attribute exposes component action to the outside world.
+  Uses this add-on: https://github.com/GavinJoyce/ember-component-inbound-actions
+}}
+{{loading-modal actionReceiver=loadingModal loadingFinished='loadingFinished' loadingAbandoned='loadingAbandoned'}}

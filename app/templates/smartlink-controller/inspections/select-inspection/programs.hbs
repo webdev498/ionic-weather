@@ -15,22 +15,20 @@
     <div class="section">
       <div class="section-title">
         <span class="program-title">Program {{program.identifier}}</span>
-        <span class="program-details">Watering Day Setting</span>
+        <span class="program-details">{{t 'programInspection.settings'}}</span>
       </div>
       <ul class="days-of-week">
-        <li class="day {{if (containsItem program.days_of_week '0') "active"}}">S</li>
-        <li class="day {{if (containsItem program.days_of_week '1') "active"}}">M</li>
-        <li class="day {{if (containsItem program.days_of_week '2') "active"}}">T</li>
-        <li class="day {{if (containsItem program.days_of_week '3') "active"}}">W</li>
-        <li class="day {{if (containsItem program.days_of_week '4') "active"}}">T</li>
-        <li class="day {{if (containsItem program.days_of_week '5') "active"}}">F</li>
-        <li class="day {{if (containsItem program.days_of_week '6') "active"}}">S</li>
+        <li class="day {{if (containsItem program.days_of_week '0') "active"}}">{{t 'programInspection.daysOfWeek.sun'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '1') "active"}}">{{t 'programInspection.daysOfWeek.mon'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '2') "active"}}">{{t 'programInspection.daysOfWeek.tue'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '3') "active"}}">{{t 'programInspection.daysOfWeek.wed'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '4') "active"}}">{{t 'programInspection.daysOfWeek.thurs'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '5') "active"}}">{{t 'programInspection.daysOfWeek.fri'}}</li>
+        <li class="day {{if (containsItem program.days_of_week '6') "active"}}">{{t 'programInspection.daysOfWeek.sat'}}</li>
       </ul>
-      <span class="time-of-day">during</span>
       <div class="section-content">
-        <span class="start-time">00:00 AM</span>
-        -
-        <span class="end-time">00:00 PM</span>
+        <span class="start-time"></span>
+        <span class="end-time"></span>
       </div>
     </div>
     {{/each}}

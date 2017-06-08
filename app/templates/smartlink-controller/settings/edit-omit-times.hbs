@@ -3,7 +3,7 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'times-circle-o'}} Omit Days &amp; Times</h1>
+  <h1 class="title">{{fa-icon 'times-circle-o'}} {{t 'omit.title'}}</h1>
 </header>
 
 <div class="content weathermatic-content">
@@ -11,7 +11,7 @@
 
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
-        Omit Specific Times:
+        {{t 'omit.specificTime'}}:
     </li>
     <li class="table-view-cell">
       <span> From </span>
@@ -50,52 +50,52 @@
       </span>
     </li>
     <li class="table-view-cell table-view-divider">
-      Omit Days of Week:
+      {{t 'omit.specificDay'}}:
     </li>
     <li class="table-view-cell">
-      <span>Sunday</span>
+      <span>{{t 'common.daysOfWeek.sun'}}</span>
       <span class="pull-right weathermatic-settings-input-small ">
         {{toggle-input value=isSundaySelected}}
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Monday</span>
+      <span>{{t 'common.daysOfWeek.mon'}}</span>
       <span class="pull-right weathermatic-settings-input-small ">
         {{toggle-input value=isMondaySelected}}
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Tuesday</span>
+      <span>{{t 'common.daysOfWeek.tue'}}</span>
       <span class="pull-right weathermatic-settings-input-small ">
         {{toggle-input value=isTuesdaySelected}}
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Wednesday</span>
+      <span>{{t 'common.daysOfWeek.wed'}}</span>
       <span class="pull-right weathermatic-settings-input-small ">
         {{toggle-input value=isWednesdaySelected}}
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Thursday</span>
+      <span>{{t 'common.daysOfWeek.thurs'}}</span>
       <span class="pull-right weathermatic-settings-input-small ">
         {{toggle-input value=isThursdaySelected}}
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Friday</span>
+      <span>{{t 'common.daysOfWeek.fri'}}</span>
       <span class="pull-right weathermatic-settings-input-small ">
         {{toggle-input value=isFridaySelected}}
       </span>
     </li>
     <li class="table-view-cell">
-      <span>Saturday</span>
+      <span>{{t 'common.daysOfWeek.sat'}}</span>
       <span class="pull-right weathermatic-settings-input-small ">
         {{toggle-input value=isSaturdaySelected}}
       </span>
     </li>
     <li class="table-view-cell table-view-divider">
-      Omit Event Dates:
+      {{t 'omit.specificDates'}}:
     </li>
     {{#each omissionDates as |od|}}
       <li class="table-view-cell">
@@ -123,7 +123,7 @@
   </ul>
   <div class="content-padded weathermatic-page-bottom">
     <button class="btn btn-block btn-positive" {{action 'save'}}>
-      {{fa-icon 'save'}} Save Changes
+      {{fa-icon 'save'}} {{t 'common.save'}}
     </button>
   </div>
 

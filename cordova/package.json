@@ -1,0 +1,16 @@
+{
+    "name": "com.smartlinknetwork.ios",
+    "version": "2.3",
+    "displayName": "Smartlink Mobile",
+    "cordova": {
+        "platforms": [
+            "android"
+        ],
+        "plugins": {
+            "Geolocation": {}
+        }
+    },
+    "dependencies": {
+        "cordova-android": "~6.2.3"
+    }
+}

@@ -2,8 +2,10 @@
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
 `import OmissionTime from '../../../models/omission-time'`
 `import leftPad  from '../../../util/strings/left-pad'`
+`import { translationMacro as t } from 'ember-i18n'`
 
 SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(SmartlinkSaveMixin, {
+  i18n: Ember.inject.service(),
   init: ->
     @initAvailableOmitTimes()
     @initTimeSuffix()
@@ -12,7 +14,7 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
     @initDaysOfMonth()
 
   initAvailableOmitTimes: ->
-    opts = [{label: "Off", value: OmissionTime.OFF_VALUE }]
+    opts = [{label: this.get('i18n').t('common.off'), value: OmissionTime.OFF_VALUE }]
     [0...72].forEach (n) ->
       time = moment().startOf('day').add(n * 10, 'minutes').format('hh:mm')
       opts.push({label: time, value: time})
@@ -21,22 +23,22 @@ SmartlinkControllerSettingsEditOmitTimesController = Ember.Controller.extend(Sma
 
   initTimeSuffix: ->
     @set 'timeSuffix', [
-      {label: "am", value: 'am'},
-      {label: "pm", value: 'pm'}
+      {label: this.get('i18n').t('common.am'), value: 'am'},
+      {label: this.get('i18n').t('common.pm'), value: 'pm'}
     ]
 
   initDaysOfWeek: ->
     @set 'daysOfWeek', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
   initMonthsOfYear: ->
-    opts = [{label: "Off", value: 0}]
+    opts = [{label: this.get('i18n').t('common.off'), value: 0}]
     [1..12].forEach (n) ->
       month = moment().startOf('year').add(n-1, 'month').format('MMM')
       opts.push({label: month, value: n})
     @set 'monthsOfYear', opts
 
   initDaysOfMonth: ->
-    opts = [{label: "Off", value: 0}]
+    opts = [{label: this.get('i18n').t('common.off'), value: 0}]
     [1..31].forEach (n) ->
       opts.push({label: n, value: n})
     @set 'daysOfMonth', opts

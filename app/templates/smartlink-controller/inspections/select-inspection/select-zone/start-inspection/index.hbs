@@ -1,39 +1,66 @@
-<header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
-  {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone' class='btn btn-link btn-nav pull-left'}}
-  <span class="icon icon-left-nav"></span> {{/link-to}}
-  <h1 class="title">{{fa-icon 'search'}} Edit Inspection </h1>
-  {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.start-inspection.edit-inspection' model.inspection.id class='menu-option'}} {{fa-icon 'fa-gear'}} {{/link-to}}
-</header>
-  {{!These loops are here because the api request doesn't include individual data, so we have to find it}}
-  {{#each model.inspection.inspections_zones as |zone|}}
-    {{#if (equiv zone.id model.id) }}
-      {{#each model.zones as |model_zone|}}
-        {{#if (equiv zone.zone_id model_zone.id) }}
-      <div id="start-inspection" class="content weathermatic-content">
-        <ul class="table-view">
-          <li class="table-view-cell table-view-divider">
-            Brief Instructions
-          </li>
-        </ul>
-        <form id="inspection-form" class="weathermatic-page-bottom start-inspection">
-          <div class="section">
-            <div class="form-group full">
-              <li class="column">
-                {{zones.zone.zone_id}}
-                <label for="title">Zone Name</label>
-                <input id="title" disabled="disabled" type="text" value="{{model_zone.description}}" />
-              </li>
-            </div>
+{{#liquid-bind model use=transition as |model|}}
+  {{#each model.inspectionZone as |zone|}}
+      <header class="bar bar-nav weathermatic-header weathermatic-left-nav-only">
+        {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone' class='btn btn-link btn-nav pull-left'}}
+        <span class="icon icon-left-nav"></span> {{/link-to}}
+        <h1 class="title">Edit Inspection</h1>
+        {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone.start-inspection.edit-inspection' model.inspection.id class='menu-option'}} {{fa-icon 'fa-gear'}} {{/link-to}}
+      </header>
+      <div class="table-view column zones section">
+        {{#if prevZone}}
+          <button {{action 'prevZone' prevZone }}>
+            <div class="fa fa-chevron-left"></div>
+          </button>
+        {{else}}
+          <div class="button disabled">
+            <div class="fa fa-chevron-left"></div>
           </div>
-          <div class="section">
+        {{/if}}
+        <div class="currentZone">
+          <div class="current">{{t 'inspectionDetails.currentZone'}}</div>
+          {{#if zoneName}}
+          <div id="title">{{zone.zone_number}}:{{zoneName}}</div>
+          {{else}}
+          <div id="title">{{zoneNumber}}</div>
+          {{/if}}
+        </div>
+        {{#if nextZone}}
+          <button {{action 'nextZone' nextZone }}>
+            <div class="fa fa-chevron-right"></div>
+          </button>
+        {{else}}
+          <div class="button disabled">
+            <div class="fa fa-chevron-right"></div>
+          </div>
+        {{/if}}
+      </div>
+      <div id="statusMessage" class={{successMessageClass}}>Updating Inspection...</div>
+      <div id="start-inspection" class="content weathermatic-content">
+        <form id="inspection-form" class="weathermatic-page-bottom start-inspection">
+          <div class="section pic">
             <div class="form-group full">
               <li class="column">
-                <label for="file">Photos</label>
-                  <input name="inspections_photos" id="image-upload-input" data-zone="{{model_zone.id}}" type="file" accept="image/*">
-                {{#if model_zone.photo}}
+                <label for="file">{{t 'inspectionDetails.photo'}}</label>
+                  <form id="image-upload" enctype="multipart/form-data" method="POST">
+                    <div class="fileUpload btn btn-positive">
+                      <span>{{t 'inspectionDetails.upload'}}</span>
+                      <input name="inspections_photo[image]" id="image-upload-input" data-zone="{{model_zone.id}}" type="file" class="choose-pic upload" accept="image/*">
+                    </div>
+                  </form>
+                {{#if zone.temp_photo}}
                   <span class="content-padded show-zone-image">
-                    <button id="zone-thumbnail" style="background-image: url({{model_zone.photoThumbnail}}); width:100px;height:100px;background-size:100% 100%;" {{action 'openZoneImageView'}}></button>
+                    <button id="zone-thumbnail" style="background-image: url({{zone.temp_photo}}); width:100px;height:100px;background-size:100% 100%;" {{action 'openZoneImageView'}}>
+                      <span>See Photos</span>
+                    </button>
                   </span>
+                {{else if zone.inspections_photos}}
+                  {{#each zone.inspections_photos as |photos|}}
+                    <span class="content-padded show-zone-image">
+                      <button id="zone-thumbnail" style="background-image: url({{photos.medium}}); width:100px;height:100px;background-size:100% 100%;" {{action 'openZoneImageView'}}>
+                        <span>See Photos</span>
+                      </button>
+                    </span>
+                  {{/each}}
                 {{/if}}
               </li>
             </div>
@@ -41,12 +68,12 @@
           <div class="section">
             <div class="form-group full">
               <li class="column">
-                <label for="title">Programs</label>
+                <label for="title">Program Zone Run Times</label>
                 <div class="programs">
-                  <span class="a-program">A</span>
-                  <span class="b-program">B</span>
-                  <span class="c-program">C</span>
-                  <span class="d-program">D</span>
+                  <div class="a-program">{{t 'common.programs.a'}}<span>{{progA}}</span></div>
+                  <div class="b-program">{{t 'common.programs.b'}}<span>{{progB}}</span></div>
+                  <div class="c-program">{{t 'common.programs.c'}}<span>{{progC}}</span></div>
+                  <div class="d-program">{{t 'common.programs.d'}}<span>{{progD}}</span></div>
                 </div>
               </li>
             </div>
@@ -54,7 +81,7 @@
           <div class="section run-zone-section">
             <div class="form-group full">
               <li class="column">
-                <label for="title">Run Zone</label>
+                <label for="title">{{t 'controllerOptions.runZone'}}</label>
 
                 {{#if showTimer }}
                   <button class="btn btn-block btn-negative" {{action 'stop'}}>
@@ -62,7 +89,7 @@
                   </button>
                 {{else}}
                   <button class="btn btn-block btn-positive" {{action 'runZone' model_zone.description zone.zone_number}}>
-                    {{fa-icon 'check'}} Start
+                    {{fa-icon 'check'}} {{t 'walkSite.startButton'}}
                   </button>
                 {{/if}}
               </li>
@@ -71,128 +98,144 @@
           <div class="section">
             <div class="form-group full value-status">
               <li class="column">
-                <label for="date">Value Status:</label>
+                <label for="date">{{t 'inspectionDetails.valveStatus'}}:</label>
                 <div class="same-line" style="width: 100%">
-                  <div class="radio-button"><input type="radio" name="valve_status" value="true" checked="{{if zone.valve_status "checked" ""}}">Pass</div>
-                  <div class="radio-button"><input type="radio" name="valve_status" value="false"  checked="{{unless zone.valve_status "checked" "" }}">Fail</div>
+                  <div class="radio-button">
+                    <input type="radio" id="pass" name="valve_status" value="true" checked="{{if zone.valve_status "checked" ""}}" onchange={{action 'handleChange' value="true"}}>
+                    <label for="pass">{{t 'inspectionDetails.valveChoices.pass'}}</label>
+                  </div>
+                  <div class="radio-button">
+                    <input type="radio" id="fail" name="valve_status" value="false"  checked="{{unless zone.valve_status "checked" "" }}" onchange={{action 'handleChange' value="false"}}>
+                    <label for="fail">{{t 'inspectionDetails.valveChoices.fail'}}</label>
+                  </div>
                 </div>
               </li>
             </div>
             <div class="form-group half half-input">
               <li class="column">
-                <label for="clogged-nozzle">Clogged Nozzle</label>
-                <select id="clogged-nozzle" name="nozzle">
-                  {{#each model.selectValues as |value|}}
-                    <option value={{value.id}} selected={{eq value.id zone.nozzle}}>{{value.display}}</option>
-                  {{/each}}
-                </select>
+                <div class="switched">
+                  <label for="clogged-nozzle">{{t 'inspectionDetails.cloggedNozzle'}}</label>
+                  <button class="negative" {{action 'subtractValue' 'nozzle' zone.nozzle}}>-</button>
+                  <input id="clogged-nozzle" type="text" value="{{zone.nozzle}}" name="nozzle" disabled="disabled">
+                  <button class="positive" {{action 'addValue' 'nozzle' zone.nozzle}}>+</button>
+                </div>
               </li>
               <li class="column">
-                <label for="blocked-head">Blocked Head</label>
-                <select id="blocked-head" name="blocked_head">
-                  {{#each model.selectValues as |value|}}
-                    <option value={{value.id}} selected={{eq value.id zone.blocked_head}}>{{value.display}}</option>
-                  {{/each}}
-                </select>
-              </li>
-            </div>
-            <div class="form-group half half-input">
-              <li class="column">
-                <label for="inspection-type">Broken Head</label>
-                <select id="broken-head" name="broken_head">
-                  {{#each model.selectValues as |value|}}
-                    <option value={{value.id}} selected={{eq value.id zone.broken_head}}>{{value.display}}</option>
-                  {{/each}}
-                </select>
-              </li>
-              <li class="column">
-                <label for="inspection-type">Raise Head</label>
-                <select id="raise-head" name="raise_head">
-                  {{#each model.selectValues as |value|}}
-                    <option value={{value.id}} selected={{eq value.id zone.raise_head}}>{{value.display}}</option>
-                  {{/each}}
-                </select>
+                <div class="switched">
+                  <label for="blocked-head">{{t 'inspectionDetails.blockedHead'}}</label>
+                  <button class="negative" {{action 'subtractValue' 'blocked_head' zone.blocked_head}}>-</button>
+                  <input id="blocked-head" name="blocked_head" type="text" value="{{zone.blocked_head}}" disabled="disabled">
+                  <button class="positive" {{action 'addValue' 'blocked_head' zone.blocked_head}}>+</button>
+                </div>
               </li>
             </div>
             <div class="form-group half half-input">
               <li class="column">
-                <label for="lower-head">Lower Head</label>
-                <select id="lower-head" name="lower_head">
-                  {{#each model.selectValues as |value|}}
-                    <option value={{value.id}} selected={{eq value.id zone.lower_head}}>{{value.display}}</option>
-                  {{/each}}
-                </select>
+                <div class="switched">
+                  <label for="inspection-type">{{t 'inspectionDetails.brokenHead'}}</label>
+                  <button class="negative" {{action 'subtractValue' 'broken_head' zone.broken_head}}>-</button>
+                  <input id="broken-head" name="broken_head" type="text" value="{{zone.broken_head}}" disabled="disabled">
+                  <button class="positive" {{action 'addValue' 'broken_head' zone.broken_head}}>+</button>
+                </div>
               </li>
               <li class="column">
-                <label for="replace-head">Replace Head</label>
-                <select id="replace-head" name="replace_head">
-                  {{#each model.selectValues as |value|}}
-                    <option value={{value.id}} selected={{eq value.id zone.replace_head}}>{{value.display}}</option>
-                  {{/each}}
-                </select>
+                <div class="switched">
+                  <label for="inspection-type">{{t 'inspectionDetails.raiseHead'}}</label>
+                  <button class="negative" {{action 'subtractValue' 'raise_head' zone.raise_head}}>-</button>
+                  <input id="raise-head" name="raise_head" type="text" value="{{zone.raise_head}}" disabled="disabled">
+                  <button class="positive" {{action 'addValue' 'raise_head' zone.raise_head}}>+</button>
+                </div>
               </li>
             </div>
             <div class="form-group half half-input">
               <li class="column">
-                <label for="broken-lateral">Broken Lateral</label>
-                <select id="broken-lateral" name="broken_lateral">
-                  {{#each model.selectValues as |value|}}
-                    <option value={{value.id}} selected={{eq value.id zone.broken_lateral}}>{{value.display}}</option>
-                  {{/each}}
-                </select>
+                <div class="switched">
+                  <label for="lower-head">{{t 'inspectionDetails.lowerHead'}}</label>
+                  <button class="negative" {{action 'subtractValue' 'lower_head' zone.lower_head}}>-</button>
+                  <input id="lower-head" name="lower_head" type="text" value="{{zone.lower_head}}" disabled="disabled">
+                  <button class="positive" {{action 'addValue' 'lower_head' zone.lower_head}}>+</button>
+                </div>
               </li>
               <li class="column">
-                <label for="broken-main">Broken Main</label>
-                <select id="broken-main" name="broken_main">
-                  {{#each model.selectValues as |value|}}
-                    <option value={{value.id}} selected={{eq value.id zone.broken_main}}>{{value.display}}</option>
-                  {{/each}}
-                </select>
+                <div class="switched">
+                  <label for="replace-head">{{t 'inspectionDetails.replaceHead'}}</label>
+                  <button class="negative" {{action 'subtractValue' 'replace_head' zone.replace_head}}>-</button>
+                  <input id="replace-head" name="replace_head" type="text" value="{{zone.replace_head}}" disabled="disabled">
+                  <button class="positive" {{action 'addValue' 'replace_head' zone.replace_head}}>+</button>
+                </div>
+              </li>
+            </div>
+            <div class="form-group half half-input">
+              <li class="column">
+                <div class="switched">
+                  <label for="broken-lateral">{{t 'inspectionDetails.brokenLateral'}}</label>
+                  <button class="negative" {{action 'subtractValue' 'broken_lateral' zone.broken_lateral}}>-</button>
+                  <input id="broken-lateral" name="broken_lateral" type="text" value="{{zone.broken_lateral}}" disabled="disabled">
+                  <button class="positive" {{action 'addValue' 'broken_lateral' zone.broken_lateral}}>+</button>
+                </div>
+              </li>
+              <li class="column">
+                <div class="switched">
+                  <label for="broken-main">{{t 'inspectionDetails.brokenMain'}}</label>
+                  <button class="negative" {{action 'subtractValue' 'broken_main' zone.broken_main}}>-</button>
+                  <input id="broken-main" name="broken_main" type="text" value="{{zone.broken_main}}" disabled="disabled">
+                  <button class="positive" {{action 'addValue' 'broken_main' zone.broken_main}}>+</button>
+                </div>
               </li>
             </div>
           </div>
           <div class="section">
             <div class="form-group half half-input">
               <li class="column">
-                <label for="in-out-scope">In/Out Scope</label>
-                <select id="in-out-scope" name="scope">
-                  <option selected={{eq zone.scope false}} value="false">False</option>
-                  <option selected={{eq zone.scope true}} value="true">True</option>
-                </select>
+                <label for="in-out-scope">{{t 'inspectionDetails.inOutScope'}}</label>
+                <div class="same-line" style="width: 100%">
+                  <div class="radio-button">
+                    <input type="radio" id="true" name="scope" value="true" checked="{{if zone.scope "checked" ""}}" onchange={{action 'handleChange' value="true"}}>
+                    <label for="true">True</label>
+                  </div>
+                  <div class="radio-button">
+                    <input type="radio" id="false" name="scope" value="false"  checked="{{unless zone.scope "checked" "" }}" onchange={{action 'handleChange' value="false"}}>
+                    <label for="false">False</label>
+                  </div>
+                </div>
               </li>
               <li class="column">
-                <label for="estimated_cost">Estimated Cost</label> $
-                <input id="estimated_cost" name="estimated_cost" type="text" value="{{zone.estimated_cost}}"/>
+                <label for="estimated_cost">{{t 'inspectionDetails.estimatedCost'}}</label>
+                <b>$</b>
+                <input id="estimated_cost" name="estimated_cost" type="text" value="{{zone.estimated_cost}}" onchange={{action 'handleChange' value="zone.estimated_cost"}}/>
               </li>
             </div>
           </div>
           <div class="section">
             <div class="form-group full">
               <li class="column">
-                <label for="note">Note</label>
-                <textarea id="note" name="note" rows="4" value="{{zone.note}}" cols="50"></textarea>
+                <label for="note">{{t 'inspectionDetails.comments'}}</label>
+                <textarea id="note" name="note" rows="4" value="{{zone.note}}" cols="50" onchange={{action 'handleChange' value="zone.note"}}/></textarea>
               </li>
             </div>
           </div>
           <div class="center-buttons">
-            {{#link-to 'smartlink-controller.inspections.select-inspection.select-zone'}}
-            <button class="btn btn-positive">Cancel</button> {{/link-to}}
-            <button type="submit" class="btn btn-negative" {{action 'submitForm'}}>Save</button>
+            <button class="btn btn-negative" {{action 'promptDisclaimer'}}>{{t 'common.cancel'}}</button>
+            <button type="submit" class="btn btn-positive" {{action 'sendForm'}}>{{currentState}}</button>
           </div>
         </form>
       </div>
       <div id="zone-image-view" class="modal {{if isZoneImageViewOpen 'active'}}">
         <header class="bar bar-nav weathermatic-header">
           <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeZoneImageView'}}></a>
-          <h1 class="title">{{fa-icon 'photo'}} Zone Image</h1>
+          <h1 class="title">{{fa-icon 'photo'}} {{model_zone.description}} Image</h1>
         </header>
-
-        <img id="zone-image" src={{model_zone.photo}} />
+        <div class="zone-photos">
+          {{#if zone.temp_photo}}
+            <img id="zone-image" src="{{zone.temp_photo}}" />
+          {{/if}}
+          {{#each zone_photos as |photos|}}
+            <img id="zone-image" src={{photos.original}} />
+          {{/each}}
+        </div>
       </div>
-      {{/if}}
-    {{/each}}
-  {{/if}}
 {{/each}}
+{{/liquid-bind}}
 
 {{!
   `actionReceiver` attribute exposes component action to the outside world.

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import SmartlinkSaveMixin from '../../../mixins/smartlink-save';
 import SmartlinkController from '../../../models/smartlink-controller';
+import { translationMacro as t } from "ember-i18n";
 
 const { computed } = Ember;
 
@@ -12,6 +13,7 @@ const {
 } = SmartlinkController;
 
 const SmartlinkControllerSettingsEditControllerBasicController = Ember.Controller.extend(SmartlinkSaveMixin, {
+  i18n: Ember.inject.service(),
   init: function() {
     this.initAvailableHours();
     this.initAvailableMinutes();
@@ -120,10 +122,10 @@ const SmartlinkControllerSettingsEditControllerBasicController = Ember.Controlle
   initAvailableWateringModes: function() {
     return this.set('availableWateringModes', [
       {
-        label: 'Basic (Standard)',
+        label: this.get('i18n').t('basicSettings.waterMode1'),
         value: 0
       }, {
-        label: 'Smart (Auto-Adjust)',
+        label: this.get('i18n').t('basicSettings.waterMode2'),
         value: 1
       }
     ]);
@@ -131,10 +133,10 @@ const SmartlinkControllerSettingsEditControllerBasicController = Ember.Controlle
   initAvailableRainFreeze: function() {
     return this.set('availableRainFreeze', [
       {
-        label: 'Active',
+        label: this.get('i18n').t('controllerOptions.rainStatusActive'),
         value: 0
       }, {
-        label: 'Bypass',
+        label: this.get('i18n').t('controllerOptions.rainStatusBypass'),
         value: 1
       }
     ]);

@@ -4,19 +4,19 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
   <a href="javascript:void(0)" class="icon icon-gear pull-right" {{action 'openOptionsMenu'}}></a>
-  <h1 class="title">{{fa-icon 'signal'}} {{short-text smartlinkController.name size=10}} - Walk Site</h1>
+  <h1 class="title">{{fa-icon 'signal'}} {{short-text smartlinkController.name size=10}} - {{t 'walkSite.subTitle'}}</h1>
 </header>
 
 <div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
-      {{fa-icon 'male'}} Walk Site
+      {{fa-icon 'male'}} {{t 'walkSite.subTitle'}}
     </li>
     <li class="table-view-cell">
-      Site <button class="btn"> {{fa-icon 'building'}} {{model.smartlinkController.site.name}}</button>
+      {{t 'common.site'}} <button class="btn"> {{fa-icon 'building'}} {{model.smartlinkController.site.name}}</button>
     </li>
     <li class="table-view-cell">
-      Controller <button class="btn"> {{fa-icon 'signal'}} {{model.smartlinkController.name}}</button>
+      {{t 'common.controller'}} <button class="btn"> {{fa-icon 'signal'}} {{model.smartlinkController.name}}</button>
     </li>
   </ul>
 
@@ -26,10 +26,10 @@
         <h3>
           {{fa-icon 'male'}} {{short-text model.description size=20}}
         </h3>
-        <p>Zone {{model.number}}</p>
+        <p>{{t 'common.zone'}} {{model.number}}</p>
       {{else}}
         <h3>
-          {{fa-icon 'male'}} Zone {{model.number}}
+          {{fa-icon 'male'}} {{t 'common.zone'}} {{model.number}}
         </h3>
       {{/if}}
     </span>
@@ -37,35 +37,35 @@
 
   {{#if model.photo}}
     <span class="content-padded show-zone-image">
-      <button id="zone-thumbnail" style="background-image: url({{model.photoThumbnail}});width:100px;height:100px;background-size:100% 100%;" {{action 'openZoneImageView'}}></button>
+      <button id="zone-thumbnail" style="background-image: url({{model.photoThumbnail}});width:100px;height:100px;background-size:100% 100%;position: relative;" {{action 'openZoneImageView'}}></button>
     </span>
   {{/if}}
 
   <div class="content-padded weathermatic-jump-to-zone">
     <button class="btn btn-block" {{action 'openJumpToZone'}}>
-      {{fa-icon 'leaf'}} Jump to Zone
+      {{fa-icon 'leaf'}} {{t 'walkSite.zoneButton'}}
     </button>
   </div>
 
   <div class="walk-site-nav-container">
     <center class="walk-site-controls">
       <button class="btn btn-block btn-positive walk-site-control" {{action 'start'}}>
-        {{fa-icon 'play'}} Start
+        {{fa-icon 'play'}} {{t 'walkSite.startButton'}}
       </button>
 
       <button class="btn btn-block btn-negative walk-site-control" {{action 'stop'}}>
-        {{fa-icon 'stop'}} Stop
+        {{fa-icon 'stop'}} {{t 'walkSite.stopButton'}}
       </button>
 
       <button class="btn btn-block btn-auto-adjust walk-site-control" {{action 'openAutoAdjust'}}>
-        Configure Auto-Adjust
+        {{t 'walkSite.configure'}}
       </button>
 
       <a class="btn walk-site-control upload-image-control">
         {{#if isLoading}}
           <p>{{fa-icon 'circle-o-notch fa-spin'}} Uploading...</p>
         {{else}}
-          <p class="upload-image-title">Add Zone Photo:</p>
+          <p class="upload-image-title">{{t 'walkSite.zonePhoto'}}:</p>
         {{/if}}
           <form id="image-upload" enctype="multipart/form-data" method="POST">
             <input id="image-upload-input" class="align-center custom-file-input" type="file" name="photo" />
@@ -99,7 +99,7 @@
 <div id="options-menu" class="modal {{if isOptionsMenuOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeOptionsMenu'}}></a>
-    <h1 class="title">{{fa-icon 'gear'}} Advanced Options</h1>
+    <h1 class="title">{{fa-icon 'gear'}} {{t 'menu.advance.title'}}</h1>
   </header>
 
   <div class="content weathermatic-content">
@@ -107,8 +107,8 @@
       <li class="table-view-cell">
         <a href="javascript:void(0)" {{action 'openCommLog'}}>
           <div class="media-body">
-            <h2>{{fa-icon 'list'}} Comm Log</h2>
-            <p>View currently running and recent commands</p>
+            <h2>{{fa-icon 'list'}} {{t 'menu.advance.commLogButton'}}</h2>
+            <p>{{t 'menu.advance.commLogMessage'}}</p>
           </div>
         </a>
       </li>
@@ -116,7 +116,7 @@
 
     <div class="content-padded">
       <button class="btn btn-negative btn-block" {{action 'closeOptionsMenu'}}>
-        {{fa-icon 'times-circle'}} Close
+        {{fa-icon 'times-circle'}} {{t 'common.close'}}
       </button>
     </div>
   </div>
@@ -211,7 +211,7 @@
 <div id="jump-to-zone" class="modal {{if isJumpToZoneOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeJumpToZone'}}></a>
-    <h1 class="title">{{fa-icon 'leaf'}} Jump to Zone</h1>
+    <h1 class="title">{{fa-icon 'leaf'}} {{t 'walkSite.zoneButton'}}</h1>
   </header>
 
   <div class="content weathermatic-content">
@@ -222,9 +222,9 @@
             <div class="media-body">
               {{#if zone.description}}
                 {{short-text zone.description size=30}}
-                <p>Zone {{zone.number}}</p>
+                <p>{{t 'common.zone'}} {{zone.number}}</p>
               {{else}}
-                Zone {{zone.number}}
+                {{t 'common.zone'}} {{zone.number}}
                 <p>&nbsp;</p>
               {{/if}}
             </div>

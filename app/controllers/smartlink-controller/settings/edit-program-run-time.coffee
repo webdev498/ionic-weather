@@ -1,13 +1,16 @@
 `import Ember from 'ember'`
 `import SmartlinkSaveMixin from '../../../mixins/smartlink-save'`
+`import { translationMacro as t } from 'ember-i18n'`
 
 SmartlinkControllerSettingsEditProgramRunTimeController = Ember.Controller.extend(SmartlinkSaveMixin, {
+  i18n: Ember.inject.service(),
+
   init: ->
     @initAvailableProgramTimes()
 
   initAvailableProgramTimes: -> (
     opts = [{
-      label: 'Off', value: '00:00'
+      label: this.get('i18n').t('common.off'), value: '00:00'
     }]
 
     [1..59].forEach (min) ->

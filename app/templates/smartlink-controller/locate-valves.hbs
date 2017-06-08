@@ -3,49 +3,49 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
   <h1 class="title">
-    {{fa-icon 'signal'}} {{short-text model.smartlinkController.name size=15}} - Locate Valves
+    {{fa-icon 'signal'}} {{short-text model.smartlinkController.name size=15}} - {{t 'controllerOptions.locateValve'}}
   </h1>
 </header>
 
 <div class="content weathermatic-content">
   <ul class="table-view">
     <li class="table-view-cell table-view-divider">
-      Confirm Zone
+      {{t 'confirmZone.subTitle'}}
     </li>
     <li class="table-view-cell">
-      Site <button class="btn"> {{fa-icon 'building'}}
+      {{t 'common.site'}} <button class="btn"> {{fa-icon 'building'}}
         {{model.smartlinkController.site.name}}</button>
     </li>
     <li class="table-view-cell">
-      Controller <button class="btn"> {{fa-icon 'signal'}}
+      {{t 'common.controller'}} <button class="btn"> {{fa-icon 'signal'}}
         {{model.smartlinkController.name}}</button>
     </li>
   </ul>
 
   <div class="content-padded weathermatic-height-100-percent">
-    <p>About to run valve locators</p>
+    <p>{{t 'confirmValue.controllerPrompt'}}</p>
 
     <span class="btn btn-block">
       {{#if model.description}}
         <h3>{{fa-icon 'leaf'}} {{short-text model.description size=20}}</h3>
-        <p>Locate Zone {{model.number}}</p>
+        <p>{{t 'common.zone'}} {{model.number}}</p>
       {{else}}
-        <h3>{{fa-icon 'leaf'}} Locate Zone {{model.number}}</h3>
+        <h3>{{fa-icon 'leaf'}} {{t 'common.locateZone'}} {{model.number}}</h3>
       {{/if}}
     </span>
 
-    <p>Ready?</p>
+    <p>{{t 'common.buttonPrompt'}}</p>
 
     <div class="warning-message">
-      <p>The water must be be turned off at the backflow device or isolation valve upstream of the zone valve in order to fully utilize the Valve Locator feature of the SmartLine irrigation controller.</p>
+      <p>{{t 'confirmValue.valvePrompt'}}</p>
     </div>
 
     <button class="btn btn-block btn-positive" {{action 'locateValves'}}>
-      {{fa-icon 'check'}} Go!
+      {{fa-icon 'check'}} {{t 'common.go'}}
     </button>
 
     {{#link-to 'smartlink-controller' class='btn btn-block btn-negative'}}
-      {{fa-icon 'times-circle'}} Cancel
+      {{fa-icon 'times-circle'}} {{t 'common.cancel'}}
     {{/link-to}}
   </div>
 </div>

@@ -1,7 +1,7 @@
 <header class="bar bar-nav weathermatic-header">
   <a href="javascript:void(0)" class="icon pull-left {{searchIcon}}" {{action 'toggleSearch'}}></a>
   {{logo-header}}
-  <a href="javascript:void(0)" class="icon icon-gear pull-right" {{action 'openOptionsMenu'}}></a>
+  <a href="javascript:void(0)" class="icon icon-gear pull-right cog-icon" {{action 'openOptionsMenu'}}></a>
 </header>
 
 {{#pull-to-refresh refreshData='refreshData'}}
@@ -14,13 +14,13 @@
           class="btn btn-inverse btn-primary btn-block">{{fa-icon 'search'}} {{t 'common.search'}}</button>
       </li>
       <li class="table-view-cell table-view-divider">
-        {{fa-icon 'building'}} {{t 'sites.yourSites'}}
+        {{fa-icon 'building'}} {{t 'sites.title'}}
         <button class="btn btn-outlined" {{action 'openSortOptions'}}>
           {{#if isSortByProximity}}
-            {{fa-icon 'globe'}} sorted by location
+            {{fa-icon 'globe'}} {{t 'sites.sortByLocation'}}
           {{/if}}
           {{#if isSortByAlpha}}
-            {{fa-icon 'sort-alpha-asc'}} sorted by name
+            {{fa-icon 'sort-alpha-asc'}} {{t 'sites.sortByName'}}
           {{/if}}
         </button>
       </li>
@@ -31,12 +31,14 @@
               <strong>{{site.name}}</strong>
               <p>
                 <small class="badge">{{site.cityState}}</small>
-                <small class="badge controller-count-badge">{{count-text 'controller' site.controllersCount}}</small>
+                <small class="badge controller-count-badge">{{site.controllersCount}} {{t "common.controller"}}{{#if (gt site.controllersCount 1)}}s{{/if}}</small>
                 {{#if site.milesAway}}
-                  <small class="badge location-badge">{{fa-icon 'location-arrow'}} {{format-number site.milesAway round=true}} mi</small>
+                  <small class="badge location-badge">{{fa-icon 'location-arrow'}} {{format-number site.milesAway round=true}} {{t 'sites.locationUnit'}}</small>
                 {{/if}}
                 {{#if site.faultsCount}}
-                  <small class="badge badge-negative">{{count-text 'fault' site.faultsCount}}</small>
+                  <small class="badge badge-negative">
+                  {{site.faultsCount}} {{t "sites.faultUnit"}}{{#if (gt site.faultsCount 1)}}s{{/if}}
+                  </small>
                 {{/if}}
               </p>
             </div>
@@ -58,7 +60,7 @@
     </ul>
     {{#if shouldShowLoading}}
       <div class="content-padded loading-icon">
-        <center>{{fa-icon 'refresh fa-spin'}} Loading…</center>
+        <center>{{fa-icon 'refresh fa-spin'}} {{t 'common.status'}}</center>
       </div>
     {{/if}}
     <div class="weathermatic-page-bottom"></div>
@@ -67,24 +69,23 @@
   <div id="options-menu" class="modal {{if isOptionsMenuOpen 'active'}}">
     <header class="bar bar-nav weathermatic-header">
       <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeOptionsMenu'}}></a>
-      <h1 class="title">{{fa-icon 'gear' classNames='spaced-icon'}} Options</h1>
+      <h1 class="title">{{fa-icon 'gear' classNames='spaced-icon'}} {{t 'menu.title'}}</h1>
     </header>
-
     <div class="content weathermatic-content">
       <ul class="table-view">
         <li class="table-view-cell">
           <a href="javscript:void(0)" {{action 'logOut'}}>
             <div class="media-body">
-              <h2>{{fa-icon 'sign-out' classNames='spaced-icon'}} Log out</h2>
-              <p>Enter your email and password to log back in</p>
+              <h2>{{fa-icon 'sign-out' classNames='spaced-icon'}} {{t 'menu.logoutButton'}}</h2>
+              <p>{{t 'menu.logoutMessage'}}</p>
             </div>
           </a>
         </li>
         <li class="table-view-cell">
           <a href="javascript:void(0)" {{action 'syncSites'}}>
             <div class="media-body">
-              <h2>{{fa-icon 'refresh' classNames='spaced-icon'}} Sync Sites</h2>
-              <p>Refresh the latest data from our servers</p>
+              <h2>{{fa-icon 'refresh' classNames='spaced-icon'}} {{t 'menu.syncButton'}}</h2>
+              <p>{{t 'menu.syncMessage'}}</p>
             </div>
           </a>
         </li>
@@ -92,8 +93,8 @@
         <li class="table-view-cell">
           <a href="javascript:void(0)" {{action 'openSortOptions'}}>
             <div class="media-body">
-              <h2>{{fa-icon 'sort' classNames='spaced-icon'}} Sort Sites</h2>
-              <p>Change the sort order for the sites list</p>
+              <h2>{{fa-icon 'sort' classNames='spaced-icon'}} {{t 'menu.sortButton'}}</h2>
+              <p>{{t 'menu.sortMessage'}}</p>
             </div>
           </a>
         </li>
@@ -101,16 +102,16 @@
         <li class="table-view-cell">
           <a href="javascript:void(0)" {{action 'sendFeedback'}}>
             <div class="media-body">
-              <h2>{{fa-icon 'comment-o' classNames='spaced-icon'}} Send Feedback</h2>
-              <p>Send us feedback about this app</p>
+              <h2>{{fa-icon 'comment-o' classNames='spaced-icon'}} {{t 'menu.feedbackButton'}}</h2>
+              <p>{{t 'menu.feedbackMessage'}}</p>
             </div>
           </a>
         </li>
         <li class="table-view-cell">
           <a href="javascript:void(0)" {{action 'launchFullSite'}}>
             <div class="media-body">
-              <h2>{{fa-icon 'external-link' classNames='spaced-icon'}} Launch Full Site</h2>
-              <p>Open the Smartlink website in a web browser</p>
+              <h2>{{fa-icon 'external-link' classNames='spaced-icon'}} {{t 'menu.launchButton'}}</h2>
+              <p>{{t 'menu.launchMessage'}}</p>
             </div>
           </a>
         </li>
@@ -118,18 +119,18 @@
 
       <div class="content-padded">
         <button class="btn btn-negative btn-block" {{action 'closeOptionsMenu'}}>
-          {{fa-icon 'times-circle'}} Close
+          {{fa-icon 'times-circle'}} {{t 'common.close'}}
         </button>
       </div>
 
-      <center class="app-version">Version <span class="app-version-number"></span></center>
+      <center class="app-version">{{t 'menu.version'}} <span class="app-version-number"></span></center>
     </div>
   </div>
 
   <div id="sites-sort-options" class="modal {{if isSortOptionsOpen 'active'}}">
     <header class="bar bar-nav weathermatic-header">
       <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeSortOptions'}}></a>
-      <h1 class="title">{{fa-icon 'sort' classNames='spaced-icon'}} Sort Options</h1>
+      <h1 class="title">{{fa-icon 'sort' classNames='spaced-icon'}} {{t 'menu.sortTitle'}}</h1>
     </header>
 
     <div class="content weathermatic-content">
@@ -137,16 +138,16 @@
         <li class="table-view-cell">
           <a href="javascript:void(0)" {{action 'setSortMethod' 'proximity'}}>
             <div class="media-body">
-              <h2>{{fa-icon 'globe' classNames='spaced-icon'}} Sort by Location</h2>
-              <p>Nearest sites will appear first</p>
+              <h2>{{fa-icon 'globe' classNames='spaced-icon'}} {{t 'common.sortByLocationButton'}}</h2>
+              <p>{{t 'common.sortByLocationMessage'}}</p>
             </div>
           </a>
         </li>
         <li class="table-view-cell">
           <a href="javascript:void(0)" {{action 'setSortMethod' 'alpha'}}>
             <div class="media-body">
-              <h2>{{fa-icon 'sort-alpha-asc' classNames='spaced-icon'}} Sort by Name</h2>
-              <p>Sites will appear A-Z by name</p>
+              <h2>{{fa-icon 'sort-alpha-asc' classNames='spaced-icon'}} {{t 'common.sortByNameButton'}}</h2>
+              <p>{{t 'common.sortByNameMessage'}}</p>
             </div>
           </a>
         </li>
@@ -154,7 +155,7 @@
 
       <div class="content-padded">
         <button class="btn btn-negative btn-block" {{action 'closeSortOptions'}}>
-          {{fa-icon 'times-circle'}} Cancel
+          {{fa-icon 'times-circle'}} {{t 'common.cancel'}}
         </button>
       </div>
     </div>

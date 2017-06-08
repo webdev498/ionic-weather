@@ -1,10 +1,9 @@
-{{#liquid-bind model use=transition as |model|}}
 <header class="bar bar-nav weathermatic-header">
   {{#link-to 'smartlink-controller' class='btn btn-link btn-nav pull-left'}}
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'leaf'}} Edit Zones</h1>
+  <h1 class="title">{{fa-icon 'leaf'}} {{t 'programming.edit'}}</h1>
 </header>
 
 <div class="content weathermatic-content">
@@ -14,21 +13,20 @@
       <a href="javascript:void(0)" class="table-view-cell" {{action 'openAutoAdjust' zone.description zone.number zone.id zone.photo zone.photoThumbnail}}>
           {{#if zone.description}}
             Edit {{short-text zone.description size=20}}
-            <p>Zone {{zone.number}}</p>
+            <p>{{t 'common.zone'}} {{zone.number}}</p>
           {{else}}
-            Edit Zone {{zone.number}}
+            {{t "programming.editZone"}} {{zone.number}}
           {{/if}}
       </a>
     {{/each}}
   </ul>
 </div>
-{{/liquid-bind}}
 
 
 <div id="auto-adjust-menu" class="modal  edit-labels {{if isAutoAdjustMenuOpen 'active'}}">
   <header class="bar bar-nav weathermatic-header">
     <a class="icon icon-close pull-right" href="javascript:void(0)" {{action 'closeAutoAdjust'}}></a>
-    <h1 class="title">{{fa-icon 'bookmark'}} Edit Zone {{activeNumber}}</h1>
+    <h1 class="title">{{fa-icon 'bookmark'}} {{t "programming.editZone"}} {{activeNumber}}</h1>
   </header>
 
   <center>
@@ -56,7 +54,7 @@
       </div>
 
     <form class="weathermatic-edit-zone">
-      <p>Zone Name:</p>
+      <p>{{t 'inspectionDetails.zoneName'}}:</p>
       <center>
         {{input placeholder=activeZoneArea value=activeZone}}
       </center>
@@ -64,10 +62,10 @@
 
     <div class="content-padded">
       <button class="btn btn-positive btn-block btn-auto-adjust-menu" {{action 'saveAutoAdjust' activeZone}}>
-        Save
+        {{t 'common.save'}}
       </button>
       <button class="btn btn-negative btn-block btn-auto-adjust-menu" {{action 'closeAutoAdjust'}}>
-        Cancel
+        {{t 'common.cancel'}}
       </button>
     </div>
   </center>

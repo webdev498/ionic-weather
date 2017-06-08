@@ -64,8 +64,14 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
       soilTypes: this.soil_types,
       controller_id: controller_id,
       inspection: this.get('store').find('inspection', Number(inspectionId)),
-      zones: this.modelFor('smartlinkController').get('zones').then((zones) => {
-        return zones.filterBy('active', true);
+      inspectionZone: this.get('store').find('inspection', Number(inspectionId)).then((zones) => {
+        return zones.get('inspections_zones').filterBy('zone_id',Number(zoneId));
+      }),
+      programs: this.get('store').find('zone', zoneId).then((zones) => {
+        return zones.get('programZones');
+      }),
+      zones: this.modelFor('smartlinkController').get('zones').then((zone) => {
+        return zone.filterBy('id', zoneId);
       })
     });
   }

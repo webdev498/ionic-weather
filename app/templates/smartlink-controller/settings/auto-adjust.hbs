@@ -3,7 +3,7 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'gear'}} Edit {{t 'programming.smart'}} Setting</h1>
+  <h1 class="title">{{fa-icon 'gear'}} {{t 'programSettings.programMessage'}}</h1>
 
 </header>
 
@@ -12,13 +12,13 @@
 
   <ul class="table-view">
     <li class="table-view-cell">
-      <span>Postal Code</span>
+      <span>{{t 'smartProgramming.postalCode'}}</span>
       <span class="pull-right postalElement weathermatic-settings-input-medium">
         {{input-with-errors model=model field='postalCode' errors=errors}}
       </span>
     </li>
     <li class="table-view-cell">
-       <span>Latitude</span>
+       <span>{{t 'smartProgramming.latitude'}}</span>
        <span class="pull-right latitudeElement weathermatic-settings-input-medium">
           <select onchange={{action (mut model.latitude) value="target.value"}}>
             {{#each availableLatitudes as |lat|}}
@@ -31,7 +31,7 @@
   </ul>
   <div class="content-padded">
     <button class="btn btn-block btn-positive" {{action 'save'}}>
-      {{fa-icon 'save'}} Save Changes
+      {{fa-icon 'save'}} {{t 'common.save'}}
     </button>
   </div>
 
@@ -46,9 +46,9 @@
         {{#link-to 'smartlink-controller.settings.edit-auto-adjust' zone.id}}
           {{#if zone.description}}
             {{short-text zone.description size=20}}
-            <p>Zone {{zone.number}}</p>
+            <p>{{t 'common.zone'}} {{zone.number}}</p>
           {{else}}
-            Zone {{zone.number}}
+            {{t 'common.zone'}} {{zone.number}}
             <p>&nbsp;</p>
           {{/if}}
         {{/link-to}}

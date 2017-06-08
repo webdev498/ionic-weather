@@ -61,6 +61,7 @@ SmartlinkController = DS.Model.extend
   maxConcurrentPrograms:    DS.attr 'number'
   masterValveType:          DS.attr 'number'
   masterValve2Type:         DS.attr 'number'
+  model:                    DS.attr 'string'
 
   site:                 DS.belongsTo 'site',        async: true
 

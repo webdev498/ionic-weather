@@ -3,7 +3,7 @@
     <span class="icon icon-left-nav"></span>
   {{/link-to}}
 
-  <h1 class="title">{{fa-icon 'gear'}} Controller Programming</h1>
+  <h1 class="title">{{fa-icon 'gear'}} {{t 'controllerOptions.controlProgram'}}</h1>
 </header>
 
 
@@ -15,40 +15,32 @@
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-controller-basic'}}
         <div class="media-body">
-          <h2>{{fa-icon 'gear spaced-icon'}} Basic Settings</h2>
-          <p>Edit time/date and status settings</p>
+          <h2>{{fa-icon 'gear spaced-icon'}} {{t 'programming.basic'}}</h2>
+          <p>{{t 'programming.basicMessage'}}</p>
         </div>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.programming'}}
         <div class="media-body">
-          <h2>{{fa-icon 'play spaced-icon'}} Program Settings</h2>
-          <p>Edit program schedules</p>
+          <h2>{{fa-icon 'play spaced-icon'}} {{t 'programming.program'}}</h2>
+          <p>{{t 'programming.programMessage'}}</p>
         </div>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.flow'}}
         <div class="media-body">
-          <h2>{{fa-icon 'filter spaced-icon'}} Flow Settings</h2>
-          <p>Edit flow settings</p>
-        </div>
-      {{/link-to}}
-    </li>
-    <li class="table-view-cell">
-      {{#link-to 'smartlink-controller.settings.edit-controller-advanced'}}
-        <div class="media-body">
-          <h2>{{fa-icon 'gears spaced-icon'}} Advanced Settings</h2>
-          <p>Edit advanced controller programming</p>
+          <h2>{{fa-icon 'filter spaced-icon'}} {{t 'programming.flow'}}</h2>
+          <p>{{t 'programming.flowMessage'}}</p>
         </div>
       {{/link-to}}
     </li>
     <li class="table-view-cell">
       {{#link-to 'smartlink-controller.settings.edit-labels'}}
         <div class="media-body">
-          <h2>{{fa-icon 'leaf spaced-icon'}} Edit Zones</h2>
-          <p>Edit zone's name and image</p>
+          <h2>{{fa-icon 'leaf spaced-icon'}} {{t 'programming.edit'}}</h2>
+          <p>{{t 'programming.editMessage'}}</p>
         </div>
       {{/link-to}}
     </li>

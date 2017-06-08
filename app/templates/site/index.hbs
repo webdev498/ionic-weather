@@ -4,7 +4,7 @@
       {{smartlinkController.name}}
       {{#if smartlinkController.faults.length}}
         <span class="badge badge-negative">
-          {{count-text 'fault' smartlinkController.faults.length}}
+          {{smartlinkController.faults.length}} {{t "sites.faultUnit"}}{{#if (gt site.faultsCount 1)}}s{{/if}}
         </span>
       {{/if}}
     {{/link-to}}

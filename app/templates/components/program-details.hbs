@@ -1,7 +1,18 @@
 {{#link-to 'smartlink-controller.settings.edit-program-details' program class='push-right'}}
-  <h3>Program {{upper-case program.identifier}}</h3>
-  {{#if program.description.length}}
-    <p class="weathermatic-program-description">{{short-text program.description}}</p>
-  {{/if}}
+    {{#if (eq program.identifier "A")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programA'}}</h3>
+    {{/if}}
+    {{#if (eq program.identifier "B")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programB'}}</h3>
+    {{/if}}
+    {{#if (eq program.identifier "C")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programC'}}</h3>
+    {{/if}}
+    {{#if (eq program.identifier "D")}}
+        <h3>{{fa-icon 'play'}} {{t 'selectProgram.programD'}}</h3>
+    {{/if}}
+    {{#if program.description.length}}
+        <p class="weathermatic-program-description">{{short-text program.description}}</p>
+    {{/if}}
 {{/link-to}}
 <br>
