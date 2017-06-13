@@ -531,6 +531,7 @@ input[disabled="disabled"] {
 
 .radio-button {
   float: left;
+  margin: 10px 0 0 0;
 }
 .radio-button input {
   margin: 0 5px 0 0;
@@ -1250,7 +1251,7 @@ form#image-uploads {
 
 .weathermatic-content .center-buttons {
   text-align: right;
-  margin: 20px 15px 0 0;
+  margin: 20px 0 0 0;
   .btn {
     padding: 15px 25px;
     font-size: 14px;

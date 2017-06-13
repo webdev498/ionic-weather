@@ -37,9 +37,9 @@
       {{/link-to}}
         <button type="submit" class="btn btn-positive">
         {{#if (eq inspection_status "Start Inspection")}}
-            {{t 'selectProgram.programA'}}
+            {{t 'inspections.start'}}
         {{else}}
-            {{inspections.start}}
+            {{inspection_status}}
         {{/if}}
         </button>
     </div>

@@ -31,6 +31,7 @@ export default {
     //none: "None",
     //plural: "s",
     //remoteOff: "Remote Off"
+    //normal: "Normal",
     zone: "Zone",
     site: "Site",
     controller: "Controller",
@@ -128,7 +129,7 @@ export default {
     stopButton: "Stop All",
     controllerTitle: "Controller Details",
     systemStatus: "System Status",
-    wateringMode: "Waterming Mode",
+    wateringMode: "Watering Mode",
     rainMode: "Rain/Freeze",
     rainStatusActive: "Active",
     rainStatusBypass: "Bypass",

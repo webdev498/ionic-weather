@@ -85,10 +85,10 @@
           {{#if model.runStatusForHumans.length}}
             <button class="btn {{runStatusCssClass}}">
               {{#if (eq model.runStatusForHumans "Run")}}
-                  {{t 'selectProgram.programA'}}
+                {{t 'basicSettings.runStatus1'}}
               {{/if}}
               {{#if (eq model.runStatusForHumans "Off")}}
-                  {{t 'selectProgram.programB'}}
+                  {{t 'common.off'}}
               {{/if}}
               {{#if (noteq model.runStatusForHumans "Run")}}
                   {{#if (noteq model.runStatusForHumans "Off")}}
