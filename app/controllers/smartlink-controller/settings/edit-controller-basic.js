@@ -133,10 +133,10 @@ const SmartlinkControllerSettingsEditControllerBasicController = Ember.Controlle
   initAvailableRainFreeze: function() {
     return this.set('availableRainFreeze', [
       {
-        label: this.get('i18n').t('controllerOptions.rainStatusActive'),
+        label: "Active",
         value: 0
       }, {
-        label: this.get('i18n').t('controllerOptions.rainStatusBypass'),
+        label: "Bypass",
         value: 1
       }
     ]);
