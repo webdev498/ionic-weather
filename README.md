@@ -14,9 +14,17 @@ Make sure the correct version of Ember is installed onto your machine. In our ca
 
     npm install -g ember-cli@2.7
 
-### Cordova
+### Install Cordova
 
     npm install -g cordova
+    
+### Install Bower
+
+    npm install -g bower
+    
+### Installing Remaining Dependencies
+
+    npm install
 
 ## Running locally
 
@@ -34,7 +42,11 @@ or
 
 And visit `http://localhost:4200` in your browser.
 
-### We use cordova-icon's to populate icons. Install it to your system by doing the following:
+### Login to E&C Weathermatic Account:
+
+    elon.mitchell@weathermatic.com / Ec3633m$
+
+### Troubleshooting: We use cordova-icon's to populate icons. Install it to your system by doing the following:
 
     npm install cordova-icon -g
 
