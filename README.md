@@ -44,7 +44,7 @@ And visit `http://localhost:4200` in your browser.
 
 ### Login to E&C Weathermatic Account:
 
-    elon.mitchell@weathermatic.com / Ec3633m$
+    elon.mitchell@weathermatic.com / Ec1986m$
 
 ### Troubleshooting: We use cordova-icon's to populate icons. Install it to your system by doing the following:
 
