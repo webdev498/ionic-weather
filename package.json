@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "ember-cli": "^2.7.0",
-    "ember-inflector": "^1.6.1"
+    "ember-inflector": "^1.6.1",
+    "npm-shrinkwrap": "^6.0.2"
   }
 }

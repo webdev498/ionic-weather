@@ -1,6 +1,6 @@
 {
     "name": "com.smartlinknetwork.ios",
-    "version": "2.3",
+    "version": "2.3.0",
     "displayName": "Smartlink Mobile",
     "cordova": {
         "platforms": [
